@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android-编程实战》10-隐藏的Android API - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/10/04/《Android-编程实战》10-隐藏的Android-API/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android-编程实战》10-隐藏的Android API</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-10-04
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>阅读《Android 编程实战》一书的抄书笔记  –&gt; 对应书籍第15章</p>
+</blockquote>
+<h2 id="官方API和隐藏API"><a href="#官方API和隐藏API" class="headerlink" title="官方API和隐藏API"></a>官方API和隐藏API</h2><p>SDK文档中的所有类, 接口, 方法以及常量都属于官方API. 虽然这些API通常能满足大多数应用的需求, 但开发者有时候需要访问更多的东西, 但却不知道如何在官方API中找到它们. </p>
+<p><code>Android SDK</code>中包含了一个<code>JAR</code>文件(android.jar), 在编译代码的时候会引用它, 该文件位于<code>&lt;sdk root&gt;/platforms/android-&lt;API Level&gt;/目录</code>.  不过这里面全是空类, 方法中所有的代码都被移除了, 只声明了<code>public</code>和<code>protected</code>的类. 构建Android平台时, SDK会包含该JAR文件. </p>
+<p>通过检查每一个源文件, 并移除所有被<code>@hide</code>注解的域(常量), 方法和类, 在构建SDK时会生成方法体为空的<code>android.jar</code>文件. 这意味着仍然可以在运行的设备上方法这些符号, 但是在编译时却找不到. </p>
+<p>Android会自动隐藏某些API, 而不需要使用<code>@hide</code>注解. 这些API位于<code>com.android.internal</code>包中, 不属于<code>android.jar</code>文件, 但却包含大量供android平台使用的内部代码. android系统应用还包含一些其他隐藏API, 这些API通常提供没有包含在官方SDK中的系统<code>ContentProvider</code>信息. </p>
+<h2 id="发现隐藏API"><a href="#发现隐藏API" class="headerlink" title="发现隐藏API"></a>发现隐藏API</h2><p>寻找API最简单的方法是在<code>Android</code>源码中搜索他们. 但是<code>Android</code>源码非常多, 还好有几个在线网站已经对这些代码进行了索引, 并提供了搜索功能. <a target="_blank" rel="noopener" href="http://androidxref.com/">AndroidXRef</a>就是其中的一个. </p>
+<p>大部分隐藏的API都位于<code>frameworks</code>项目, 所有<code>android</code>包中的API都可以在frameworks项目中找到, 该项目还包含大部分<code>com.android.internal</code>包中的API. </p>
+<h2 id="安全地调用隐藏API"><a href="#安全地调用隐藏API" class="headerlink" title="安全地调用隐藏API"></a>安全地调用隐藏API</h2><p>对于需要编译时链接的API, 也就是接口, 类, 或者方法, 开发者有两个选择. 第一种修改SDK的JAR文件, 使之包含所有需要的类和接口, 并使用该SDK来编译应用程序. 另一种解决方案是使用<code>Java</code>反射API来动态查找要调用的类和方法. 两种方法都可以利弊. </p>
+<h3 id="从设备中提取隐藏API"><a href="#从设备中提取隐藏API" class="headerlink" title="从设备中提取隐藏API"></a>从设备中提取隐藏API</h3><p>要做到编译时链接隐藏API, 开发者首先要提取和处理设备中的库文件. 即可以从模拟器提取库文件, 也可以从设备中提取这些文件, 因为它们只是用来编译代码. 由于这个过程需要提取出大量文件, 建议单独创建一个空的工作目录. 另外可能要提取多个版本的库文件, 所以开发者还应为每个API级别创建一个工作目录. </p>
+<p><img src="devicespull.png"></p>
+<p>这里会把设备的<code>/system/framework</code>目录全部拉取出来, 这些文件都是Android设备上基于Java的系统库, 他们是由<code>Dalvik</code>虚拟机加载的Dex优化文件. 下一步决定哪些文件包含隐藏API, 以便把它们转成可以在编译时使用的Java类文件. 大部分隐藏API都位于<code>framework.odex</code>文件, <code>bouncycastle.odex</code>文件包含了加密的库. </p>
+<blockquote>
+<p>从Android 4.2开始, 原来位于<code>framework.odex</code>的几个隐藏API都放在了其他文件中. 例如<code>Telephony</code>类现在是可选的了(因为并不是所有的Android设备都支持电话), 可以在<code>telephony-common.odex</code>文件中找到它. </p>
+</blockquote>
+<p>一旦知道需要转换的文件, 就可以下载<code>Smali</code>工具, 它能把优化后的Dex文件(.odex)转换为中间格式(.smali). 接下来使用<code>dex2Jar</code>工具再把这种中间格式转换回Java类文件. </p>
+<hr>
+<p><strong>修改SDK的错误处理</strong></p>
+<p>当使用前面介绍的隐藏API方法时, 很难确定抽取类的方法签名是否和用户设备中相应的方法签名匹配. 虽然修改后的SDK可能在开发用的设备上正常工作, 但是用户的设备制造商可能修改了这些隐藏API. 当这种情况发生时, 应用程序会抛出<code>NoSuchMethodException</code>或者<code>ClassNotFoundException</code>异常. </p>
+<p>有几种方法可以处理种种情况.  可以结合使用反射来检测是否存在隐藏API. 推荐使用这种方式, 因为它结合了两种方法的优点. 另一种方法是简单地捕获异常, 防止应用程序崩溃. </p>
+<p>不管使用哪一种方法, 都是要确保调用隐藏API的时候发生错误的处理. 最起码可以确保应用程序在测试过的设备上能正常工作. </p>
+<h3 id="使用反射调用隐藏API"><a href="#使用反射调用隐藏API" class="headerlink" title="使用反射调用隐藏API"></a>使用反射调用隐藏API</h3><p>使用Java中的反射API比修改<code>Android SDK</code>更安全, 因为它可以在调用<code>隐藏API</code>前检测它们是否存在. 但是, 由于所有隐藏API的绑定和调用都发生在运行时, 反射会比前面介绍的方法更慢. </p>
+<p>使用反射调用隐藏API需要两步.  首先, 需要查找要调用的类和方法, 并把他们的引用存到<code>Method</code>对象中. 当持有了引用后, 接下来就可以调用对象的方法. </p>
+<p>后面会演示了查找Wi-Fi网络共享的例子. </p>
+<h2 id="隐藏API的使用"><a href="#隐藏API的使用" class="headerlink" title="隐藏API的使用"></a>隐藏API的使用</h2><h3 id="接收和阅读SMS"><a href="#接收和阅读SMS" class="headerlink" title="接收和阅读SMS"></a>接收和阅读SMS</h3><p><code>Android</code>中使用隐藏API最常见的例子是接收和阅读<code>SMS</code>, 虽然官方API包含了<code>RECEIVE_SMS</code>和<code>READ_SMS</code>这两个权限, 但实际执行的API却是隐藏的. </p>
+<p>应用程序要想接收<code>SMS</code>必须声明使用<code>RECEIVE_SMS</code>权限, 并且实现<code>BroadcastReceiver</code>, 已处理收到的短信. </p>
+<p>如下:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">// 清单文件</span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.RECEIVE_SMS&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">receiver</span> <span class="attr">android:name</span>=<span class="string">&quot;.hideapi.SmsReceiver&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.provider.Telephony.SMS_RECEIVED&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">receiver</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SmsReceiver</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Telephony.java 中隐藏的常量</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String SMS_RECEIVED_ACTION</span><br><span class="line">            = <span class="string">&quot;android.provider.Telephony.SMS_RECEIVED&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String MESSAGE_SERVICE_NUMBER = <span class="string">&quot;+461234567890&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MESSAGE_SERVICE_PREFIX = <span class="string">&quot;MYSERVICE&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</span><br><span class="line">        String action = intent.getAction();</span><br><span class="line">        <span class="keyword">if</span> (SMS_RECEIVED_ACTION.equals(action)) &#123;</span><br><span class="line">            <span class="comment">// 通过 pdus 获取SMS数据的隐藏键</span></span><br><span class="line">            Object[] messages =</span><br><span class="line">                    (Object[]) intent.getSerializableExtra(<span class="string">&quot;pdus&quot;</span>);</span><br><span class="line">            <span class="keyword">for</span> (Object message : messages) &#123;</span><br><span class="line">                <span class="keyword">byte</span>[] messageData = (<span class="keyword">byte</span>[]) message;</span><br><span class="line">                SmsMessage smsMessage =</span><br><span class="line">                        SmsMessage.createFromPdu(messageData);</span><br><span class="line">                Log.e(<span class="string">&quot;haha&quot;</span>, <span class="string">&quot;收到消息来自: &quot;</span>+smsMessage.getOriginatingAddress()+ <span class="string">&quot;   内容:&quot;</span>+smsMessage.getMessageBody());</span><br><span class="line"></span><br><span class="line">                processSms(smsMessage);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 只关心指定的电话号码</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">processSms</span><span class="params">(SmsMessage smsMessage)</span> </span>&#123;</span><br><span class="line">        String from = smsMessage.getOriginatingAddress();</span><br><span class="line">        <span class="keyword">if</span> (MESSAGE_SERVICE_NUMBER.equals(from)) &#123;</span><br><span class="line">            String messageBody = smsMessage.getMessageBody();</span><br><span class="line">            <span class="keyword">if</span> (messageBody.startsWith(MESSAGE_SERVICE_PREFIX)) &#123;</span><br><span class="line">                <span class="comment">// <span class="doctag">TODO:</span> 数据验证通过开始处理</span></span><br><span class="line">                Log.e(<span class="string">&quot;haha&quot;</span>, <span class="string">&quot;processSms: &quot;</span>+messageBody);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面利用广播监听<code>Intent</code>操作<code>android.provider.Telephony.SMS_RECEIVED</code>. 这个例子中唯一隐藏的部分就是<code>Intent</code>的action. 以及用来从<code>Intent(&quot;pdus&quot;)</code>检索SMS数据的字符串.</p>
+<p>要读取已经收到的<code>SMS</code>, 需要查询一个隐藏的<code>ContentProvider</code>, 并声明使用<code>READ_SMS</code>权限. <code>android.provider</code>包中的<code>Telephony</code>类提供了所有需要的信息. 使用该类最佳的方式是把它复制到自己的项目中, 并修改类的包结构. 由于<code>Telephony</code>类还包含其他隐藏类和方法的调用, 所以还必须删除或者重构这些调用, 以便能够编译代码. 取决于使用<code>隐藏API</code>的数量, 有时候简单复制一些常量声明而不是整个类就足够了. </p>
+<p>阅读的部分就省略了, 除了某些特定方向的应用, 基本上应用是不会去读入用户的短信. </p>
+<h3 id="隐藏设置"><a href="#隐藏设置" class="headerlink" title="隐藏设置"></a>隐藏设置</h3><p><code>Android</code>设备有数百种不同的设置, 都可以通过<code>Settings</code>类访问, 除了为每个设置提供访问的值, <code>Android</code>还提供给了一些类<code>Intent</code>操作, 使他们可以打开特定的设置UI. 例如, 要启动飞行模式设置, 在创建Intent时可以使用<code>Settings.ACTION_AIRPLANE_MODE_SETTINGS</code></p>
+<p><code>Settings</code>类包含了一些隐藏的设置键和Intent操作, 当应用程序需要弄清楚设备的细节或者呈现一个特定系统设置的快捷方式时, 启动的一些常量值是非常方便的. </p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/10/08/《Android-编程实战》11-网络-Web服务/" data-toggle="tooltip" data-placement="top" title="《Android-编程实战》11-网络 Web服务">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/10/04/《Android-编程实战》09-Android应用安全问题/" data-toggle="tooltip" data-placement="top" title="《Android-编程实战》09-Android应用安全问题">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/10/04/%E3%80%8AAndroid-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B10-%E9%9A%90%E8%97%8F%E7%9A%84Android-API/";
+    var disqus_url = "http://szysky.com/2016/10/04/%E3%80%8AAndroid-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B10-%E9%9A%90%E8%97%8F%E7%9A%84Android-API/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

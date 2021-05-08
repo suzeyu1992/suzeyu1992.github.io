@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android-编程实战》09-Android应用安全问题 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/10/04/《Android-编程实战》09-Android应用安全问题/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android-编程实战》09-Android应用安全问题</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-10-04
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>阅读《Android 编程实战》一书的抄书笔记  –&gt; 对应书籍第14章</p>
+</blockquote>
+<h2 id="Android安全的概念"><a href="#Android安全的概念" class="headerlink" title="Android安全的概念"></a>Android安全的概念</h2><p><code>Android</code>具备一个先进的安全模型来保护应用数据和服务不被其他应用访问.  每个应用都有自己的唯一<code>ID</code>来提供最基本的保护. 每个应用都经过它唯一的密钥签名, 这种机制是<code>Android</code>框架中的安全模型基础. 此外只有当其他应用在清单文件中显式声明了正确权限后, <code>Android</code>的权限系统才会和他们共享特定的组件. 应用也可以定义权限, 比如只有使用同一个密钥签名的应用才能使用它们. 最后<code>Android</code>的API提供了各种方法来验证签名, 验证调用进程的用户ID和使用强加密方案. </p>
+<h3 id="签名和密钥"><a href="#签名和密钥" class="headerlink" title="签名和密钥"></a>签名和密钥</h3><p><code>Android</code>系统中运行的所有应用都要用密钥来签名, 包括<code>Android</code>系统本身. </p>
+<p>可以用同一个密钥来对发布的所有应用进行签名, 但建议为各个应用单独创建一个密钥. 多个应用共享一个密钥通常是因为这些应用要直接访问彼此的数据, 或者设定权限时将保护等级改为<code>signature</code></p>
+<p>下面是一种为应用生成密钥的一个方式, 有一种比较好的方式是使用应用的包名作为别名传给<code>-alias</code>. </p>
+<p><code>$ keytool -genkey -v -keystore &lt;keystore filename&gt; -alias &lt;alias for key&gt; keyalg RSA -keysize 2048 -validity 10000</code></p>
+<p>在生成新密钥时, <code>keytool</code>会让你输入一个密码.</p>
+<h3 id="Android权限"><a href="#Android权限" class="headerlink" title="Android权限"></a>Android权限</h3><p>要在<code>Android</code>中使用特殊权限功能,  只要在清单文件中加入一个<code>uses-permission</code>标记即可. 它会告诉系统你的应用需要该项权限, 并在安装时通知用户这项需求.</p>
+<p><code>Android</code>中定义了五个保护等级: <code>常规normal</code>, <code>危险dangerous</code>, <code>同一签名signature</code>, <code>同一签名或系统signatureOrSystem</code>, <code>系统system</code>. 除非特殊指定, 默认等级一般为常规. 用来告知系统有应用要用到这个权限的函数. 只有将权限设为危险时, 它才会在用户安装(通常是通过Google Play Store)前提醒用户. </p>
+<ul>
+<li><code>同一签名</code>保护等级要求应用使用跟定义该权限的应用相同的同一证书来签名. 这对设备制造商来说非常有用, 因为他们可以定义只有跟系统使用同一证书签名的应用才能使用的权限. 这样, 设备制造商就可以像他们使用受保护的系统服务的设备发布新应用. </li>
+<li><code>同一签名或系统 以及 系统</code>这两个等级会告诉<code>Android</code>系统, 应用必须驻存在设备的系统分区上, 这样才能使用该权限. 这个功能最常见的例子是预装在系统分区上的Google应用. 这些应用可以使用许多常规应用无法企及的权限, 即使他们用的是Google的签名而不是设备制造商的. </li>
+</ul>
+<blockquote>
+<p>也可以添加属性<code>android:permissionFlags=&quot;costsMoney&quot; </code>它会告诉用户使用此权限的应用会产生费用, 例如要用到发短信的功能的应用. 只要应用提供了可能会给用户带来费用的API, 那就应该用带有此标记的权限来保护该API.</p>
+</blockquote>
+<h3 id="保护用户数据"><a href="#保护用户数据" class="headerlink" title="保护用户数据"></a>保护用户数据</h3><p>如果要创建安全的数据文件, 不被其他应用访问, 可以在应用数据目录中存储文件. 而不是外部存储中.</p>
+<p>如下:演示在应用的数据目录中对一个文件进行数据追加</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">appendStringToPrivateFile</span><span class="params">(Context context, String data, String fileName)</span></span>&#123;</span><br><span class="line">    FileOutputStream out = context.openFileOutput(fileName, Context.MODE_APPEND | Context.MODE_PRIVATE);</span><br><span class="line">    out.write(data.getBytes(<span class="string">&quot;UTF-8&quot;</span>));</span><br><span class="line">    out.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里使用了两个标志位:</p>
+<ul>
+<li><code>MODE_APPEND</code> 要写入的数据都被追加到文件的末尾, </li>
+<li><code>MODE_PRIVATE</code> 该文件只允许你的应用访问, 这个标识位也是默认标志位. </li>
+</ul>
+<p>当然这只是一种比较安全的方式, 但是如果存储非常敏感的信息, 最好再对文件进行一些加密处理. </p>
+<h2 id="客户端数据加密"><a href="#客户端数据加密" class="headerlink" title="客户端数据加密"></a>客户端数据加密</h2><h3 id="Android的加密API"><a href="#Android的加密API" class="headerlink" title="Android的加密API"></a>Android的加密API</h3><p><code>Android</code>中的数据加密和解密API是基于Java SE的<code>javax.crypto</code>包中的API开始的. 实际的实现基于开源的<code>Bouncy Castle</code>加密API. 因此, 在开发<code>Android</code>应用时, 大多是使用Java SE的<code>javax.crypto</code>API就可以.</p>
+<h3 id="生成密钥"><a href="#生成密钥" class="headerlink" title="生成密钥"></a>生成密钥</h3><p>使用加密和解密函数时, 需要生成一个可根据用户输入(密码或其他安全方法)重新生成的安全且唯一的密钥. </p>
+<p>下面的代码演示了如何为<code>AES算法</code>生成一个<code>SecretKey</code> <code>salt</code>是用于生成密钥的输入部分, 你需要记录下来.  在密码学中, <code>盐salt</code>是用做加密算法中单向函数输入的一段随机数据. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SecretKey <span class="title">generateKey</span><span class="params">(<span class="keyword">char</span>[] password , <span class="keyword">byte</span>[] salt)</span> <span class="keyword">throws</span> NoSuchAlgorithmException, InvalidKeySpecException </span>&#123;</span><br><span class="line">   <span class="keyword">int</span> iterations = <span class="number">1000</span>;</span><br><span class="line">   <span class="keyword">int</span> outputKeyLength = <span class="number">128</span>;</span><br><span class="line"></span><br><span class="line">   SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(<span class="string">&quot;PBKDF2WithHmacSHA1&quot;</span>);</span><br><span class="line"></span><br><span class="line">   PBEKeySpec pbeKeySpec = <span class="keyword">new</span> PBEKeySpec(password, salt, iterations, outputKeyLength);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">byte</span>[] keyBytes = secretKeyFactory.generateSecret(pbeKeySpec).getEncoded();</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">new</span> SecretKeySpec(keyBytes, <span class="string">&quot;AES&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个密钥在后面会使用</p>
+<h3 id="加密数据"><a href="#加密数据" class="headerlink" title="加密数据"></a>加密数据</h3><p>要加密数据, 必须先生成用于加密的作为<code>Cipher</code>输入的盐和初始化向量. 下面的代码会通过<code>SecureRandom</code>类生成一个长度为8字节的盐. 注意: 不需要人工给<code>SecureRandom</code>喂种子, 系统会自动帮你处理. 创建一个初始化向量, 初始化<code>Cipher</code>, 然后将明文加密成字节队列. 有了密文数据之后, 可以使用<code>Base64</code>工具类从这些字节生成一个普通的String对象. 并把初始化向量和盐用同样的方式追加上去, 并通过一个<code>非Base64</code>字符来分开. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">encryptClearText</span><span class="params">(<span class="keyword">char</span>[] password, String plainText)</span></span></span><br><span class="line"><span class="function">       <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">   SecureRandom secureRandom = <span class="keyword">new</span> SecureRandom();</span><br><span class="line">   <span class="keyword">int</span> saltLength = <span class="number">8</span>;</span><br><span class="line">   <span class="keyword">byte</span>[] salt = <span class="keyword">new</span> <span class="keyword">byte</span>[saltLength];</span><br><span class="line">   secureRandom.nextBytes(salt);</span><br><span class="line">   SecretKey secretKey = generateKey(password, salt);</span><br><span class="line"></span><br><span class="line">   Cipher cipher = Cipher.getInstance(<span class="string">&quot;AES/CBC/PKCS5Padding&quot;</span>);</span><br><span class="line">   <span class="keyword">byte</span>[] initVector = <span class="keyword">new</span> <span class="keyword">byte</span>[cipher.getBlockSize()];</span><br><span class="line">   secureRandom.nextBytes(initVector);</span><br><span class="line">   IvParameterSpec ivParameterSpec = <span class="keyword">new</span> IvParameterSpec(initVector);</span><br><span class="line">   cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivParameterSpec);</span><br><span class="line">   <span class="keyword">byte</span>[] cipherData = cipher.doFinal(plainText.getBytes(<span class="string">&quot;UTF-8&quot;</span>));</span><br><span class="line">   <span class="keyword">return</span> Base64.encodeToString(cipherData,</span><br><span class="line">           Base64.NO_WRAP | Base64.NO_PADDING)</span><br><span class="line">           + <span class="string">&quot;]&quot;</span> + Base64.encodeToString(initVector,</span><br><span class="line">           Base64.NO_WRAP | Base64.NO_PADDING)</span><br><span class="line">           + <span class="string">&quot;]&quot;</span> + Base64.encodeToString(salt,</span><br><span class="line">           Base64.NO_WRAP | Base64.NO_PADDING);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方法返回的结果就是加密后的密文字符串. 解密的时候使用同样的规则解密即可</p>
+<h3 id="解密数据"><a href="#解密数据" class="headerlink" title="解密数据"></a>解密数据</h3><p>和加密基本相似, 取出加密的的数据部分. 代码如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">decryptData</span><span class="params">(<span class="keyword">char</span>[] password, String encodedData)</span></span></span><br><span class="line"><span class="function">       <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">   String[] parts = encodedData.split(<span class="string">&quot;]&quot;</span>);</span><br><span class="line">   <span class="keyword">byte</span>[] cipherData = Base64.decode(parts[<span class="number">0</span>], Base64.DEFAULT);</span><br><span class="line">   <span class="keyword">byte</span>[] initVector = Base64.decode(parts[<span class="number">1</span>], Base64.DEFAULT);</span><br><span class="line">   <span class="keyword">byte</span>[] salt = Base64.decode(parts[<span class="number">2</span>], Base64.DEFAULT);</span><br><span class="line"></span><br><span class="line">   Cipher cipher = Cipher.getInstance(<span class="string">&quot;AES/CBC/PKCS5Padding&quot;</span>);</span><br><span class="line">   IvParameterSpec ivParams = <span class="keyword">new</span> IvParameterSpec(initVector);</span><br><span class="line">   SecretKey secretKey = generateKey(password, salt);</span><br><span class="line">   cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParams);</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">new</span> String(cipher.doFinal(cipherData), <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上面方法可以了解到<code>Cipher</code>,<code>初始化向量</code>,<code>SecretKey</code>是如何通过输入的字符串重新生成的. 只要密码匹配, 就能够对数据进行解码和编码. </p>
+<h2 id="设备管理API"><a href="#设备管理API" class="headerlink" title="设备管理API"></a>设备管理API</h2><p>关于这部分, 更多偏向于系统级别的开发. 例如对远程安全加固功能, 当丢失设备通过短信,锁定设备等. 所以此处不做记录. 如果有兴趣可以查看API文档<a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/admin/device-admin.html">Device Administration API</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/10/04/《Android-编程实战》10-隐藏的Android-API/" data-toggle="tooltip" data-placement="top" title="《Android-编程实战》10-隐藏的Android API">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/10/03/《Android-编程实战》08-高级音频-视频及相机应用/" data-toggle="tooltip" data-placement="top" title="《Android 编程实战》08-高级音频,视频及相机应用">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/10/04/%E3%80%8AAndroid-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B09-Android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/";
+    var disqus_url = "http://szysky.com/2016/10/04/%E3%80%8AAndroid-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B09-Android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

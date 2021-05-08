@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android 开发艺术探索》 13-综合技术 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/08/25/《Android-开发艺术探索》-13-综合技术/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android 开发艺术探索》 13-综合技术</h1>
+                    <h2 class="subheading">抄书系列</h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-08-25
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>crash的异常处理, Android中的方法限制, 反编译等也是需要了解的技术. </p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/Notes_AndroidDevSeek">blog相关代码</a></p>
+<h2 id="捕捉Crash信息"><a href="#捕捉Crash信息" class="headerlink" title="捕捉Crash信息"></a>捕捉Crash信息</h2><p>应用总会不可避免的发生Crash, 有可能是因为底层bug, 或者是适配问题, 代码逻辑问题等等. 当发生Crash的时候, 系统会kill掉正在执行的程序, 现象就是闪退或者提示用户程序已经停止运行, 这对用户来说是很不友好, 也是开发者不愿意看到的. 系统提供了在<strong>程序Crash之前可以保存异常信息的能力, 这样在崩溃前可以保存异常信息到文件中, 传回服务器,这样可以针对各种各样的用户发生的错误对应用进行完善</strong>的方法, 这个类在<code>Thread</code>中的<code>setDefaultUncaughtException()</code>方法.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Sets the default uncaught exception handler. This handler is invoked in</span></span><br><span class="line"><span class="comment">* case any Thread dies due to an unhandled exception.</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> handler The handler to set or null.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setDefaultUncaughtExceptionHandler</span><span class="params">(UncaughtExceptionHandler handler)</span> </span>&#123;</span><br><span class="line">   Thread.defaultUncaughtHandler = handler;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从方法名的意思看出设置默认未捕获异常的处理器. 就是当Crash发生的时候, 系统会回调<code>UncaughtExceptionHandler#uncaughtException()</code>方法, 在这个方法中可以获取到异常的信息, 可以选择把信息写到SD卡中, 然后在合适的时机通过网络将Crash信息上传到服务器上. 也可以在这里弹出一个对话框告诉用户, 会比直接闪退好那么一点.</p>
+<p>首先要实现出一个<code>UncaughtExceptionHandler</code>的子类. 直接看实现:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCrashHandler</span> <span class="keyword">implements</span> <span class="title">Thread</span>.<span class="title">UncaughtExceptionHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = MyCrashHandler.class.getSimpleName();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义异常文件要存储的路径</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String PATH = Environment.getExternalStorageDirectory().getPath() + <span class="string">&quot;/szyCrash/log/&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String FILE_NAME = <span class="string">&quot;crash-&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String FILE_NAME_SUFFIX = <span class="string">&quot;.trace&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Thread.UncaughtExceptionHandler mDefaultUncaughtExceptionHandler;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Context mContext;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 单例模式三部曲    懒汉式</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> MyCrashHandler sInstance = <span class="keyword">new</span> MyCrashHandler();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">MyCrashHandler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MyCrashHandler <span class="title">getsInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sInstance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置本类为当前进行的默认未捕捉异常处理器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        mContext = context.getApplicationContext();</span><br><span class="line">        mDefaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();</span><br><span class="line">        Thread.setDefaultUncaughtExceptionHandler(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">uncaughtException</span><span class="params">(Thread thread, Throwable ex)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 导出信息到sd卡上</span></span><br><span class="line">            dumpExceptionToSDCard(ex);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 对本地的信息进行上传服务器处理</span></span><br><span class="line">            uploadExceptionToServer();</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">// 也把异常打印到控制台 防止系统没有默认异常处理器导致的没有崩溃信息</span></span><br><span class="line">            ex.printStackTrace();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 如果系统有默认的异常处理器那么就给系统处理  否则自己关闭掉</span></span><br><span class="line">            <span class="comment">// 如果不交给系统 或者 自己手动杀掉, 那么应用就会进入假死, 点击会出现ANR</span></span><br><span class="line">            <span class="keyword">if</span> (mDefaultUncaughtExceptionHandler != <span class="keyword">null</span>) &#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">                mDefaultUncaughtExceptionHandler.uncaughtException(thread, ex);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                Process.killProcess(Process.myPid());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 上传发生未捕获的错误日志</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">uploadExceptionToServer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> 16/8/25   看具体需求, 也可以在每次启动app后检测本地是否有异常日志</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 开始异常信息进行本地存储处理</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> ex 程序发生的异常对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException 写入文件发生异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dumpExceptionToSDCard</span><span class="params">(Throwable ex)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 首先判断sd卡是否被挂起</span></span><br><span class="line">        <span class="keyword">if</span> (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) &#123;</span><br><span class="line">            Log.w(TAG, <span class="string">&quot;sd卡不可用, 跳过 dump Exception&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        File dir = <span class="keyword">new</span> File(PATH);</span><br><span class="line">        <span class="keyword">if</span> (!dir.exists()) &#123;</span><br><span class="line">            dir.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取日志记录时间</span></span><br><span class="line">        <span class="keyword">long</span> currentTimeMillis = System.currentTimeMillis();</span><br><span class="line">        String formatTimeStr = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>).format(<span class="keyword">new</span> Date(currentTimeMillis));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建存储异常的文件</span></span><br><span class="line">        File file = <span class="keyword">new</span> File(PATH + FILE_NAME + formatTimeStr + FILE_NAME_SUFFIX);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 创建写入流, 开始哗哗写东西</span></span><br><span class="line">            PrintWriter pw = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> FileWriter(file)));</span><br><span class="line">            pw.println(formatTimeStr);</span><br><span class="line">            dumpPhoneInfo(pw);</span><br><span class="line">            pw.println();</span><br><span class="line">            pw.println(<span class="string">&quot;**********************异常信息**************************&quot;</span>);</span><br><span class="line">            ex.printStackTrace(pw);</span><br><span class="line">            pw.close();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (PackageManager.NameNotFoundException e) &#123;</span><br><span class="line">            Log.e(TAG, <span class="string">&quot;存储未捕获异常失败了.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 读取当前设备信息  并追加到异常日志中</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dumpPhoneInfo</span><span class="params">(PrintWriter pw)</span> <span class="keyword">throws</span> PackageManager.NameNotFoundException </span>&#123;</span><br><span class="line">        <span class="comment">// 获得应用包管理者 并获取存储当前应用的信息对象</span></span><br><span class="line">        PackageManager pm = mContext.getPackageManager();</span><br><span class="line">        PackageInfo pi = pm.getPackageInfo(mContext.getPackageName(), PackageManager.GET_ACTIVITIES);</span><br><span class="line"></span><br><span class="line">        pw.println(<span class="string">&quot;**********************设备信息**************************&quot;</span>);</span><br><span class="line">        <span class="comment">// 开始写入 应用信息</span></span><br><span class="line">        pw.println(<span class="string">&quot;App Version &quot;</span>);</span><br><span class="line">        pw.print(<span class="string">&quot;    VersionName: &quot;</span>);</span><br><span class="line">        pw.println(pi.versionName);</span><br><span class="line">        pw.print(<span class="string">&quot;    VersionCode: &quot;</span>);</span><br><span class="line">        pw.println(pi.versionCode);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 开始写入 Android版本信息</span></span><br><span class="line">        pw.println(<span class="string">&quot;OS Version &quot;</span>);</span><br><span class="line">        pw.println(<span class="string">&quot;    SDK_NAME: &quot;</span> + Build.VERSION.RELEASE);</span><br><span class="line">        pw.println(<span class="string">&quot;    SDK_INT: &quot;</span> + Build.VERSION.SDK_INT);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 开始写入 手机制造商</span></span><br><span class="line">        pw.println(<span class="string">&quot;Vendor &quot;</span>);</span><br><span class="line">        pw.println(<span class="string">&quot;    &quot;</span> + Build.MANUFACTURER);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 开始写入 手机型号</span></span><br><span class="line">        pw.println(<span class="string">&quot;Model &quot;</span>);</span><br><span class="line">        pw.println(<span class="string">&quot;    &quot;</span> + Build.MODEL);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 开始写入 CPU架构</span></span><br><span class="line">        pw.println(<span class="string">&quot;CPU ABI &quot;</span>);</span><br><span class="line">        String[] supportedAbis = SUPPORTED_ABIS;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; supportedAbis.length; i++) &#123;</span><br><span class="line">            pw.println(<span class="string">&quot;    &quot;</span> + supportedAbis[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        pw.println(<span class="string">&quot;*************************end***************************&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>核心方法就是复写了这个类的<code>uncaughtException()</code>方法. 别忘了在<code>Application</code>中进行这个类的<code>init()</code>方法调用. 这样才会把自定义的捕捉未捕获的异常这个类注册到系统. </p>
+<p>看一下模拟机和真机的两个log日志</p>
+<p><img src="uncaughtException_1.png"><br><img src="uncaughtException_2.png"></p>
+<h2 id="multidex解决方法数越界"><a href="#multidex解决方法数越界" class="headerlink" title="multidex解决方法数越界"></a>multidex解决方法数越界</h2><p>Android中单个<strong>dex</strong>文件所能包含的最大方法数为65536, 这包含了FrameWork, 依赖的jar包以及应用本身的代码中的所有方法. 会爆出:</p>
+<p><code>com.android.dex.DexIndexOverflowException: method ID not in[0, 0xffff] :65536</code></p>
+<p>可能在一些低版本的手机, 即使没有超过方法数的上限却还是出现错误</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">E/dalvikvm: Optimization failed</span><br><span class="line">E/installd: dexopt failed on <span class="string">&#x27;/data/dalvik-cache/.....&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个现象, 首先<code>dexpot</code>是一个程序, 应用在安装时, 系统会通过<code>dexopt</code>来优化dex文件, 在优化过程中dexopt采用一个固定大小的缓冲区来存储应用中所有方法消息, 这个缓冲区就是<code>linearAlloc</code>. <code>LinearAlloc</code>缓冲区在新版本的Android系统中大小为8MB或者16MB. 在Android 2.2和2.3中却只有5MB. 这是如果方法过多, 即使方法数没有超过<code>65535</code>也有可能会因为存储空间失败而无法安装. </p>
+<p><strong>解决方案</strong></p>
+<ul>
+<li><strong>插件化</strong>: 是一套重量级的技术方案, 通过将一个<code>dex</code>拆分成两个或者多个<code>dex</code>,可以在一定程度上解决方法数的越界问题. 但是还有兼容性问题需要考虑, 所以需要权衡是否需要使用这个方案. </li>
+<li><strong>multidex</strong>: 这是Google在2014年提出的解决方案</li>
+</ul>
+<p>= =. 略过</p>
+<h2 id="Android的动态加载技术"><a href="#Android的动态加载技术" class="headerlink" title="Android的动态加载技术"></a>Android的动态加载技术</h2><p>动态加载也叫插件化. 当项目越来越大的时候, 可以通过插件化来减轻应用的内存和CPU占用. 还可以实现热插播, 即可以在不发布新版本的情况下更新某些模块. </p>
+<p>插件化基本都要面临解决的基本问题: </p>
+<ol>
+<li>资源访问</li>
+<li>Activity声明周期的管理</li>
+<li>ClassLoader的管理</li>
+</ol>
+<p>说明<strong>宿主</strong>和<strong>插件</strong>的概念, 宿主是指普通的apk, 而插件一般指经过处理的dex或者apk. 在主流的插件化框架中多采用经过处理的apk来作为插件, 处理方式往往和编译以及打包环节有关, 另外很多插件化框架都需要用到代理Activity的概念, 插件Activity的启动大多数是借助一个代理Activity来实现.</p>
+<p>= =. 略过</p>
+<h2 id="反编译"><a href="#反编译" class="headerlink" title="反编译"></a>反编译</h2><p>= =. 略过</p>
+<blockquote>
+<p>第14章: JNI和NDK编程</p>
+</blockquote>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/08/26/《Android-开发艺术探索》-14-JNI和NDK编程/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 14-JNI和NDK编程">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/08/23/《Android-开发艺术探索》-12-Bitmap的加载和Cache/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 12-Bitmap的加载和Cache">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/08/25/%E3%80%8AAndroid-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B-13-%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/";
+    var disqus_url = "http://szysky.com/2016/08/25/%E3%80%8AAndroid-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B-13-%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

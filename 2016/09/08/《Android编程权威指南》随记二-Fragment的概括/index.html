@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android编程权威指南》随记二 Fragment的概括 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/09/08/《Android编程权威指南》随记二-Fragment的概括/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android编程权威指南》随记二 Fragment的概括</h1>
+                    <h2 class="subheading">抄书笔记</h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-09-08
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原理东西本书偏少. 可以学习本书中的代码的编写风格, 书中代码都是采用<strong>MVC</strong>模型来编写的. 就写这么多, 下面开始整理一些小知识点.</p>
+</blockquote>
+<blockquote>
+<p>关于Fragment的知识点练习都保存在仓库中的<strong>Criminal</strong>项目中. <a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/AndroidProgramminGuide">git地址</a></p>
+</blockquote>
+<h2 id="Fragment的生命周期"><a href="#Fragment的生命周期" class="headerlink" title="Fragment的生命周期"></a>Fragment的生命周期</h2><p><code>fragment</code>是一种控制器对象, <code>activity</code>可委派其完成一些任务. 通常这些任务就是管理用户界面. 受管理的用户界面可以是一整屏或是整屏的一部分. </p>
+<p><code>fragment</code>的生命周期共<strong>有11种</strong>: <code>onAttach()</code> -&gt; <code>onCreate()</code> -&gt; <code>onCreateView()</code> -&gt; <code>onActivityCreated()</code> -&gt; <code>onStart()</code> -&gt; <code>onResume()</code> -&gt; <code>onPause()</code> -&gt; <code>onStop()</code> -&gt; <code>onDestroyView()</code> -&gt; <code>onDestroy()</code> -&gt; <code>onDetach()</code>  </p>
+<p><strong>Fragment的生命周期和Activity生命周期的最主要的区别就是, Activity的生命周期是由操作系统调用的, 而Fragment的生命周期是由托管的Activity调用的</strong></p>
+<h2 id="Fragment的托管的方式"><a href="#Fragment的托管的方式" class="headerlink" title="Fragment的托管的方式"></a>Fragment的托管的方式</h2><ul>
+<li>添加<code>&lt;fragment&gt;</code>标签到<code>activity</code>布局中. 并在<code>name</code>属性中指定一个fragment.</li>
+<li>在<code>activity</code>代码中添加<code>fragment</code>.</li>
+</ul>
+<p>方式1. 即<strong>布局fragment</strong>. 使用简单, 但是灵活性不够. 直接在xml中添加标签. 就等同于<code>fragment</code>及其视图于<code>activity</code>的视图绑定在了一起, 并且在activity的生命周期过程中无法切换<code>fragment</code>视图.</p>
+<p>方式2. <strong>事务管理动态添加</strong>. 这种方式可以在运行时控制<code>fragment</code>. 根据需求将<code>fragment</code>在某一个时刻添加到activity中. 也可以移除<code>fragment</code>, 用其他的<code>fragment</code>来替代. 下面的<strong>FragmentManager将稍微说明具体使用</strong></p>
+<h2 id="Fragment-onCreate-Bundle"><a href="#Fragment-onCreate-Bundle" class="headerlink" title="Fragment#onCreate(Bundle)"></a>Fragment#onCreate(Bundle)</h2><p>这个方法看起来和<code>Activity#onCreate()</code>相似. 相似归相似说说不同之处.</p>
+<ul>
+<li><code>Fragment#onCreate()</code>是公共方法,<code>Activity#onCreate()</code>是受保护的方法. 方法的<strong>权限不同</strong>, 因为<code>Fragment</code>可以被任何的<code>Activity</code>调用.</li>
+<li><code>Activity#onCreate()</code>这个方法已经准备生成视图, 而<code>Fragment#onCreate()</code>却并没有要生成视图的动作. <code>Fragment</code>生成视图的方法是另一个生命周期<code>onCreateView()</code>方法. 这个方法会将生成的View返回给托管的<code>activity</code>. </li>
+</ul>
+<hr>
+<p>相同之处, 同样像activity那样具有保存及获取状态的<code>Bundle</code>, 和<code>onSaveInstanceState()</code></p>
+<h2 id="FragmentManager及其事务"><a href="#FragmentManager及其事务" class="headerlink" title="FragmentManager及其事务"></a>FragmentManager及其事务</h2><p><code>FragmentManager</code>类负责管理<code>fragment</code>并将它们的视图添加到<code>activity</code>的视图层级结构中. 相当于连接这两个的桥梁.</p>
+<p><code>FragmentManager</code>具体管理的是:</p>
+<ul>
+<li>fragment队列.</li>
+<li>fragment事务的回退栈.</li>
+</ul>
+<p><strong>FragmentManager的获取</strong></p>
+<p>如果现在要动态添加一个<code>fragment</code>那么首先需要在<code>activity</code>中获取<code>fragmentManager</code>. 通过<code>FragmentActivity#getSupportFragmentManager()</code>.这里调用的是支持库的<code>FragmentActivity</code>. 目前官方<code>Android 24</code>中使用的默认是<code>AppCompatActivity</code>这个扩展兼容类. 其实这个类就是<code>FragmentActivity</code>的子类. 当然如果你就是使用<code>Activity</code>那么就调用<code>getFragmentManager()</code>一样可以. </p>
+<p><strong>管理fragment的事务</strong></p>
+<p><code>FragmentManager</code>管理者拿到了, 就可以开启事务做一些我们想做的事情. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获得Fragment 的管理者对象</span></span><br><span class="line">FragmentManager fm = getSupportFragmentManager();</span><br><span class="line"><span class="comment">// 先查找管理者中是否已经存在, 如果不存在就new一个</span></span><br><span class="line">Fragment fragment = fm.findFragmentById(R.id.activity_main);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (fragment == <span class="keyword">null</span>) &#123;</span><br><span class="line">  <span class="comment">// 方法内部实现要进行添加Fragment的创建并返回</span></span><br><span class="line">  fragment = createFragment();  </span><br><span class="line">  fm.beginTransaction()</span><br><span class="line">          .add(R.id.activity_main, fragment)</span><br><span class="line">          .commit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先利用了<code>Fragment#findFragmentById()</code>去<strong>fragment队列</strong>获取一个<code>fragment</code>. 如果有那么就不需要添加.如果没有重新进行事务添加. 为什么要这么做? (例如屏幕旋转, 虽然activity会被销毁重建, 但是<code>FragmentManager</code>会将<code>Fragment</code>队列保存下来. 这样当重启的时候就可以直接获取队列已经创建好的而不需要重复创建)</p>
+<p>这段代码片段主要就是提交了一个<strong>fragment事务</strong>. <strong>fragment事务</strong>被用来添加,移除,附加,分离或替换<strong>fragment队列</strong>中的fragment. <code>add()</code>方法中首先指定activity的xml布局中的一个控件用来替换成被创建的<code>fragment视图</code>.然后参数2传入了要被添加的<code>fragment</code>  </p>
+<h2 id="ListFragment使用"><a href="#ListFragment使用" class="headerlink" title="ListFragment使用"></a>ListFragment使用</h2><p>是<code>Fragment</code>的子类, 并且内置了<code>ListView</code>提供给开发者快速创建列表的需求. 默认已经生成了一个全屏的<code>ListView</code>布局. </p>
+<ol>
+<li>继承ListFragment派生出一个子类. (这个时候如果什么数据也不添加运行程序,会发现中间会有一个progressBar在一直旋转)</li>
+<li>由于<code>ListView</code>已经存在. 所以按照我们平常的开发流程接下来就应该<strong>创建适配器,并添加到ListView</strong>. (这里使用快速的<code>ArrayAdapter</code>,也可以继承<code>BaseAdapter</code>来实现一些复杂的布局)</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建系统预定义的实例</span></span><br><span class="line">ArrayAdapter&lt;CrimeBean&gt; myAdapter = <span class="keyword">new</span> ArrayAdapter&lt;&gt;(getActivity().getApplicationContext(),</span><br><span class="line">                    android.R.layout.simple_list_item_1,</span><br><span class="line">                    mCrimes);</span><br><span class="line"></span><br><span class="line"><span class="comment">//  是ListFragment类提供的一个便利方法, 可以管理内置的listView设置adapter</span></span><br><span class="line">setListAdapter(myAdapter);</span><br></pre></td></tr></table></figure>
+
+<p>创建一个<code>ArrayAdapter</code>传入三个参数</p>
+<ul>
+<li>参数一: 上下文. 直接获取托管的<code>activity</code>的全局上下文即可</li>
+<li>参数二: <code>ListView</code>中的<code>Item</code>条目要显示的布局. 这里使用了系统提供的布局. 这个布局里面就是一个TextView. </li>
+<li>参数三: 数据集合<code>ArrayList</code>. 可以看到上面生成的<code>ArrayAdapter</code>的泛型是<code>CrimeBean</code>.这个泛型就是根据传入的数据集合中的泛型所指定. 如果<strong>数据集合中添加的一个自定义类的实例,一定要复写类的<code>toString()</code>确定返回一个类的说明或者名称等. 不然如果数据集合填充的引用数据类型那么默认toString()会就会返回对象的地址值, 这对我们毫无用处</strong>(其实内部就是<code>Adapter#getView()</code>方法内进行每个子Item的数据填充的时候获取集合中对应的position的数据然后<code>.toString()</code>获取到字符串填充到TextView上)</li>
+</ul>
+<p>最后通过内部提供<strong>绑定适配器的方法</strong>添加即可<code>setListAdapter()</code></p>
+<p>现在可以正常显示数据了.</p>
+<hr>
+<p><strong>添加点击事件</strong></p>
+<p>在<code>ListFragment</code>中提供了点击item事件的方法. 直接覆盖<code>onListItemClick(...)</code>即可.</p>
+<p>在<code>ListFragment</code>通过<code>getListAdater().getItem(int)</code>即可获得adapter中对应数据集合中对象</p>
+<hr>
+<p><strong>如果需要自定义一个布局, 可以直接派生出一个<code>ArrayAdapter</code>的子类. 创建一个构造方法,和复写<code>getView()</code>方法即可, 不需要继承<code>BaseAdapter</code>要复写四个方法(这里看自己的实际需求来决定用那种适配器)</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*  定制list的列表项, 继承adapter 重写getView方法</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span>  <span class="class"><span class="keyword">class</span> <span class="title">MyCrimeAdapter</span> <span class="keyword">extends</span> <span class="title">ArrayAdapter</span>&lt;<span class="title">CrimeBean</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">MyCrimeAdapter</span><span class="params">(ArrayList&lt;CrimeBean&gt; crimes)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//  由于这里不打算使用预定义的布局, 所以参数2传递了资源id为0,</span></span><br><span class="line">       <span class="keyword">super</span>(getActivity().getApplicationContext(), <span class="number">0</span>, crimes);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@NonNull</span></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> View <span class="title">getView</span><span class="params">(<span class="keyword">int</span> position, View convertView, ViewGroup parent)</span> </span>&#123;</span><br><span class="line">       ViewHolder holder ;</span><br><span class="line">      </span><br><span class="line">       <span class="comment">//  这里省略布局实现的逻辑, 想实现什么就实现什么布局</span></span><br><span class="line">       <span class="keyword">return</span> convertView;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用fragment-argument"><a href="#使用fragment-argument" class="headerlink" title="使用fragment argument"></a>使用fragment argument</h2><p>每个<code>Fragment</code>实例都可附带一个<code>Bundle</code>对象. 附加<code>argument</code>给<code>Fragment</code>调用<code>Fragment.setArguments(Bundle)</code>即可. <strong>需要注意,附加的时机必须在fragment创建之后并且添加到activity之前</strong></p>
+<p>如果想要获取在托管的<code>activity</code>的<code>intent</code>中的值. 有两种方式.</p>
+<ul>
+<li>当需要的时候就通过<code>getActivity().getIntent()</code></li>
+<li>利用<code>argument</code>在被托管前就给Fragment自己存储一些属性值.</li>
+</ul>
+<p>还是第二种好一些. 我们可以在<code>Fragment</code>内部暴露一个方法如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> CrimeFragment <span class="title">newInstance</span><span class="params">(UUID crimeId)</span></span>&#123;</span><br><span class="line">   Bundle bundle = <span class="keyword">new</span> Bundle();</span><br><span class="line">   bundle.putSerializable(EXTRA_CRIME_ID, crimeId);</span><br><span class="line"></span><br><span class="line">   CrimeFragment crimeFragment = <span class="keyword">new</span> CrimeFragment();</span><br><span class="line">   crimeFragment.setArguments(bundle);</span><br><span class="line">   <span class="keyword">return</span> crimeFragment;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样当<code>activity</code>需要托管添加的时候只需要调用我们提供的方法就可以. 具体的封装动作对activity来说是透明的. <code>activity</code>只需要获取到<code>intent</code>的值在调用<code>fragment#newInstance()</code>传入即可. 相对于第一种更好的将数据管理在自己的所在区域. 并且也不像第一种那样比较依赖<code>Activity</code>.</p>
+<p><strong>获取argument</strong></p>
+<p><code>getArguments()</code>就可获得Bundle.</p>
+<h2 id="fragment获取返回结果"><a href="#fragment获取返回结果" class="headerlink" title="fragment获取返回结果"></a>fragment获取返回结果</h2><p>在<code>Fragment</code>中同样可以使用<code>startActivityForResult()</code>和<code>onActivityResult()</code>. </p>
+<p>虽然这两个方法和<code>Activity</code>很像,  但是如果你想设置<code>setResult()</code>那么请调用<code>getActivity().setResult()</code>. </p>
+<h2 id="DialogFragment"><a href="#DialogFragment" class="headerlink" title="DialogFragment"></a>DialogFragment</h2><p>是<code>Fragment</code>的子类, 和<code>ListFragment</code>一样内部封装了<code>AlertDialog</code>视图, 为按照Android开发原则, 统一利用<code>FragmentManager</code>来进行管理.</p>
+<p>不同之处: 当设备旋转的时候独立配置的<code>AlertDialog</code>会在旋转之后消失, 而配置封装在<code>fragment</code>中的<code>AlertDialog</code>则不会消失.</p>
+<p>这里实现目的是<strong>弹窗显示日期控件</strong>, 本身<code>AlertDialog</code>还有一个专门对日期操作的类<code>DatePickerDialog</code>.由于兼容性这里没有使用. </p>
+<hr>
+<p>先总结一下实现对话框显示, 需要完成的任务:</p>
+<ol>
+<li>派生出一个<code>DialogFragment</code>的子类.</li>
+<li>创建<code>AlertDialog</code></li>
+<li>通过<code>FragmentManager</code>在屏幕上显示对话框.</li>
+</ol>
+<p>第一步略过直接创建类继承就可以. 第二步通过复写<code>onCreateDialog(Bundle)</code>方法. 只需要创建一个<code>AlertDialog</code>返回即可, 系统会帮助你显示.如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@NonNull</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Dialog <span class="title">onCreateDialog</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;       </span><br><span class="line">   <span class="comment">// 直接返回在Activity中创建Dialog的方式生成的对象</span></span><br><span class="line">   AlertDialog.Builder builder = <span class="keyword">new</span> AlertDialog.Builder(getActivity())</span><br><span class="line">           .setTitle(<span class="string">&quot;标题&quot;</span>)</span><br><span class="line">           .setPositiveButton(android.R.string.ok, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">               <span class="meta">@Override</span></span><br><span class="line">               <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</span><br><span class="line">                   sendResult(Activity.RESULT_OK);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;)</span><br><span class="line">           <span class="comment">// 设置中间区域要显示的View , 可以实现自定义View传入</span></span><br><span class="line">           .setView(inflate);</span><br><span class="line"></span><br><span class="line">   AlertDialog alertDialog = builder.create();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> alertDialog;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>setTitle()</code> 设置标题栏的文字. </li>
+<li><code>setView()</code> 实现在标题栏于按钮之间显示传入的View对象.  </li>
+<li><code>setPositiveButton()</code> 设置一个对话框的按钮(Android中有3种对话框按钮可使用:<strong>positive按钮</strong>, <strong>negative按钮</strong>,<strong>neutral按钮</strong>. )旧版本里面positive按钮出现在最左端, 新版本系统则出现则最右边. </li>
+<li><code>AlertDialog.Builder.create()</code> 返回已配置完成的<code>AlertDialog</code>实例, 完成对话框创建.</li>
+</ul>
+<p>第三部就是<strong>显示对话框</strong>了.</p>
+<p>和其他的<code>fragment</code>一样, <code>DialogFragment</code>实例也是由托管activity的<code>FragmentManager</code>管理者的. 通过<code>DialogFragment</code>的以下两个方法都可以. </p>
+<ul>
+<li><code>public void show(FragmentManager manager, String tag)</code></li>
+<li><code>public void show(FragmentTransaction transaction, String tag)</code></li>
+</ul>
+<p><code>String</code>类型参数可唯一识别存放在<code>FragmentManager</code>队列中的<code>DialogFragment</code>. 可以按需选择使用<code>FragmentManager</code>还是<code>FragmentTransaction</code>. 如果传入<code>FragmentManager</code>参数, 则事务可自动创建并且提交. 代码例子如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">FragmentManager fm = getActivity().getSupportFragmentManager();</span><br><span class="line"></span><br><span class="line">DatePickerFragment dialog = <span class="keyword">new</span> DatePickerFragment; <span class="comment">//派生出来的DialogFragment的子类</span></span><br><span class="line">                </span><br><span class="line">dialog.show(fm, DIALOG_DATE);</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Fragment之间的数据传递"><a href="#Fragment之间的数据传递" class="headerlink" title="Fragment之间的数据传递"></a>Fragment之间的数据传递</h2><p>对于<code>activity</code>之间或者基于<code>fragment</code>的<code>activity</code>之间的数据传递. 已经了解. 那么如果是同一个<code>activity</code>托管的不同<code>fragment</code>之间的传递应该如何处理,比如上面如何从<code>DialogFragment</code>点击按钮把数据发送给另一个<code>fragment</code>?</p>
+<p>大体流程分为两步:</p>
+<ol>
+<li>设置目标<code>Fragment</code></li>
+<li>传递数据给目标<code>Fragment</code></li>
+<li>在目标<code>Fragment</code>中对<code>onActivityResult()</code>进行数据接收处理</li>
+</ol>
+<p>对应实现:</p>
+<ol>
+<li>通过<code>dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);</code> 设置弹出的<code>AlertFragment</code>要返回数据的目标<code>Fragment</code>后, 目标<strong>fragment和请求码</strong>有<code>FragmentManager</code>负责跟踪记录, 在需要的时候通过调用<strong>设置</strong>目标<code>fragment</code>的<code>fragment</code>中的<code>getTargetFragment()</code>和<code>getTargetRequestCode()</code>方法来获取.</li>
+<li>设置信息都已经准备完毕, 现在只需要进行数据传递即可. 在要进行传递的起始<code>Fragment</code>中调用<code>getTargetFragment()</code>获取到目标(要传送的目标)<code>Fragment</code>. 用获取到的对象调用<code>onActivityResult()</code>即可, 参数分别是,请求码,结果码,和传递数据的<code>intent</code></li>
+<li>就很简单了, 和<code>activity</code>一样接收数据并处理即可. </li>
+</ol>
+<h2 id="Fragment的保留问题"><a href="#Fragment的保留问题" class="headerlink" title="Fragment的保留问题"></a>Fragment的保留问题</h2><p><strong>场景:</strong><br>还是设配配置发生改变的时候,会出现<code>Activity</code>的重建. 那么如果Activity里面托管一个<code>Fragment</code>. 而这个Fragment的作用是在播放音乐. 并且在<code>onDestroy()</code>的时候会释放掉<code>MediaPlayer</code>对象, 那么即使使用<code>onSaveInstanceState()</code>来保存意外销毁的进度, 但仍然会发生卡顿. </p>
+<p><strong>解决:</strong><br>可在<code>Fragment#onCreate()</code>方法中设置一个属性<code>setRetainInstance(true)</code></p>
+<p><strong>方法说明 :</strong><br><code>Fragment</code>中的<code>retainInstance</code>属性默认是为<strong>false</strong>. 这表明不会被保留. 因此设备旋转的时候. <code>fragment</code>会随着托管<code>activity</code>一起销毁并且重建.  如果设置了为<strong>true</strong>. 那么会进行保留, 已保留的<code>fragment</code>不会随着<code>activity</code>的异常重建而一起销毁. 而在<code>activity</code>重建之后再把自己原封不动的传递给新建后的activity. (和保留的fragment中的成员属性也是可以继续使用的.)</p>
+<p><strong>保留fragment的工作原理:</strong><br><strong>可以总结为可销毁重建fragment的视图,但无需销毁fragment自身</strong>. 当设备发生改变的时候, <code>FragmentManager</code>首先会销毁队列中的<code>fragment</code>的视图. 需要销毁重建的原因与<code>activity</code>重建的理由是完全一样的:<strong>新的配置可能需要新的资源来匹配,去查找是否有更合适的匹配资源可以利用不,则就需要重新创建视图</strong>. 当把视图都销毁掉以后, <code>FragmentManager</code>就会检查每个<code>Fragment的retainInstance</code>的属性值. 如果为false那么管理者就会销毁这个<code>fragment</code>的实例. 然后为使用新的设备配置, 新的<code>activity</code>的新的<code>FragmentManager</code>会创建一个新的<code>fragment</code>以及视图.  但是如果<code>retainInstance</code>的属性为<code>true</code>那么, <code>fragment</code>本身实例不会被销毁. 当新的<code>activity</code>创建后, 新的<code>FragmentManager</code>会找到被保留的fragment, 并重新创建它的视图. </p>
+<p>有一个特殊的状态时发生<code>Fragment</code>的<code>onDestroyView()</code>声明周期之后的. 如果不被保留那么就会调用<code>onDestroy()和onDetach()</code>. 如果被保留那么就只会调用<code>onDetach()</code>. 此时此<code>fragment</code>没有任何的<code>activity</code>在托管它.</p>
+<p><strong>需要注意Fragment处于保留状态的时间非常短暂, 就是fragment脱离了旧的activity到重新附加给立即创建的新的activity之间一段时间</strong></p>
+<p><code>fragment</code>必须同时满足两个条件才会进入保留状态:</p>
+<ul>
+<li><code>Fragment</code>的<code>setRetainInstance</code>的属性为true.</li>
+<li>因设备配置改变, 托管的activity正在销毁中.</li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/09/09/《Android编程权威指南》随记三-媒体与Intent等/" data-toggle="tooltip" data-placement="top" title="《Android编程权威指南》随记三 媒体与Intent等">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/09/07/《Android编程权威指南》随记一/" data-toggle="tooltip" data-placement="top" title="《Android编程权威指南》随记一 零散知识整理">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/09/08/%E3%80%8AAndroid%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E3%80%8B%E9%9A%8F%E8%AE%B0%E4%BA%8C-Fragment%E7%9A%84%E6%A6%82%E6%8B%AC/";
+    var disqus_url = "http://szysky.com/2016/09/08/%E3%80%8AAndroid%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E3%80%8B%E9%9A%8F%E8%AE%B0%E4%BA%8C-Fragment%E7%9A%84%E6%A6%82%E6%8B%AC/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

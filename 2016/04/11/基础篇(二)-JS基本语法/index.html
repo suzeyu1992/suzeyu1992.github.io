@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          基础篇(二)-JS基本语法 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/04/11/基础篇(二)-JS基本语法/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#入门" title="入门">入门</a>
+                        
+                          <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
+                        
+                    </div>
+                    <h1>基础篇(二)-JS基本语法</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-04-11
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>自学小笔记</p>
+<span id="more"></span>
+
+
+<h3 id="JS程序的基本语法"><a href="#JS程序的基本语法" class="headerlink" title="JS程序的基本语法"></a>JS程序的基本语法</h3><ul>
+<li>JS是区分大小写的。如:Name和name是两个变量。</li>
+<li>JS中每一条语句，以分号结束。这个分号<strong>不是必须</strong>的，为了向PHP兼容，最好加上分号。</li>
+</ul>
+<h3 id="变量的类型–就是数据的类型"><a href="#变量的类型–就是数据的类型" class="headerlink" title="变量的类型–就是数据的类型"></a>变量的类型–就是数据的类型</h3><ul>
+<li><p>变量的数据类型：<code>数值型</code>、<code>字符型</code>、<code>布尔型</code>、<code>未定义型</code>、<code>空型</code>、<code>数组</code>、<code>对象</code>、<code>函数</code>。</p>
+</li>
+<li><p>变量的数据类型，分两大类</p>
+</li>
+<li><p>基本数据类型：数值型、字符型、布尔型、未定义型、空型。很显著的特点：一个变量只能存一个值。</p>
+</li>
+<li><p>复合数据类型：数组、对象、函数。显著的特点：一个变量名，可能存多个值。</p>
+</li>
+</ul>
+<p><strong>数值型：变量能进行数学运算的</strong>  </p>
+<ul>
+<li>数值型包括：<code>整形</code>、<code>浮点型</code>、<code>NaN</code>（not a number）。</li>
+<li>数值型中还有一个很特殊的值<code>NaN</code>。不是一个数字。当将其他数据类型转成数值型，转不过去，但程序又不能报错，这时将返回一个<code>NaN</code>的值。</li>
+</ul>
+<p><strong>字符型：用单引号或双引号引起来的字符串。</strong></p>
+<p>单引号和双引号之间可以相互嵌套。</p>
+<ul>
+<li>单引号内只能嵌套双引号</li>
+<li>双引号内只能嵌套单引号</li>
+</ul>
+<p>如果想在双引号内，在嵌套双引号，里面的双引号需要进行转义。</p>
+<ul>
+<li>js中的转义字符是反斜杠<code>\</code>.</li>
+<li>常用的转义字符有<code>\&#39;</code>,<code>\&quot;</code>,<code>\\</code>,<code>\r</code>,<code>\n</code>等。</li>
+<li>当浏览器遇到反斜杠的时，将会对其后的一个字符进行特殊对待，当成普通字符来对待，比如123abc等。</li>
+<li>弹窗中的换行只能用<code>\n</code>来实现；而不能使用<code>&lt;br&gt;</code>，只有在<code>&lt;body&gt;</code>中<code>&lt;br&gt;</code>才会解析成换行符。</li>
+</ul>
+<p><strong>未定义型</strong></p>
+<ul>
+<li>当一个变量定义，但未赋值时，将返回未定义型，未定义型的值只有一个<code>undefined</code>。</li>
+<li>当一个对象的属性不存在，也返回未定义型<code>undefined</code>。</li>
+</ul>
+<p><strong>空型</strong></p>
+<ul>
+<li>当一个对象不存在是，将返回空型，空型的值只有一个<code>null</code>。</li>
+<li>也可以理解为：是一个对象的占位符。如果想清除一个变量的值，可以附一个<code>null</code>的值。</li>
+</ul>
+<h3 id="变量类型的转换"><a href="#变量类型的转换" class="headerlink" title="变量类型的转换"></a>变量类型的转换</h3><p><strong>js中其他类型自动转换成布尔值</strong></p>
+<table>
+<thead>
+<tr>
+<th>要被转换的类型变量</th>
+<th>转换后的结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>var a = “abc”</td>
+<td>true</td>
+</tr>
+<tr>
+<td>var a = “123”</td>
+<td>true</td>
+</tr>
+<tr>
+<td>var a = “”</td>
+<td>false</td>
+</tr>
+<tr>
+<td>var a = 100</td>
+<td>true</td>
+</tr>
+<tr>
+<td>var a = 0</td>
+<td>false</td>
+</tr>
+<tr>
+<td>var a = NaN</td>
+<td>true</td>
+</tr>
+<tr>
+<td>var a = undefined</td>
+<td>true</td>
+</tr>
+<tr>
+<td>var a = null</td>
+<td>true</td>
+</tr>
+</tbody></table>
+<p><strong>布尔值的转换</strong></p>
+<p>使用<code>Boolean()</code>全局函数，强制转成布尔型。</p>
+<pre><code>var a = 100;
+var result = Boolean(a);
+</code></pre>
+<p><strong>字符型的转换</strong></p>
+<p>使用<code>String()</code>全局函数，强制转成字符型。</p>
+<pre><code>var a = 100;
+var result = String(a);
+</code></pre>
+<p><strong>其他类型转成数值型</strong></p>
+<p>使用<code>Number()</code> 全局函数，进行强制转换。</p>
+<p>如果参数是<code>Date</code>对象，<code>Number()</code>返回1970年1月1日至今的毫秒值。</p>
+<p>如果对象的值无法转换为数字。那么返回NaN。</p>
+<p>注意:全局函数或系统函数，是JS内置的函数，名称或大小写必须一致。</p>
+<table>
+<thead>
+<tr>
+<th>要被转换的类型变量</th>
+<th>转换后的结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>var a = true</td>
+<td>1</td>
+</tr>
+<tr>
+<td>var a = false</td>
+<td>0</td>
+</tr>
+<tr>
+<td>var a = “120px”</td>
+<td>NaN</td>
+</tr>
+<tr>
+<td>var a = “100”</td>
+<td>100</td>
+</tr>
+<tr>
+<td>var a = “”</td>
+<td>0</td>
+</tr>
+<tr>
+<td>var a = NaN</td>
+<td>true</td>
+</tr>
+<tr>
+<td>var a = undefined</td>
+<td>NaN</td>
+</tr>
+<tr>
+<td>var a = null</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p><strong>判断变量的数据类型:typeof()</strong></p>
+<p>使用一元运算符<code>typeof()</code>,可以测试一个变量的类型。<br><code>typeof()</code>测试的结果是一个类型字符串。<br><code>typeof()</code>的结果字符串有几种情况:”string”,”number”,”boolean”,”undefined”,”object”,”function”。</p>
+<p><code>typeof()</code>返回的<code>object</code>类型，有几种情况: null、对象、数组。</p>
+<p><strong>函数和方法的区别</strong></p>
+<pre><code>Boolean(a)    //函数是可以独立使用的。
+document.write(a)    //方法不能独立使用，方法是必须要属于哪一个对象。
+</code></pre>
+<h3 id="从字符串中提取证书和浮点数函数"><a href="#从字符串中提取证书和浮点数函数" class="headerlink" title="从字符串中提取证书和浮点数函数"></a>从字符串中提取证书和浮点数函数</h3><p><strong>parseInt()</strong></p>
+<p>功能: 在一个字符串中，从左往右提取整形。如果遇到非整形的内容，则停止提取，并返回结果。</p>
+<p>注意: 如果第一个字符就是非整数，则立即停止，并返回<code>NaN</code>。</p>
+<p><strong>parseFloat()系统函数、全局函数</strong></p>
+<p>功能: 在一个字符串中，从左向右提取浮点型：遇到非浮点型内容，则停止提取，并返回结果。</p>
+<p>功能: 如果第一个字符就是非浮点型，则立即停止，并返回NaN。</p>
+<h3 id="JS运算符"><a href="#JS运算符" class="headerlink" title="JS运算符"></a>JS运算符</h3><p><code>**1.算数运算符: + ,- ,* , /, %, ++, --**</code></p>
+<p><code>**2.赋值运算符: =、+=、 -=、\*=、/=**</code></p>
+<p><code>**3.字符串运算符:+、+=**</code></p>
+<p><code>**4.比较运算符:&gt;, &lt;, &gt;=, &gt;=, ==, != ,=== ,!==**</code></p>
+<ul>
+<li><code>=</code>是赋值号。</li>
+<li><code>==</code>等于。指比较两个变量的值，而不管类型。只要值一样，就返回<code>true</code>，否则返回<code>false</code>。</li>
+<li><code>===</code>全等于。既比较变量，也判断类型。如果类型和值都一样，才会返回<code>true</code>。</li>
+</ul>
+<p><code>**5.逻辑运算符: &amp;&amp;、||、!**</code></p>
+<p><code>**6.三目运算符**</code></p>
+<p>语法:<code>条件表达式?结果1：结果2</code></p>
+<p>含义: 如果条件为true，则执行结果1；如果条件为false则执行结果2.</p>
+<p><strong>特殊运算符</strong></p>
+<ul>
+<li><code>new</code> 运算符: 创建一个对象。如:<code>var today = new Date();</code></li>
+<li><code>delete</code> 运算符:删除数组的元素，或者对象的属性。</li>
+<li><code>typeof</code>运算符:一元运算符，主要功能:判断变量的类型。</li>
+<li>点运算符(<code>.</code>):主要应用在对象中，通过点运算符(.)去调用属性或方法。如:<code>window.alert(&quot;ok&quot;)</code>;</li>
+<li><code>[]</code>中括号:主要用来访问数组元素的。如<code>arr[0]=100;</code></li>
+</ul>
+<p><strong>运算符的优先级</strong></p>
+<p>特殊运算符 &gt; 算数运算符 &gt; 比较运算符 &gt; 逻辑运算符 &gt; 赋值运算符</p>
+<table>
+<thead>
+<tr>
+<th>运算符类别</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>. [ ] new ( )</td>
+<td>级别最高</td>
+</tr>
+<tr>
+<td>!  ++  –</td>
+<td>次之上级</td>
+</tr>
+<tr>
+<td>*  /  %</td>
+<td>次之上级</td>
+</tr>
+<tr>
+<td>+ -</td>
+<td>次之上级</td>
+</tr>
+<tr>
+<td>&lt;  &gt;  &gt;=  &lt;=</td>
+<td>次之上级</td>
+</tr>
+<tr>
+<td>==  !=  ===  !==</td>
+<td>次之上级</td>
+</tr>
+<tr>
+<td>&amp;&amp;</td>
+<td></td>
+</tr>
+<tr>
+<td>=  +=  -=  /=  *=  %=</td>
+<td>次之上级</td>
+</tr>
+</tbody></table>
+<h3 id="window-prompt"><a href="#window-prompt" class="headerlink" title="window.prompt()"></a>window.prompt()</h3><ul>
+<li><p>功能:弹出一个输入框，让用户来输入内容。</p>
+</li>
+<li><p>语法: <code>var year = windown.prompt(text[,defaultText])</code></p>
+</li>
+<li><p>参数: </p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>text</td>
+<td>提示信息</td>
+</tr>
+<tr>
+<td>defaultText</td>
+<td>可选性,也就是可有可无.输入框的默认内容</td>
+</tr>
+</tbody></table>
+<p>返回值:如果单击确定按钮，返回一个字符串的数据。如果取消按钮，返回一个null。</p>
+<p><strong>break语句</strong></p>
+<p>描述: <code>break</code>语句，用于无条件结束各种循环(退出循环)和<code>switch</code>。<br>说明: 一般情况下,需要在<code>break</code>语句之前加一个条件判断。</p>
+<p><strong>continue</strong></p>
+<p>描述：结束本地循环，开始下一次循环。<br>说明: 一般情况下，需要在<code>continue</code>语句之前加一个条件判断。</p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>一组数的集合，称为集合。<br><code>var arr = [10,20,30,40]</code></p>
+<p><strong>数组的创建方法</strong></p>
+<p>1 使用<code>new</code>关键字和<code>Array()</code>来创建数组。</p>
+<pre><code>var arr = new Array(); //创建一个空数组
+
+var arr = new Array(&quot;小花&quot;,34,&quot;男&quot;); //创建一个数组并赋值。
+</code></pre>
+<p>数组元素的值可以是任意类型。</p>
+<p><strong>给数组添加某一个角标时，下表可以不连续，但是值为undefined</strong> </p>
+<p>删除元素：<code>delete arr[index];</code>//删除的只是元素的值，而下角标的空间占有还在。</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p><strong>函数定义格式的说明</strong></p>
+<ul>
+<li><code>function</code>关键字是必须的，全小写。</li>
+<li>函数名称命名规则和变量名一样。</li>
+<li>(): 是定义函数时接收数据的参数。参数可有可无，多个参数之间用逗号隔开。<ul>
+<li>–形参(形式参数):定义函数时的参数就是形参。形参不能用var定义，不需要声明。</li>
+<li> –实参(实际参数):调用函数时的参数称为实参。</li>
+</ul>
+</li>
+</ul>
+<p><strong>如果function无返回值，调用函数后本身的值就是undefined</strong></p>
+<p><strong>匿名函数:没有名字的函数</strong></p>
+<p>匿名函数，不能单独定义的，也不能单独调用。</p>
+<p>匿名函数，一般是作为数据给其他变量赋值的。</p>
+<pre><code>var a = function()&#123;
+            window.alert(&quot;OK&quot;);
+        &#125; //将函数赋给变量a，那么a就是函数型变量。
+a();    //调用函数
+</code></pre>
+<p><strong>二维数组</strong></p>
+<p>给一个数组元素，附一个数组的值，那么，这个数组就是二维数组。</p>
+<p>二维数组可以关联到表格。</p>
+<h4 id="JS对象的分类"><a href="#JS对象的分类" class="headerlink" title="JS对象的分类"></a>JS对象的分类</h4><table>
+<thead>
+<tr>
+<th>JS内置对象</th>
+<th>BOM对象</th>
+<th>DOM对象</th>
+<th>自定义对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数组对象、日期对象、字符串对象等</td>
+<td>浏览器各组件对象,包括:window、document、location、history等</td>
+<td>文档对象，包括所有HTML标记，每一个HTML标记对视一个对象</td>
+<td>根据自己项目需要，自己定义自己的对象</td>
+</tr>
+</tbody></table>
+<p><strong>自定义对象</strong></p>
+<p>1 <code>new</code> 关键字创建。</p>
+<pre><code>// 1. 使用new关键字结合构造函数Object()来穿件一个空的对象。
+var obj = new Object();
+// 2. 增加属性
+obj.name = &quot;张三&quot;
+obj.age = 24;
+obj.sex = &quot;男&quot;;
+
+// 3.增加方法: 将一个函数定义赋给对象属性，那么该属性变成方法。
+obj. showInfo = function()&#123;
+                    window.alert();
+                &#125;
+// 4.调用对象方法
+obj.showInfo();
+</code></pre>
+<p>2 使用大括号<code>&#123;&#125;</code>来创建对象。</p>
+<pre><code>var obj = &#123;
+    name : &quot;张三&quot;;
+    sex  : &quot;男&quot;;
+    age  : 24;
+    showInfo : function()&#123;
+                    window.alert();
+    &#125;
+&#125;
+</code></pre>
+<p><a href="基础篇(二)-JS基本语法.html">简单的小实例</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/04/12/基础篇(三)-JS对象使用/" data-toggle="tooltip" data-placement="top" title="基础篇(三)-JS对象使用">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/04/10/基础篇(一)-JS简单介绍/" data-toggle="tooltip" data-placement="top" title="基础篇(一)-JS简单介绍">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#入门" title="入门">入门</a>
+                        
+                          <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/04/11/%E5%9F%BA%E7%A1%80%E7%AF%87(%E4%BA%8C)-JS%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/";
+    var disqus_url = "http://szysky.com/2016/04/11/%E5%9F%BA%E7%A1%80%E7%AF%87(%E4%BA%8C)-JS%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

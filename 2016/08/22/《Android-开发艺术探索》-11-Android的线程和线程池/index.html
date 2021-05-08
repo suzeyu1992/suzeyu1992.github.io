@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android 开发艺术探索》 11-Android的线程和线程池 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/08/22/《Android-开发艺术探索》-11-Android的线程和线程池/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android 开发艺术探索》 11-Android的线程和线程池</h1>
+                    <h2 class="subheading">抄书系列</h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-08-22
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>第11章: 不仅仅是在Android中, 就算java中线程都是一块很重要的知识, 占有不小的比重. </p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/Notes_AndroidDevSeek">blog相关代码</a></p>
+<p>除了最常使用的<code>Thread</code>之外, 在Android之中可以扮演线程角色的还有很多: 如<code>AsyncTask</code>和<code>IntentService</code>, 同时<code>HandlerThread</code>也是一种特殊的线程.  虽然这些线程的表现形式有别于基础线程. 但是本质上还是传统的线程. 例如<code>AsyncTask</code>它的底层使用了线程池. 而对于<code>IntentService</code>和<code>HandlerThread</code>来说, 他们的底层则直接使用了线程. </p>
+<p><strong>根据不同的特性来实现不同的场景</strong></p>
+<ul>
+<li><code>AsyncTask</code>: 封装了线程池和Handler, 它主要是为了方便开发者在子线程中更新UI. </li>
+<li><code>HandlerThread</code>: 是一种具有消息循环的线程, 在它的内部可以使用Handler. </li>
+<li><code>IntentService</code>: 是一个服务, 系统对其进行了封装使其可以更方便地执行后台任务, IntentService内部采用了<code>HandlerThread</code>来执行任务, 当任务执行完毕后<code>IntentService</code>会自动退出. 从执行任务的角度来看, 更像一个后台的线程. 但是因为其本身是一种服务, 所以导致不容易被系统杀死从而保证任务的执行. 而如果是一个后台线程, 由于这个时候进行中没有活动的四大组件, 那么这个进程的优先级会很低, 很容易被系统杀死, 这就是<code>IntentService</code>的优点. </li>
+</ul>
+<p><strong>线程的简单概述</strong></p>
+<p>在操作系统中, 线程是操作系统调度的最小单元, 同时线程又是一种受限的系统资源, 即线程不可能无限制的产生, 并且线程的创建和销毁都会有相应的开销. 当系统中存在大量的线程时, 系统会通过时间片转轮的方式调度每个线程, 因此线程不可能做到绝对的并行, 除非线程数量小于等于cpu的核心数. 但这种情况太少了, 所以线程池的概念就由此出现. 通过线程池就可以避免因为频繁创建和销毁线程所带来的系统开销. </p>
+<h2 id="主线程和子线程"><a href="#主线程和子线程" class="headerlink" title="主线程和子线程"></a>主线程和子线程</h2><p>主线程是指进程所拥有的线程, 在Java中默认情况下一个进程只有一个线程, 这个线程就是主线程. 主线程主要处理界面交互相关的逻辑, 因为用户随时会和界面发生交互, 因此主线程在任何时候都必须有较高的响应速度, 否则就会产生一种界面卡顿的感觉. 为了保持较高的响应速度, 这就要求主线程中不能执行耗时的任务, 这个时候子线程就派上用场. 子线程也叫作工作线程, 除了主线程以外的线程都叫做子线程</p>
+<p>Android沿用了Java的线程模型, 其中的线程也分为主线程和子线程, 其中主线程也叫UI线程. 主线程的作用是运行四大组件以及处理它们和用户的交互. 而子线程的作用则是执行耗时任务, 比如网络请求, I/O操作等. 从Android 3.0 开始系统要求网络访问必须在子线程中进行, 否则网络访问将会失败并抛出<code>NetworkOnMainThreadException</code>这个异常, 这样做是为了避免主线程由于耗时操作所阻塞从而出现ANR现象.</p>
+<h2 id="Android中的线程形态"><a href="#Android中的线程形态" class="headerlink" title="Android中的线程形态"></a>Android中的线程形态</h2><h3 id="AsyncTask"><a href="#AsyncTask" class="headerlink" title="AsyncTask"></a>AsyncTask</h3><blockquote>
+<p><code>AsyncTask</code>是一种轻量级的异步任务类, 他可以在线程池中执行后台任务, 然后把执行的进度和最终的结果传递给主线程并在主线程更新UI. 从实现上来说. <code>AsyncTask</code>封装了Thread和Handler, 通过<code>AsyncTask</code>可以更加方便地执行后台任务, 对于特别耗时的任务来说, 建议使用线程池. </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AsyncTask</span>&lt;<span class="title">Params</span>, <span class="title">Progress</span>, <span class="title">Result</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">// 省略一大坨代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>AsyncTask</code>就是一个抽象的泛型类. 这三个泛型的意义.</p>
+<ul>
+<li>Params: 表示参数的类型</li>
+<li>Progress: 表示后台任务的执行进度的类型</li>
+<li>Result: 则表示后台任务的返回结果的类型</li>
+</ul>
+<p>如果不需要传递具体的参数, 那么这三个泛型参数可以用Void来代替.</p>
+<p><strong>AsyncTask提供了4个核心方法, 含义如下</strong></p>
+<ol>
+<li><code>onPreExecute()</code>: <strong>在主线程执行</strong>, 在异步任务执行之前, 此方法会被调用, 一般可以用于做一些准备工作</li>
+<li><code>doInBackground()</code>: <strong>在线程池中执行</strong>, 此方法用于执行异步任务, 参数<code>params</code>表示异步任务的输入参数. 在此方法中可以通过<code>publishProgress()</code>方法来更新任务的进度, <code>publishProgress()</code>方法会调用<code>onProgressUpdate()</code>方法. 另外此方法需要返回计算结果给<code>onPostExecute()</code></li>
+<li><code>onProgressUpdate()</code>: <strong>在主线程执行</strong>,在异步任务执行之后, 此方法会被调用, 其中<code>result</code>参数是后台任务的返回值, 即<code>doInBackground()</code>的返回值.</li>
+<li><code>onPostExecute()</code>: <strong>在主线程执行</strong>, 在异步任务执行之后, 此方法会被调用, 其中<code>result</code>参数是后台任务的返回值, 即<code>doInBackground</code>的返回值.</li>
+</ol>
+<p>除了上述的四种方法,还有<code>onCancelled()</code>, 它同样在主线程执行, 当异步任务被取消时, <code>onCancelled()</code>方法会被调用, 这个时候<code>onPostExecute()</code>则不会被调用. </p>
+<p><strong>AsyncTask在使用过程中有一些条件限制</strong></p>
+<ol>
+<li><code>AsyncTask</code>的类必须在主线程被加载, 这就意味着第一次访问<code>AsyncTask</code>必须发生在主线程, 这个问题不是绝对, 因为在Android 4.1及以上的版本已经被系统自动完成. 在Android 5.0的源码中, 可以看到<code>ActivityThread#main()</code>会调用<code>AsyncTask#init()</code>方法.</li>
+<li><code>AsyncTask</code>的对象必须在主线程中创建.</li>
+<li><code>execute</code>方法必须在UI线程调用. </li>
+<li>不要在程序中直接调用<code>onPreExecute()</code>, <code>onPostExecute()</code>, <code>doInBackground</code>和<code>onProgressUpdate()</code></li>
+<li>一个<code>AsyncTask</code>对象只能执行一次, 即只能调用一次<code>execute()</code>方法, 否则会报运行时异常.</li>
+<li>在Android 1.6之前, <code>AsyncTask</code>是串行执行任务的; Android 1.6的时候<code>AsyncTask</code>开始采用线程池里处理并行任务; 但是Android 3.0开始, 为了避免<code>AsyncTask</code>带来的并发错误, <code>AsyncTask</code>又采用了一个线程来串行的执行任务. 尽管如此在3.0以后, 仍然可以通过<code>AsyncTask#executeOnExecutor()</code>方法来并行执行任务. </li>
+</ol>
+<h3 id="AsyncTask的工作原理"><a href="#AsyncTask的工作原理" class="headerlink" title="AsyncTask的工作原理"></a>AsyncTask的工作原理</h3><p>这里以源码5.0来分析, 不同的版本源码具体实现是不同的. </p>
+<p>为了分析<code>AsyncTask</code>的工作原理, 可以从它的<code>execute()</code>方法开始分析, <code>execute()</code>方法又会调用<code>executeOnExecutor()</code>方法. 实际上这里调用进来后是一个串行的线程池, 一个进程中所有的<code>AsyncTask</code>全都在这个串行的线程池中排队执行, 然后会先调用<code>AsyncTask#onPreExecute()</code>方法, 然后线程池开始执行. 看看<code>SerialExecutor()</code>的源码实现:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Executor SERIAL_EXECUTOR = <span class="keyword">new</span> SerialExecutor();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Executor sDefaultExecutor = SERIAL_EXECUTOR;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SerialExecutor</span> <span class="keyword">implements</span> <span class="title">Executor</span> </span>&#123;</span><br><span class="line">   <span class="keyword">final</span> ArrayDeque&lt;Runnable&gt; mTasks = <span class="keyword">new</span> ArrayDeque&lt;Runnable&gt;();</span><br><span class="line">   Runnable mActive;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(<span class="keyword">final</span> Runnable r)</span> </span>&#123;</span><br><span class="line">       mTasks.offer(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">               <span class="keyword">try</span> &#123;</span><br><span class="line">                   r.run();</span><br><span class="line">               &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                   scheduleNext();</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       <span class="keyword">if</span> (mActive == <span class="keyword">null</span>) &#123;</span><br><span class="line">           scheduleNext();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">scheduleNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> ((mActive = mTasks.poll()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">           THREAD_POOL_EXECUTOR.execute(mActive);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>SerialExecutor</code>的实现可以分析<code>AsyncTask</code>的排队执行的过程. 首先系统会把<code>AsyncTask#Params</code>参数封装成<code>FutureTask</code>对象, <code>FutureTask</code>是一个并发类, 在这里充当了<code>Runnable</code>的作用. 接着这个<code>FutureTask</code>会交给<code>SerialExecutor#execute()</code>方法去处理. 这个方法首先会把<code>FutureTask</code>对象插入到任务队列<code>mTasks</code>中, 如果这个时候没有正在活动<code>AsyncTask</code>任务, 那么就会调用<code>SerialExecutor#scheduleNext()</code>方法来执行下一个<code>AsyncTask</code>任务. 同时当一个<code>AsyncTask</code>任务执行完后, <code>AsyncTask</code>会继续执行其他任务直到所有的任务都执行完毕为止, 从这一点可以看出, 在默认情况下, <strong>AsyncTask是串行执行的</strong></p>
+<p><code>AsyncTask</code>中有两个线程池(SerialExecutor和THREAD_POOL_EXECUTOR)和一个<code>Handler</code>(InternalHandler), 其中线程池<code>SerialExecutor</code>用于任务的排列, 而线程池<code>THREAD_POOL_EXECUTOR</code>用于真正的执行任务, 而<code>InternalHandler</code>用于将执行环境从线程切换到主线程, 其本质仍然是线程的调用过程. </p>
+<p>在<code>AsyncTask</code>的构造方法中有如下这段代码, 由于<code>FutureTask#run()</code>方法会调用<code>mWorker.call()</code>方法, 因此mWorker的call方法最终会在线程池中执行. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">mWorker = <span class="keyword">new</span> WorkerRunnable&lt;Params, Result&gt;() &#123;</span><br><span class="line">       <span class="function"><span class="keyword">public</span> Result <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">           mTaskInvoked.set(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">           Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);</span><br><span class="line">           <span class="comment">//noinspection unchecked</span></span><br><span class="line">           <span class="keyword">return</span> postResult(doInBackground(mParams));</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>mWorker.call()</code>方法中, 首先将<code>mTaskInvoked</code>设为了true. 表示当前任务已经被调用过了. 然后执行<code>AsyncTask#doInBackground()</code>方法, 接着将其返回值传递给<code>postResult()</code>, 这个方法的实现:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Result <span class="title">postResult</span><span class="params">(Result result)</span> </span>&#123;</span><br><span class="line">   <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">   Message message = sHandler.obtainMessage(MESSAGE_POST_RESULT,</span><br><span class="line">           <span class="keyword">new</span> AsyncTaskResult&lt;Result&gt;(<span class="keyword">this</span>, result));</span><br><span class="line">   message.sendToTarget();</span><br><span class="line">   <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里, <code>postResult()</code>会通过<code>sHandler</code>发送一个<code>MESSAGE_POST_RESULT</code>消息, 而<code>sHandler</code>的定义如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> InternalHandler sHandler = <span class="keyword">new</span> InternalHandler();</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">InternalHandler</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;</span><br><span class="line">   <span class="meta">@SuppressWarnings(&#123;&quot;unchecked&quot;, &quot;RawUseOfParameterizedType&quot;&#125;)</span></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">       AsyncTaskResult result = (AsyncTaskResult) msg.obj;</span><br><span class="line">       <span class="keyword">switch</span> (msg.what) &#123;</span><br><span class="line">           <span class="keyword">case</span> MESSAGE_POST_RESULT:</span><br><span class="line">               <span class="comment">// There is only one result</span></span><br><span class="line">               result.mTask.finish(result.mData[<span class="number">0</span>]);</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">           <span class="keyword">case</span> MESSAGE_POST_PROGRESS:</span><br><span class="line">               result.mTask.onProgressUpdate(result.mData);</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出<code>sHandler</code>是一个静态的Handler对象, 为了能够将执行环境切换到主线程, 这就要求<code>sHandler</code>这个对象必须在主线程中创建. 由于静态成员会在加载类的时候进行初始化, 因此这就变相要求<code>AsyncTask</code>的类必须在主线程中加载, 否则同一个进程中的<code>AsyncTask</code>都无法正常工作.  <code>sHandler</code>收到了消息后会调用<code>AsyncTask#finish()</code>方法, 如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">finish</span><span class="params">(Result result)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (isCancelled()) &#123;</span><br><span class="line">       onCancelled(result);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       onPostExecute(result);</span><br><span class="line">   &#125;</span><br><span class="line">   mStatus = Status.FINISHED;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个<code>finish()</code>方法很简单, 如果<code>AsyncTask</code>被取消了, 那么就调用<code>onCancelled()</code>方法, 否则就会调用<code>onPostExecute()</code>方法, 可以看到<code>doInBackground</code>的反馈结果会传递给<code>onPostExecute()</code>方法. </p>
+<p>通过源码分析, 可以确定从3.0开始, 默认情况下<code>AsyncTask</code>就是串行的. 通过一段代码测试. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">switch</span> (v.getId())&#123;</span><br><span class="line">       <span class="keyword">case</span> R.id.btn_main:</span><br><span class="line">           <span class="keyword">new</span> MyAsync(<span class="string">&quot;任务_1&quot;</span>).execute(<span class="string">&quot;&quot;</span>);</span><br><span class="line">           <span class="keyword">new</span> MyAsync(<span class="string">&quot;任务_2&quot;</span>).execute(<span class="string">&quot;&quot;</span>);</span><br><span class="line">           <span class="keyword">new</span> MyAsync(<span class="string">&quot;任务_3&quot;</span>).execute(<span class="string">&quot;&quot;</span>);</span><br><span class="line">           <span class="keyword">new</span> MyAsync(<span class="string">&quot;任务_4&quot;</span>).execute(<span class="string">&quot;&quot;</span>);</span><br><span class="line">           <span class="keyword">new</span> MyAsync(<span class="string">&quot;任务_5&quot;</span>).execute(<span class="string">&quot;&quot;</span>);</span><br><span class="line">           <span class="keyword">break</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAsync</span> <span class="keyword">extends</span> <span class="title">AsyncTask</span>&lt;<span class="title">String</span>, <span class="title">Integer</span>, <span class="title">String</span>&gt;</span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = MyAsync.class.getSimpleName();</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> String mTaskName;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">MyAsync</span><span class="params">(String taskName)</span></span>&#123;</span><br><span class="line">       mTaskName = taskName;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> String <span class="title">doInBackground</span><span class="params">(String... params)</span> </span>&#123;</span><br><span class="line">       SystemClock.sleep(<span class="number">3000</span>);</span><br><span class="line">       <span class="keyword">return</span> mTaskName;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPostExecute</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>.onPostExecute(s);</span><br><span class="line">       SimpleDateFormat df = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;HH:mm:ss&quot;</span>);</span><br><span class="line">       Log.e(TAG, s+<span class="string">&quot; onPostExecute finish time: &quot;</span> +df.format(<span class="keyword">new</span> Date()));</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>给按钮添加一个点击触发, 点击的时候会触发五个<code>AsyncTask</code>的创建和执行 , 看一下结果</p>
+<p><img src="checkAsyncTask.png"></p>
+<p>在5.0机器上测试所有的任务是串行执行的. 总共耗费了10秒.  而在2.x的版本所有的结束时间却都是一样的. </p>
+<p>如果使用<code>executeOnExecutor()</code>那么结果看一下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 在版本3.0以上使用并行的方式开启</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkConcurrent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">new</span> MyAsync(<span class="string">&quot;任务_1&quot;</span>).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,<span class="string">&quot;&quot;</span>);</span><br><span class="line">   <span class="keyword">new</span> MyAsync(<span class="string">&quot;任务_2&quot;</span>).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,<span class="string">&quot;&quot;</span>);</span><br><span class="line">   <span class="keyword">new</span> MyAsync(<span class="string">&quot;任务_3&quot;</span>).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,<span class="string">&quot;&quot;</span>);</span><br><span class="line">   <span class="keyword">new</span> MyAsync(<span class="string">&quot;任务_4&quot;</span>).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,<span class="string">&quot;&quot;</span>);</span><br><span class="line">   <span class="keyword">new</span> MyAsync(<span class="string">&quot;任务_5&quot;</span>).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,<span class="string">&quot;&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="checkConcurrent.png"></p>
+<p>ok, 按照你的需求可以选择使用哪种实现方式.  </p>
+<h3 id="HandlerThread"><a href="#HandlerThread" class="headerlink" title="HandlerThread"></a>HandlerThread</h3><p><code>HandlerThread</code>继承了<code>Thread</code>, 它是一种可以使用<code>Handler</code>的Thread, 它的实现也很简单, 就是run方法中通过<code>Looper.prepare()</code>来创建消息队列, 并通过<code>Looper.loop()</code>来开启消息循环, 这样在实际的使用中就允许在<code>HandlerThread</code>中创建<code>Handler</code>, 看一下run()方法.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   mTid = Process.myTid();</span><br><span class="line">   Looper.prepare();</span><br><span class="line">   <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">       mLooper = Looper.myLooper();</span><br><span class="line">       notifyAll();</span><br><span class="line">   &#125;</span><br><span class="line">   Process.setThreadPriority(mPriority);</span><br><span class="line">   onLooperPrepared();</span><br><span class="line">   Looper.loop();</span><br><span class="line">   mTid = -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从<code>HandlerThread</code>的实现来看, 它和普通的Thread有显著的不同之处. 普通的Thread主要用于在run方法中执行一个耗时任务; 而<code>HandlerThread</code>在内部创建了消息队列, 外界需要通过Handler的消息方式来通知<code>HandlerThread</code>执行一个具体的任务. <code>HandlerThread</code>是一个很有用的类, 在Android中一个具体使用场景就是<code>IntentService</code>.</p>
+<p>由于<code>HandlerThread#run()</code>是一个无线循环方法, 因此当明确不需要再使用<code>HandlerThread</code>时, 最好通过<code>quit()</code>或者<code>quitSafely()</code>方法来终止线程的执行. </p>
+<h3 id="IntentService"><a href="#IntentService" class="headerlink" title="IntentService"></a>IntentService</h3><p><code>IntentService</code>是一种特殊的<code>Service</code>, 它继承了<code>Service</code>并且它是一个抽象类, 因此需要创建子类才能使用. <code>IntentService</code>可以用于执行后台耗时任务, 当任务执行后会自动停止, 同时由于本质是服务的原因, 这导致了它的优先级比单纯的线程要高很多, 所以<code>IntentService</code>比较适合执行一些高优先级的后台任务. </p>
+<p><code>IntentService</code>封装了<code>Handler</code>和<code>HandlerThread</code>. 这是在<code>onCreate()</code>来实现的.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="comment">// <span class="doctag">TODO:</span> It would be nice to have an option to hold a partial wakelock</span></span><br><span class="line">   <span class="comment">// during processing, and to have a static startService(Context, Intent)</span></span><br><span class="line">   <span class="comment">// method that would launch the service &amp; hand off a wakelock.</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">super</span>.onCreate();</span><br><span class="line">   HandlerThread thread = <span class="keyword">new</span> HandlerThread(<span class="string">&quot;IntentService[&quot;</span> + mName + <span class="string">&quot;]&quot;</span>);</span><br><span class="line">   thread.start();</span><br><span class="line"></span><br><span class="line">   mServiceLooper = thread.getLooper();</span><br><span class="line">   mServiceHandler = <span class="keyword">new</span> ServiceHandler(mServiceLooper);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当第一次启动的时候, <code>onCreate()</code>就会被调用, 内部就会创建一个<code>HandlerThread</code>, 然后使用它的<code>Looper</code>来构造一个<code>Handler</code>对象mServiceHandler. 这样通过 mServiceHandler发送的消息最终都会在<code>HandlerThread</code>中执行,  从这个角度看<code>IntentService</code>也可以用于执行后台任务. </p>
+<p>每次启动<code>IntentService</code>的时候, 它的<code>onStartCommand()</code>方法就会被调用一次, <code>IntentService</code>在<code>onStartCommand()</code>中处理每个后台任务的Intent. 看看源码是如何处理外界的Intent的. </p>
+<p>首先<code>onStartCommand()</code>调用了<code>onStart()</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStart</span><span class="params">(Intent intent, <span class="keyword">int</span> startId)</span> </span>&#123;</span><br><span class="line">   Message msg = mServiceHandler.obtainMessage();</span><br><span class="line">   msg.arg1 = startId;</span><br><span class="line">   msg.obj = intent;</span><br><span class="line">   mServiceHandler.sendMessage(msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法只是通过<code>mServiceHandler</code>发送了一个消息, 所以这个消息会在<code>HandlerThread</code>中被处理. 消息收到后, 会将Intent对象传递给<code>onHandlerIntent()</code>方法去处理. 注意这个<code>Intent</code>对象和外界<code>startService()</code>参数传递内容是一样的. 通过Intent的参数就可以区分具体的后台任务, 这样在<code>onHandlerIntent()</code>方法中就可以对不同的后台任务做处理了. </p>
+<p>当<code>onHandlerIntent()</code>方法执行完毕后, <code>IntentService</code>会通过<code>stopSelf()</code>方法来停止服务. 这里使用的方法是有参数的, 不使用无参数的<code>stopSelf()</code>是因为无参函数会立刻停止服务, 可能会导致还有没执行完的任务失效. </p>
+<p>有参的<code>stopSelf(int startId)</code>在尝试 停止服务之前会判断最近启动的服务次数是否和startId这个参数值相等, 如果相等就立刻停止服务, 否则反之. 这个策略可以从<code>AMS#stopServiceToken()</code>方法的实现中找到依据.</p>
+<hr>
+<p><code>IntentService#onHandleIntent()</code>方法是一个抽象方法, 他需要我们在子类中实现, 它的作用是从Intent参数中区分具体的任务并执行这些任务. 如果目前只存在一个后台任务, 那么<code>onHandleIntent()</code>方法执行完成后, <code>stopSelf(int startId)</code>会立即停止服务; 如果目前存在多个后台任务, 那么当<code>onHandleIntent()</code>方法执行完最后一个任务时, <code>stopSelf(int startId)</code>才会停止任务.  另外由于每次执行一个后台任务都必须启动一次<code>IntentService</code>, 而其内部则通过消息的方式向<code>HandlerThread</code>请求执行任务, <code>Handler中的Looper</code>是顺序处理消息的,  这就意味着<code>IntentService</code>也是顺序执行后台任务的, 当有多个后台任务同时存在时, 这些后台任务会按照外界发起的顺序排队执行.</p>
+<p>用代码来演示一遍:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 派生一个IntentService 的子类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LocalIntentService</span> <span class="keyword">extends</span> <span class="title">IntentService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = LocalIntentService.class.getSimpleName();</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">LocalIntentService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>(TAG);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onHandleIntent</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">       String task = intent.getStringExtra(<span class="string">&quot;task&quot;</span>);</span><br><span class="line">       Log.d(TAG, <span class="string">&quot;receiver task :&quot;</span>+task);</span><br><span class="line">       SystemClock.sleep(<span class="number">2000</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       Log.w(TAG, <span class="string">&quot;onDestroy: 准备关闭&quot;</span> );</span><br><span class="line">       <span class="keyword">super</span>.onDestroy();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开启3个服务</span></span><br><span class="line">Intent service = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, LocalIntentService.class);</span><br><span class="line">service.putExtra(<span class="string">&quot;task&quot;</span>, <span class="string">&quot;hi, 我是数据1&quot;</span>);</span><br><span class="line">startService(service);</span><br><span class="line"></span><br><span class="line">service.putExtra(<span class="string">&quot;task&quot;</span>, <span class="string">&quot;hi, 我是数据2&quot;</span>);</span><br><span class="line">startService(service);</span><br><span class="line"></span><br><span class="line">service.putExtra(<span class="string">&quot;task&quot;</span>, <span class="string">&quot;hi, 我是数据3&quot;</span>);</span><br><span class="line">startService(service);</span><br></pre></td></tr></table></figure>
+
+<p><img src="IntentServiceTest.png"></p>
+<p>可以看出, 三个后台任务是串行执行的, 他们的执行顺序就是发起请求的顺序. 当任务3完成了之后. <code>LocalIntentService</code>才真正的停止, 因为这是时候执行了<code>onDestroy()</code>.</p>
+<h2 id="Android中的线程池"><a href="#Android中的线程池" class="headerlink" title="Android中的线程池"></a>Android中的线程池</h2><p>概括一下线程池的优点:</p>
+<ol>
+<li>重用线程池中的线程, 避免因为线程的创建和销毁所带来的性能开销. </li>
+<li>能有效控制线程的最大并大数, 避免大量的线程之间因互相抢占系统资源而导致的阻塞现象.</li>
+<li>能够对线程进行简单的管理, 并提供定时执行以及指定间隔循环执行等能力. </li>
+</ol>
+<p>Android中的线程池的概念来源于Java中的<code>Executor</code>, <code>Executor</code>是一个接口, 真正的线程池的实现为<code>ThreadPoolExecutor</code>. <code>ThreadPoolExecutor</code>提供了一系列参数来配制线程池, 通过不同的参数可以创建不同的线程池. 而从功能的特性来分的话可以分成四类. 下面说明.</p>
+<h3 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h3><p><code>ThreadPoolExecutor</code>是线程池的真正实现, 它的构造方法提供了一系列参数来配置线程池, 下面对构造方法中参数进行一下说明, 这些参数将会直接影响到线程池的功能特性. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="params"><span class="function">                         <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="params"><span class="function">                         <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="params"><span class="function">                         TimeUnit unit,</span></span></span><br><span class="line"><span class="params"><span class="function">                         BlockingQueue&lt;Runnable&gt; workQueue)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">this</span>(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,</span><br><span class="line">        Executors.defaultThreadFactory(), defaultHandler);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>corePoolSize</code>: 线程池的核心线程数, 默认情况下, 核心线程会在线程池中一直存活, 即使都处于闲置状态. 如果将<code>ThreadPoolExecutor#allowCoreThreadTimeOut</code>属性设置为<code>true</code>, 那么闲置的核心线程在等待新任务到来时会有超时的策略, 这个时间间隔由<code>keepAliveTime</code>属性来决定. 当等待时间超过了<code>keepAliveTime</code>设定的值那么核心线程将会终止. </li>
+<li><code>maximumPoolSize</code>: 线程池所能容纳的最大线程数, 当活动线程数达到这个数值之后, 后续的任务将会被阻塞.</li>
+<li><code>keepAliveTime</code>: 非核心线程闲置的超时时长, 超过这个时长, 非核心线程就会被回收. <code>allowCoreThreadTimeOut</code>这个属性为true的时候, 这个属性同样会作用于核心线程.</li>
+<li><code>unit</code>: 用于指定<code>keepAliveTime</code>参数的时间单位, 这是一个枚举, 常用的有<code>TimeUtil.MILLISECONDS(毫秒)</code>,  <code>TimeUtil.SECONDS(秒)</code>以及<code>TimeUtil.MINUTES(分)</code></li>
+<li><code>workQueue</code>: 线程池中的任务队列, 通过线程池的<code>execute</code>方法提交的<code>Runnable</code>对象会存储在这个参数中.</li>
+<li><code>threadFactory</code>: 线程工厂, 为线程池提供创建新线程的功能. <code>ThreadFactory</code>是一个接口.</li>
+</ul>
+<p><strong>线程池执行任务时大致遵循如下规则:</strong></p>
+<ol>
+<li>如果线程池中的线程数量未达到核心线程的数量, 那么会直接启动一个核心线程来执行任务.</li>
+<li>如果线程池中的线程数量已经达到或者超过核心线程的数量, 那么任务会被插入到任务队列中排队等待执行.</li>
+<li>如果在步骤2中无法将任务插入到任务队列中, 这通常是因为任务队列已满, 这个时候如果线程数量未达到线程池的规定的最大值, 那么会立刻启动一个非核心线程来执行任务. </li>
+<li>如果步骤3中的线程数量已经达到最大值的时候, 那么会拒绝执行此任务, <code>ThreadPoolExecutor</code>会调用<code>RejectedExecution</code>方法来通知调用者. </li>
+</ol>
+<hr>
+<p><code>ThreadPoolExecutor</code>的参数配置在<code>AsyncTask</code>中有明显的体现, 下面是其配置情况</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CPU_COUNT = Runtime.getRuntime().availableProcessors();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CORE_POOL_SIZE = CPU_COUNT + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_POOL_SIZE = CPU_COUNT * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> KEEP_ALIVE = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadFactory sThreadFactory = <span class="keyword">new</span> ThreadFactory() &#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger mCount = <span class="keyword">new</span> AtomicInteger(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Thread <span class="title">newThread</span><span class="params">(Runnable r)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> Thread(r, <span class="string">&quot;AsyncTask #&quot;</span> + mCount.getAndIncrement());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> BlockingQueue&lt;Runnable&gt; sPoolWorkQueue =</span><br><span class="line">       <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;(<span class="number">128</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* An &#123;<span class="doctag">@link</span> Executor&#125; that can be used to execute tasks in parallel.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Executor THREAD_POOL_EXECUTOR</span><br><span class="line">       = <span class="keyword">new</span> ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE,</span><br><span class="line">               TimeUnit.SECONDS, sPoolWorkQueue, sThreadFactory);</span><br></pre></td></tr></table></figure>
+
+<p>这个配置后的规格是这样的</p>
+<ul>
+<li>核心线程数等于CPU核心数 + 1;</li>
+<li>线程池的最大线程数为CPU核心数的2倍 + 1;</li>
+<li>核心线程无超时机制, 非核心线程在闲置时有超时机制,超时时间为1秒.</li>
+<li>任务队列的容量为128</li>
+</ul>
+<h3 id="线程池的分类"><a href="#线程池的分类" class="headerlink" title="线程池的分类"></a>线程池的分类</h3><p><strong>1. FixedThreadPool</strong></p>
+<p><strong>通过<code>Executors#newFixedThreadPool()</code>方法来创建.</strong> 它是一种线程数量固定的线程池, 当线程处于空闲状态时, 它们并不会被回收, 除非线程池关闭了. 当所有的线程都处于活动状态时, 新任务都会处于等待状态, 直到有线程空闲出来. 由于<code>FixedThreadPool</code>只有核心线程并且这些核心线程不会被回收, <strong>这意味着它能够更加快速地响应外界的请求.</strong> </p>
+<hr>
+<p><strong>2. CachedThreadPool</strong><br><strong>通过<code>Executors#newCachedThreadPool()</code>方法来创建.</strong> 它是一种线程数量不定的线程池, 它只有非核心线程, 并且其最大值线程数为<code>Integer.MAX_VALUE</code>. 这就可以认为这个最大线程数为任意大了. 当线程池中的线程都处于活动的时候, 线程池会创建新的线程来处理新任务, 否则就会利用空闲的线程来处理新任务. 线程池中的空闲线程都有超时机制, 这个超时时长为60S, 超过这个时间那么空闲线程就会被回收. </p>
+<p>和<code>FixedThreadPool</code>不同的是, <code>CachedThreadPool</code>的任务队列其实相当于一个空集合, 这将导致任何任务都会立即被执行, 因为在这种场景下<code>SynchronousQueue</code>是无法插入任务的. <code>SynchronousQueue</code>是一个非常特殊的队列, 在很多情况下可以把它简单理解为一个无法存储元素的队列. <strong>在实际使用中很少使用.这类线程比较适合执行大量的耗时较少的任务</strong></p>
+<hr>
+<p><strong>3. ScheduledThreadPool</strong></p>
+<p><strong>通过<code>Executors#newScheduledThreadPool()</code>方法来创建.</strong>  它的核心线程数量是固定的, 而非核心线程数是没有限制的, 并且当非核心线程闲置时会立刻被回收掉. <strong>这类线程池用于执行定时任务和具有固定周期的重复任务</strong></p>
+<hr>
+<p><strong>4. SingleThreadExecutor</strong></p>
+<p><strong>通过<code>Executors#newSingleThreadPool()</code>方法来创建.</strong> 这类线程池内部只有一个核心线程, 它确保所有的任务都在同一个线程中按顺序执行. <strong>这类线程池意义在于统一所有的外界任务到一个线程中, 这使得在这些任务之间不需要处理线程同步的问题</strong></p>
+<blockquote>
+<p>第12章: Bitmap的加载和Cache</p>
+</blockquote>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/08/23/《Android-开发艺术探索》-12-Bitmap的加载和Cache/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 12-Bitmap的加载和Cache">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/08/22/《Android-开发艺术探索》-10-Android的消息机制/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 10-Android的消息机制">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/08/22/%E3%80%8AAndroid-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B-11-Android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/";
+    var disqus_url = "http://szysky.com/2016/08/22/%E3%80%8AAndroid-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B-11-Android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

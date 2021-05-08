@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          基础篇(五)-JS-DOM - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/04/14/基础篇(五)-JS-DOM/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#入门" title="入门">入门</a>
+                        
+                          <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
+                        
+                    </div>
+                    <h1>基础篇(五)-JS-DOM</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-04-14
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>自学小笔记</p>
+<span id="more"></span>
+
+
+<h3 id="DOM-Document-Object-Model-文档对象模型"><a href="#DOM-Document-Object-Model-文档对象模型" class="headerlink" title="DOM Document Object Model 文档对象模型"></a>DOM Document Object Model 文档对象模型</h3><p><code>DOM</code>主要提供了访问和操作<code>HTML</code>标记的方式。</p>
+<p>HTML标记:图片标记、表格标记、表单标记、body、等。</p>
+<p><code>BOM</code>和<code>DOM</code>不是<code>js</code>的内容。他们是<code>W3C</code>指点的规范。但是，<code>BOM</code>和<code>DOM</code>在浏览器中以对象的形式得以实现。</p>
+<p><code>BOM</code>和<code>DOM</code>都是由一组对象构成。</p>
+<p><code>W3C</code>是制作互联网标准的一个国际化的组织，如<code>XHTML</code>、<code>CSS</code>、<code>JavaScript</code>、<code>AJAX</code>等。</p>
+<h3 id="DOM的官方定义"><a href="#DOM的官方定义" class="headerlink" title="DOM的官方定义"></a>DOM的官方定义</h3><p><code>DOM</code> ,<code>Document Object Model</code>,文档对象模型。我们可以把网页中的所有元素看成是对象。</p>
+<p><code>DOM</code>是<code>W3C</code>指定的网页标准或准则，而这个标准，在浏览器中，以 对象 的形式得以实现。</p>
+<p><code>DOM</code>的官方定义: <code>DOM</code>可以使用脚本，动态的访问或操作，网页的内容、网页外观、网页结构。</p>
+<h3 id="DOM的分类"><a href="#DOM的分类" class="headerlink" title="DOM的分类"></a>DOM的分类</h3><ul>
+<li>核心DOM：提供了同时操作HTML文档和XML文档的公共的属性和方法。</li>
+<li>HTML DOM: 针对HTML文档提供的专用的属性方法。</li>
+<li>XML DOM: 针对XML文档提供的专用的属性和方法。</li>
+<li>CSS DOM: 提供了操作CSS的属性和方法。</li>
+<li>EventDOM: 时间对象模型。如：<code>onclick</code>、<code>onload</code>等。</li>
+</ul>
+<h3 id="HTML节点树"><a href="#HTML节点树" class="headerlink" title="HTML节点树"></a>HTML节点树</h3><p><strong>节点关系</strong></p>
+<p>根节点，一个<code>HTML</code>文档只有一个根，他就是<code>HTML</code>节点。</p>
+<p>子节点，某一个节点的下级节点。</p>
+<p>父节点：某一个节点的上级节点。</p>
+<p>兄弟节点: 同属于一个父节点。</p>
+<p><strong>DOM中节点类型</strong></p>
+<p><code>document</code>文档节点，代表整个网页，不代表任何<code>HTML</code>标记。但他是<code>html</code>节点的父节点。</p>
+<p><code>element</code>父元素节点，指任何<code>HTML</code>标记，每一个<code>HTMl</code>标记就称为一个元素节点。它可以有文本节点和属性节点。</p>
+<p><code>attribute</code>属性节点。值<code>HTML</code>标记的属性。</p>
+<p><code>text</code>节点。是节点树的最底层节点。</p>
+<p><strong>核心DOM中的公共的属性和方法</strong></p>
+<p>提示: 核心<code>DOM</code>中查找节点（标记），  都是从根节点开始的(<code>html</code>节点)。</p>
+<p>1.节点访问</p>
+<ul>
+<li><code>nodeName</code>:节点名称。</li>
+<li><code>nodeValue</code>：节点的值。只有文本节点才有值，元素节点没有值。只能添加纯文本，不能设置css样式等。</li>
+<li><code>firstChild</code>:第一个子节点。</li>
+<li><code>lastChild</code>:最后一个子节点。</li>
+<li><code>childNodes</code>:子节点列表，是一个数组。</li>
+<li><code>parentNode</code>: 父节点。</li>
+</ul>
+<p><strong>查找<code>&lt;html&gt;</code>标记的方法</strong></p>
+<ul>
+<li><code>document.firstChild</code></li>
+<li><code>document.documentElement.client</code></li>
+</ul>
+<p><strong>查找<body>标记的方法</strong></p>
+<ul>
+<li><code>document.firstChild.lastChild</code></li>
+<li><code>document.body</code></li>
+</ul>
+<p><code>为什么document.body.firstCHild找不到&lt;table&gt;节点？    核心DOM的属性和方法，主要是针对HTML4.0开发的。 在Firefox下，会把空格或换行，当成文本节点。 HTML4.0是没有DTD类型定义的。</code></p>
+<p>2.节点的属性操作</p>
+<ul>
+<li><code>setAttribute(name,value)</code>:给某个节点添加属性。</li>
+<li><code>getAttribute(name)</code>:获取某个节点属性的值。</li>
+<li><code>removeAttribute(name)</code>:删除某个节点的属性。</li>
+</ul>
+<p>3.节点的创建</p>
+<ul>
+<li><code>createElement(tagName)</code>:创建一个指定的<code>HTML</code>标记。<code>tagname</code>:不带尖括号的标记名。</li>
+<li><code>appendChild(elementObj)</code>: 将创建的节点，追加到某个父节点下。</li>
+<li><code>removeChild(elementObj)</code>:删除节点</li>
+</ul>
+<h3 id="HTML-DOM简介和新特性"><a href="#HTML-DOM简介和新特性" class="headerlink" title="HTML DOM简介和新特性"></a>HTML DOM简介和新特性</h3><p><strong>1.简介</strong><br>如果在核心<code>DOM</code>中，网页节点层级很深时，访问这个节点时将会十分的麻烦。那么<code>HTMLDOM</code>重就提供了通过id直接找到节点的方法，而不用再HTML根节点开始。</p>
+<p><strong>HTMLDOM的新特性</strong></p>
+<ul>
+<li>每一个<code>HTML</code>标记，都队形一个元素对象。</li>
+<li>每一个<code>HTML</code>标记的属性，与对应的元素对象的属性，–对应。 </li>
+</ul>
+<p><strong>HTML DOM访问HTML元素的方法</strong></p>
+<p><strong>1.getElementById()</strong></p>
+<ul>
+<li>查找网页中指定id的元素对象。 </li>
+<li><code>var obj = document.getElementById(id)</code></li>
+<li>id是指网页中标记的id属性的值。</li>
+<li>返回一个元素对象。</li>
+</ul>
+<p><strong>2.getElementsByTagName(tagName)</strong></p>
+<ul>
+<li>查找指定的HTML标记，返回一个数组。</li>
+<li><code>var arrObj = parentNode.getElementsByTagName(tagName)</code></li>
+<li>tagName是要查找的标记形成，不带尖括号。</li>
+<li>返回一个数组。如果只要一个节点，也返回一个数组。<br>元素的属性</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tagName</td>
+<td>标签名称，与核心DOM中nodeName一样</td>
+</tr>
+<tr>
+<td>className</td>
+<td>css类的名称</td>
+</tr>
+<tr>
+<td>id</td>
+<td>同HTML标记id属性一样</td>
+</tr>
+<tr>
+<td>title</td>
+<td>同HTML标记title属性一样</td>
+</tr>
+<tr>
+<td>style</td>
+<td>同HTML标记style属性一样</td>
+</tr>
+<tr>
+<td>innerHTML</td>
+<td>包含HTML标记中的所有的内容，包括HTML标记等。比nodeValue强大</td>
+</tr>
+<tr>
+<td>offsetWidth</td>
+<td>元素对象的可见宽度，不带px</td>
+</tr>
+<tr>
+<td>offsetHeight</td>
+<td>元素对象的可见高度，不带px</td>
+</tr>
+<tr>
+<td>scrollHeight</td>
+<td>元素对象的总高度，包括滚动条内容，不带px</td>
+</tr>
+<tr>
+<td>scrollWidth</td>
+<td>元素对象的总宽度，不带px</td>
+</tr>
+<tr>
+<td>scrollTop</td>
+<td>指内容向上滚动上去了多少距离(有滚动条才有效)，不带px</td>
+</tr>
+<tr>
+<td>scrollLeft</td>
+<td>指内容向左滚动上去了多少距离(有滚动条才有效)，不带px</td>
+</tr>
+</tbody></table>
+<p><strong>onscroll:当拖动滚动条的时候触发。</strong></p>
+<h3 id="CSS-DOM动态样式"><a href="#CSS-DOM动态样式" class="headerlink" title="CSS DOM动态样式"></a>CSS DOM动态样式</h3><p>使用JS操作CSS中的个属性。JS只能操作或者修改行内样式。对于类样式，通过className来赋值。</p>
+<p><strong>style对象</strong></p>
+<p>每个<code>HTML</code>标记，都有一个<code>style</code>属性。但这个<code>style</code>属性又是一个<code>style</code>对象。</p>
+<p><code>style</code>对象的属性，与<code>CSS</code>中的属性，一一对应。所有<code>style</code>对象用来代替<code>CSS</code>。</p>
+<p>如: <code>imagObj.style.border = &quot;1px solid red&quot;;</code></p>
+<p><strong>style对象属性与CSS属性的转换</strong></p>
+<p>1.如果是一个单词，<code>style</code>对象属性，与<code>CSS</code>属性一样。</p>
+<p>2.如果是多个单词，第一个单词全小写，后面每个单词首字母大写，并去掉中划线。</p>
+<ul>
+<li><code>divObj.style.backgroundColor = &quot;red&quot;;</code></li>
+<li><code>divObj.style.backgroundImage = &quot;url(images/bg.gif)&quot;;</code></li>
+<li><code>divObj.style.fontSize = &quot;18px&quot;;</code></li>
+</ul>
+<h3 id="Event-DOM-事件DOM"><a href="#Event-DOM-事件DOM" class="headerlink" title="Event DOM : 事件DOM"></a>Event DOM : 事件DOM</h3><p><strong>事件简介</strong></p>
+<p>时间主要实现“用户与网页的交互”。</p>
+<p>当事件发生时，去执行<code>JS</code>功能代码。</p>
+<p><strong>常用事件</strong></p>
+<ul>
+<li><code>onload</code>：当网页加载完成时。</li>
+<li><code>onclick</code>：当点击时，所有标记都适用。</li>
+<li><code>onscrool</code>：当拖动滚动条时。</li>
+<li><code>onmouseover</code>：当鼠标放上时。</li>
+<li><code>onmouseout</code>：当鼠标移开时。</li>
+<li><code>onsubmit</code>：当提交表单时。</li>
+<li><code>onreset</code>：当重置表单时。</li>
+<li><code>onfocus</code>：当获得焦点时，把光标定位到文本框中。</li>
+<li><code>onblur</code>：当失去焦点时，把光标从文本框中移开。</li>
+<li><code>onchange</code>：当下拉列表内容改变时。用在下拉列表，上传文件。</li>
+<li><code>onselect</code>：当选中文本时</li>
+<li><code>onresize</code>：当改变窗口大小事，发生的事件。</li>
+<li>….</li>
+</ul>
+<p><strong>3.事件句柄属性</strong></p>
+<p><code>HTML</code>标记，都有相应的事件属性。<br>每一个<code>HTML</code>标记，都对应一个元素对象。元素对象也具有相应的事件属性。但是匀速对象的事件属性应该全是<strong>小写</strong>。</p>
+<p>事件属性后面调用的一般是JS函数，通过JS函数来完成相应的功能。</p>
+<h3 id="Event对象简介"><a href="#Event对象简介" class="headerlink" title="Event对象简介"></a>Event对象简介</h3><p>当事件发生时，向调用函数，传递一个<code>event</code>参数，这个<code>event</code>参数是一个事件对象。</p>
+<p>该<code>event</code>对象中记录了当前事件发生的环境信息。如：单击时的坐标，事件类型等。</p>
+<p>注意这个<code>event</code>对象是短暂存在的，新的时间发生，新的<code>event</code>对象产生，原来的<code>event</code>对象消失。</p>
+<h3 id="DOM中的Event对象"><a href="#DOM中的Event对象" class="headerlink" title="DOM中的Event对象"></a>DOM中的Event对象</h3><p><strong>DOM中引入Event对象(DOM浏览器就是标准浏览器)</strong></p>
+<p><strong>1.通过HTML标记的时间属性来传递event对象。</strong></p>
+<p>在<code>DOM</code>中，<code>event</code>对象是作为时间调用函数时的参数，传递给给函数。</p>
+<p>该<code>event</code>参数，是系统固定写法，全小写，不能加引号，他就是<code>event</code>对象参数。</p>
+<p><strong>2.DOM中Event对象属性</strong></p>
+<ul>
+<li><code>type</code>:当前的时间类型。</li>
+<li><code>clientX</code> 和<code>clientY</code>:距离窗口左边和上边的距离。</li>
+<li><code>pageX</code> 和 <code>pageY</code>:距离网页左边和上边的距离。</li>
+<li><code>screenX</code> 和 <code>screenY</code>:距离屏幕左边和上边的距离。</li>
+</ul>
+<p><strong>IE中的event对象</strong></p>
+<p><code>IE</code>中的<code>event</code>对象，是window对象的一个属性，可以通过<code>window</code>对象调用，而不需要传值。如：<code>window.event</code>.</p>
+<p>IE中<code>Event</code>对象属性。</p>
+<p><code>type</code>，<code>clientX</code>，<code>clentY</code>，<code>x</code>，<code>y</code>，<code>screenX</code>，<code>screenY</code>。同上。</p>
+<p><a href="实例-简易购物车模块.html">简易购物车</a></p>
+<p><a href="实例-小星星.html">随机生成小图片</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/04/15/PHP(一)-环境搭建/" data-toggle="tooltip" data-placement="top" title="PHP(一)-环境搭建">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/04/13/基础篇(四)-JS-BOM/" data-toggle="tooltip" data-placement="top" title="基础篇(四)-JS-BOM">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#入门" title="入门">入门</a>
+                        
+                          <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/04/14/%E5%9F%BA%E7%A1%80%E7%AF%87(%E4%BA%94)-JS-DOM/";
+    var disqus_url = "http://szysky.com/2016/04/14/%E5%9F%BA%E7%A1%80%E7%AF%87(%E4%BA%94)-JS-DOM/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

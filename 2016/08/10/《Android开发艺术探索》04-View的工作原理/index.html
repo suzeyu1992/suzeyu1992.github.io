@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android 开发艺术探索》 04-View的工作原理 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/08/10/《Android开发艺术探索》04-View的工作原理/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android 开发艺术探索》 04-View的工作原理</h1>
+                    <h2 class="subheading">抄书系列</h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-08-10
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>拨开炫酷的外表, 看看衣服里面的View是怎样工作的</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/Notes_AndroidDevSeek">blog相关代码</a></p>
+<h2 id="ViewRoot和DecorView"><a href="#ViewRoot和DecorView" class="headerlink" title="ViewRoot和DecorView"></a>ViewRoot和DecorView</h2><p>这是在View三大流程之前(<code>measure</code>, <code>layout</code>, <code>draw</code>),需要了解的概念.</p>
+<p><code>ViewRoot</code>对应于<code>ViewRootImpl</code>, 它是连接<code>WindowManager</code>和<code>DecorView</code>的纽带. View的三大流程都是通过<code>ViewRoot</code>来完成的. 当一个<code>Activity</code>对象在<code>ActivityThread</code>被创建后. 会将<code>DecorView</code>添加到<code>Window</code>中, 同时会创建<code>ViewRootImp</code>对象, 并将<code>ViewRootImpl</code>对象和<code>DecorView</code>建立关联.</p>
+<p>View绘制流程是从ViewRoot的<code>PerformTraversals()</code>开始的. 经过三大流程才能将一个View绘制出来.</p>
+<p><code>PerformTraversals()</code>会依次调用<code>performMeasure</code>, <code>performLayout</code>, <code>performDraw</code>. 而前两种内部的调用基本一致,都是先调用<code>measure()/layout()</code>,然后再调用<code>onMeasure()/onLayout()</code>在这个方法中会对所有子元素进行测量和绘制.依次向内部传递.  <code>performDraw()</code>有点不同是在<code>draw</code>调用的<code>dispatchDraw()</code>.</p>
+<ul>
+<li><strong>measure过程</strong>: 决定了View宽高, measure后可以通过<code>getMeasureWidth和getMeasureHeight</code>来获取View的宽高. 一般情况下是最终宽高.</li>
+<li><strong>layout过程</strong>: 决定了View的顶点坐标和实际View的宽高. 完成后通过<code>getTop, getBottom, getLeft, getRight</code>获得四个顶点, 通过<code>getWidth,和getHeight</code>获得宽高</li>
+<li><strong>draw过程</strong>: 只有draw()方法完成之后View的内容才会显示出来.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">setContentView(R.layout.activity_inside_intercept);</span><br><span class="line">((ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content)).getChildAt(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上面第一行可以说无时无刻不存在. 而下面这行在上一章说过就是获得我们设置的布局.那<code>DecorView</code>布局究竟是怎么样的, 下图.</p>
+<p><img src="decorView.png"></p>
+<p><code>DecorView</code>就是一个FrameLayout.  而一般情况下它的布局就如上面图那样(具体和主题有关系). 而我们经常<code>setContentView(xxx)</code>. 就是把我们编写的xml的布局添加到了<code>DecorView</code>的<code>android.R.id.content</code>的控件布局中. 所以也就能说通为什么<code>getChildAt(0)</code>会获得我们的的布局.<br>并且为什么我们用的关联布局的方法是setContent…</p>
+<h2 id="MeasureSpec"><a href="#MeasureSpec" class="headerlink" title="MeasureSpec"></a>MeasureSpec</h2><blockquote>
+<p>很大程度上决定一个View的尺寸规格, 之所以不是绝对, 是因为这个过程还受父容器的影响.</p>
+</blockquote>
+<h3 id="理解MeasureSpec"><a href="#理解MeasureSpec" class="headerlink" title="理解MeasureSpec"></a>理解MeasureSpec</h3><p><code>MeasureSpec</code>本身是一个32位的int值, 但是却表示了两种信息. </p>
+<ul>
+<li>高2位: 代表了SpecMode, 测量模式</li>
+<li>低30位: 代表了SpecSize, 在上述测量模式中的大小</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MeasureSpec</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MODE_SHIFT = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MODE_MASK  = <span class="number">0x3</span> &lt;&lt; MODE_SHIFT;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNSPECIFIED = <span class="number">0</span> &lt;&lt; MODE_SHIFT;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> EXACTLY     = <span class="number">1</span> &lt;&lt; MODE_SHIFT;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> AT_MOST     = <span class="number">2</span> &lt;&lt; MODE_SHIFT;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">makeMeasureSpec</span><span class="params">(<span class="keyword">int</span> size, <span class="keyword">int</span> mode)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (sUseBrokenMakeMeasureSpec) &#123;</span><br><span class="line">          <span class="keyword">return</span> size + mode;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> (size &amp; ~MODE_MASK) | (mode &amp; MODE_MASK);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">makeSafeMeasureSpec</span><span class="params">(<span class="keyword">int</span> size, <span class="keyword">int</span> mode)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (sUseZeroUnspecifiedMeasureSpec &amp;&amp; mode == UNSPECIFIED) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> makeMeasureSpec(size, mode);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getMode</span><span class="params">(<span class="keyword">int</span> measureSpec)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> (measureSpec &amp; MODE_MASK);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">         </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">(<span class="keyword">int</span> measureSpec)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> (measureSpec &amp; ~MODE_MASK);</span><br><span class="line">   &#125;</span><br><span class="line">   .....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>是不是挺有意思. 三种类型分别高二位01, 00, 10来代表. 直接利用位运算. 来实现可以让频繁计算的东西使用最接近计算机的运算方式. 不需要额外的转换. 也避免了过多的对象内存分配. </p>
+<p><strong>说一下SpecMode的三种模式</strong></p>
+<ul>
+<li><strong>UNSPECIFIED</strong>: 父容器不对View有任何的限制,要多大就给多大, 这种情况一般用于系统内部,表示一中测量状态</li>
+<li><strong>EXACTLY</strong>: 父容器已经检测出View所需要的精确大小, 这个时候View的最终大小就是<strong>SpecSize</strong>所指定的值. 对应着LayoutParams中的<code>match_parent</code>和具体的数值.</li>
+<li><strong>AT_MOST</strong>: 父容器制定了一个可用的大小及<strong>SpecSize</strong>, View的大小不能超过这个值, 它对应与LayoutParams中的<code>wrap_content</code></li>
+</ul>
+<h3 id="MeasureSpec和LayoutParams关系"><a href="#MeasureSpec和LayoutParams关系" class="headerlink" title="MeasureSpec和LayoutParams关系"></a>MeasureSpec和LayoutParams关系</h3><p>通常设置的<code>LayoutParams</code>,系统会在父容器的的约束下转换成对应的<code>MeasureSpec</code>,然后根据这个<code>MeasureSpec</code>来确定View测量后的宽高. 所以View自身的<code>MeasureSpec</code>是需要<code>LayoutParams</code>和父容器一起组合生成的. </p>
+<p>上面讲述的是普通View, 但是顶级View(DecorView)有所不同. DecorView是物理窗口尺寸和自身的<code>LayoutParams</code>决定的. 具体在<code>ViewRootImpl类measureHierarchy()</code>进行生成的.</p>
+<p>MeasureSpec一旦确定, onMeasure中就可以测量View的宽高.</p>
+<p><strong>对于我们日常操作的View</strong></p>
+<p>View的<code>measure</code>过程是由ViewGroup传递而来的. 看<code>ViewGroup#measureChildWithMargins()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">measureChildWithMargins</span><span class="params">(View child,</span></span></span><br><span class="line"><span class="params"><span class="function">          <span class="keyword">int</span> parentWidthMeasureSpec, <span class="keyword">int</span> widthUsed,</span></span></span><br><span class="line"><span class="params"><span class="function">          <span class="keyword">int</span> parentHeightMeasureSpec, <span class="keyword">int</span> heightUsed)</span> </span>&#123;</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">final</span> MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">final</span> <span class="keyword">int</span> childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec,</span><br><span class="line">              mPaddingLeft + mPaddingRight + lp.leftMargin + lp.rightMargin</span><br><span class="line">                      + widthUsed, lp.width);</span><br><span class="line">      <span class="keyword">final</span> <span class="keyword">int</span> childHeightMeasureSpec = getChildMeasureSpec(parentHeightMeasureSpec,</span><br><span class="line">              mPaddingTop + mPaddingBottom + lp.topMargin + lp.bottomMargin</span><br><span class="line">                      + heightUsed, lp.height);</span><br><span class="line"></span><br><span class="line">      child.measure(childWidthMeasureSpec, childHeightMeasureSpec);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面会对子元素进行<code>measure</code>, 而在此之前,会通过<code>getChildMeasureSpec()</code>来得到子元素的<code>MeasureSpec</code>.  通过调用方法传入的参数看到. 生成View的<code>MeasureSpec</code>和父容器的<code>MeasureSpec</code>, View自身方向的<code>padding``margin</code>, 和自身的LayoutParams这三个因素相关联.</p>
+<p>而其中的<code>getChildmeasureSpec()</code>方法: 就是根据父容器的<code>MeasureSpec</code>同时结合View自身的LayoutParams来确定子元素的<code>MeasureSpec</code>.这个方法总结如下:</p>
+<ul>
+<li><strong>dp/px</strong>: 不管父容器的<code>MeasureSpec</code>是什么. View都是<code>EXACTLY</code>(精确模式), 而大小遵循自身<code>LayoutParams</code>的大小.</li>
+<li><strong>match_parent</strong>: 如果父容器是<code>EXACTLY</code>(精确模式),那么子View也是<code>EXACTLY</code>(精确模式)并且大小是父容器的剩余空间. 如果父容器是<code>AT_MOST</code>(最大模式),那么子View也是<code>AT_MOST</code>(最大模式)并且大小不会超过父容器的剩余空间.</li>
+<li><strong>wrap_content</strong>: 不管父容器是什么. View都是<code>AT_MOST</code>(最大模式), 并且大小不能超过父容器剩余空间.</li>
+</ul>
+<p>上述没有说明<code>UNSPECIFIED</code>在<code>match_parent</code>和<code>wrap_content</code>中. 因为这个模式主要用于系统多次Measure的情形,一般来说不需要关注. </p>
+<h2 id="View的工作流程"><a href="#View的工作流程" class="headerlink" title="View的工作流程"></a>View的工作流程</h2><blockquote>
+<p>主要指measure, layout, draw三大流程. 即测量,布局,绘制.</p>
+</blockquote>
+<h3 id="measure过程"><a href="#measure过程" class="headerlink" title="measure过程"></a>measure过程</h3><p>这里面存在两种场景:</p>
+<ul>
+<li>View: 通过了<code>measure</code>方法就完成了测量过程</li>
+<li>ViewGroup: 除了测量自己,还会遍历去调用所有子元素的<code>measure</code>方法. 各个子元素在递归去执行这个流程</li>
+</ul>
+<p><strong>View的measure过程</strong></p>
+<p>View的<strong>measure</strong>过程由其<code>measure()</code>方法来完成, <code>measure()</code>方法是一个final类型,  而在内部调用了<code>onMeasure()</code>这个可不是final, 所以也可以自定义的时候复写.  看一下内部.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">   setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),</span><br><span class="line">           getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>setMeasureDimension()</code>会设置View宽高的测量值.</p>
+<p>这里需要看一下<code>getDefaultSize()</code>这个方法.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getDefaultSize</span><span class="params">(<span class="keyword">int</span> size, <span class="keyword">int</span> measureSpec)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span> result = size;</span><br><span class="line">   <span class="keyword">int</span> specMode = MeasureSpec.getMode(measureSpec);</span><br><span class="line">   <span class="keyword">int</span> specSize = MeasureSpec.getSize(measureSpec);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">switch</span> (specMode) &#123;</span><br><span class="line">   <span class="keyword">case</span> MeasureSpec.UNSPECIFIED:</span><br><span class="line">       result = size;</span><br><span class="line">       <span class="keyword">break</span>;</span><br><span class="line">   <span class="keyword">case</span> MeasureSpec.AT_MOST:</span><br><span class="line">   <span class="keyword">case</span> MeasureSpec.EXACTLY:</span><br><span class="line">       result = specSize;</span><br><span class="line">       <span class="keyword">break</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看到如果这个view是<code>EXACTLY</code>(精准模式), 那么返回的大小就是SpecSize. <code>UNSPECIFIED</code>一般用于系统测量先不说.   而<code>AT_MOST</code>(最大模式)的时候. 虽然是不同模式但是默认情况下和精确模式是一样的结果.  </p>
+<p><code>getSuggestedMinimumWidth()</code>和<code>getSuggestedMinimumHeight()</code>. 看一下实现.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getSuggestedMinimumWidth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (mBackground == <span class="keyword">null</span>) ? mMinWidth : max(mMinWidth, mBackground.getMinimumWidth());</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getSuggestedMinimumHeight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (mBackground == <span class="keyword">null</span>) ? mMinHeight : max(mMinHeight, mBackground.getMinimumHeight());</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先会看是否设置了背景.</p>
+<ul>
+<li><strong>无背景:</strong> 那么宽度为<code>mMinWidth</code>,这个值对应布局中的<code>android:minWidth</code>属性,默认为0.</li>
+<li><strong>有背景:</strong> 那么取<code>mMinWidth</code>和<code>mBackground.getMinimumHeight()</code>最大值.</li>
+</ul>
+<p>而<code>getMinimumHeight()</code>根据看一下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMinimumHeight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">final</span> <span class="keyword">int</span> intrinsicHeight = getIntrinsicHeight();</span><br><span class="line">   <span class="keyword">return</span> intrinsicHeight &gt; <span class="number">0</span> ? intrinsicHeight : <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原来<code>getMinimumHeight()</code>返回的就是<code>Drawable</code>的原始高度. 如果没有就返回0. 关于<strong>原始高度</strong>举个例子<code>ShapeDrawable</code>无原始宽高, <code>BitmapDrawble</code>有原始宽高就是图片的尺寸. </p>
+<p><strong>整理<code>getDefaultSize()</code></strong>: 直接继承View的自定义控件需要重写<code>onMeasure()</code>方法并设置<code>wrap_content</code>时的自身大小,否则在布局中使用<code>wrap_content</code>虽然View自身的<code>MeasureSpec</code>的低30位保存了父容器计算自身的剩余大小. 但是在<strong>自定义的时候如果不进行处理wrap_content,那么就会调用默认setMeasureDimension()方法. 而默认中方法的实参传递的是<code>getDefaultSize()</code>这个方法中对AT_MOST这种模式没有处理. 直接沿用和精确模式的大小(相当于设置了wrap_content却得到了match_parent的显示结果)</strong></p>
+<p>可以针对这个问题, 做出对应的编码进行解决:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">int</span> widthSpaceSize = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">       <span class="keyword">int</span> widthSpaceMode = MeasureSpec.getMode(widthMeasureSpec);</span><br><span class="line">       <span class="keyword">int</span> heightSpaceSize = MeasureSpec.getSize(heightMeasureSpec);</span><br><span class="line">       <span class="keyword">int</span> heightSpaceMode = MeasureSpec.getMode(heightMeasureSpec);</span><br><span class="line">       </span><br><span class="line">       <span class="comment">//设置两个默认值宽高</span></span><br><span class="line">       <span class="keyword">int</span> defaultHeight = <span class="number">100</span>;</span><br><span class="line">       <span class="keyword">int</span> defaultWidth = <span class="number">100</span>;</span><br><span class="line">       </span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 针对AT_MOST模式进行特殊处理</span></span><br><span class="line">       <span class="keyword">if</span> (widthSpaceMode == MeasureSpec.AT_MOST </span><br><span class="line">               &amp;&amp; heightSpaceMode == MeasureSpec.AT_MOST)&#123;</span><br><span class="line">           </span><br><span class="line">           setMeasuredDimension(defaultWidth, defaultHeight);</span><br><span class="line">           </span><br><span class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span> (widthSpaceMode == MeasureSpec.AT_MOST)&#123;</span><br><span class="line">           </span><br><span class="line">           setMeasuredDimension(defaultWidth, heightSpaceSize);</span><br><span class="line">           </span><br><span class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span> (heightSpaceMode == MeasureSpec.AT_MOST)&#123;</span><br><span class="line">           </span><br><span class="line">           setMeasuredDimension(widthMeasureSpec, defaultHeight);</span><br><span class="line">           </span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>ViewGroup的Measure</strong></p>
+<blockquote>
+<p>对于<code>ViewGroup</code>不光会测量自己,还会遍历调用所有的子元素的<code>measure()</code>. 和<code>View</code>不同的是<code>ViewGroup</code>是一个抽象类,它没有重写<code>onMeasure</code>,但提供了<code>measureChildren()</code>的方法.</p>
+</blockquote>
+<p>这个<code>measureChildren()</code>方法内部比较简单就是遍历自己的孩子然后调用-&gt;<code>measureChild()</code></p>
+<p>这个<code>measureChild()</code>这个方法前面贴过源码. 就是取出子元素的<code>LayoutParams</code>,并调用-&gt;<code>getChildMeasureSpec()</code>. 通过传入<strong>子元素的LayoutParams里面的宽高属性, 子元素的padding和margin, 父元素当前(当前ViewGroup)的MeasureSpec属性</strong>来计算出子元素的<code>MeasureSpec</code>最后调用-&gt;<code>child.measure()</code>传入之前计算的测量规格.</p>
+<p><strong>ViewGroup为什么没有定义测量的具体过程?</strong> 因为具体的测量过程需要交给子类去实现的. 比如<code>LinearLayout</code>,<code>RelativeLayout</code>. </p>
+<p>看一下<code>LinearLayout</code>的<code>onMeasure()</code>是如何定义的.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (mOrientation == VERTICAL) &#123;</span><br><span class="line">       measureVertical(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       measureHorizontal(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据设置的排列方式这里分之了两种测量方法. 稍微看一下大概轮廓,选择<code>measureVertical()</code>不贴源码了这个方法300行呢!</p>
+<p>首先这个方法会遍历每个子元素并执行-&gt;<code>measureChildBeforeLayout()</code>方法.这个方法内部会调用子元素的<code>measure()</code>, 这样子元素会依次测量. 并且会通过<code>mTotalLenght</code>这个变量来存储LinearLayout在竖直方向上的初步高度, 每测量一个就会增加. 当子元素测量完之后,LinearLayout会测量自己的大小.</p>
+<hr>
+<p>在对自己进行测量的时候. 如果布局中的高度采用的是<code>match_parent</code>或者<code>具体数值</code>, 那么它的测量过程和View一样,即高度为<code>specSize</code>. 如果布局中采用<code>wrap_content</code>那么高度就是所有的子元素总和但是不能超过父元素剩余空间, 还有竖直方向LinearLayout的<code>padding</code>. 具体可参考<code>resolveSizeAndState()</code>的实现.</p>
+<p>到这里基本上<code>measure</code>测量过程已经做了比较详细的分析. 这个过程也是三大过程中最复杂的一个. 在<code>measure</code>完成之后就可以通过<code>getMeasuredWidth/Height</code>方法获取View的测量宽高. <strong>但是请注意</strong>:某些极端情况下,measure可能执行多次. 所以尽量在<code>onLayout()</code>方法中去获得最终宽高.</p>
+<h3 id="正确获取宽高方法"><a href="#正确获取宽高方法" class="headerlink" title="正确获取宽高方法"></a>正确获取宽高方法</h3><p><strong>首先明确一点:View的measure和Activity的生命周期方法不是同步执行.所以无法保证在某个生命周期(onCreate,onStart)获取到正确的测量宽高</strong></p>
+<ul>
+<li>onWindowFocusChanged()</li>
+<li>view.post(runnable)</li>
+<li>ViewTreeObserve</li>
+<li>view.measure()</li>
+</ul>
+<ol>
+<li><code>onWindowFocusChanged()</code>:View已经初始化完毕,宽高已经准备好. 这里需要注意只要Activity的焦点发生变化此方法就会被调用.所以如果你的界面会频繁的进行<code>onPause</code>和<code>onResume</code>.并且里面有很多关联依赖的方法. 那就请注意这不是一个好办法.</li>
+<li>通过<code>post</code>可以将一个runnable投递到消息队列的尾部,然后等待<code>Looper</code>调用此runnable的时候.View已经初始化完毕.</li>
+<li>使用<code>ViewTreeObserver</code>. 当View的可见性发生了改变的时候.<code>onGlobalLayout()</code>将发生回调.注意伴随着View树的状态改变等,这个回调方法可能会被调用多次. 使用代码如下</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ViewTreeObserver viewTreeObserver = tv_main.getViewTreeObserver();</span><br><span class="line">       viewTreeObserver.addOnGlobalLayoutListener(<span class="keyword">new</span> ViewTreeObserver.OnGlobalLayoutListener() &#123;</span><br><span class="line">           <span class="meta">@Override</span></span><br><span class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onGlobalLayout</span><span class="params">()</span> </span>&#123;</span><br><span class="line">               tv_main.getViewTreeObserver().removeOnGlobalLayoutListener(<span class="keyword">this</span>);</span><br><span class="line">               tv_main.getMeasuredHeight();</span><br><span class="line">               tv_main.getMeasuredWidth();</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>view.measure(widthMeasureSpec, heightMeasureSpec)</li>
+</ol>
+<p>也可以手动进行测量,但是需要分情况处理.</p>
+<p><strong>match_parent</strong></p>
+<p>当View是此属性的时候无法使用<code>measure()</code>,首先使用这种方法需要的参数,是通过父容器和子元素组合来生成的子元素的<code>MeasureSpec</code>属性. 所以在外部我们不知道父元素的参数值得时候只能处理<strong>不需要父元素数据就可以生成子元素的MeasureSpec的模式</strong></p>
+<p>所以很清楚, 这个<code>match_patch</code>这个模式,在给其子元素构造<code>MeasureSpec</code>的时候需要得值<code>parentSize</code>,所以得到的也是无效.</p>
+<p><strong>具体数值px/dx</strong></p>
+<p>假设这里是100px, 首先构成宽高对应的<code>MeasureSpec</code>属性</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> widthSpec = View.MeasureSpec.makeMeasureSpec(<span class="number">100</span>, View.MeasureSpec.EXACTLY);</span><br><span class="line"><span class="keyword">int</span> heightSpec = View.MeasureSpec.makeMeasureSpec(<span class="number">100</span>, View.MeasureSpec.EXACTLY);</span><br><span class="line">       tv_main.measure(widthSpec, heightSpec);</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>wrap_content</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> widthSpec = View.MeasureSpec.makeMeasureSpec(((<span class="number">1</span> &lt;&lt; <span class="number">30</span>)-<span class="number">1</span>), View.MeasureSpec.AT_MOST);</span><br><span class="line"><span class="keyword">int</span> heightSpec = View.MeasureSpec.makeMeasureSpec(((<span class="number">1</span> &lt;&lt; <span class="number">30</span>)-<span class="number">1</span>), View.MeasureSpec.AT_MOST);</span><br><span class="line">    tv_main.measure(widthSpec, heightSpec);</span><br></pre></td></tr></table></figure>
+
+<p>通过(1&lt;&lt;30)-1 可以构成一个<code>MeasureSpec</code>低30位的最大值. 用理论上View能支持的最大值去构造</p>
+<p><strong>关于网上一些在make的使用传入<code>UNSPECIFIED</code>,属于违背了内部实现的规范.不用最好</strong></p>
+<p><strong>关于网上另一种<code>measure()</code>直接传入<code>LayoutParams.WRAP_CONTENT</code>. 其实也只有当子元素为<code>wrap_content</code>和子元素为<code>match_parent</code>并且父元素是<code>wrap_conetnt</code>时会碰巧有效.</strong></p>
+<h3 id="layout过程"><a href="#layout过程" class="headerlink" title="layout过程"></a>layout过程</h3><p>在<code>ViewGroup</code>中会先通过<code>layout()</code>方法确定本身的位置. 然后调用<code>onLayout()</code>方法遍历所有的子元素,并调用子元素的<code>layout()</code>方法确定子元素的位置…依次循环.</p>
+<p>提出<code>View</code>的<code>layout</code>方法, 这里抽取部分代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">layout</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> t, <span class="keyword">int</span> r, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> oldL = mLeft;</span><br><span class="line">       <span class="keyword">int</span> oldT = mTop;</span><br><span class="line">       <span class="keyword">int</span> oldB = mBottom;</span><br><span class="line">       <span class="keyword">int</span> oldR = mRight;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">boolean</span> changed = isLayoutModeOptical(mParent) ?</span><br><span class="line">               setOpticalFrame(l, t, r, b) : setFrame(l, t, r, b);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (changed || (mPrivateFlags &amp; PFLAG_LAYOUT_REQUIRED) == PFLAG_LAYOUT_REQUIRED) </span><br><span class="line">       &#123; onLayout(changed, l, t, r, b);&#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样来看,大致流程通过<code>setFrame()</code>方法来设定View的四个顶点的位置, 即<strong>mLeft,mTop,mBottom,mRight</strong>,这四个顶点一旦确定.当前View的位置也就确定. 然后会调用<code>onLayout()</code>方法. 这个方法是确定子元素的View位置.</p>
+<p>这里的和<code>onMeasure()</code>类似, <code>onLayout()</code>具体实现和具体的布局有关, 所以View和ViewGroup均没有真正实现<code>onLayout()</code>方法.</p>
+<p>看一下<code>LinearLayout</code>的<code>onLayout()</code>源码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onLayout</span><span class="params">(<span class="keyword">boolean</span> changed, <span class="keyword">int</span> l, <span class="keyword">int</span> t, <span class="keyword">int</span> r, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (mOrientation == VERTICAL) &#123;</span><br><span class="line">       layoutVertical(l, t, r, b);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       layoutHorizontal(l, t, r, b);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>和<code>onMeasure()</code>一样分支,接下来跟进<code>layoutVertical()</code>贴出主要代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">layoutVertical</span><span class="params">(<span class="keyword">int</span> left, <span class="keyword">int</span> top, <span class="keyword">int</span> right, <span class="keyword">int</span> bottom)</span> </span>&#123;</span><br><span class="line">           <span class="comment">//省略一部分...</span></span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">           <span class="keyword">final</span> View child = getVirtualChildAt(i);</span><br><span class="line">           <span class="keyword">if</span> (child == <span class="keyword">null</span>) &#123;</span><br><span class="line">               childTop += measureNullChild(i);</span><br><span class="line">           &#125; <span class="keyword">else</span> <span class="keyword">if</span> (child.getVisibility() != GONE) &#123;</span><br><span class="line">               <span class="keyword">final</span> <span class="keyword">int</span> childWidth = child.getMeasuredWidth();</span><br><span class="line">               <span class="keyword">final</span> <span class="keyword">int</span> childHeight = child.getMeasuredHeight();</span><br><span class="line">               </span><br><span class="line">               <span class="keyword">final</span> LinearLayout.LayoutParams lp =</span><br><span class="line">                       (LinearLayout.LayoutParams) child.getLayoutParams();</span><br><span class="line">               </span><br><span class="line">               <span class="keyword">int</span> gravity = lp.gravity;</span><br><span class="line">               <span class="keyword">if</span> (gravity &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                   gravity = minorGravity;</span><br><span class="line">               &#125;</span><br><span class="line">                <span class="comment">//省略一部分...</span></span><br><span class="line"></span><br><span class="line">               <span class="keyword">if</span> (hasDividerBeforeChildAt(i)) &#123;</span><br><span class="line">                   childTop += mDividerHeight;</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">               childTop += lp.topMargin;</span><br><span class="line">               setChildFrame(child, childLeft, childTop + getLocationOffset(child),</span><br><span class="line">                       childWidth, childHeight);</span><br><span class="line">               childTop += childHeight + lp.bottomMargin + getNextLocationOffset(child);</span><br><span class="line"></span><br><span class="line">               i += getChildrenSkipCount(child, i);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>上面代码大体逻辑: 首先遍历所有孩子并调用<code>setChildFrame()</code>来为子元素指定对应的位置. 其中<code>childTop</code>会逐渐增大, 这就意味着后面的子元素会被放置在靠下的位置. 而<code>setChildFrame()</code>内部仅有一行代码, 就是调用子元素的<code>layout()</code>并传入它自身应该存放的位置.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setChildFrame</span><span class="params">(View child, <span class="keyword">int</span> left, <span class="keyword">int</span> top, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;        </span><br><span class="line">     child.layout(left, top, left + width, top + height);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>而在<code>setChildFrame()</code>中传入的宽高就是子元素的测量宽高.</p>
+<p>而在子元素的<code>layout()</code>中通过<code>setFrame()</code>来设置元素的四个顶点.</p>
+<p><strong>getWidth()layout中的宽  和getMeasureWidth()中的宽永远一样么?</strong></p>
+<p>在一般情况下,测量measure和layout时候的值是完全一样的. 因为<code>layout()</code>中接受的参数就是通过测量的结果获取到的. 并且内部直接通过<code>setFrame()</code>赋值到自己的四个成员变量上. 但是如果对<code>layout()</code>进行了复写.如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">layout</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> t, <span class="keyword">int</span> r, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">super</span>.layout( l,  t+<span class="number">200</span>,  r,  b+<span class="number">200</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果进行了这样的复写, 那么<strong>最终宽高</strong>永远会与<strong>测量的</strong>出来的值相差200.</p>
+<h3 id="draw过程"><a href="#draw过程" class="headerlink" title="draw过程"></a>draw过程</h3><p>这个过程只是将View绘制到屏幕上面.</p>
+<ol>
+<li>绘制背景<code>background.draw(canvas)</code></li>
+<li>绘制自己<code>onDraw()</code></li>
+<li>绘制children<code>dispatchDraw()</code></li>
+<li>绘制装饰<code>onDrawScrollBars()</code></li>
+</ol>
+<p>View绘制过程传递是通过<code>dispatchDraw()</code>实现的. 传递了自己的画布. 这个方法会遍历子元素并且调用元素的<code>draw()</code></p>
+<p>View一个特有的方法<code>setWillNotDraw()</code>, 这个方法是设置了<code>true</code>那么系统会进行相应的优化. 在View中默认是关闭的. 而ViewGroup默认是开启的. 如果我们继承了自定义ViewGroup如果还需要绘制自己的内容那么需要显示的关闭此标记.</p>
+<h2 id="自定义View"><a href="#自定义View" class="headerlink" title="自定义View"></a>自定义View</h2><h3 id="自定义View的分类"><a href="#自定义View的分类" class="headerlink" title="自定义View的分类"></a>自定义View的分类</h3><p><a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/Notes_AndroidDevSeek">相关代码</a></p>
+<p><strong>1.继承View重写onDraw方法</strong></p>
+<p>这种方法主要用于实现一些不规则的效果, 不方便组合布局实现,或者又有动态显示的一些图形. 需要自己绘制那么就重写<code>onDraw()</code>方法. <strong>这种方法需要自己支持wrap_content和padding</strong></p>
+<p><strong>2.继承ViewGroup派生特殊Layout</strong></p>
+<p>这种方式用于实现自定义布局, 这种布局的实现稍微复杂,需要合适的处理ViewGroup的测量,布局这两个过程,并同时处理子元素的测量和布局过程.</p>
+<p><strong>3.继承特定的View(TextView)</strong></p>
+<p>比较常见, 一般用于扩展已有的View的功能. 这种不需要自己处理wrap_content和padding</p>
+<p><strong>4.继承特定ViewGroup(LinearLayout)</strong></p>
+<p>当某种效果看起来像几种View的组合在一起的时候,可以采用这种方式. 这种方式不需要自己处理ViewGroup的测量和布局. 其实这种方式和2没什么区别, 主要是2更接近于底层的View实现.</p>
+<h3 id="自定义View的须知"><a href="#自定义View的须知" class="headerlink" title="自定义View的须知"></a>自定义View的须知</h3><ol>
+<li>让View支持<code>wrap_content</code></li>
+<li>最好让你的View支持<code>padding</code> -&gt; 如果直接继承View,在<code>draw()</code>中不处理padding,那么属性是无法起作用的. 还有继承ViewGroup的控件需要在<code>onMeasure</code>和<code>onLayout</code>中考虑<code>padding</code>和子元素的<code>margin</code>会造成的影响.</li>
+<li>尽量不要在View中使用<code>Handler</code> -&gt; 内部已经提供了post系列方法. 除非很明确要是用Handler发送消息.</li>
+<li>View中如果有线程或者动画,需要及时的停止.-&gt; 当包含此View的Activity退出或者此View被remove的时候,View的<code>onDetachedFromWindow()</code>会被调用,可以适当处理防止内存泄漏.</li>
+<li>View带有的滑动嵌套时,需要处理好滑动冲突.</li>
+</ol>
+<h3 id="自定义View实例"><a href="#自定义View实例" class="headerlink" title="自定义View实例"></a>自定义View实例</h3><p><strong>1.自定义View派生类</strong></p>
+<p>首先写一个类继承<code>View</code>, 并在<code>ondraw()</code>画一个圆. 并设置<code>margin</code>属性. 效果没有问题,因为<code>margin</code>属性是由父容器控制的.</p>
+<p><img src="cusview01.png"></p>
+<p>**问题1:**这里把<code>android:layout_width=&quot;wrap_content&quot;</code>设置根据内容. 发现无效.</p>
+<p><strong>不管是设置match_parent也好,wrap_content也好父容器都会给分配自己剩余空间的大小给子容器作为specSize的空间大小</strong>这时需要手动处理. 因为不处理那就是相当于和<code>match_parent</code>填充父容器的效果一样.</p>
+<p>所以增添<code>对onMeasure()</code>方法中的<code>AT_MOST</code>模式的制定默认大小, 然后在运行, ok,如下</p>
+<p><img src="cusview02.png"></p>
+<p>**问题2:**这时加上属性<code>padding=20dp</code>发现无效. 无变化. 之前说过<code>margin</code>是交给父容器分配的.<code>padding</code>确实要自己要分配处理的. 这时需要在<code>onDraw()</code>来处理. 处理后如下</p>
+<p><img src="cusview03.png"></p>
+<p>**问题3:**有时候我们需要提供自定义属性. 例如<code>android:id=</code>这种. 接下来添加自定义属性.</p>
+<ol>
+<li>在<code>values</code>目录下创建自定义属性的xml. 名字随便当最好<code>attrs.xml</code>或者<code>attrs_xxx_xxx.xml</code>.</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">&quot;CircleView&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">&quot;circle_color&quot;</span> <span class="attr">format</span>=<span class="string">&quot;color&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面相当于,定义了一个<code>CircleView</code>的属性集合. 在这个集合里面会有自定义属性. 这里的<code>format</code>格式可以是指定尺寸的<code>dimension</code>, 资源id引用的<code>reference</code>, 基本类型<code>string, integer ,boolean</code>等.</p>
+<ol start="2">
+<li>声明好了属性在我们自定义View中就可以引用处理了. 如构造方法中.</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">CircleView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">       <span class="comment">//获得一个自定义的对应属性值集合</span></span><br><span class="line">       TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleView);</span><br><span class="line">       <span class="comment">//取出属性集合中的某个属性值</span></span><br><span class="line">       mColor = typedArray.getColor(R.styleable.CircleView_circle_color, Color.GREEN);</span><br><span class="line">       <span class="comment">//释放资源</span></span><br><span class="line">       typedArray.recycle();</span><br><span class="line">       init();</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在布局中使用即可.</li>
+</ol>
+<p>先声明schemas. <code>xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</code> ,使用<code>app</code>来替代之前的类似<code>android</code>前缀的引导.</p>
+<p>继承View的派生类就到此为止了.</p>
+<hr>
+<p><strong>继承ViewGroup就不说了, 可以看第三章中的仓库代码的那个自定义View大致实现ViewPager的滑动</strong></p>
+<blockquote>
+<p>下一节: 理解RemoteViews</p>
+</blockquote>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/08/11/《Android开发艺术探索》-05-理解RemoteViews/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 05-理解RemoteViews">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/08/08/Android开发艺术探索-笔记03-View的事件体系/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 03-View的事件体系">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/08/10/%E3%80%8AAndroid%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B04-View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/";
+    var disqus_url = "http://szysky.com/2016/08/10/%E3%80%8AAndroid%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B04-View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

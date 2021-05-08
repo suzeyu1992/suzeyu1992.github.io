@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          线性表 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2017/01/04/线性表/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#数据结构" title="数据结构">数据结构</a>
+                        
+                    </div>
+                    <h1>线性表</h1>
+                    <h2 class="subheading">数据结构之线性表</h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2017-01-04
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>首先看一下<code>线性表</code>都包括哪些结构:</p>
+<p><img src="data_linear_all.png"></p>
+<h2 id="线性表的定义"><a href="#线性表的定义" class="headerlink" title="线性表的定义"></a>线性表的定义</h2><blockquote>
+<p>零个或多个数据元素的有限序列. </p>
+</blockquote>
+<ul>
+<li><code>序列</code>: 说明了元素之间是由顺序的. </li>
+<li><code>有限</code>: 泛指元素的个数为有限. 因为计算机中处理的对象都是有限的, 无限数列只存在数学的概念中. </li>
+</ul>
+<p>线性表的元素个数为<code>&gt;=0</code>. 当元素的个数为<code>0</code>. 这个表称之为<code>空表</code>.</p>
+<h2 id="线性表的特性"><a href="#线性表的特性" class="headerlink" title="线性表的特性"></a>线性表的特性</h2><p>一个<code>线性表</code>应该具备哪些基本的功能呢?</p>
+<ul>
+<li><code>置空</code></li>
+<li><code>查找</code> </li>
+<li><code>插入</code></li>
+<li><code>删除</code></li>
+<li><code>长度</code></li>
+</ul>
+<p>这是大体一个<code>线性集合</code>应该具有的抽象功能. 当然根据<code>顺序结构</code>,<code>链表结构</code>的不同. 具体实现的能力也是不同的. </p>
+<h2 id="顺序存储结构"><a href="#顺序存储结构" class="headerlink" title="顺序存储结构"></a>顺序存储结构</h2><blockquote>
+<p>线性表的顺序存储结构, 就是用一段<code>地址连续</code>的存储单元依次存储线性表的数据元素. 如<code>java</code>中的<code>ArrayList</code></p>
+</blockquote>
+<p>例如<code>ArrayList</code>如果实现. 由于存储的元素都是相同类型的. 那么就可以使用一维数组来实现顺序存储结构.</p>
+<p>既然使用了<code>数组</code>. 那么在最开始的时候需要先<code>开辟内存空间</code>. 也就是说需要先指定一个<code>数组大小</code>. 作为线性表的可存储的最大长度. 这也是<code>顺序存储结构的劣势</code>.</p>
+<h3 id="插入删除特点"><a href="#插入删除特点" class="headerlink" title="插入删除特点"></a>插入删除特点</h3><p><strong>插入</strong></p>
+<p><img src="data_linear_seq.png"></p>
+<p>可以看到为了. 插入到<code>位置2</code>. 原来的<code>2,3,4,5</code>都要进行位置的移动. 如果这个排队只能进行<code>5个人</code>. 那么前面的插入会把<code>第五个</code>人踢出去. 那么这个时候<code>第五个</code>人肯定不干. 也就是对应着开发中的<code>角标越界</code>. 需要注意. </p>
+<hr>
+<p><strong>删除</strong></p>
+<p>同样<code>删除</code>元素, 会造成被删除元素位置的<code>为空</code>. 那么就需要后续的元素进行向前的补齐. 也就同样无关元素的位置移动. </p>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><ul>
+<li><code>优点</code>: <ul>
+<li>无须为表中表中元素之间的逻辑关系而增加额外的存储空间</li>
+<li>可以快速的存取表中<code>任意位置</code>的元素. 时间复杂度<code>O(1)</code></li>
+</ul>
+</li>
+<li><code>缺点</code> <ul>
+<li><code>插入</code>和<code>删除</code>操作需要移动大量的元素. 时间复杂度<code>O(n)</code> </li>
+<li>当线性表长度变化较大时, 难以确定存储空间的容量</li>
+<li>可能会造成存储空间的碎片存在</li>
+</ul>
+</li>
+</ul>
+<h2 id="链式存储结构"><a href="#链式存储结构" class="headerlink" title="链式存储结构"></a>链式存储结构</h2><blockquote>
+<p><code>顺序结构</code>的特点: 是连续的开辟了一段内存空间. <code>先分配后操作</code>的特点. 让<code>顺序结构</code>变得有了局限性不是那么灵活. 而<code>链式存储结构</code>就是解决了这一问题的顺序结构. </p>
+</blockquote>
+<p>看下图: </p>
+<p><img src="data_linear_link.png"></p>
+<p>可以看出. 每个元素并不一定在内存中相邻的. 而是随意分配. 能实现这种效果是因为<code>每个节点不仅存储了元素的信息, 还保存了下一个元素的内存地址</code> . 这样无论下一个节点在哪里. 都可以通过地址来进行操作. 而不是简单的如<code>顺序存储结构</code>只能想下一个地址位去查找. </p>
+<p>一般<code>链式存储结构</code>中的<code>头结点</code>和<code>尾节点</code>比较特殊. 如果是<code>单向链表</code>尾节点的下一个元素位置一般为<code>null</code>或者空. 如果是<code>双向链表</code>那么头结点的上一个节点为空, 尾节点下一个元素为空. </p>
+<p>所以我们只要知道了<code>头结点</code>那么就可以查找整个<code>链式存储结构</code></p>
+<h3 id="插入删除特点-1"><a href="#插入删除特点-1" class="headerlink" title="插入删除特点"></a>插入删除特点</h3><p>插入和删除是<code>线性表</code>的优势. </p>
+<p>如下图:</p>
+<p><img src="data_linear_linkSert.png"></p>
+<p>同样是插入到<code>2</code>的<code>位置</code>. 这回只需要<code>断开</code>1~2之间的关系. 重新连接<code>1,2,新元素</code>的关系即可. 而<code>其他元素</code>不需要进行变换. </p>
+<p><strong>对于插入或删除数据越频繁操作, 单链表的效率优势就越明显. 因为插入和删除的操作由于只是单纯的修改位置指向. 所以时间复杂度仅仅是 O(1)</strong></p>
+<h3 id="静态链表"><a href="#静态链表" class="headerlink" title="静态链表"></a>静态链表</h3><p>主要是针对一些如<code>Basic</code>, <code>Fortran</code>等早期的高级语言. 由于没有了指针的概念. 有人就想出了用数组代替指针, 用来描述单链表. 活用链表的<code>插入删除</code>的高效性. </p>
+<p><strong>过程</strong>: 让数组的元素都是由两个数据域组成, <code>data</code>和<code>cursor</code>. 数据域<code>data</code>用来存放数据元素; 而<code>cursor</code>相当于单链表中的<code>next</code>指针, 存放该元素的后继在数组中的<code>下标</code>. 这就叫做<code>静态链表</code>或者<code>游标实现法</code></p>
+<h3 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h3><blockquote>
+<p>将单链表中<code>尾节点</code>的指针端由<code>空指针</code>改为指向<code>头结点</code>. 是整个链表成为一个<code>环</code>. 这种头尾相接的单链表称为<code>但循环链表</code>简称<code>单链表</code>.</p>
+</blockquote>
+<h3 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h3><p><code>单向链表</code>有个问题. 就是当你在某一节点的时候. 你是无法直接删除该节点. 因为当前节点不知道<code>上一个节点</code>只是知道下一个节点. 所以这样会造成线性表的断裂. </p>
+<blockquote>
+<p>双向链表是在单链表的每个节点中, 再设置一个指向其前驱节点的指针域. </p>
+</blockquote>
+<h2 id="单链表与顺序存储优缺点"><a href="#单链表与顺序存储优缺点" class="headerlink" title="单链表与顺序存储优缺点"></a>单链表与顺序存储优缺点</h2><ul>
+<li><code>存储方面</code>: <ul>
+<li><code>顺序存储</code>结构用一段连续的存储单元依次存储线性表的数据元素</li>
+<li><code>单链表</code>采用链式存储结构, 用一组<code>任意</code>的存储单元存放线性表元素</li>
+</ul>
+</li>
+<li><code>时间性能</code>:<ul>
+<li><code>查找</code><ul>
+<li>顺序存储结构<code>O(1)</code></li>
+<li>单链表<code>O(n)</code></li>
+</ul>
+</li>
+<li><code>插入删除</code><ul>
+<li>顺序存储结构需要平均移动表长一半的元素, 时间为<code>O(n)</code>    </li>
+<li>单链表在找出某个位置的指针后, 插入和删除仅为<code>O(1)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>空间方面</code>:<ul>
+<li>顺序存储需要<code>预分配</code>存储空间, 分大了浪费, 分小了容易发生空指针.</li>
+<li>单链表不需要分配. 只要需要就可以分配. 并且元素个数也不受限制.</li>
+</ul>
+</li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/01/06/栈与队列/" data-toggle="tooltip" data-placement="top" title="栈与队列">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/01/01/认知算法/" data-toggle="tooltip" data-placement="top" title="算法的了解">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#数据结构" title="数据结构">数据结构</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2017/01/04/%E7%BA%BF%E6%80%A7%E8%A1%A8/";
+    var disqus_url = "http://szysky.com/2017/01/04/%E7%BA%BF%E6%80%A7%E8%A1%A8/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

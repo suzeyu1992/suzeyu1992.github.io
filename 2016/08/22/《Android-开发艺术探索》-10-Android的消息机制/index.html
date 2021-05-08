@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android 开发艺术探索》 10-Android的消息机制 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/08/22/《Android-开发艺术探索》-10-Android的消息机制/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android 开发艺术探索》 10-Android的消息机制</h1>
+                    <h2 class="subheading">抄书系列</h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-08-22
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>第10章: Handler究竟是如何运行的. </p>
+</blockquote>
+<p>Android的消息机制主要指<code>Handler</code>的运行机制, <code>Handler</code>的运行需要底层的<code>MessageQueue</code>和<code>Lopper</code>的支撑.  <strong><code>MessageQueue</code>消息机制</strong>, 内部存储了一组消息, 以队列的形式对外提供插入和删除工作. 虽然叫消息队列,但是其内部存储结构并不是真正的队列,而是采用单链表的数据结构来存储消息列表.   <strong><code>Looper</code>消息循环</strong>, 因为<code>MessageQueue</code>本质只是一个消息的存储单元, 它不能去处理消息, 而<code>Looper</code>就是为实现处理而产生的. <code>Looper</code>会以无限循环的形式去查找是否有新消息, 如果有的话就处理消息, 否在就一直等待. </p>
+<p><code>Looper</code>中有一个特殊的概念<code>ThreadLocal</code>, <code>ThreadLocal</code>并不是一个线程, 它可以在每个线程中进行数据的存储. 我们使用的Handler创建的时候都会采用当前线程的<code>Looper</code>来构造消息循环系统, 而这个<strong>当前线程</strong>就是通过<code>ThreadLocal</code>来进行操作的.    </p>
+<p>有一点需要记住: 一个新的线程默认是没有<code>Looper</code>的, 如果要使用<code>Handler</code>就必为线程创建<code>Looper</code>, 而我们使用主线程的时候之所以不需要创建<code>Looper</code>是因为. <code>UI线程也就是ActivityThread</code>在被创建的时候就会初始化<code>Looper</code>, 所以我们在主线程也就可以直接使用Handler的原因. </p>
+<h2 id="Android-的消息机制描述"><a href="#Android-的消息机制描述" class="headerlink" title="Android 的消息机制描述"></a>Android 的消息机制描述</h2><p>在日常开发中如果不小心在子线程更新了UI那么就会抛出异常, 这一步骤是在<code>ViewRootImpl#checkThread()</code>方法完成的.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">checkThread</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (mThread != Thread.currentThread()) &#123;</span><br><span class="line">       <span class="keyword">throw</span> <span class="keyword">new</span> CalledFromWrongThreadException(</span><br><span class="line">               <span class="string">&quot;Only the original thread that created a view hierarchy can touch its views.&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那Handler可以认为是为了在子线程处理完操作可以切回到主线程进行UI操作的用途.  那为什么不能再子线程进行UI处理呢?</p>
+<p>这是因为Android的<strong>UI线程控件</strong>不是线程安全, 如果在多线程中并发的访问可能会导致UI控件处于不可预期的状态, 虽然可以用加锁的形式让上述问题消失, 但是有两个弊端: </p>
+<ol>
+<li>加锁机制会让UI访问的逻辑变得复杂</li>
+<li>锁机制会降低UI的访问的效率, 因为锁机制会阻塞某些线程的执行.</li>
+</ol>
+<p>因为这样, 最简单且高效的方法就是采用单线程模型来处理UI操作. </p>
+<p>当<code>Handler</code>, <code>Looper</code>, <code>MessageQueue</code>都准备好之后. 就可以通过<code>Handler#post()</code>方法将一个<code>Runnable</code>投递到<code>Handler内部的Looper</code>中去处理, 也可以通过<code>send()</code>方法来发送一个消息, 这个消息同样会在<code>Looper</code>中处理.   而post()内部也是通过send()来发送的.</p>
+<h2 id="Android消息机制分析"><a href="#Android消息机制分析" class="headerlink" title="Android消息机制分析"></a>Android消息机制分析</h2><h3 id="ThreadLocal的工作原理"><a href="#ThreadLocal的工作原理" class="headerlink" title="ThreadLocal的工作原理"></a>ThreadLocal的工作原理</h3><p><code>ThreadLocal</code>是一个线程内部的数据存储类, 通过他可以在指定的线程中存储数据. 数据存储以后, 只能在指定线程中可以获取到存储的数据. 而其他线程无法获取.</p>
+<p>而Android中的<code>Looper</code> ,<code>ActivityThread</code>, <code>AMS</code>都用到了<strong>ThreadLocal</strong>. 可以这样来说: 当某些数据是以线程为作用域并且不同线程具有不同的数据副本的时候, 可以采用<code>ThreadLocal</code>.</p>
+<p>可以自己用三个线程分别对一个<code>ThreadLocal</code>对象进行操作, 虽然操作的是一个对象, 但是每个线程在获取值的时候却不相同. 这是因为: 不同的线程访问同一个<code>ThreadLocal#get()</code>方法的时候, <code>ThreadLocal</code>内部会从各自的线程中取出一个数组, 然后再从数组中根据当前<code>ThreadLocal</code>的索引去查找出对应的value值. 可以看出不同的线程中的数组是不相同的. 所以也就是为什么使用<code>ThreadLocal</code>可以在不同的线程中维护一套数据的副本并且彼此互不影响. </p>
+<p><strong>还是用源码来梳理流程</strong></p>
+<p><code>ThreadLocal</code>是一个泛型类, 它的定义为<code>public class ThreadLocal&lt;T&gt;</code>, 看一下set()或者get()就明白了.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(T value)</span> </span>&#123;</span><br><span class="line">   Thread currentThread = Thread.currentThread();</span><br><span class="line">   Values values = values(currentThread);</span><br><span class="line">   <span class="keyword">if</span> (values == <span class="keyword">null</span>) &#123;</span><br><span class="line">       values = initializeValues(currentThread);</span><br><span class="line">   &#125;</span><br><span class="line">   values.put(<span class="keyword">this</span>, value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先会通过<code>value()</code>方法来获取当前线程中的<code>ThreadLocal</code>数据. 就是在<code>Thread</code>类的内部有一个成员专门用于存储线程的<code>ThreadLocal</code>的数据<code>ThreadLocal.Values localValues</code>. 如果value的值为null那么就会进行初始化, 初始化结束之后再将<code>ThreadLocal</code>的值进行存储.  具体看一下是如何在<code>localValues</code>中进行存储的. </p>
+<p>在<code>localValues</code>中有一个数组<code>private Object[] table</code>, <code>ThreadLocal</code>的值就存在在这个table数组中. 看一下<code>put()</code>方法. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(ThreadLocal&lt;?&gt; key, Object value)</span> </span>&#123;</span><br><span class="line">  cleanUp();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Keep track of first tombstone. That&#x27;s where we want to go back</span></span><br><span class="line">  <span class="comment">// and add an entry if necessary.</span></span><br><span class="line">  <span class="keyword">int</span> firstTombstone = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> index = key.hash &amp; mask;; index = next(index)) &#123;</span><br><span class="line">      Object k = table[index];</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (k == key.reference) &#123;</span><br><span class="line">          <span class="comment">// Replace existing entry.</span></span><br><span class="line">          table[index + <span class="number">1</span>] = value;</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (k == <span class="keyword">null</span>) &#123;</span><br><span class="line">          <span class="keyword">if</span> (firstTombstone == -<span class="number">1</span>) &#123;</span><br><span class="line">              <span class="comment">// Fill in null slot.</span></span><br><span class="line">              table[index] = key.reference;</span><br><span class="line">              table[index + <span class="number">1</span>] = value;</span><br><span class="line">              size++;</span><br><span class="line">              <span class="keyword">return</span>;</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="comment">// Go back and replace first tombstone.</span></span><br><span class="line">          table[firstTombstone] = key.reference;</span><br><span class="line">          table[firstTombstone + <span class="number">1</span>] = value;</span><br><span class="line">          tombstones--;</span><br><span class="line">          size++;</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Remember first tombstone.</span></span><br><span class="line">      <span class="keyword">if</span> (firstTombstone == -<span class="number">1</span> &amp;&amp; k == TOMBSTONE) &#123;</span><br><span class="line">          firstTombstone = index;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里只说看得出的规则, 不需要具体看实现的算法. 规则就是<code>ThreadLocal</code>的值在<code>table</code>数组中的存储位置总是为<code>ThreadLocal</code>的<strong>reference</strong>字段所标示的对象的下一个位置.  例如如果<code>ThreadLocal的reference</code>对象在table中的索引为<code>index</code>, 那么<code>ThreadLocal</code>的值在table数组中的索引就是<code>index+1</code>. </p>
+<p>接着看<code>get()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">// Optimized for the fast path.</span></span><br><span class="line">       Thread currentThread = Thread.currentThread();</span><br><span class="line">       Values values = values(currentThread);</span><br><span class="line">       <span class="keyword">if</span> (values != <span class="keyword">null</span>) &#123;</span><br><span class="line">           Object[] table = values.table;</span><br><span class="line">           <span class="keyword">int</span> index = hash &amp; values.mask;</span><br><span class="line">           <span class="keyword">if</span> (<span class="keyword">this</span>.reference == table[index]) &#123;</span><br><span class="line">               <span class="keyword">return</span> (T) table[index + <span class="number">1</span>];</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           values = initializeValues(currentThread);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> (T) values.getAfterMiss(<span class="keyword">this</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>而<code>ThreadLocal#get()</code>方法, 同样是取出当前线程的<code>Values</code>对象, 同样的通过reference的角标+1来获取. 如果取出的<code>Values</code>对象为null那么就返回初始值, 初始值由<code>ThreadLocal#initialValue()</code>方法来描述, 默认情况下为null(在Android 6.0的源码已经不直接返回null, 而是创建一个Values来返回). 也可以重写这个方法. </p>
+<p>从上面这两个方法也可以看出, 他们所操作的对象都是当前线程的<code>localValues</code>对象的<code>table</code>数组. 因为不同的线程中访问同一个<code>ThreadLocal#set() get()</code>他们对<code>ThreadLocal</code>所做的读写操作仅限于各自线程的对应数据. </p>
+<h3 id="消息队列的工作原理"><a href="#消息队列的工作原理" class="headerlink" title="消息队列的工作原理"></a>消息队列的工作原理</h3><p>消息队列在android中指的是<code>MessageQueue</code>, <code>MessageQueue</code>主要包含两个操作: 插入和读取. 读取操作本身会伴随着删除的操作, 插入和读取对应的方法分别为<code>enqueueMessage()</code>,<code>next()</code>. 前者就是往消息队列中插入一条消息, 而后者就是取出一条消息并将其从消息队列中消除. 上面说过虽然<code>MessageQueue</code>称为消息队列, 但是内部实现使用的是单链表的数据结构来维护的消息列表. 单链表在插入和删除上比较有优势. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">enqueueMessage</span><span class="params">(Message msg, <span class="keyword">long</span> when)</span> </span>&#123;</span><br><span class="line"><span class="comment">// 省略...</span></span><br><span class="line"><span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (mQuitting) &#123;</span><br><span class="line">      IllegalStateException e = <span class="keyword">new</span> IllegalStateException(</span><br><span class="line">              msg.target + <span class="string">&quot; sending message to a Handler on a dead thread&quot;</span>);</span><br><span class="line">      Log.w(TAG, e.getMessage(), e);</span><br><span class="line">      msg.recycle();</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  msg.markInUse();</span><br><span class="line">  msg.when = when;</span><br><span class="line">  Message p = mMessages;</span><br><span class="line">  <span class="keyword">boolean</span> needWake;</span><br><span class="line">  <span class="keyword">if</span> (p == <span class="keyword">null</span> || when == <span class="number">0</span> || when &lt; p.when) &#123;</span><br><span class="line">      <span class="comment">// New head, wake up the event queue if blocked.</span></span><br><span class="line">      msg.next = p;</span><br><span class="line">      mMessages = msg;</span><br><span class="line">      needWake = mBlocked;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      needWake = mBlocked &amp;&amp; p.target == <span class="keyword">null</span> &amp;&amp; msg.isAsynchronous();</span><br><span class="line">      Message prev;</span><br><span class="line">      <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">          prev = p;</span><br><span class="line">          p = p.next;</span><br><span class="line">          <span class="keyword">if</span> (p == <span class="keyword">null</span> || when &lt; p.when) &#123;</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (needWake &amp;&amp; p.isAsynchronous()) &#123;</span><br><span class="line">              needWake = <span class="keyword">false</span>;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      msg.next = p; <span class="comment">// invariant: p == prev.next</span></span><br><span class="line">      prev.next = msg;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (needWake) &#123;</span><br><span class="line">      nativeWake(mPtr);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;               </span><br></pre></td></tr></table></figure>
+<p>可以看到<code>enqueueMessage</code>的实现主要操作就是单链表的插入操作. 继续看一下<code>next()</code>方法.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">Message <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">final</span> <span class="keyword">long</span> ptr = mPtr;</span><br><span class="line">   <span class="keyword">int</span> pendingIdleHandlerCount = -<span class="number">1</span>; <span class="comment">// -1 only during first iteration</span></span><br><span class="line">   <span class="keyword">int</span> nextPollTimeoutMillis = <span class="number">0</span>;</span><br><span class="line">   <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">       <span class="keyword">if</span> (nextPollTimeoutMillis != <span class="number">0</span>) &#123;</span><br><span class="line">           Binder.flushPendingCommands();</span><br><span class="line">       &#125;</span><br><span class="line">       nativePollOnce(ptr, nextPollTimeoutMillis);</span><br><span class="line">       <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">           <span class="comment">// Try to retrieve the next message.  Return if found.</span></span><br><span class="line">           <span class="keyword">final</span> <span class="keyword">long</span> now = SystemClock.uptimeMillis();</span><br><span class="line">           Message prevMsg = <span class="keyword">null</span>;</span><br><span class="line">           Message msg = mMessages;</span><br><span class="line">           <span class="keyword">if</span> (msg != <span class="keyword">null</span> &amp;&amp; msg.target == <span class="keyword">null</span>) &#123;</span><br><span class="line">             <span class="keyword">do</span> &#123;</span><br><span class="line">                   prevMsg = msg;</span><br><span class="line">                   msg = msg.next;</span><br><span class="line">               &#125; <span class="keyword">while</span> (msg != <span class="keyword">null</span> &amp;&amp; !msg.isAsynchronous());</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span> (msg != <span class="keyword">null</span>) &#123;</span><br><span class="line">               <span class="keyword">if</span> (now &lt; msg.when) &#123;</span><br><span class="line">                   <span class="comment">// Next message is not ready.  Set a timeout to wake up when it is ready.</span></span><br><span class="line">                   nextPollTimeoutMillis = (<span class="keyword">int</span>) Math.min(msg.when - now, Integer.MAX_VALUE);</span><br><span class="line">               &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                   <span class="comment">// Got a message.</span></span><br><span class="line">                   mBlocked = <span class="keyword">false</span>;</span><br><span class="line">                   <span class="keyword">if</span> (prevMsg != <span class="keyword">null</span>) &#123;</span><br><span class="line">                       prevMsg.next = msg.next;</span><br><span class="line">                   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                       mMessages = msg.next;</span><br><span class="line">                   &#125;</span><br><span class="line">                   msg.next = <span class="keyword">null</span>;</span><br><span class="line">                   <span class="keyword">if</span> (DEBUG) Log.v(TAG, <span class="string">&quot;Returning message: &quot;</span> + msg);</span><br><span class="line">                   msg.markInUse();</span><br><span class="line">                   <span class="keyword">return</span> msg;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="comment">// No more messages.</span></span><br><span class="line">               nextPollTimeoutMillis = -<span class="number">1</span>;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           <span class="comment">// Process the quit message now that all pending messages have been handled.</span></span><br><span class="line">           <span class="keyword">if</span> (mQuitting) &#123;</span><br><span class="line">               dispose();</span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span> (pendingIdleHandlerCount &lt; <span class="number">0</span></span><br><span class="line">                   &amp;&amp; (mMessages == <span class="keyword">null</span> || now &lt; mMessages.when)) &#123;</span><br><span class="line">               pendingIdleHandlerCount = mIdleHandlers.size();</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span> (pendingIdleHandlerCount &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">               <span class="comment">// No idle handlers to run.  Loop and wait some more.</span></span><br><span class="line">               mBlocked = <span class="keyword">true</span>;</span><br><span class="line">               <span class="keyword">continue</span>;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">if</span> (mPendingIdleHandlers == <span class="keyword">null</span>) &#123;</span><br><span class="line">               mPendingIdleHandlers = <span class="keyword">new</span> IdleHandler[Math.max(pendingIdleHandlerCount, <span class="number">4</span>)];</span><br><span class="line">           &#125;</span><br><span class="line">           mPendingIdleHandlers = mIdleHandlers.toArray(mPendingIdleHandlers);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Run the idle handlers.</span></span><br><span class="line">       <span class="comment">// We only ever reach this code block during the first iteration.</span></span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pendingIdleHandlerCount; i++) &#123;</span><br><span class="line">           <span class="keyword">final</span> IdleHandler idler = mPendingIdleHandlers[i];</span><br><span class="line">           mPendingIdleHandlers[i] = <span class="keyword">null</span>; <span class="comment">// release the reference to the handler</span></span><br><span class="line"></span><br><span class="line">           <span class="keyword">boolean</span> keep = <span class="keyword">false</span>;</span><br><span class="line">           <span class="keyword">try</span> &#123;</span><br><span class="line">               keep = idler.queueIdle();</span><br><span class="line">           &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">               Log.wtf(TAG, <span class="string">&quot;IdleHandler threw exception&quot;</span>, t);</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">if</span> (!keep) &#123;</span><br><span class="line">               <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">                   mIdleHandlers.remove(idler);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Reset the idle handler count to 0 so we do not run them again.</span></span><br><span class="line">       pendingIdleHandlerCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// While calling an idle handler, a new message could have been delivered</span></span><br><span class="line">       <span class="comment">// so go back and look again for a pending message without waiting.</span></span><br><span class="line">       nextPollTimeoutMillis = <span class="number">0</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>next()</code>是一个无限循环的方法, 如果消息队列中没有消息, 那么next方法会一直阻塞在这里. 当有新消息到来时, next方法会返回这条消息并将其从单链表中移除. </p>
+<h3 id="Looper的工作原理"><a href="#Looper的工作原理" class="headerlink" title="Looper的工作原理"></a>Looper的工作原理</h3><p><code>Looper</code>在Android的消息机制中扮演者消息循环的角色, 具体来说就是他会不停地从<code>MessageQueue</code>中查看是否有新消息. 如果有新消息就会处理. 否则就一直阻塞在那里. 先从构造方法开始, 在构造方法中他会创建一个<code>MessageQueue</code>即消息队列, 然后将当前线程的对象保存起来. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">Looper</span><span class="params">(<span class="keyword">boolean</span> quitAllowed)</span> </span>&#123;</span><br><span class="line">   mQueue = <span class="keyword">new</span> MessageQueue(quitAllowed);</span><br><span class="line">   mThread = Thread.currentThread();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>构造函数是<strong>私有权限</strong>, 而内部使用的地方就是<code>Looper#prepare()</code>方法.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">(<span class="keyword">boolean</span> quitAllowed)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (sThreadLocal.get() != <span class="keyword">null</span>) &#123;</span><br><span class="line">       <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;Only one Looper may be created per thread&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   sThreadLocal.set(<span class="keyword">new</span> Looper(quitAllowed));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这也就是为什么在使用<code>Handler</code>之前要有<code>Looper</code>的节奏, 而当调用了<code>Looper.prepare()</code>. 就不会出现异常的原因. </p>
+<p><code>Looper</code>除了<code>prepare()</code>方法外, 还提供了<code>prepareMainLooper()</code>方法, 这个方法主要是给主线程也就是<code>ActivityThread</code>创建Looper使用的. 本质也是通过<code>prepare()</code>来实现的. 由于主线程的Looper比较特殊, 所以<code>Looper</code>提供了一个<code>getMainLooper()</code>方法, 通过它可以在任何地方获取到主线程的Looper. </p>
+<p><strong>Looper的退出:</strong></p>
+<ul>
+<li><code>quit()</code>: 这个方法会直接退出<code>Looper</code></li>
+<li><code>quitSafely()</code>: 设定一个退出标记, 然后把消息队列中的已有消息处理完毕后才安全的退出. </li>
+</ul>
+<p>如果<code>Looper</code>退出, 通过<code>Handler</code>发送的消息会失败, 这个时候<code>Handler</code>发送的消息会失败, 而<code>Handler#send()</code>方法这个时候回返回<strong>false</strong>. 在子线程中, 如果手动为其创建了<code>Looper</code>, 那么在所有的事情完成以后应该调用<code>quit()</code>方法来终止消息循环. 否则这个线程会一直处于等待的状态, 而如果退出了<code>Looper</code>以后, 这个线程就会立刻终止.</p>
+<p><strong>Looper最重要的一个方法<code>loop()</code>方法, 只有调用了loop后, 消息循环系统才会真正的起作用,如下</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">final</span> Looper me = myLooper();</span><br><span class="line">   <span class="keyword">if</span> (me == <span class="keyword">null</span>) &#123;</span><br><span class="line">       <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;No Looper; Looper.prepare() wasn&#x27;t called on this thread.&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">final</span> MessageQueue queue = me.mQueue;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// Make sure the identity of this thread is that of the local process,</span></span><br><span class="line">   <span class="comment">// and keep track of what that identity token actually is.</span></span><br><span class="line">   Binder.clearCallingIdentity();</span><br><span class="line">   <span class="keyword">final</span> <span class="keyword">long</span> ident = Binder.clearCallingIdentity();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">       Message msg = queue.next(); <span class="comment">// might block</span></span><br><span class="line">       <span class="keyword">if</span> (msg == <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="comment">// No message indicates that the message queue is quitting.</span></span><br><span class="line">           <span class="keyword">return</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// This must be in a local variable, in case a UI event sets the logger</span></span><br><span class="line">       Printer logging = me.mLogging;</span><br><span class="line">       <span class="keyword">if</span> (logging != <span class="keyword">null</span>) &#123;</span><br><span class="line">           logging.println(<span class="string">&quot;&gt;&gt;&gt;&gt;&gt; Dispatching to &quot;</span> + msg.target + <span class="string">&quot; &quot;</span> +</span><br><span class="line">                   msg.callback + <span class="string">&quot;: &quot;</span> + msg.what);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       msg.target.dispatchMessage(msg);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (logging != <span class="keyword">null</span>) &#123;</span><br><span class="line">           logging.println(<span class="string">&quot;&lt;&lt;&lt;&lt;&lt; Finished to &quot;</span> + msg.target + <span class="string">&quot; &quot;</span> + msg.callback);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Make sure that during the course of dispatching the</span></span><br><span class="line">       <span class="comment">// identity of the thread wasn&#x27;t corrupted.</span></span><br><span class="line">       <span class="keyword">final</span> <span class="keyword">long</span> newIdent = Binder.clearCallingIdentity();</span><br><span class="line">       <span class="keyword">if</span> (ident != newIdent) &#123;</span><br><span class="line">           Log.wtf(TAG, <span class="string">&quot;Thread identity changed from 0x&quot;</span></span><br><span class="line">                   + Long.toHexString(ident) + <span class="string">&quot; to 0x&quot;</span></span><br><span class="line">                   + Long.toHexString(newIdent) + <span class="string">&quot; while dispatching to &quot;</span></span><br><span class="line">                   + msg.target.getClass().getName() + <span class="string">&quot; &quot;</span></span><br><span class="line">                   + msg.callback + <span class="string">&quot; what=&quot;</span> + msg.what);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       msg.recycleUnchecked();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;       </span><br></pre></td></tr></table></figure>
+
+<p>首先这个<code>loop()</code>方法是一个死循环, 唯一跳出循环的方式就是<code>MessageQueue#next()</code>方法返回<strong>null</strong>. 当<code>Looper#quit()</code>被调用时, <code>Looper</code>就会调用<code>MessageQueue#quit()或者quitSafely()</code>方法来通知消息队列退出, 当消息队列被标识为退出状态时, 它的<code>next()</code>方法就会返回null. 也就是说<code>Looper</code>必须退出, 否则<code>loop</code>方法就会无限循环下去. <code>loop()</code>会调用<code>MessageQueue#next()</code>方法来获取新消息. 而next是一个阻塞操作, 当没有消息时, next方法就会一直阻塞在那里. 这也导致<code>loop()</code>会一直阻塞在那里. 如果<code>MessageQueue#next()</code>返回了新消息, <code>Looper</code>就会处理这条消息: <code>msg.target.dispatchMessage(msg)</code>, 这里的msg.target是发送这条消息的<code>Handler</code>对象, 这样<code>Handler</code>发送的消息最终又交给它的<code>dispatcherMessage()</code>来处理. 但是这里不同的是, <code>Handler#dispatcherMessage()</code>方法是在创建Handler时所使用的<code>Looper</code>中执行的. 这样就成功的将代码逻辑切换到指定的线程中去执行了.  </p>
+<h3 id="Handler的工作原理"><a href="#Handler的工作原理" class="headerlink" title="Handler的工作原理"></a>Handler的工作原理</h3><p><code>Handler</code>主要包含消息的发送和接收过程. 消息的发送可以通过post的一系列方法以及send的一系列方法来实现. post的一系列方法最终就是还是通过send方法来实现的. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">sendMessageAtTime</span><span class="params">(Message msg, <span class="keyword">long</span> uptimeMillis)</span> </span>&#123;</span><br><span class="line">   MessageQueue queue = mQueue;</span><br><span class="line">   <span class="keyword">if</span> (queue == <span class="keyword">null</span>) &#123;</span><br><span class="line">       RuntimeException e = <span class="keyword">new</span> RuntimeException(</span><br><span class="line">               <span class="keyword">this</span> + <span class="string">&quot; sendMessageAtTime() called with no mQueue&quot;</span>);</span><br><span class="line">       Log.w(<span class="string">&quot;Looper&quot;</span>, e.getMessage(), e);</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> enqueueMessage(queue, msg, uptimeMillis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面这段代码是<code>Handler#send()</code>系列的最终调用. 可以看出, <code>Handler</code>发送消息的过程仅仅是向消息队列中插入了一条消息, <code>MessageQueue#next()</code>方法就是返回这条消息给<code>Looper</code>, Looper收到消息后就开始处理. 最终消息有<code>Looper</code>交由<code>Handler</code>处理, 即<code>Handler#dispatchMessage()</code>方法会被调用, 这个时候<code>Handler</code>就会进入了处理消息的阶段. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dispatchMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (msg.callback != <span class="keyword">null</span>) &#123;</span><br><span class="line">       handleCallback(msg);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (mCallback != <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> (mCallback.handleMessage(msg)) &#123;</span><br><span class="line">               <span class="keyword">return</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       handleMessage(msg);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>整理一下: 先检查<code>msg.callback</code>属性是否为null, 不为null就通过<code>handleCallback()</code>来处理消息. <code>msg.callback</code>是一个Runnable接口, 实际上就是<code>post()</code>中传递的Runnable参数. </p>
+<p><code>handleCallback()</code>实现如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">handleCallback</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">   message.callback.run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其次检查<code>mCallback</code>是否为null, 不为null就调用<code>mCallback.handleMessage(msg)</code>方法来处理消息. <code>Callback</code>是一个接口, 定义如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Callback</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过<code>Callback</code>可以采用如下方式来创建Handler对象: <code>Handler handler = new Handler(callback)</code>.  通过源码注释了解: 这个接口可以用来创建一个Handler的实例但并不需要派生<code>Handler</code>的子类并重写其handleMessage方法来处理具体的消息, 而<code>CallBack</code>给我们提供了另外一种方式使用Handler. 当我们不想派生子类时, 就可以通过<code>Callback</code>来实现.</p>
+<p>最后, 调用<code>Handler#handleMessage()</code>方法来处理消息. </p>
+<p><code>Handler</code>还有一个特殊的构造方法, 那就是通过一个特定的<code>Looper</code>来构造Handler, </p>
+<p>最常用的就是直接new 出一个<code>Handler</code>, 这个构造方法会调用下面的构造函数. 很明显这就是为什么当前线程没有<code>Looper</code>的话, 就会抛出<code>Can&#39;t create handler inside thread that has not called Looper.prepare()</code>这个异常. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(Callback callback, <span class="keyword">boolean</span> async)</span> </span>&#123;</span><br><span class="line">   <span class="comment">//....</span></span><br><span class="line"></span><br><span class="line">   mLooper = Looper.myLooper();</span><br><span class="line">   <span class="keyword">if</span> (mLooper == <span class="keyword">null</span>) &#123;</span><br><span class="line">       <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(</span><br><span class="line">           <span class="string">&quot;Can&#x27;t create handler inside thread that has not called Looper.prepare()&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   mQueue = mLooper.mQueue;</span><br><span class="line">   mCallback = callback;</span><br><span class="line">   mAsynchronous = async;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="主线程的消息循环"><a href="#主线程的消息循环" class="headerlink" title="主线程的消息循环"></a>主线程的消息循环</h2><p>Android的主线程就是<code>ActivityThread</code>, 主程序的入口方法为<code>main()</code>, 在<code>main()</code>中系统通过<code>Looper.prepareMainLooper()</code>来创建主线程的Looper以及<code>MessageQueue</code>, 并通过<code>Looper.loop()</code>来开启主线程的消息循环. </p>
+<p>当主线程的消息循环开始以后, <code>ActivityThread</code>还需要一个<code>Handler</code>来和消息队列进行交互, 这个<code>Handler</code>就是<code>ActivityThread.H</code>, 它的内部定义了一组消息类型, 主要包含了四大组件的启动和停止等过程. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">H</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> LAUNCH_ACTIVITY         = <span class="number">100</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PAUSE_ACTIVITY          = <span class="number">101</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PAUSE_ACTIVITY_FINISHING= <span class="number">102</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STOP_ACTIVITY_SHOW      = <span class="number">103</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STOP_ACTIVITY_HIDE      = <span class="number">104</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SHOW_WINDOW             = <span class="number">105</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> HIDE_WINDOW             = <span class="number">106</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> RESUME_ACTIVITY         = <span class="number">107</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SEND_RESULT             = <span class="number">108</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DESTROY_ACTIVITY        = <span class="number">109</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> BIND_APPLICATION        = <span class="number">110</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> EXIT_APPLICATION        = <span class="number">111</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> NEW_INTENT              = <span class="number">112</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> RECEIVER                = <span class="number">113</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CREATE_SERVICE          = <span class="number">114</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SERVICE_ARGS            = <span class="number">115</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STOP_SERVICE            = <span class="number">116</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CONFIGURATION_CHANGED   = <span class="number">118</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CLEAN_UP_CONTEXT        = <span class="number">119</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> GC_WHEN_IDLE            = <span class="number">120</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> BIND_SERVICE            = <span class="number">121</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNBIND_SERVICE          = <span class="number">122</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ActivityThread</code>通过<code>ApplicationThread</code>和<code>AMS</code>进行进程间通信, <code>AMS</code>以进程间通信的方式完成<code>ActivityThread</code>的请求后回调<code>ApplicationThread</code>中的<code>Binder()</code>方法, 然后<code>Application</code>会向<code>H</code>发送消息, <code>H</code>收到消息后会将<code>ApplicationThread</code>中的逻辑切换到<code>ActivityThread</code>中去执行, 即切换到主线程去执行, 这个过程就是主线程的消息循环模型. </p>
+<blockquote>
+<p>第11章 Android的线程和线程池</p>
+</blockquote>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/08/22/《Android-开发艺术探索》-11-Android的线程和线程池/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 11-Android的线程和线程池">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/08/16/《Android-开发艺术探索》-09-四大组件的工作过程/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 09-四大组件的工作过程">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/08/22/%E3%80%8AAndroid-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B-10-Android%E7%9A%84%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/";
+    var disqus_url = "http://szysky.com/2016/08/22/%E3%80%8AAndroid-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B-10-Android%E7%9A%84%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

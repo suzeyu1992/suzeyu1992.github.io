@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android 开发艺术探索》 02-IPC机制 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/08/02/Android开发艺术探索-笔记02-IPC机制/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android 开发艺术探索》 02-IPC机制</h1>
+                    <h2 class="subheading">抄书系列</h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-08-02
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>第二章: Android中的IPC机制,深入记录Bundle, 文件共享, AIDL, Messenger, ContentProvider, Socket等进程间的通信.</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/Notes_AndroidDevSeek">blog相关代码</a></p>
+<span id="more"></span>
+
+
+<h2 id="Android-IPC简介"><a href="#Android-IPC简介" class="headerlink" title="Android IPC简介"></a>Android IPC简介</h2><p>IPC是<strong>Inter-Process Communication</strong>缩写,含义为进程间通信. 按照操作系统中的描述,线程是cpu调度的最小单元,而进程一般指一个执行单元. 进程中可以有一个或者多个线程.</p>
+<p>不同的操作系统有着不同的IPC机制:</p>
+<ul>
+<li><strong>Windows</strong>: 通过剪切板, 管道, 信号量来进行进程间通信</li>
+<li><strong>Linux</strong>: 通过命名管道, 共享内存, 信号量等来进行进行进程间通信</li>
+<li><strong>android</strong>: 虽然基于Linux内核,但是使用了独有的Binder机制, 也可以Socket进行通信</li>
+</ul>
+<p>使用场景: 可能有些模块因为特殊原因需要运行在单独的进程中; 或者为了加大一个应用可使用的内存; 又或者我们需要去另外一个进程去获取数据,必然需要跨进程.</p>
+<h2 id="Android中的多进程的模式"><a href="#Android中的多进程的模式" class="headerlink" title="Android中的多进程的模式"></a>Android中的多进程的模式</h2><h3 id="开启多进程模式"><a href="#开启多进程模式" class="headerlink" title="开启多进程模式"></a>开启多进程模式</h3><p>如果你想在一个应用中使用多个进程,通过清单文件给四大组件添加<code>android:process</code>属性,就可以很方便的开启多进程.</p>
+<p>还有一种非常规的创建方式,通过JNI在native层去fork一个新的进程.这种只做了解.</p>
+<p><img src="sample_1.png"></p>
+<p>例如这样,当我们依次打开<strong>MainActivity</strong>, <strong>SecondActivity</strong>, <strong>ThirdActivity</strong>.此时应该打开了三个进程.</p>
+<p>我们来检测一下, 你可以直接使用DDMS来查看进程,这里使用命令行来测试</p>
+<p><code>$ adb shell ps | grep com.szysky</code> 你可以直接使用<code>adb shell ps</code>这会把系统所有进程展示出来, 你可以加上过滤信息<code>| grep xxx</code> xxx替换你需要过滤出来信息即可</p>
+<p><img src="psnum.png"></p>
+<p>你可能已经发现在创建新进程的时候使用两种不同的方式</p>
+<ul>
+<li>当以<code>:</code>开头的进程,属于当前应用的私有进程,其他应用的组件不可以和它跑在同一个进程</li>
+<li>当不以<code>:</code>开头,那么进程属于全局进程,其他应用通过<code>ShareUID</code>方法可以和它跑在同一个进程</li>
+</ul>
+<p>Android系统会为每一个应用分配唯一的<strong>UID</strong>. 相同<strong>UID</strong>的应用才能共享数据. 但是两个应用通过<strong>ShareUID</strong>跑在同一个进程是有要求的. 除了具有相同的<strong>ShareUID</strong>并且还要<strong>签名相同</strong>才可以. 这时如果不在同一进程他们之间可以<strong>共享data目录</strong>,<strong>组件信息</strong>等. 如果还在同一进程, 那么他们还能共享<strong>内存数据</strong>.</p>
+<h3 id="进程模式的运行机制"><a href="#进程模式的运行机制" class="headerlink" title="进程模式的运行机制"></a>进程模式的运行机制</h3><p>开启多进程简单,但是如果不能处理好其中的特性,那么受伤的总会是你.</p>
+<p>先说第一个比较严重的问题. <strong>静态变量不在共享</strong>. 还是直接三个类的例子,如果在<strong>mainActivity</strong>中对静态变量进行修改, 在<strong>SecondActivity</strong>取出这个静态发现是main没修改之前的. 这说明两个进程间即使是静态属性也是无法共享.</p>
+<p>其实这是因为这两个类运行在两个进程间,而每个单独的进程又会分配一个独立的虚拟机, 所以每个虚拟机在内存分配上有不同的地址空间.对于不同虚拟机访问同一个对象就会产生多份副本. 副本之间互相独立不干扰彼此.</p>
+<p>一般情况下多进程可能面临的问题:</p>
+<ol>
+<li>静态成员和单例模式完全失效</li>
+<li>线程同步机制完全失效</li>
+<li>SharedPreferences的可靠性下降</li>
+<li>Application会多次创建</li>
+</ol>
+<p>2中因为不是一块内存,所以不管是锁对象还是锁全局都无法保证线程同步,因为不是同一个对象.    3中因为Sp不支持两个进程同时读写,因为底层是通过读写XML文件实现的,并发可能会触发异常.      4中运行在多个进程中,那么就会创建多个虚拟机,每个虚拟机都有一个对应Application并需要启动加载这个文件.</p>
+<p>一个应用的多进程:<strong>它就相当于两个不同的应用采用了ShareUID的模式. 每个进程都会拥有独立的虚拟机, Application以及内存空间</strong></p>
+<h2 id="IPC基础概念"><a href="#IPC基础概念" class="headerlink" title="IPC基础概念"></a>IPC基础概念</h2><p>关于IPC主要包含三方面的内容: <strong>Serializable接口</strong>, <strong>Parcelable接口</strong>, 以及<strong>Binder</strong></p>
+<h3 id="Serializable接口"><a href="#Serializable接口" class="headerlink" title="Serializable接口"></a>Serializable接口</h3><p>Serializable是Java提供的一个序列化接口,这个一个空接口. 如果我们想使用只需要实现<code>Serializable</code>接口,并声明一个long类型的常量<code>serialVersionUID</code>(不声明也是可以,但是在反序列化会出现错误).</p>
+<p>javabean 的实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">123456789L</span>;</span><br><span class="line">    <span class="comment">//.....省略创建属性,打印等操作</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>序列化的代码如下图,并附上结果.</p>
+<p><img src="serial_1.png"></p>
+<p>好了说一下<code>serialVersionUID</code>这个属性. 即使我们不声明系统会根据当前类结构(成员变量等)生成一个hash为<code>serialVersionUID</code>, 虽然这样也可以但是如果在你把一个对象序列化的到磁盘的一个文件的时候. 对这个对象增加了一个成员变量,那么在反序列的时候就会报错. 因为当你反序列化的时候对象如果没有<code>serialVersionUID</code>还会重新计算.这时反序列化的hash和序列化的hash就不一致了.</p>
+<p>关于根据当前类结构计算hash值,有两点需要注意:</p>
+<ul>
+<li>静态成员变量属于类不属于对象,所以不参与序列化的过程</li>
+<li>其次用<code>transient</code>关键字标记的成员变量不参与序列化的过程.</li>
+</ul>
+<p>系统默认的序列化过程是可以改变的,通过实现<code>writeObject</code>和<code>readObject</code>可以重写默认的序列化和反序列化过程. 这里就不详细说明</p>
+<h3 id="Parcelable接口"><a href="#Parcelable接口" class="headerlink" title="Parcelable接口"></a>Parcelable接口</h3><p>系统已经为我们提供了很多实现了Parcelable接口的类,他们都可以直接序列化. 例如<code>intent</code>, <code>Bundle</code>, <code>Bitmap</code>, 同时List和Map也可以序列化.前提是他们里面的每个元素都可以序列化.</p>
+<p>实现Parcelable接口主要复写四个, 我们可以直接定义好javabean直接让AS帮我们实现.</p>
+<ul>
+<li><strong>writeToParcel()</strong> 主要完成序列化功能</li>
+<li><strong>CREATOR</strong> 主要完成反序列化</li>
+<li><strong>接收参数parcel的构造函数</strong> 用于从序列化后的对象中创建原始对象</li>
+<li><strong>describeContents()</strong> 几乎所有情况下都返回0,只有当前对象中存在文件描述符时返回1</li>
+</ul>
+<p><strong>关于Parcelable和Serializable的取舍</strong></p>
+<ul>
+<li>Serializable: 适合序列化到设备或者序列化后通过网络传输.</li>
+<li>Parcelable: 主要用在内存序列化上. 不需要大量的I/O操作,所以在内存中使用高效.</li>
+</ul>
+<h3 id="了解Binder"><a href="#了解Binder" class="headerlink" title="了解Binder"></a>了解Binder</h3><ul>
+<li><strong>代码层面</strong>: Binder是Android中的一个类,它实现了IBinder接口</li>
+<li><strong>IPC角度</strong>: Binder是Android中的一种跨进程通信方式.</li>
+<li><strong>物理设备角度</strong>: Binder也可以认为是一种虚拟的物理设备,设备驱动是/dev/binder</li>
+<li><strong>Framework角度</strong>: Binder是ServiceManager连接各种Manager和相应的ManagerService的桥梁.</li>
+<li><strong>Android应用角度</strong>:Binder是客户端和服务端进行通信的媒介.</li>
+</ul>
+<p>日常开发中,Binder主要用在<code>Service</code>包括<code>AIDL</code>和<code>Messenger</code>. 而普通的Service中的Binder不涉及进程间的通信,无法触及Binder的核心. 而Messenger底层其实就是AIDL.所以我们利用AIDL来分析Binder的工作机制</p>
+<h3 id="创建AIDL实例"><a href="#创建AIDL实例" class="headerlink" title="创建AIDL实例"></a>创建AIDL实例</h3><p>新建三个文件 <code>Book.java</code> <code>Book.aidl</code> 和<code>IBookManager.aidl</code></p>
+<p>首先创建一个Book类并实现Parcelable接口,然后在这个类所在的包上右键,如图所示</p>
+<p><img src="createAIDL.png"></p>
+<p>如果名字不能为Book,可以先随便写一个,创建之后修改. 然后按图修改,</p>
+<p><img src="createAIDL_2.png"></p>
+<p>文件声明完,我们只需要重新Make一下工程就可以.<code>Build --&gt; Rebuild Project或者Make Project</code></p>
+<p><img src="createAIDL_3.png"></p>
+<p>Make之后会在app -&gt; build -&gt; generated -&gt; source -&gt; aidl -&gt; debug -&gt; … 出现系统自动生成好的java类. 我们需要对其进行分析</p>
+<p>看下图了解一个大体结构</p>
+<p><img src="aidl_1.png"></p>
+<p>上图圈出了两个部分,部分二应该很清楚就是我们定义在aidl中的两个抽象方法. 而部分一在图上的内部类Stub写了说明. 我们自定义的两个抽象方法,在内部类中用了两个<strong>整形int值</strong>来标识两个抽象方法,用在<code>transact()</code>中可以识别客户端请求哪个方法.</p>
+<p>这个继承了<strong>IInterface</strong>的接口的核心实现:<strong>就是内部类Stub和Stub的内部代理Proxy</strong></p>
+<p>先看一下内部类的结构图:</p>
+<p><img src="aidl_2.png"></p>
+<p>说明直接放图,写在代码上,在git上的根目录的aidl的java类说明文件夹也有添加了注释的类.</p>
+<p><img src="aidl_3.png"></p>
+<p>有两点需要注意:</p>
+<ol>
+<li>客户端发起远程请求时,当前线程会被挂起直到服务器进程返回数据,所以注意线程是否在意耗时</li>
+<li>由于服务端Binder方法运行在Binder线程池中,所以不管Binder方法是否耗时都应该采用同步方式,因为已经在一个线程中了</li>
+</ol>
+<p>我们也可以手动实现Binder类,这里不再细说,在git仓库的项目中有一个<code>manual</code>包里面是关于手动实现Binder的代码. </p>
+<p><strong>其实</strong> 不管是手动实现Binder也好,或者AIDL文件实现Binder也好. 其实两者的工作原理都是一样的, AIDL文件的存在意义是系统为我们提供了一种快速实现Binder的工具,仅此而已.</p>
+<h3 id="Binder生命状态的监听"><a href="#Binder生命状态的监听" class="headerlink" title="Binder生命状态的监听"></a>Binder生命状态的监听</h3><p>由于Binder是运行在服务端,如果服务端进程异常终止,那么我们到服务端的Binder连接也就断裂(Binder死亡).就会导致调用失败,所里系统提供了<strong>死亡代理的方法</strong> 就是当Binder死亡时,我们就会收到通知,这个时候就可以重新发起连接请求而恢复连接</p>
+<p>首先创建监听的DeathRecipient对象</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">IBinder.DeathRecipient mDeat = <span class="keyword">new</span> IBinder.DeathRecipient() &#123;</span><br><span class="line">            <span class="comment">// 当Binder死亡的时候,系统会回调binderDied()方法</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">binderDied</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (mBookManager == <span class="keyword">null</span>)</span><br><span class="line">                    <span class="keyword">return</span> ;</span><br><span class="line">                <span class="comment">//清除掉已经无用的Binder连接</span></span><br><span class="line">                mBookManager.asBinder().unlinkToDeath(mDeat,<span class="number">0</span>);</span><br><span class="line">                mBookManager == <span class="keyword">null</span>;</span><br><span class="line">                <span class="comment">//TODO  进行重新绑定远程服务</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>当客户端绑定远程服务成功的时候,给binder设置死亡代理</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">xxxxManager.Stub.asInterface(binder);</span><br><span class="line">binder.linkToDeath(mDeat,<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>linkToDeath的第二个参数是个标志位,直接设0即可. 另外也可以通过Binder的方法<code>isBindAlive</code>也可以判断Binder是否死亡.</p>
+<h2 id="Android的几种跨进程的方式"><a href="#Android的几种跨进程的方式" class="headerlink" title="Android的几种跨进程的方式"></a>Android的几种跨进程的方式</h2><h3 id="使用Bundle"><a href="#使用Bundle" class="headerlink" title="使用Bundle"></a>使用Bundle</h3><p>由于Bundle实现了<strong>Parcelable</strong>接口,所以在四大组件中的三大组件(<code>Activity</code>, <code>Service</code>, <code>Receiver</code>)都支持在Intent中传递Bundle.</p>
+<p>所以如果在一个进程中启动了另一个进程的三大组件,就可以在Bundle中附加我们需要的信息通过Intent发送出去. 当然传递的类型必须是能够被序列化的, 例如基本数据类型,实现了Parcelable和Serializable接口的对象和一些Android支持的特殊对象.</p>
+<h3 id="使用文件共享"><a href="#使用文件共享" class="headerlink" title="使用文件共享"></a>使用文件共享</h3><p>练习代码对应仓库中的<code>userbundle</code>包中.</p>
+<p><strong>文件共享适合在对数据同步要求不高的进程之间进行通信,并且要妥善的处理并发读写的问题.</strong></p>
+<p>两个进程通过<strong>读/写</strong>同一个文件来交换数据. 例如进程A把数据写入文件中,而进程B从文件中读取出来数据.</p>
+<p>Android是基于Linux系统, 所以对于并发读写文件可以没有限制的执行.     这里不像Windows系统,对于一个文件如果加了排斥锁将会导致其他线程无法对其进行访问.</p>
+<p>关于这部分的练习, 在之前练习Binder的时候已经练习过了. <em>代码在项目中的MainActivity中</em></p>
+<p>虽然序列化反序列达到的效果是可以恢复对象里面的属性值,但是反序列每回都是一个新的对象.</p>
+<p><strong>SharePreferencess</strong>是Android提供的一个轻量级方案,通过键值对存储数据,底层采用XML文件来进行存储. 存储路径<code>/data/data/package name/shared_prefs</code>目录下. 也属于文件的一种,但是由于系统对SP的读写存在一定的缓存策略,内存中会有一份缓存,所以多进程下,系统对它的读写也就变得不可靠.</p>
+<h3 id="使用Messenger"><a href="#使用Messenger" class="headerlink" title="使用Messenger"></a>使用Messenger</h3><p><code>Messenger</code>(信使). 不同的进程中可以传递Message对象, 在Message中放入我们需要传递的数据,就可实现进程间传递. Messenger是一种轻量级的IPC方案,它的底层实现<code>AIDL</code>. 看一些构造函数</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Messenger</span><span class="params">(Handler target)</span> </span>&#123;</span><br><span class="line">        mTarget = target.getIMessenger();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Messenger</span><span class="params">(IBinder target)</span> </span>&#123;</span><br><span class="line">   mTarget = IMessenger.Stub.asInterface(target);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>无论是IMessenger还是Stub.asInterface. 可以明显看出AIDL的痕迹. </p>
+<p>因为Messenger对<code>AIDL</code>进行了封装,使得在使用时更加简单,并且它的处理方式是一次处理一个请求,因此服务器端不用考虑线程同步因为服务端不存在并发执行的情形. </p>
+<p><strong>具体实现Messenger</strong></p>
+<p><strong>1.服务端</strong></p>
+<p>创建一个<code>Service</code>作为服务端来处理客户端的请求, 同时创建一个<code>Handle</code>并通过它来创建一个<code>Messenger</code>对象,然后在Service的<code>onBind()</code>方法中返回这个<code>Messenger</code>对象底层的<code>Binder</code>.<br>最后这个组件在清单文件中声明加上<code>android:process=&quot;com.szysky.test&quot;</code>属性.已达到模拟多进程的场景</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MessengerService</span> <span class="keyword">extends</span> <span class="title">Service</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 编写一个类继承Handler,并对客户端发来的消息进行处理操作进行添加</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span>  <span class="class"><span class="keyword">class</span> <span class="title">MessengerHandler</span> <span class="keyword">extends</span> <span class="title">Handler</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">&quot;MessengerHandler&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">switch</span> (msg.what)&#123;</span><br><span class="line">                <span class="comment">//客户端发来的信息标识</span></span><br><span class="line">                <span class="keyword">case</span> MessengerActivity.FROM_CLIENT:</span><br><span class="line">                    Log.d(TAG, <span class="string">&quot;handleMessage: receive msg form clinet--&gt;&quot;</span> +msg.getData().getString(<span class="string">&quot;msg&quot;</span>));</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//对客户端进行reply回答</span></span><br><span class="line">                    <span class="comment">// 1. 通过接收到的到客户端的Message对象获取到Messenger信使</span></span><br><span class="line">                    Messenger client = msg.replyTo;</span><br><span class="line">                    <span class="comment">// 2. 创建一个信息Message对象,并把一些数据加入到这个对象中</span></span><br><span class="line">                    Message replyMessage = Message.obtain(<span class="keyword">null</span>, MessengerActivity.FROM_SERVICE);</span><br><span class="line">                    Bundle bundle = <span class="keyword">new</span> Bundle();</span><br><span class="line">                    bundle.putString(<span class="string">&quot;reply&quot;</span>, <span class="string">&quot;我是服务端发送的消息,我已经接收到你的消息了,你应该在你的客户端可以看到&quot;</span>);</span><br><span class="line">                    replyMessage.setData(bundle);</span><br><span class="line">                    <span class="comment">// 3. 通过信使Messenger发送封装好的Message信息</span></span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        client.send(replyMessage);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">super</span>.handleMessage(msg);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建一个Messenger信使</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Messenger mMessenger = <span class="keyword">new</span> Messenger(<span class="keyword">new</span> MessengerHandler());</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mMessenger.getBinder();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>别忘了清单文件</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">service</span> <span class="attr">android:name</span>=<span class="string">&quot;.message.MessengerService&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:process</span>=<span class="string">&quot;com.szysky.test&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>2.客户端</strong></p>
+<p>直接用一个<code>activity</code>作为客户端, 首先绑定之前创建的服务端的<code>Service</code>,  绑定成功时通过<code>ServiceConnection</code>对象接收到服务端返回的<code>IBinder</code>,用<code>IBinder</code>对象创建一个<code>Messenger</code>. 通过这个<code>Messenger</code>就可以往服务端发送消息.   如果我们需要服务端也能够回应客户端. 那么就要在客户端同之前服务端一样通过<code>Handle</code>创建一个<code>Messenger</code>对象, 并把这个<code>Messenger</code>在通过连接成功返回的IBinder创建的Message对象通过<code>replyTo</code>参数传递给服务器. 这个服务器就可以通过<code>replyTo</code>参数来回应客户端.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 声明一个本进程的信使 用来监听并处理服务端传入的消息</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> Messenger mGetReplyMessenger =  <span class="keyword">new</span> Messenger(<span class="keyword">new</span> Handler()&#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">switch</span> (msg.what)&#123;</span><br><span class="line">           <span class="keyword">case</span> FROM_SERVICE:</span><br><span class="line">               Log.d(TAG, <span class="string">&quot;handleMessage: 这里是客户端:::&quot;</span>+msg.getData().getString(<span class="string">&quot;reply&quot;</span>));</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">           <span class="keyword">default</span>:</span><br><span class="line">               <span class="keyword">super</span>.handleMessage(msg);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 创建一个服务监听连接对象 并在成功的时候给服务器发送一条消息</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> ServiceConnection mConnection = <span class="keyword">new</span> ServiceConnection() &#123;</span><br><span class="line">   <span class="comment">//绑定成功回调</span></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceConnected</span><span class="params">(ComponentName name, IBinder service)</span> </span>&#123;</span><br><span class="line">       <span class="comment">// 利用服务端返回的binder对象创建Messenger并使用此对象想服务端发送消息</span></span><br><span class="line">       Messenger mService = <span class="keyword">new</span> Messenger(service);</span><br><span class="line">       Message obtain = Message.obtain(<span class="keyword">null</span>, FROM_CLIENT);</span><br><span class="line">       Bundle bundle = <span class="keyword">new</span> Bundle();</span><br><span class="line">       bundle.putString(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;你好啊,  我是从客户端来&quot;</span>);</span><br><span class="line">       obtain.setData(bundle);</span><br><span class="line">       <span class="comment">// 需要把接收服务端回复的Messenger通过Message的replyTo传递给服务端</span></span><br><span class="line">       obtain.replyTo = mGetReplyMessenger;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           mService.send(obtain);</span><br><span class="line">       &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceDisconnected</span><span class="params">(ComponentName name)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//进行远端服务的连接</span></span><br><span class="line"> Intent intent = <span class="keyword">new</span> Intent(MessengerActivity.<span class="keyword">this</span>, MessengerService.class);</span><br><span class="line"> bindService(intent, mConnection, Context.BIND_AUTO_CREATE);</span><br></pre></td></tr></table></figure>
+
+
+<p><a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/Notes_AndroidDevSeek"><strong>本例测试代码在仓库对应项目的message包中</strong></a></p>
+<p>在使用Messenger进行数据传递必须将数据放入到Message中. 而Messenger和Message都实现了序列化接口. 所以可以在进程间通信. </p>
+<p><code>Message</code>的能使用的载体只有<strong>what</strong>, <strong>arg1</strong>, <strong>arg2</strong>, <strong>Bundle</strong> 以及<strong>replyTo</strong>. 这里有一个载体需要注意<strong>object</strong>,它在同一个进程很实用,但是在版本2.2之前是不支持跨进程的,虽然进行了改进之后,但是也只是支持系统提供实现的某些对象才可以. 所以使用的时候需要注意.</p>
+<p>顺便绘制了一个Messenger通信的流程图, 可以对代码的调用顺序理解的更清楚.</p>
+<p><img src="messenger.png"></p>
+<h3 id="使用AIDL"><a href="#使用AIDL" class="headerlink" title="使用AIDL"></a>使用AIDL</h3><p>虽然Messenger使用方便, 但是要清楚它是以串行的方式处理客户端发来的消息,如果有大量并发的请求. 或者需求是跨进程调用服务端的方法时. 就无法使用Messenger. 这个时候就该<strong>AIDL</strong></p>
+<p>对于使用AIDL的流程简单梳理一遍</p>
+<p><strong>服务端</strong></p>
+<p>服务端创建一个<code>Service</code>用来监听客户端的连接请求, 然后创建一个AIDL文件,将暴露给客户端的接口在这个AIDL文件中声明,最后在Service中实现这个AIDL接口并在<code>onBind()</code>返回即可.</p>
+<p><strong>客户端</strong></p>
+<p>绑定服务端的Service,绑定成功后,将服务端返回来的Binder对象转成AIDL接口所属的类型,接着就可以直接调用AIDL中的方法了.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/Notes_AndroidDevSeek"><strong>AIDL相关代码在仓库项目的java路径下的aidl包中,包中可能是包含实现订阅的代码,可以通过git回退到’使用AIDL实现简单的进程通信’版本查看基础实现</strong></a></p>
+<p>详细代码在上面仓库中都有,这里不全部贴出来,记录一下需要注意的地方.</p>
+<p><strong>AIDL中所支持的类型</strong></p>
+<ul>
+<li>基本数据类型 </li>
+<li>String 和 CharSequence</li>
+<li>List: 只支持ArrayList, 里面每个元素都必须能被AIDL支持</li>
+<li>Map: 只支持HashMap, 里面的每个元素都必须被AIDL支持</li>
+<li>Parcelable: 所有实现了Parcelable接口的对象</li>
+<li>AIDL: 所有的AIDL接口本身也可以在AIDL文件中使用</li>
+</ul>
+<p><strong>这里请注意,上面支持类型中Parcelable和AIDL比较特殊,自定义的Parcelable对象和AIDL对象必须要显示的import引入, 这是AIDL的规范需要遵循, 如下Book类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> com.szysky.note.androiddevseek_02.aidl.Book;<span class="comment">//必须Book的全限定名</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IBookManager</span> </span>&#123;</span><br><span class="line">   <span class="function">List&lt;Book&gt; <span class="title">getBookList</span><span class="params">()</span></span>;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">addBook</span><span class="params">(in Book book)</span></span>;  <span class="comment">//这里标明输入型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果用到了自定义对象实现了Parcelable那么就需要创建一个同名的aidl文件</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.szysky.note.androiddevseek_02.aidl;</span><br><span class="line"></span><br><span class="line">parcelable Book;</span><br></pre></td></tr></table></figure>
+
+<p>AIDL中除了基本数据类型外,其他类型的<code>参数</code>必须标上方向<strong>out</strong> , <strong>in</strong>, <strong>inout</strong>.分别表示输入,输出,输入输出型.    按需而定可以节省不必要的操作在底层实现的开销. 最后一点AIDL接口中只支持方法,不支持声明静态常量. </p>
+<p>在服务端用了<code>CopyOnWriteArrayList</code>数组来保存所有书籍. 这个集合的特性是<strong>支持并发读写</strong>. 在说Binder的时候提到过, AIDL方法是在服务端Binder线程池中执行的, 所以当多个客户端同时连接,会存在多线程并发的问题. 所以使用<code>CopyOnWriteArrayList</code>集合可以进行自动的线程同步.与之相似的还有<code>ConcurrentHashMap</code>这个在<strong>LRU机制中使用到过</strong></p>
+<p>这里有知识点. 之前说过AIDL中能过使用的只有ArrayList. 而<code>CopyOnWriteArrayList</code>也并不是ArrayList的子类. 其实AIDL所支持的是抽象的List, 而List只是一个接口, 虽然服务端返回的是<code>CopyOnWriteArrayList</code>,但是在Binder中会按照List的规范去访问数据并最终形成一个新的ArrayList传递给客户端.</p>
+<p>看下面的log图在客户端接收返回的<code>CopyOnWriteArrayList</code>实际上是ArrayList类型</p>
+<p><img src="aidl_4.png"></p>
+<p>git仓库的代码的<code>aidl包中</code> 最后保存的是实现了客户端和服务端的观察者模式(可以通过git版本切换之前代码), 通过客户端注册监听接口,<br>在服务端每当有新书来的时候,通知已经注册了的客户端. </p>
+<p><strong>需要注意的几点</strong></p>
+<p><strong>线程问题</strong></p>
+<p>当有新书的时候,服务端回调的是客户端实现的接口里面的方法. 这个方法实际是在客户端的线程池中执行的. 所以要处理处理UI的问题, 解决方案可以创建一个Handler,将其切换到客户端的主线程中</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> INewBookArrivedListener mNewBookListener = <span class="keyword">new</span> INewBookArrivedListener.Stub() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNewBookArrived</span><span class="params">(Book book)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">            <span class="comment">// 如果有新书 那么此方法会被回调,  并且由于调用处服务端的Binder线程池, 所以给主线程的Handler发送消息,以切换线程</span></span><br><span class="line">            mhandler.obtainMessage(NEW_BOOK_ARRIVED, book).sendToTarget();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>对象不一致,导致接触绑定失败</strong></p>
+<p>服务端不能再用<strong>CopyOnWriteArrayList</strong>来记录绑定过的客户端.  因为这里一定要清楚<strong>对象是不能跨进程的</strong>当我们客户端注册监听传入一个监听对象到服务端, 在解绑的时候再次传入一个进行判断与注册时相同的对象时删除达到解除绑定效果时是无效的. 因为服务端在注册和解绑的时候是两个反序列化的对象完全不一致. </p>
+<p><code>RemoteCallbackList</code>是系统专门提供的用于删除跨进程listener的接口. 接收的是一个泛型,支持管理任意的AIDL接口,从声明就可以看出, 因为AIDL接口都继承<code>IInterface</code></p>
+<p>内部实现是一个Map结构 key是<code>IBinder</code>类型, value是<code>Callback</code>类型. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ArrayMap&lt;IBinder, Callback&gt; mCallbacks= <span class="keyword">new</span> ArrayMap&lt;IBinder, Callback&gt;();</span><br><span class="line"></span><br><span class="line">IBinder key = listener.asBinder();</span><br><span class="line">Callback value = <span class="keyword">new</span> Callback(listener, cookie);    <span class="comment">//这里的Callback封装了真正的监听对象</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>不管是注册还是解注册,多进程到服务端都会生成不同的对象. 但是这些不同的对象有一个共同点, 底层的Binder对象是同一个, 利用这个特性可解决上面的问题.</p>
+<p><code>RemoteCallbackList</code> 当客户端进程终止后, 它能够自动移出客户端所注册的listener. 并且内部实现了线程同步的功能, 所以在注册和解注册的时候不需要做额外的线程工作.</p>
+<p>在使用的使用,虽然名字有List但是他并不是一个List我们要遍历的通知监听者的时候,要使用<strong>bigenBroadcast</strong>和<strong>finishBroadcase</strong>成对出现.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//遍历集合  去调用客户端方法</span></span><br><span class="line"><span class="keyword">int</span> N = mListeners.beginBroadcast();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;N; i++)&#123;</span><br><span class="line">  INewBookArrivedListener listener = mListeners.getBroadcastItem(i);</span><br><span class="line">  <span class="keyword">if</span> (listener != <span class="keyword">null</span>)&#123;</span><br><span class="line">      listener.onNewBookArrived(newBook);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mListeners.finishBroadcast();</span><br></pre></td></tr></table></figure>
+
+
+<p>当客户端调用远程服务的方法,被调用的方法运行在服务端的Binder线程池中,同时<strong>客户端会被挂起</strong>, 所以你如果在主线程(客户端的<code>onServiceConnected</code>和<code>onServiceDisconnected</code>就是UI线程)调用服务端的耗时方法, 你多点几次就很容易出现ANR. 比方说在服务端的<code>getBookList()</code>睡上十秒,可以复现ANR.</p>
+<p>监听死亡状态: 在整理Binder的时候有说了一种<strong>DeathRecipient</strong>的方式,下两种都可以</p>
+<ul>
+<li><code>onServiceDisconnected()</code> UI线程被回调</li>
+<li><code>binderDied()</code> 在客户端的Binder线程池中被回调</li>
+</ul>
+<p>还记得在绑定的时候<code>bindService(intent,mConnection, Context.BIND_AUTO_CREATE);</code>其中参数3如果设置这个模式,  当服务或线程死亡,还会重新启动的.</p>
+<p><strong>权限验证</strong></p>
+<ol>
+<li>在服务端的**onBinder()**回调中判断权限.</li>
+<li>在服务端实现的AIDL接口中的**onTransact()**进行包名判断或者权限</li>
+</ol>
+<p><strong>第一种:</strong></p>
+<p>先清单文件中注册一个自定义的权限</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">permission</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:name</span>=<span class="string">&quot;com.szysky.permission.ACCESS_BOOK_SERVICE&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:protectionLevel</span>=<span class="string">&quot;normal&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在清单文件中添加这个权限的使用资格</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;com.szysky.permission.ACCESS_BOOK_SERVICE&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在**onBinder()**进行判断,如果没有那么就返回null, 这样客户端是无法绑定服务的</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//做一下权限的验证  在清单文件中声明了一个,  并添加了使用权限</span></span><br><span class="line">    <span class="keyword">int</span> check = checkCallingOrSelfPermission(<span class="string">&quot;com.szysky.permission.ACCESS_BOOK_SERVICE&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (check == PackageManager.PERMISSION_DENIED)&#123;</span><br><span class="line">      <span class="keyword">return</span>  <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> mBinder;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>第二种</strong></p>
+<p>可以判断客户端的包名是否满足我们的需求,这里用<strong>com.szysky</strong>开头为例. 如果不符合方法返回false.那么调用服务的方法也会失效</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTransact</span><span class="params">(<span class="keyword">int</span> code, Parcel data, Parcel reply, <span class="keyword">int</span> flags)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">  String packageName = <span class="keyword">null</span>;</span><br><span class="line">  String[] packagesForUid = getPackageManager().getPackagesForUid(getCallingUid());</span><br><span class="line"></span><br><span class="line"><span class="comment">//下面是获得客户端的包名</span></span><br><span class="line">  <span class="keyword">if</span> (packagesForUid != <span class="keyword">null</span> &amp;&amp; packagesForUid.length &gt;<span class="number">0</span>)&#123;</span><br><span class="line">      packageName = packagesForUid[<span class="number">0</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  Log.e(TAG, <span class="string">&quot;onTransact: -----------------------------&quot;</span> + packageName);</span><br><span class="line">  <span class="keyword">if</span> (!packageName.startsWith(<span class="string">&quot;com.szysky&quot;</span>))&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">super</span>.onTransact(code, data, reply, flags);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="使用ContentProvider"><a href="#使用ContentProvider" class="headerlink" title="使用ContentProvider"></a>使用ContentProvider</h3><p><a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/Notes_AndroidDevSeek"><strong>相关代码在仓库项目的java路径下的provider包中</strong></a></p>
+<p><code>ContentProvider</code>是Android提供专门用于不用应用进行数据共享的方式. 它的底层同样也是Binder. 因为系统封装, 所以它的使用比起AIDL要简单很多.</p>
+<p>要实现一个内容提供者, 只需要写一个类继承<strong>ContentProvider</strong>,并复写六个抽象方法. 其中有四个是CURD操作方法. 一个**onCreate()<strong>用来做初始化. 一个</strong>getType()**用来返回一个Uri请求所对应的MIME类型,比如图片还是视频等. 如果我们不关心那么可是直接返回<code>NULL</code>或者<code>*/*</code>. </p>
+<p>这六个方法根据Binder工作原理,都是运行在ContentProvider的进程中. 除了**onCreate()**是被系统回调运行在主线程, 其余的都在Binder的线程池中.</p>
+<p>主要存储方式是<strong>表格</strong>的形式, 也可以支持<strong>文件</strong>格式,例如图片视频, 可以返回这类文件的句柄给外界来访问ContentProvider中的文件信息.</p>
+<p><strong>清单文件的声明</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">provider</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:authorities</span>=<span class="string">&quot;com.szysky.note.androiddevseek_02.provider&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:name</span>=<span class="string">&quot;.provider.BookProvider&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:permission</span>=<span class="string">&quot;com.szysky.PROVIDER&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>authorities</code>: 后面的值是指定这个ContentProvider的唯一标识.</li>
+<li><code>permission</code>: 添加一个权限认证, 对于访问者必须添加了这个使用权限的声明.</li>
+</ul>
+<p>查询的时候通过<code>Uri</code>对<code>authorities</code>声明值得解析就可以找到对应的ContentProvider</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Uri uri = Uri.parse(<span class="string">&quot;content://com.szysky.note.androiddevseek_02.provider&quot;</span>);</span><br><span class="line">getContentResolver().query(uri, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+
+<p>为了后续操作, 这里利用<strong>SQLiteOpenHelper</strong>来管理数据库,并创建两个表<strong>user</strong>和<strong>book</strong>,代码在仓库有,这里不写实现过程.</p>
+<p>由于有两个表支持被访问, 所以应该为每一个不同的表设定单独的Uri和Uri_Code 并将其关联. 这样外界访问的时候可以根据Uri得到Uri_Code. 也就在ContentProvider知道要处理的具体事件. </p>
+<p>在新建的<strong>ContentProvider</strong>类中进行关联, 如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String AUTHORITY = <span class="string">&quot;com.szysky.note.androiddevseek_02.provider&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 指定两个操作的Uri</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Uri BOOK_CONTENT_URI = Uri.parse(<span class="string">&quot;content://&quot;</span> +AUTHORITY + <span class="string">&quot;/book&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Uri USER_CONTENT_URI = Uri.parse(<span class="string">&quot;content://&quot;</span> +AUTHORITY + <span class="string">&quot;/user&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建Uri对应的Uri_Code</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> BOOK_URI_CODE = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> USER_URI_CODE = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建一个管理Uri和Uri_Code的对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> UriMatcher sUriMatcher = <span class="keyword">new</span> UriMatcher(UriMatcher.NO_MATCH);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">//进行关联</span></span><br><span class="line">        sUriMatcher.addURI(AUTHORITY, <span class="string">&quot;book&quot;</span>,BOOK_URI_CODE);</span><br><span class="line">        sUriMatcher.addURI(AUTHORITY, <span class="string">&quot;user&quot;</span>,USER_URI_CODE);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>针对<strong>query</strong>方法进行演示,其他三个类似,代码有全部实现的例子, 在<strong>自定义Provider</strong>文件中.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 通过自动以的Uri来判断对应的数据库表名</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">getTableName</span><span class="params">(Uri uri)</span></span>&#123;</span><br><span class="line">   String tableName = <span class="keyword">null</span>;</span><br><span class="line">   <span class="keyword">switch</span> (sUriMatcher.match(uri))&#123;</span><br><span class="line">       <span class="keyword">case</span> BOOK_URI_CODE:</span><br><span class="line">           tableName = DbHelper.BOOK_TABLE_NAME;</span><br><span class="line">           <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">case</span> USER_URI_CODE:</span><br><span class="line">           tableName = DbHelper.USER_TABLE_NAME;</span><br><span class="line">           <span class="keyword">break</span>;</span><br><span class="line">       <span class="keyword">default</span>:<span class="keyword">break</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> tableName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *   在query中, 获取到Uri传入要查询的具体表名, 使用SQLiteOpenHelper来进行query的查询,并把结果返回</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Cursor <span class="title">query</span><span class="params">(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//获取表名</span></span><br><span class="line">        String tableName = getTableName(uri);</span><br><span class="line">        <span class="keyword">if</span> (tableName == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;不被支持的Uri参数--&gt;&quot;</span>+uri );</span><br><span class="line">        <span class="keyword">return</span> mDb.query(tableName, projection, selection, selectionArgs, <span class="keyword">null</span>, <span class="keyword">null</span>, sortOrder,<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果需要监听<strong>Provider</strong>内容的变化, 那么可以在<strong>Provider中</strong><code>update</code>, <code>delete</code>, <code>insert</code>. 中操作完数据库之后. 使用<code>getContentResolver().notifyChange(uri,null);</code>来通知外界当前ContentProvider中数据已经发生改变.    而外部要想观察其变化. 使用<code>ContentResolver</code>的<code>rigisterContentObserver</code>方法来注册观察者. </p>
+<p><strong>线程安全问题</strong></p>
+<p>如果只有一个<strong>SQLiteDataBase</strong>对象被使用, 那么增删改查不会出现线程安全问题, 因为其内部对数据库的操作是有同步处理. 但是如果多个<strong>SQLiteDataBase</strong>对象来操作数据库就无法保证其线程安全.  这个时候就要注意了.</p>
+<h3 id="使用Socket"><a href="#使用Socket" class="headerlink" title="使用Socket"></a>使用Socket</h3><p>Socket也称为套接字. 是网络通信中的概念, 它分为流式套接字和用户数据包套接字两种. 分别对应于网络的传输控制层中TCP和UDP协议. </p>
+<p>使用Socket通信, 需要在清单文件添加权限的申请</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--Socket通信额外需要的线程--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.ACCESS_NETWORK_STATE&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.INTERNET&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>服务端</strong> 需要启动服务, 并且在线程中建立<code>TCP</code>服务, 然后监听一个<strong>端口</strong>. 当客户端建立连接的时候就会生成一个<code>Socket</code>流. 可以保持后续的持续通信. 每一个客户端都对应一个Socket. 如果客户端断开连接. 服务端需要做好相应的Socket流关闭并结束通话线程. 可以通过在客户端断开的时候服务端的接收字节流会是<strong>null</strong>来判断连接是否还存活.</p>
+<p>首先需要开启一个新线程, <code>Runnable</code>接口这样实现, 以下是伪代码, 没有捕捉异常</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 监听 3333 端口</span></span><br><span class="line"> ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(<span class="number">3333</span>);</span><br><span class="line"><span class="comment">// 判断服务是否断开 没有断开就继续监听端口         </span></span><br><span class="line">  <span class="keyword">while</span> (!mIsServiceDestoryed) &#123;</span><br><span class="line">        <span class="comment">//这个是阻塞方法, 当有新的客户端连接,才会返回Socket值</span></span><br><span class="line">        <span class="keyword">final</span> Socket accept = serverSocket.accept();</span><br><span class="line">        <span class="comment">// 有了新的客户端 那就需要创建一个新的线程去维护</span></span><br><span class="line">        <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="comment">//  这里做对一个Socket的具体操作</span></span><br><span class="line">                responseClient(accept);</span><br><span class="line">            &#125;&#125;.start();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">responseClient</span><span class="params">(Socket client)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//接收客户端消息</span></span><br><span class="line">        BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(client.getInputStream()));</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//发送到客户端 , 设置true参数就不需要手动的刷新输出流</span></span><br><span class="line">        PrintWriter out = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(client.getOutputStream())),<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        out.println(<span class="string">&quot;欢迎来到直播间&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//判断服务标志是否销毁, 没有销毁那么就一直监听此链接的Socket流</span></span><br><span class="line">        <span class="keyword">while</span> (!mIsServiceDestoryed) &#123;</span><br><span class="line">            String str = in.readLine(); <span class="comment">//这是一个阻塞方法</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">//判断如果取出来的是null,那么就说明连接已经断开</span></span><br><span class="line">            <span class="keyword">if</span> (str == <span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 对客户端进行回复</span></span><br><span class="line">            out.println(<span class="string">&quot;我是回复消息&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//准备关闭一系列的流</span></span><br><span class="line">        ......</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最后就是要在<code>onDestroy()</code>中把循环中判断服务存活的标识置为<code>false</code>, 让开启的线程都能自动走完关闭.</p>
+<p><strong>客户端</strong></p>
+<p>在<code>onCreate()</code>先startService开启TCP的服务, 然后开启一个线程准备连接<strong>Socket</strong>. 可以加上失败重连的的机制.  只要获取到了<strong>Socket</strong>, 就和之前服务端一样获取输入输出流进行对应的操作.</p>
+<p>贴出客户端的核心代码, Runnable接口实现的 ,同样是伪代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Socket socket = <span class="keyword">null</span>;</span><br><span class="line"><span class="comment">// 试图连接服务器, 如果失败休眠一秒重试</span></span><br><span class="line"><span class="keyword">while</span>(socket == <span class="keyword">null</span>)&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 如果可以连接 3333 端口成功那么socket就不为null, 此循环也就结束</span></span><br><span class="line">      socket = <span class="keyword">new</span> Socket(<span class="string">&quot;localhost&quot;</span>, <span class="number">3333</span>);</span><br><span class="line">      mClientSocket = socket;</span><br><span class="line">      <span class="comment">// 获得输出流, 并设置true,自动刷新输出流里面的内容</span></span><br><span class="line">      mPrintWrite = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(mClientSocket.getOutputStream())),<span class="keyword">true</span> );</span><br><span class="line">  &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      SystemClock.sleep(<span class="number">1000</span>);</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//准备接收服务器的消息.</span></span><br><span class="line"> BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(mClientSocket.getInputStream()));</span><br><span class="line">  <span class="comment">//获得了socket流的读入段  只要activity不关闭一直循环读</span></span><br><span class="line">  <span class="keyword">while</span>(!SocketActivity.<span class="keyword">this</span>.isFinishing())&#123;</span><br><span class="line">      <span class="comment">// readLine()同样也是阻塞方法</span></span><br><span class="line">      String strLine = in.readLine();</span><br><span class="line">      <span class="keyword">if</span> (strLine != <span class="keyword">null</span>)&#123;</span><br><span class="line">          <span class="comment">//TODO 获取到了服务端发来的数据, 做一些事情</span></span><br><span class="line">          <span class="comment">//....</span></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//走到这里 说明界面已经不存在, 进行扫尾动作</span></span><br><span class="line">in.close();</span><br><span class="line">mPrintWrite.close();</span><br><span class="line">socket.close();</span><br></pre></td></tr></table></figure>
+
+
+<p>demo图例<strong>Socket相关代码存在仓库的socket包中</strong></p>
+<p><img src="socket.png"></p>
+<h2 id="各种IPC的差异以及选择"><a href="#各种IPC的差异以及选择" class="headerlink" title="各种IPC的差异以及选择"></a>各种IPC的差异以及选择</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>优点</th>
+<th>缺点</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Bundle</code></td>
+<td>简单易用</td>
+<td>只能传输Bundle支持的数据类型</td>
+<td>四大组件间的进程间通信</td>
+</tr>
+<tr>
+<td><code>文件共享</code></td>
+<td>简单易用</td>
+<td>不适合高并发场景,并且无法做到进程间的即时通</td>
+<td>无法并发访问情形, 交换简单的数据实时性不高的场景</td>
+</tr>
+<tr>
+<td><code>AIDL</code></td>
+<td>功能强大</td>
+<td>使用稍复杂,需要处理好线程同步</td>
+<td>一对多通信且有RPC需求</td>
+</tr>
+<tr>
+<td><code>ContentProvider</code></td>
+<td>在数据源访问方面功能强大,支持一对多并发数据共享</td>
+<td>可以理解为受约束的AIDL,主要提供数据源的CRUD操作</td>
+<td>一对多的进程间的数据共享</td>
+</tr>
+<tr>
+<td><code>Messenger</code></td>
+<td>功能一般, 支持一对多串行通信,支持实时通信</td>
+<td>不能很好处理高并发,不支持RPC,数据通过Message进行传输, 因此只能传输Bundle支持的数据类型</td>
+<td>低并发的一对多即时通信,无RPC需求,或者无需要返回结果的RPC需求</td>
+</tr>
+<tr>
+<td><code>Socket</code></td>
+<td>功能强大,可以通过网络传输字节流,支持一对多并发实时通信</td>
+<td>实现细节稍微有点繁琐,不支持直接的RPC</td>
+<td>网络数据交换</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>下一章: View的事件体系</p>
+</blockquote>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/08/08/Android开发艺术探索-笔记03-View的事件体系/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 03-View的事件体系">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/08/01/Android开发艺术探索-笔记01-Activity的生命周期和模式/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 01-Activity的生命周期和模式">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/08/02/Android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B002-IPC%E6%9C%BA%E5%88%B6/";
+    var disqus_url = "http://szysky.com/2016/08/02/Android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B002-IPC%E6%9C%BA%E5%88%B6/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android 开发艺术探索》 12-Bitmap的加载和Cache - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/08/23/《Android-开发艺术探索》-12-Bitmap的加载和Cache/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android 开发艺术探索》 12-Bitmap的加载和Cache</h1>
+                    <h2 class="subheading">抄书系列</h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-08-23
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>由于Bitmap的特殊性以及Android对单个应用所施加的内存限制, 会导致加载Bitmap的时候很容易出现内存溢出.  还有常用的缓存策略. </p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/Notes_AndroidDevSeek">blog相关代码</a></p>
+<h2 id="Bitmap的高效加载"><a href="#Bitmap的高效加载" class="headerlink" title="Bitmap的高效加载"></a>Bitmap的高效加载</h2><p>先来简单介绍一下如何加载一个<code>Bitmap</code>, <code>Bitmap</code>在android中指的是一张图片, 可以是png格式也可以是jpg等其他常见的图片格式. </p>
+<p>**那么如何加载一个图片?**首先<code>BitmapFactory</code>类提供了四种方法: <code>decodeFile()</code>, <code>decodeResource()</code>, <code>decodeStream()</code>, <code>decodeByteArray()</code>. 分别用于从文件系统, 资源文件, 输入流以及字节数组加载出一个<code>Bitmap</code>对象. 其中<code>decodeFile</code>和<code>decodeResource</code>又间接调用了<code>decodeStream()</code>方法, 这四类方法最终是在Android的底层实现的, 对应着<code>BitmapFactory</code>类的几个native方法.</p>
+<p>**高效加载的Bitmap的核心思想:**采用<code>BitmapFactory.Options</code>来加载所需尺寸的图片. 比如说一个<code>ImageView</code>控件的大小为<code>300*300</code>. 而图片的大小为<code>800*800</code>. 这个时候如果直接加载那么就比较浪费资源, 需要更多的内存空间来加载图片, 这不是很必要的. 这里我们就可以先把图片按一定的采样率来缩小图片在进行加载.  不仅降低了内存占用,还在一定程度上避免了<code>OOM</code>异常. 也提高了加载bitmap时的性能. </p>
+<p><strong>而通过Options参数来缩放图片</strong>: 主要是用到了<code>inSampleSize</code>参数, 即采样率.</p>
+<ul>
+<li>如果是<strong>inSampleSize=1</strong>那么和原图大小一样, </li>
+<li>如果是<strong>inSampleSize=2</strong>那么宽高都为原图<strong>1/2</strong>, 而像素为原图的<strong>1/4</strong>, 占用的内存大小也为原图的<strong>1/4</strong></li>
+<li>如果是<strong>inSampleSize=3</strong>那么宽高都为原图<strong>1/3</strong>, 而像素为原图的<strong>1/9</strong>, 占用的内存大小也为原图的<strong>1/9</strong></li>
+<li>以此类推…..</li>
+</ul>
+<p><strong>要知道Android中加载图片具体在内存中的占有的大小是根据图片的像素决定的, 而与图片的实际占用空间大小没有关系.而且如果要加载<code>mipmap</code>下的图片, 还会根据不同的分辨率下的文件夹进行不同的放大缩小.</strong></p>
+<p>列举现在有一张图片像素为:<strong>1024*1024</strong>, 如果采用<code>ARGB8888</code>(四个颜色通道每个占有一个字节,相当于1点像素占用4个字节的空间)的格式来存储.(这里不考虑不同的资源文件下情况分析) 那么图片的占有大小就是<code>1024*1024*4</code>那现在这张图片在内存中占用<strong>4MB</strong>. </p>
+<p>如果针对刚才的图片进行<code>inSampleSize=2</code>, 那么最后占用内存大小为<code>512*512*4</code>, 也就是<strong>1MB</strong></p>
+<p>采样率的数值必须是大于1的整数是才会有缩放效果, 并且采样率同时作用于宽/高, 这将导致缩放后的图片以这个<strong>采样率的2次方递减, 即内存占用缩放大小为1/(inSampleSize的二次方).</strong> 如果小于1那么相当于=1的时候.  在官方文档中指出, <code>inSampleSize</code>的取值应该总是为2的指数, 比如1,2,4,8,16,32…如果外界传递<code>inSampleSize</code>不为2的指数, 那么系统会向下取整并选择一个最接近的2的指数来代替. 比如如果<code>inSampleSize=3</code>,那么系统会选择2来代替. <strong>但是这条规则并不作用于所有的android版本, 所以可以当成一个开发建议</strong></p>
+<hr>
+<p>整理一下开发中代码流程:</p>
+<ol>
+<li>将<code>BitmapFactory.Options</code>的<code>inJustDecodeBounds</code>参数设置为true并加载图片.</li>
+<li>从<code>BitmapFactory.Options</code>取出图片的原始宽高信息, 他们对应于<code>outWidth</code>和<code>outHeight</code>参数</li>
+<li>根据采样率的规则并结合目标View的所需大小计算出采样率<code>inSampleSize</code></li>
+<li>将<code>BitmapFactory.Options</code>的<code>inJustDecodeBounds</code>参数设为false, 然后重新加载.</li>
+</ol>
+<p>第一个步骤设置了一个参数, 这个参数的作用就是在加载图片的时候是否只是加载图片宽高信息而不把图片全部加载到内存. 所以这个操作是个<strong>轻量级的</strong>. </p>
+<p>通过这些步骤就可以整理出以下的工具加载图片类调用<code>decodeFixedSizeForResource()</code>即可.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBitmapLoadUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对一个Resources的资源文件进行指定长宽来加载进内存, 并把这个bitmap对象返回</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> res   资源文件对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> resId 要操作的图片id</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> reqWidth 最终想要得到bitmap的宽度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> reqHeight 最终想要得到bitmap的高度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回采样之后的bitmap对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">decodeFixedSizeForResource</span><span class="params">(Resources res, <span class="keyword">int</span> resId, <span class="keyword">int</span> reqWidth, <span class="keyword">int</span> reqHeight)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 首先先指定加载的模式 为只是获取资源文件的大小</span></span><br><span class="line">        BitmapFactory.Options options = <span class="keyword">new</span> BitmapFactory.Options();</span><br><span class="line">        options.inJustDecodeBounds = <span class="keyword">true</span>;</span><br><span class="line">        BitmapFactory.decodeResource(res, resId, options);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Calculate Size  计算要设置的采样率 并把值设置到option上</span></span><br><span class="line">        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 关闭只加载属性模式, 并重新加载的时候传入自定义的options对象</span></span><br><span class="line">        options.inJustDecodeBounds = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">return</span> BitmapFactory.decodeResource(res, resId, options);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  一个计算工具类的方法, 传入图片的属性对象和 想要实现的目标大小. 通过计算得到采样值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">calculateInSampleSize</span><span class="params">(BitmapFactory.Options options, <span class="keyword">int</span> reqWidth, <span class="keyword">int</span> reqHeight)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//Raw height and width of image</span></span><br><span class="line">        <span class="comment">//原始图片的宽高属性</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> height = options.outHeight;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> width = options.outWidth;</span><br><span class="line">        <span class="keyword">int</span> inSampleSize = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果想要实现的宽高比原始图片的宽高小那么就可以计算出采样率, 否则不需要改变采样率</span></span><br><span class="line">        <span class="keyword">if</span> (reqWidth &lt; height || reqHeight &lt; width)&#123;</span><br><span class="line">            <span class="keyword">int</span> halfWidth = width/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">int</span> halfHeight = height/<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 判断原始长宽的一半是否比目标大小小, 如果小那么增大采样率2倍, 直到出现修改后原始值会比目标值大的时候</span></span><br><span class="line">            <span class="keyword">while</span>((halfHeight/inSampleSize) &gt;= reqHeight &amp;&amp; (halfWidth/inSampleSize) &gt;= reqWidth)&#123;</span><br><span class="line">                inSampleSize *= <span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> inSampleSize;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当给<code>ImageView</code>设置的时候传入控件的大小, 就会自动转换返回. 可以看一下下面的两张图, 当加载一个分辨率很大的图片如果不使用此方法那么就出<strong>程序崩溃</strong></p>
+<p><strong>了解一下一个原始图片到手机显示的最终占用内存大小</strong></p>
+<p><img src="load_oom_480dpi.png"></p>
+<p><img src="load_oom_560dpi.png"></p>
+<h2 id="Android中的缓存策略"><a href="#Android中的缓存策略" class="headerlink" title="Android中的缓存策略"></a>Android中的缓存策略</h2><p>目前常用的一种缓存算法是<strong>LRU(Least Recently Used)</strong>, 最近最少使用算法. 核心思想: 当缓存存满时, 会优先淘汰那些近期最少使用的缓存对象. 采用LRU算法的缓存有两种: <strong>LruCache</strong>和<strong>DiskLruCache</strong>,<strong>LruCache</strong>用于实现内存缓存, <strong>DiskLruCache</strong>则充当了存储设备缓存, 当组合使用后就可以实现一个类似<code>ImageLoader</code>这样的类库.</p>
+<h3 id="LruCache"><a href="#LruCache" class="headerlink" title="LruCache"></a>LruCache</h3><p><strong>LruCache</strong>是Android 3.1所提供的一个缓存类, 通过<code>support-v4</code>兼容包可以兼容到早期的Android版本</p>
+<p><strong>LruCache</strong>是一个泛型类, 它内部采用了一个<code>LinkedHashMap</code>以强引用的方式存储外界的缓存对象, 其提供了get和put方法来完成缓存的获取和添加的操作. 当缓存满了时, <strong>LruCache</strong>会移除较早使用的缓存对象, 然后在添加新的缓存对象. 普及一下各种引用的区别:</p>
+<ul>
+<li>强引用: 直接的对象引用</li>
+<li>软引用: 当一个对象只有软引用存在时, 系统内存不足时此对象会被gc回收</li>
+<li>弱引用: 当一个对象只有弱引用存在时, 对象会随下一次gc时被回收</li>
+</ul>
+<p>创建的缓存对象大小通过可用内存的1/8来进行分配, 并需要重写<code>sizeOf()</code>方法, <code>sizeOf()</code>是计算缓存对象的大小,  如果有需要还可以重写<code>entryRemoved()</code>,在<strong>Lru</strong>移除旧缓存的时候回调用此方法. </p>
+<p>获取, 添加, 删除, 分别对应get, put, remove</p>
+<h3 id="DiskLruCache"><a href="#DiskLruCache" class="headerlink" title="DiskLruCache"></a>DiskLruCache</h3><p><strong>DiskLruCache</strong>用于实现存储设备缓存, 即磁盘缓存. 它通过将缓存对象写入文件系统从而实现缓存的效果. </p>
+<p><strong>1. DiskLruCache</strong>的创建</p>
+<p><strong>DiskLruCache</strong>并不能通过构造方法来创建, 他提供了<code>open()</code>方法用于创建自身, 如下所示</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DiskLruCache <span class="title">open</span><span class="params">(File directory, <span class="keyword">int</span> appVersion, <span class="keyword">int</span> valueCount, <span class="keyword">long</span> maxSize)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这个方法有四个参数:</p>
+<ol>
+<li><code>File directory</code>: 表示磁盘缓存在文件系统中的存储路径. 可以选择SD卡上的缓存目录, 具体是指<code>/sdcard/Andriod/data/package_name/cache</code>目录, package_name表示当前应用的包名, 当应用被卸载后, 此目录会一并删除掉. 也可以选择data目录下. 或者其他地方. **这里给出的建议:**如果应用卸载后就希望删除缓存文件的话 , 那么就选择SD卡上的缓存目录, 如果希望保留缓存数据那就应该选择SD卡上的其他目录.</li>
+<li><code>int appVersion</code>: 表示应用的版本号, 一般设为1即可. 当版本号发生改变的时候<code>DiskLruCache</code>会清空之前所有的缓存文件, 在实际开发中这个实用性不大.</li>
+<li><code>int valueCount</code>: 表示单个节点所对应的数据的个数, 一般设为1. </li>
+<li><code>long maxSize</code>: 表示缓存的总大小, 比如50MB, 当缓存大小超出这个设定值后, <code>DiskLruCache</code>会清除一些缓存而保证总大小不大于这个设定值. </li>
+</ol>
+<p><strong>2. DiskLruCache的缓存添加</strong></p>
+<p><code>DiskLruCache</code>的缓存添加的操作是通过<code>Editor</code>完成的, <code>Editor</code>表示一个缓存对象的编辑对象. </p>
+<p>如果还是缓存图片为例子, 每一张图片都通过图片的<code>url</code>为key, 这里由于url可能会有特殊字符所以采用<strong>url的md5值</strong>作为key. 根据这个key就可以通过<code>edit()</code>来获取<code>Editor</code>对象, 如果这个缓存对象正在被编辑, 那么edit()就会返回null. 即<code>DiskLruCache</code>不允许同时编辑一个缓存对象. </p>
+<p>当用<code>.edit(key)</code>获得了<code>Editor</code>对象之后. 通过<code>editor.newOutputStream(0)</code>就可以得到一个文件输出流. 由于之前<code>open()</code>方法设置了一个节点只能有一个数据. 所以在获得输出流的时候传入常量0即可.</p>
+<p>有了文件输出流, 可以当网络下载图片时, 图片就可以通过这个文件输出流写入到文件系统上.  别忘了使用<code>Bufferedxxxxx</code>写完之后,  要通过<code>Editor中commit()</code>来提交写操作, 如果下载中发生异常, 那么使用<code>Editor中abort()</code>来回退整个操作.</p>
+<p><strong>3. DiskLruCache的缓存查找</strong></p>
+<p>和缓存的添加过程类似, 缓存查找过程也需要将url转换成key, 然后通过<code>DiskLruCache#get()</code>方法可以得到一个<code>Snapshot</code>对象, 接着在通过<code>Snapshot</code>对象即可得到缓存的文件输入流, 有了文件输入流, 自然就可以得到<code>Bitmap</code>对象.  为了避免加载图片出现OOM所以采用压缩的方式. 在前面对<code>BitmapFactory.Options</code>的使用说明了.  <strong>但是这中方法对<code>FileInputStream</code>的缩放存在问题</strong>. 原因是<code>FileInputStream</code>是一种有序的文件流, 而两次<code>decodeStream</code>调用会影响文件的位置属性, 这样在第二次<code>decodeStream</code>的时候得到的会是null. 针对这一个问题, 可以通过文件流来得到它所对应的<strong>文件描述符</strong>, 然后通过<code>BitmapFactory.decodeFileDescription()</code>来加载一张缩放后的图片.</p>
+<h3 id="ImageLoader的实现"><a href="#ImageLoader的实现" class="headerlink" title="ImageLoader的实现"></a>ImageLoader的实现</h3><p>一个好的ImageLoader应该具备以下几点:</p>
+<ul>
+<li>图片的压缩</li>
+<li>网络拉取</li>
+<li>内存缓存</li>
+<li>磁盘缓存</li>
+<li>图片的同步加载</li>
+<li>图片的异步加载</li>
+</ul>
+<p>也可以利用<code>picasso</code>和<code>glide</code>这种图片加载类库, 使用<strong>构建者</strong>模式提供使用. 本文练习demo实现了链式调用设置控件,并制定url然后自动去获取. 相关联的类在<code>load包中</code></p>
+<p>可以看看有了缓存的区别</p>
+<p><img src="lrucache_result.png"></p>
+<h2 id="ImageLoader的使用"><a href="#ImageLoader的使用" class="headerlink" title="ImageLoader的使用"></a>ImageLoader的使用</h2><h3 id="照片墙效果"><a href="#照片墙效果" class="headerlink" title="照片墙效果"></a>照片墙效果</h3><p>这里定义一个自定义的<code>ImageView</code>作为GridView的item布局控件, 之所以这样是想让图片的控件自动去使用设备达到<strong>宽高相等的效果比较好看些</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SquareImageView</span> <span class="keyword">extends</span> <span class="title">ImageView</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SquareImageView</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SquareImageView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SquareImageView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 由于这里准备提供给GridView控件使用, 对于一个水平线有几个是未知的</span></span><br><span class="line">        <span class="comment">// 那么通过父控件的测量传到这里的宽度规格, 也当做高度即可</span></span><br><span class="line">        <span class="keyword">super</span>.onMeasure(widthMeasureSpec, widthMeasureSpec);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个实现很简单, 利用动态的宽度同时也当做高度即可实现预期的效果.</p>
+<p><img src="photo_wall_result.png"></p>
+<p>这个就是结果, 或许应该对网络加上判断非wifi给一个提示, 可能首次加载会需要比较多的流量. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="comment">// 根据连接网络的情况判断是否加载图片</span></span><br><span class="line"><span class="keyword">if</span> (!NetWorkUtil.isWifi(getApplicationContext())) &#123;</span><br><span class="line">  AlertDialog.Builder builder = <span class="keyword">new</span> AlertDialog.Builder(<span class="keyword">this</span>);</span><br><span class="line">  builder.setMessage(<span class="string">&quot;首次使用会从手机网络下载图片, 是否确认下载?&quot;</span>)</span><br><span class="line">          .setTitle(<span class="string">&quot;友情提示&quot;</span>)</span><br><span class="line">          .setPositiveButton(<span class="string">&quot;好的.&quot;</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">              <span class="meta">@Override</span></span><br><span class="line">              <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</span><br><span class="line">                  mCanLoadForPhoneNet = <span class="keyword">true</span>;</span><br><span class="line">                  imageAdapter.notifyDataSetChanged();</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">          .setNegativeButton(<span class="string">&quot;不行!&quot;</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">              <span class="meta">@Override</span></span><br><span class="line">              <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</span><br><span class="line">                  Toast.makeText(getApplicationContext(), <span class="string">&quot;瞅你扣那样!!!&quot;</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;).show();</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  mCanLoadForPhoneNet = <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// NetWorkUtil类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NetWorkUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isWifi</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        ConnectivityManager connectivityManager = (ConnectivityManager) context</span><br><span class="line">                .getSystemService(Context.CONNECTIVITY_SERVICE);</span><br><span class="line">        NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();</span><br><span class="line">        <span class="keyword">if</span> (activeNetInfo != <span class="keyword">null</span></span><br><span class="line">                &amp;&amp; activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>然后优化列表 <strong>只有在GridView静止的时候才进行图片加载, 避免滑动时候的无谓的线程加载消耗(即使ImageLoader内部使用了线程池, 你仍然有这么做的必要)</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">GridView gv_main = (GridView) findViewById(R.id.gv_main);</span><br><span class="line"><span class="comment">// 监听GridView的滑动状态</span></span><br><span class="line">  gv_main.setOnScrollListener(<span class="keyword">new</span> AbsListView.OnScrollListener() &#123;</span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onScrollStateChanged</span><span class="params">(AbsListView view, <span class="keyword">int</span> scrollState)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">if</span> (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE)&#123;</span><br><span class="line">              mIsGridViewIdle = <span class="keyword">true</span>;</span><br><span class="line">              <span class="comment">// 并触发更新adapter</span></span><br><span class="line">              imageAdapter.notifyDataSetChanged();</span><br><span class="line">          &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">              mIsGridViewIdle = <span class="keyword">false</span>;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onScroll</span><span class="params">(AbsListView view, <span class="keyword">int</span> firstVisibleItem, <span class="keyword">int</span> visibleItemCount, <span class="keyword">int</span> totalItemCount)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>最后在<strong>adapter中的getView()设置标记位的判断, 只有在wifi和静止的状态下才进行加载请求</strong>下面是<code>getView()</code>代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">getView</span><span class="params">(<span class="keyword">int</span> position, View convertView, ViewGroup parent)</span> </span>&#123;</span><br><span class="line">  ViewHolder holder = <span class="keyword">null</span>;</span><br><span class="line">  <span class="keyword">if</span> (convertView == <span class="keyword">null</span>)&#123;</span><br><span class="line">      convertView = View.inflate(mContext, R.layout.item_photo_wall, <span class="keyword">null</span>);</span><br><span class="line">      holder = <span class="keyword">new</span> ViewHolder();</span><br><span class="line">      holder.mImageView = (ImageView) convertView.findViewById(R.id.iv_square);</span><br><span class="line">      convertView.setTag(holder);</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      holder = (ViewHolder) convertView.getTag();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 设置默认图片</span></span><br><span class="line">  ImageView mImageView = holder.mImageView;</span><br><span class="line">  mImageView.setImageResource(android.R.drawable.screen_background_dark_transparent);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 检测是否wifi 和 是否是滑动状态</span></span><br><span class="line">  <span class="comment">// 优化重点</span></span><br><span class="line">  <span class="keyword">if</span> (mCanLoadForPhoneNet &amp;&amp; mIsGridViewIdle)&#123;</span><br><span class="line">      <span class="comment">// 加载图片</span></span><br><span class="line">      mImageLoader.setImageView(mImageView).url(mUrls.get(position));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> convertView;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/08/25/《Android-开发艺术探索》-13-综合技术/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 13-综合技术">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/08/22/《Android-开发艺术探索》-11-Android的线程和线程池/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 11-Android的线程和线程池">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/08/23/%E3%80%8AAndroid-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B-12-Bitmap%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8CCache/";
+    var disqus_url = "http://szysky.com/2016/08/23/%E3%80%8AAndroid-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B-12-Bitmap%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8CCache/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

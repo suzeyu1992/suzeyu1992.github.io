@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          PHP(三)-载入文件和错误处理 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/04/17/PHP(三)-载入文件和错误处理/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#入门" title="入门">入门</a>
+                        
+                          <a class="tag" href="/tags/#PHP" title="PHP">PHP</a>
+                        
+                    </div>
+                    <h1>PHP(三)-载入文件和错误处理</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-04-17
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>自学小笔记</p>
+<span id="more"></span>
+
+<h3 id="文件加载"><a href="#文件加载" class="headerlink" title="文件加载"></a>文件加载</h3><p><strong>基本使用</strong></p>
+<ol>
+<li>有四个文件加载语句: include, require, include_once, require_once</li>
+<li>以上四种使用形式完全一样: 比如: include “要加载的文件路径”或 include(“路径”);</li>
+<li>区别在于加载失败或是否重复加载这种情况，有所不同。</li>
+</ol>
+<p><strong>文件加载</strong></p>
+<p> 举例说明  以<code>include</code>为例其他三种也适用。</p>
+<ul>
+<li>相对路径: 相对于当前网页文件所在的位置为起点。主要适用符号<code>./</code>当前路径,<code>../</code>上一级路径。</li>
+<li>绝对路径: 本地路径或者网络绝对路径。 </li>
+<li>无路径  不推荐适用。只给出文件名没有路径。</li>
+</ul>
+<p><strong>文件载入和执行过程详解</strong></p>
+<ul>
+<li>第一步: 从<code>include</code>语句处退出<code>php</code>脚本模式(进入html代码模式)</li>
+<li>第二步: 载入<code>include</code>语句所设定的文件中的代码，并执行之(如同在当前文件中一样)</li>
+<li>第三步: 退出html模式重新进入<code>php</code>脚本模式，继续执行之后的代码。</li>
+</ul>
+<p><strong>4个载入语句的区别</strong></p>
+<p><code>include</code>和<code>require</code>的区别: </p>
+<ul>
+<li><code>include</code>载入文件失败时(既没有找到该文件)，报一个提示错误，然后继续执行后续代码。</li>
+<li><code>require</code>载入失败时，报错并立即终止执行</li>
+<li>所以通常<code>require</code>用于在程序中，后续代码依赖于载入的文件的时候。</li>
+</ul>
+<p><code>include</code>和<code>include_once</code>的区别:</p>
+<ul>
+<li><code>include</code>载入的文件不判断是否重复，只要有<code>include</code>语句，就会载入一次。(可能会重复载入)</li>
+<li><code>include_once</code>载入的文件会有内部判断机制是否”前面代码”已经再如果，如果再如果，就不能在载入。</li>
+</ul>
+<p><strong>在被载入文件中return语句的作用</strong></p>
+<p>一个载入语句，如果载入成功，会返回<code>int 1</code>，如果载入失败那么返回<code>false</code>。</p>
+<ol>
+<li><code>return</code>语句作用是终止被载入过程–就是<code>return</code>之后的代码不再被执行。</li>
+<li><code>return</code> 也可以作为被载入文件载入时返回的一个数据。</li>
+</ol>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p><strong>错误的分类，通常有三种</strong></p>
+<ul>
+<li>语法错误: 程序运行之前，都要先检查语法。如果语法有错误，会立即报错，并且不会去执行程序。</li>
+<li>运行时报错: 程序<code>syntax</code> 检测通过。开始运行程序并在此过程中遇到错误。常见有三种:提示性错误，警告性错误，致命错误。</li>
+<li>逻辑错误: 程序本身可以正常执行，但没有报错–但计算结果却不对。</li>
+</ul>
+<p><strong>错误的分级</strong></p>
+<p>php语言中，将各种错误进行了不同级别的分类归纳，并形成大约10几个级别的错误，这就是技术层面的错误分级。</p>
+<p>系统常见错误:</p>
+<ul>
+<li><code>E_ERROR</code>: 致命错误 例如调用不存在的函数们无法执行之后代码。</li>
+<li><code>E_ERANING</code>: 警告性错误 例如引入文件无效，视情况而定代码是否执行</li>
+<li><code>E_NOTICE</code>: 提示性错误 例如调用未定义变量，常量 会提示错误并继续执行代码。</li>
+</ul>
+<p>用户可自定义的错误:</p>
+<ul>
+<li><code>E_USER_ERROR</code>: 自定义致命错误</li>
+<li><code>E_USER_WRANING</code>: 自定义警告性错误</li>
+<li><code>E_USER_NOTICE</code>: 自定义提示性错误</li>
+</ul>
+<p>其他:</p>
+<ul>
+<li><code>E_STRICT</code>: 严谨性语法检查错误</li>
+<li><code>E_ALL</code>: 代表所有错误</li>
+</ul>
+<p>介绍个函数可以填充到想要的位数</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">str_pad(<span class="variable">$str1</span>,长度n,<span class="variable">$str2</span>,位置w);</span><br><span class="line"><span class="comment">//将字符串$str1，用字符串$str2填充到指定的长度n，并且可以指定填充的位置，左填充、右填充。</span></span><br><span class="line"><span class="variable">$result</span> = str_pad(<span class="variable">$s</span>,<span class="number">16</span>,<span class="string">&quot;0&quot;</span>,STR_PAD_LEFT);</span><br></pre></td></tr></table></figure>
+
+<p><strong>自定义触发</strong></p>
+<p>语法格式: <code>trigger_error(&quot;错误提示内容&quot;,E_USER_ERROR);</code>    //E_USER_ERROR可以使三种用户代码其中的任意一个。</p>
+<p><strong>显示错误报告</strong></p>
+<ul>
+<li>设置<code>php.ini</code>文件中的<code>display_errors: on/off </code>  全局</li>
+<li>代码中调用   <code>ini_set(&quot;display_errors&quot;,0);</code>    //0为关，1为开</li>
+</ul>
+<p><strong>显示哪些级别的错误报告(error_reporting)</strong></p>
+<ul>
+<li><code>php.ini</code>文件中 <code>error_repoting</code></li>
+<li>代码中调用   <code>ini_set(&quot;error&quot;,E_NOTICE|E_WARNING|E_ERROR);</code></li>
+</ul>
+<p><strong>自定义所务处理器</strong></p>
+<p>什么叫错误处理器：就是一旦发生错误，用来处理该错误的一种机器–就是一个函数。</p>
+<p>自定义错误处理，就是让系统不要去处理错误，而完全由我们队错误进行处理:显示和记录。</p>
+<ul>
+<li>第一步设定要处理错误的函数名    <code>set_error_handler(&quot;f1&quot;);</code></li>
+<li>第二步 定义函数        <code>function f1()&#123;...&#125;</code></li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/04/18/PHP-四-函数-数组介绍/" data-toggle="tooltip" data-placement="top" title="PHP(四)-函数 数组介绍">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/04/16/基础篇(六)-HTML5介绍/" data-toggle="tooltip" data-placement="top" title="基础篇(六)-HTML5介绍">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#入门" title="入门">入门</a>
+                        
+                          <a class="tag" href="/tags/#PHP" title="PHP">PHP</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/04/17/PHP(%E4%B8%89)-%E8%BD%BD%E5%85%A5%E6%96%87%E4%BB%B6%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/";
+    var disqus_url = "http://szysky.com/2016/04/17/PHP(%E4%B8%89)-%E8%BD%BD%E5%85%A5%E6%96%87%E4%BB%B6%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

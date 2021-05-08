@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          算法的了解 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2017/01/01/认知算法/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#数据结构" title="数据结构">数据结构</a>
+                        
+                    </div>
+                    <h1>算法的了解</h1>
+                    <h2 class="subheading">算法究竟是什么, 都包括些什么</h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2017-01-01
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="算法定义"><a href="#算法定义" class="headerlink" title="算法定义"></a>算法定义</h2><blockquote>
+<p>算法是解决特定问题求解步骤的描述, 在计算机中表现为指令的有限序列, 并且每条指令表示一个或多个操作. </p>
+</blockquote>
+<p>算法是针对<strong>一种</strong>或者是<strong>一类问题</strong>的解决方案.</p>
+<h2 id="算法的特性"><a href="#算法的特性" class="headerlink" title="算法的特性"></a>算法的特性</h2><p>算法具有5个基本特性: <code>输入</code>, <code>输出</code>, <code>有穷性</code>, <code>确定性</code>和<code>可行性</code>.</p>
+<h3 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h3><p>算法具有<code>0或者多个输入</code>. 对于个别场景, 比如打印输出字符串. 可能会不需要任何的输入参数. </p>
+<p>算法至少<code>1个或者多个输出</code>. 算法一定要有输出, 否则算法也就没有计算的意义. 输出的形式可以是<code>打印输出</code>或者是返回<code>1个以上的值</code></p>
+<h3 id="有穷性"><a href="#有穷性" class="headerlink" title="有穷性"></a>有穷性</h3><p>就是算法应该可以<code>有限时间</code>内可以<code>执行完毕</code>.  </p>
+<ul>
+<li>有限时间: 一个算法如果计算需要几天,几月那就有点扯蛋了. 基本这不是我们需要的算法. </li>
+<li>执行完毕: 可以正常的执行结束. 而不会出现<code>死循环</code>的问题. </li>
+</ul>
+<h3 id="确定性"><a href="#确定性" class="headerlink" title="确定性"></a>确定性</h3><p>算法的每一步骤都具有确定的含义, 不会出现<code>二义性</code>.</p>
+<p>比如说. 某种条件下只会有一条执行的代码线路. 而不会因为<code>随机性</code>而导致相同的输入结果而出现了不同的输出结果. </p>
+<h3 id="可行性"><a href="#可行性" class="headerlink" title="可行性"></a>可行性</h3><p>算法的每一步必须是可行的. 也就是说, 每一步都能够通过执行有限的次数来完成. </p>
+<h2 id="算法的设计"><a href="#算法的设计" class="headerlink" title="算法的设计"></a>算法的设计</h2><ul>
+<li><code>正确性</code>: 算法至少可以保证结果的准确性.  </li>
+<li><code>可读性</code>: 算法的另一个目的是为了便于阅读, 理解和交流. 为了日后不是非常难于<code>调试</code>和<code>修改</code>要尽可能让代码可以逻辑清晰. 不要写出只能<code>自己</code>和<code>机器</code>才能看懂的代码. </li>
+<li><code>健壮性</code>: 能对一些<code>非法</code>的输入进行容错的处理. 边界问题的处理. </li>
+<li><code>时间效率高和存储量低</code>: 这是算法不断演进的根本因素. </li>
+</ul>
+<h2 id="算法效率的度量方法"><a href="#算法效率的度量方法" class="headerlink" title="算法效率的度量方法"></a>算法效率的度量方法</h2><h3 id="事后统计法"><a href="#事后统计法" class="headerlink" title="事后统计法"></a>事后统计法</h3><p>这是方法的前置条件是. 算法已经存在. 通过设计好的程序和数据, 利用计算机计时器对不同算法编制的程序的运行时间进行比较. 通过执行时间来决定算法的好坏. </p>
+<p>缺陷:</p>
+<ul>
+<li>需要设计出算法, 但不一定这个算法就有用, 可能花费时间写出的算法只因测试一遍就放弃代码. </li>
+<li>时间的消耗依赖计算机的硬件, 和软件等因素. </li>
+<li>测试数据一般都是<code>一点盖面</code>的测试.</li>
+</ul>
+<p>一般是不使用此统计法</p>
+<h3 id="事前分析估算"><a href="#事前分析估算" class="headerlink" title="事前分析估算"></a>事前分析估算</h3><p>比如: 一个高级语言编写的程序的运算时间取决于如下因素:</p>
+<ol>
+<li>算法采用的策略, 方法</li>
+<li>编译产生的代码质量</li>
+<li>问题的输入规模</li>
+<li>机器执行指令的速度</li>
+</ol>
+<p>其中<code>2</code>和<code>4</code>分别是由软件和硬件来决定的.  所以剩下的两种就是关键因素. 可以认为代码需要进行计算的次数. 如下:两个代码片段.</p>
+<p>场景: 对<code>1~100</code>进行所有数累加求和.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">normal_calculate</span><span class="params">(<span class="keyword">int</span> count)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;                  <span class="comment">// 执行 1 次</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;count ; i++)&#123;  <span class="comment">// 执行 count+1</span></span><br><span class="line">        sum += i;                 <span class="comment">// 执行 count</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sum;                   <span class="comment">// 执行 1 次</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">optimize_calculate</span><span class="params">(<span class="keyword">int</span> count)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;                   <span class="comment">// 执行 1 次</span></span><br><span class="line">    </span><br><span class="line">    sum = ( <span class="number">1</span> + count ) * count/<span class="number">2</span>; <span class="comment">// 执行 1 次</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sum;                    <span class="comment">// 执行 1 次</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>可以看出第一种是每个数进行累加的语句执行次数总共是<code>2 * count + 3</code>次</p>
+<p>而第二种通过<code>高斯定律</code>只需要执行<code>3</code>次即可. </p>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>通常比较两个算法的好坏是通过对比<code>时间复杂度</code>来区分. 通常用大写<code>O()</code>来体现算法时间复杂度的记法. 称之为<code>大O记法</code></p>
+<p>例如最常见的<code>O(1)</code>常数阶, <code>O(n)</code>线性阶, <code>O(n^2)</code>平方阶</p>
+<h3 id="推导大O阶的方法"><a href="#推导大O阶的方法" class="headerlink" title="推导大O阶的方法"></a>推导大O阶的方法</h3><p>推导规律:</p>
+<ol>
+<li>用常数<code>1</code>来取代运行时间中的所有加法常数</li>
+<li>在修改后的运行次函数中, 只保留<code>最高</code>阶项</li>
+<li>如果最高阶项存在且不是<code>1</code>, 则去除与这个项相乘的常数</li>
+</ol>
+<hr>
+<p><strong>常数阶</strong></p>
+<p>例如上面代码块2中的. 运行次数函数是<code>f(count) = 3</code>. 那么根据第一要点. 要把常数<code>3</code>改为<code>1</code>. 在保留最高阶项是发现没有最高阶项. 所以算法的时间复杂度就是<code>O(1)</code></p>
+<p>常数不论是多少, 都记做为<code>O(1)</code>. 不要出现其他的数字. 而分支无论真假, 都不会随着<code>n</code>的变大而变大所以其时间复杂度不变. </p>
+<p><strong>线性阶</strong></p>
+<p>通常情况下<code>循环结构</code>的运行情况是分析时间复杂度的大部分的场景. </p>
+<p>例如上面代码块1 中的总执行次数是 <code>f(count) = 2*count + 3 </code></p>
+<p>那么根据<code>推导规律</code>其时间复杂度就是<code>O(n)</code>也可以是<code>O(count)</code>. </p>
+<p><strong>对数阶</strong></p>
+<p>例如求一个数能被2整除多少次(不包括0). 那么就相当于求这个数的<code>2^X = n</code>得到<code>x = log2 n</code><br>所以时间复杂度就是<code>O(logn)</code></p>
+<p><strong>平方阶</strong></p>
+<p>一个<code>n * n</code>乘法表. 的双循环次数是<code>1 + 2 + ... + (n-2) + (n-1) + (n)</code></p>
+<p>= <code>n * (n + 1) / 2</code> = <code>n^2 / 2  +  n/2</code></p>
+<p>根据<code>推导规律</code>第2和3条. 就会变成了<code>O(n^2)</code>的时间复杂度. </p>
+<h3 id="常见的事件复杂度"><a href="#常见的事件复杂度" class="headerlink" title="常见的事件复杂度"></a>常见的事件复杂度</h3><p>常见的时间复杂度所耗费的时间从小到大依次是:</p>
+<p><code>O(1) &lt; O(log n) &lt; O(n) &lt; O(n*log n) &lt; O(n^2) &lt; O(n^3) &lt; O(2^n) &lt; O(n!) &lt; O(n^n)</code></p>
+<p>以上的有很多是不太符合实际情况的算法时间的. 因为例如 <code>2^n</code>, <code>n^3</code>, <code>n!</code>. <code>n</code>只要是稍微大一点的数. 最终结果都会多几个量级的增加. 这么费时间的算法, 显示生活中也不会采用的. </p>
+<h2 id="情况的采用"><a href="#情况的采用" class="headerlink" title="情况的采用"></a>情况的采用</h2><p>在我们对一组无序数字进行排序的时候. 总会出现所谓<code>最好</code>, <code>最坏</code>, <code>正常(平均)</code>的场景.  </p>
+<ul>
+<li>比如<code>恰好</code>这组数字是排序好的一组结果. 此时是<code>最好</code>情况. 一次查看就结束. </li>
+<li>比如<code>恰好</code>这组数字每一个数字都需要进行比较直到最后一个数字. 此时就是<code>最坏</code>情况. </li>
+<li>剩下的的就是中间范围的结果了. 我们可以认为其是<code>平均值(最好+最坏 的一半)</code></li>
+</ul>
+<p>因为<code>最坏情况</code>是一种保证, 那就是运行的时间不会再坏. 所以通常情况下都是以<code>最坏时间</code>当做其运行时间. </p>
+<h2 id="算法空间复杂度"><a href="#算法空间复杂度" class="headerlink" title="算法空间复杂度"></a>算法空间复杂度</h2><p>有时候不一定需要非要追求极致的时间算法. 巧妙的使用<code>空间换时间的</code>概念. 往往会让事情变得更简单. </p>
+<p>例如: 写一个函数, 可以判断传入的参数是否是<code>100</code>以内的质数. 如果通过规律循环比对完成一个算法. 那么每次的数字都是需要计算的.  </p>
+<p>那么如果. 用一个内部的数组. 这个数组的大小就是<code>0~100</code>. 然后如果对应的下标是质数那么数组就存放<code>1</code>. 否则就是<code>0</code>. 这样每次传入的参数只需要<code>作为数组下标</code>去取值直接判断即可. </p>
+<p>当然. 根据具体场景不同. 到底是否使用<code>空间换时间</code>的方法需要商酌. 空间的浪费是否真的有必要. 数据的保存是否很占用空间. 能带来的好处是否高于空间浪费的弊端等… </p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/01/04/线性表/" data-toggle="tooltip" data-placement="top" title="线性表">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/12/30/操作系统简介/" data-toggle="tooltip" data-placement="top" title="操作系统简介">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#数据结构" title="数据结构">数据结构</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2017/01/01/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/";
+    var disqus_url = "http://szysky.com/2017/01/01/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

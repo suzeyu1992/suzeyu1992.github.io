@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android 编程实战》08-高级音频,视频及相机应用 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/10/03/《Android-编程实战》08-高级音频-视频及相机应用/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android 编程实战》08-高级音频,视频及相机应用</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-10-03
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>阅读《Android 编程实战》一书的抄书笔记  –&gt; 对应书籍第11章</p>
+</blockquote>
+<h2 id="高级音频应用"><a href="#高级音频应用" class="headerlink" title="高级音频应用"></a>高级音频应用</h2><p><code>Android</code>音频API提供了一些高级功能, 开发者可以把他们集成到自己的应用中. 有了这些API, 就可以很容易的实现<strong>VoIP网络电话</strong>, 构建定制的流媒体音乐客户端, 实现低延迟的游戏音效. 此外, 还有提供文本到语音转换以及语音识别API, 用户可以直接使用音频和用户交互, 而不需要使用用户界面或者触控技术.</p>
+<h3 id="低延迟音频"><a href="#低延迟音频" class="headerlink" title="低延迟音频"></a>低延迟音频</h3><p><code>Android</code>有四个用来播放音频的API(算上MIDI那么就是5个)和三个用来录音的API. 接下里会简要介绍这些API. </p>
+<hr>
+<p><strong>音频播放API</strong></p>
+<ul>
+<li>音频播放默认使用<code>MediaPlayer</code>. 该类适合播放音乐或者视频, 既能播放流式资源(比如在线网络收音机), 也可以播放本地文件. 每个<code>MediaPlayer</code>都有一个关联的状态机, 需要在应用程序中跟踪这些状态. 开发者可以使用<code>MediaPlayer</code>类的API在自己的应用中嵌入音乐或者视频播放功能, 而无需额外处理或者考虑延迟问题. </li>
+<li>第二种是<code>SoundPool</code>类, 它提供了低延迟的支持, 适合播放音效和其他比较短的音频, 比如可以使用<code>SoundPool</code>播放游戏声音. 但是, 它不支持音频流, 所以不适合那些需要实时音频流处理的应用如<code>VoIP</code>.</li>
+<li>第三种是<code>AudioTrack</code>类, 它允许把音频流缓冲到硬件中, 支持低延迟播放, 甚至适合流媒体场景. <code>AudioTrack</code>通常能提供足够低的延迟, 可在<code>VoIP</code>或类似应用中使用. </li>
+</ul>
+<p>下面代码展示如何在<code>VoIP</code>应用中使用<code>AudioTrack</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AudioTrackDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AudioTrack mAudioTrack;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> mMinBufferSize;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AudioTrackDemo</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 确定音频流的最小缓冲区和大小</span></span><br><span class="line">        mMinBufferSize = AudioTrack.getMinBufferSize(<span class="number">16000</span>, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT);</span><br><span class="line"></span><br><span class="line">        mAudioTrack = <span class="keyword">new</span> AudioTrack(AudioManager.STREAM_VOICE_CALL,</span><br><span class="line">                <span class="number">16000</span>,</span><br><span class="line">                AudioFormat.CHANNEL_OUT_MONO,</span><br><span class="line">                AudioFormat.ENCODING_PCM_16BIT,</span><br><span class="line">                mMinBufferSize * <span class="number">2</span>,</span><br><span class="line">                AudioTrack.MODE_STREAM);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">playPcmPacket</span><span class="params">(<span class="keyword">byte</span>[] pcmData)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mAudioTrack != <span class="keyword">null</span> &amp;&amp; mAudioTrack.getState() == AudioTrack.STATE_INITIALIZED)&#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 判断是否处在播放状态</span></span><br><span class="line">            <span class="keyword">if</span> (mAudioTrack.getPlaybackRate() != AudioTrack.PLAYSTATE_PLAYING)&#123;</span><br><span class="line">                mAudioTrack.play();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            mAudioTrack.write(pcmData, <span class="number">0</span>, pcmData.length);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  设置停止</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stopPlayback</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mAudioTrack != <span class="keyword">null</span>)&#123;</span><br><span class="line">            mAudioTrack.stop();</span><br><span class="line">            mAudioTrack.release();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>对这个类进行一下整理, 首先从构造函数开始. 最开始需要确定音频流的最小缓冲区大小. 要做到这一点, 需要知道采样率, 数据是单声道还是立体声, 以及是否使用8位或者16位<code>PCM</code>编码. 然后以采样率和采样大小作为参数调用<code>AudioTrack.getMinBufferSize()</code>, 该方法会以字节形式返回<code>AudioTrack</code>实例的最小缓冲区大小</p>
+<p>接下来, 根据使用正确的参数创建<code>AudioTrack</code>实例, 第一个参数为音频的类型, 不同的应用使用不同的值. 对于<code>VoIP</code>这种应用来说使用<code>STREAM_VOICE_CALL</code>, 而对流媒体音乐应用则使用<code>STREAM_MUSIC</code>.</p>
+<p>对于参数2,3,4会根据使用场景而有所不同.  这些参数跟别表示<code>采样率</code>, <code>立体声/单声道</code>, <code>采样大小</code>. 一般而言, 一个<code>VoIP</code>会使用<code>16kHz</code>的16位单声道, 而常规的音乐CD可能采用<code>44.1kHz</code>的16位立体声. 16位立体声采样率需要更大的缓冲区以及更多的数据传输, 但是音质会更好. 所有的<code>Android</code>设备都支持<code>PCM</code>以<code>8kHz</code>,<code>16kHz</code>,<code>44.1kHz</code>的采样率播放8位或者16位的立体声. </p>
+<p>缓冲区大小参数应该是最小缓冲区大小的倍数, 实际取决于具体的需求, 有时网络延迟等因素也会影响缓冲区大小. <strong>注意: 任何时候都应该避免使用空的缓冲区, 因为可能导致播放出现故障</strong></p>
+<p>最后一个参数决定只发送一次音频数据<code>MODE_STATIC</code>还是连续发送数据流<code>MODE_STREAM</code>. 第一种情况需要一次发送整个音频剪辑. 对于持续发送音频流的情况, 可以发送任意大小块的<code>PCM数据</code>, 处理流媒体音乐或者VoIP通话时可能会使用这种方式. </p>
+<hr>
+<p><strong>2. 录音API</strong></p>
+<p>说道录制音频(也可能是视频), 首先要考虑的API是<code>MediaRecorder</code>. 和<code>MediaPlayer</code>类似, 需要在应用代码中跟踪<code>MediaRecorder</code>类的内部状况. 由于<code>MediaRecorder</code>只能把录音保存在文件中, 所以他不适合录制流媒体. </p>
+<p>如果需要录制流媒体, 可以使用<code>AudioRecorder</code>, 它和之前描述的<code>AudioTrack</code>非常相似. </p>
+<p><a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/AndroidProgrammingPushingTheLimits/commit/0109285e016f34c5403195344987cee5a7b791e0">链接代码演示了如何创建<code>AudioRecorder</code>实例录制16位单声道16kHz的音频采样</a></p>
+<p>其实和<code>AudioTrack</code>的创建过程非常给你相似, 在使用<code>VoIP</code>或者类似应用时可以很方便地把他们结合起来.</p>
+<h3 id="OpenSL-ES"><a href="#OpenSL-ES" class="headerlink" title="OpenSL ES"></a>OpenSL ES</h3><p>前面说了3播放API和2个录制API. 还有最后一个API <code>OpenSL ES</code>, 它同时支持播放和录制. 该API是科纳斯组织(Khronos Group)的一个标准, 这个组织还负责<code>OpenGL API</code></p>
+<p><code>OpenSL ES</code>提供了低级别的音频硬件访问和低延迟特性来处理音频播放和录制. 虽然<code>Android</code>中其他音频API都有方便的Java API, 但是<code>OpenSL ES</code>目前仅支持在<code>Android NDK</code>中使用本地C代码访问. </p>
+<blockquote>
+<p><code> = =!!!   到这里能力受限, 无法实现出效果...所以此章抄书就此太监.   后续包括OpenGL 串联Surface用于视频MediaPlayer的渲染层或者相机处理把预览画面的流连接到纹理流, 并实施处理画面实现现实AR应用等.</code></p>
+</blockquote>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/10/04/《Android-编程实战》09-Android应用安全问题/" data-toggle="tooltip" data-placement="top" title="《Android-编程实战》09-Android应用安全问题">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/10/02/《Android-编程实战》07-序列化说明/" data-toggle="tooltip" data-placement="top" title="《Android 编程实战》07-序列化说明">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/10/03/%E3%80%8AAndroid-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B08-%E9%AB%98%E7%BA%A7%E9%9F%B3%E9%A2%91-%E8%A7%86%E9%A2%91%E5%8F%8A%E7%9B%B8%E6%9C%BA%E5%BA%94%E7%94%A8/";
+    var disqus_url = "http://szysky.com/2016/10/03/%E3%80%8AAndroid-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B08-%E9%AB%98%E7%BA%A7%E9%9F%B3%E9%A2%91-%E8%A7%86%E9%A2%91%E5%8F%8A%E7%9B%B8%E6%9C%BA%E5%BA%94%E7%94%A8/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

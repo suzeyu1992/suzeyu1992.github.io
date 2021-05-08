@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android 编程实战》04-手势操作进阶, 重识Service - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/09/26/《Android-编程实战》04-界面操作-Service/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android 编程实战》04-手势操作进阶, 重识Service</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-09-26
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>阅读《Android 编程实战》一书的抄书笔记  –&gt; 对应书籍第五,六章</p>
+</blockquote>
+<h2 id="设计自定义视图"><a href="#设计自定义视图" class="headerlink" title="设计自定义视图"></a>设计自定义视图</h2><h3 id="View的声明周期"><a href="#View的声明周期" class="headerlink" title="View的声明周期"></a>View的声明周期</h3><p><code>View</code>也有自己的声明周期. 该生命周期并不直接和展示它的<code>Fragment</code>或者<code>Activity</code>相连, 相反<strong>它和显示它的窗口状态以及渲染循环相关</strong></p>
+<p>当视图被添加到View层级结构中时, 第一个被回调的函数是<code>View.onAttachedToWindow()</code>, 这标志着它现在可以加载所需的资源了. 构建自定义视图时, 开发者应该重载该方法, 并在该方法中加载所有资源并初始化视图所需的依赖. 基本上所有的耗时的初始化都应该放在这个方法内. </p>
+<p>还要一个匹配的回调名为<code>View.onDetachedFromWindow()</code>, 从View层次结构中移除视图时调用这个方法. 在这里需要关注的是需要显示清理的操作, 比如所有被加载的资源, 启动的<code>Service</code>, 或者其他依赖.</p>
+<p>视图被添加到<code>View</code>层次结构中之后, 它会经过一个循环, 该循环首先计算动画, 接下来会一次回调<code>View.onMeasure()</code>, <code>View.onLayout()</code>, <code>View.onDraw()</code>等方法.</p>
+<h3 id="多点触控"><a href="#多点触控" class="headerlink" title="多点触控"></a>多点触控</h3><p>先看下图效果:</p>
+<p><img src="multi1.gif"></p>
+<p>贴一下实现的主要代码:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(<span class="keyword">final</span> Canvas canvas)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 绘制已经完成过的手势事件的所有path路径</span></span><br><span class="line">   <span class="comment">// 如果不循环绘制, 那么当一个触控点到达了up事件之后, 那么这个触控点从down到up的事件的轨迹将会消失.</span></span><br><span class="line">   <span class="keyword">for</span> (Path completedPath : mCompletedPaths) &#123;</span><br><span class="line">       canvas.drawPath(completedPath, mFingerPaint);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 绘制当前触摸屏上的触摸事件正在进行的轨迹 (down ~ up)</span></span><br><span class="line">   <span class="keyword">for</span> (Path fingerPath : mFingerPaths) &#123;</span><br><span class="line">       <span class="keyword">if</span> (fingerPath != <span class="keyword">null</span>)&#123;</span><br><span class="line">           canvas.drawPath(fingerPath, mFingerPaint);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">   <span class="comment">// 获得当前触摸屏上的触摸个数</span></span><br><span class="line">   <span class="keyword">int</span> pointerCount = event.getPointerCount();</span><br><span class="line">   <span class="keyword">int</span> cappedPointerCount = pointerCount &gt; MAX_FINGERS ? MAX_FINGERS : pointerCount;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 获得当前触摸事件对象所在系统保存队列中的位置</span></span><br><span class="line">   <span class="keyword">int</span> actionIndex = event.getActionIndex();</span><br><span class="line">   <span class="comment">// 获得当前触摸事件的动作类型,  这里包括 MotionEvent.ACTION_POINTER_DOWN, MotionEvent.ACTION_POINTER_UP 多点触控按下和多点触控抬起(对应数值5, 6)</span></span><br><span class="line">   <span class="keyword">int</span> action = event.getActionMasked();</span><br><span class="line">   <span class="comment">// 此值返回此触摸事件存在时刻的唯一标识id.</span></span><br><span class="line">   <span class="keyword">int</span> pointerId = event.getPointerId(actionIndex);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="comment">// 检查是否收到按下或者抬起的动作</span></span><br><span class="line">   <span class="keyword">if</span> ((action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_POINTER_DOWN) &amp;&amp; pointerId &lt; MAX_FINGERS )&#123;</span><br><span class="line">  </span><br><span class="line">       <span class="comment">// 当有新的触摸事件开始的时候, 就使用这个事件的标识id来当下标创建一个Path对象存储起来</span></span><br><span class="line">       mFingerPaths[pointerId] = <span class="keyword">new</span> Path();</span><br><span class="line">       <span class="comment">// 注意虽然在down事件中, actionIndex和pointerId会保持一致, 但最好使用触摸事件所在的队列位置来获取坐标</span></span><br><span class="line">       mFingerPaths[pointerId].moveTo(event.getX(actionIndex), event.getY(actionIndex));</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">   &#125;<span class="keyword">else</span> <span class="keyword">if</span> ((action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) &amp;&amp; pointerId &lt; MAX_FINGERS)&#123;</span><br><span class="line">       <span class="comment">// 这里的pointerId和actionIndex不一定保持一致!! 所以一定要正确使用这个两个来获取</span></span><br><span class="line">       mFingerPaths[pointerId].setLastPoint(event.getX(actionIndex), event.getY(actionIndex));</span><br><span class="line">       mCompletedPaths.add(mFingerPaths[pointerId]);</span><br><span class="line"></span><br><span class="line">       mFingerPaths[pointerId].computeBounds(mPathBounds, <span class="keyword">true</span>);</span><br><span class="line">       invalidate((<span class="keyword">int</span>) mPathBounds.left, (<span class="keyword">int</span>) mPathBounds.top, (<span class="keyword">int</span>) mPathBounds.right, (<span class="keyword">int</span>) mPathBounds.bottom);</span><br><span class="line">       mFingerPaths[pointerId] = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> tempIndex = <span class="number">0</span>;</span><br><span class="line">   <span class="comment">// 这里主要是move事件时候进行的动态绘制实现</span></span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cappedPointerCount; i++) &#123;</span><br><span class="line">       <span class="comment">// 保证滑动事件不丢失</span></span><br><span class="line">       <span class="keyword">while</span>(mFingerPaths[tempIndex] == <span class="keyword">null</span>)&#123;</span><br><span class="line">           tempIndex++;</span><br><span class="line">           <span class="keyword">if</span> (tempIndex &gt; <span class="number">4</span>)&#123;</span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (mFingerPaths[tempIndex] != <span class="keyword">null</span>)&#123;</span><br><span class="line">           <span class="comment">// 通过数组的下标也就是触摸事件的唯一标识id获得队列中的位置</span></span><br><span class="line">           <span class="keyword">int</span> index = event.findPointerIndex(tempIndex);</span><br><span class="line">           <span class="comment">// 对从down事件或者上一次移动事件的Path进行lineTo移动.</span></span><br><span class="line">           mFingerPaths[tempIndex].lineTo(event.getX(index), event.getY(index));</span><br><span class="line">           mFingerPaths[tempIndex].computeBounds(mPathBounds, <span class="keyword">true</span>);</span><br><span class="line">           invalidate((<span class="keyword">int</span>) mPathBounds.left, (<span class="keyword">int</span>) mPathBounds.top, (<span class="keyword">int</span>) mPathBounds.right, (<span class="keyword">int</span>) mPathBounds.bottom);</span><br><span class="line">           tempIndex++;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">&#125;   </span><br><span class="line">            </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>以上是伪代码, 如果想需要完整类,<a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/AndroidProgrammingPushingTheLimits/blob/master/MultiTouch/app/src/main/java/com/szysky/note/multitouch/MultiTouchView.java">点击此链接到github查看</a></p>
+<p>这里在进行解释说明一下: </p>
+<p>每次时间发生改变的时候<code>onTouchEvent(MotionEvent)</code>都会被回调. 并且<code>MotionEvent</code>会保存当前时间点的所有<strong>触摸点的事件</strong>.</p>
+<hr>
+<p>举例一个场景: <strong>当三个手指同时按下</strong></p>
+<p>首先系统内部有一个保存当前多点触摸事件的<strong>集合</strong>,由于跟进源码后发现方法调用的是本地方法,所以只能从出现的规律可以反推出这个集合应该是一个<strong>队列</strong>.从以下结果也可以看出. </p>
+<p>虽然三个手指同时按下, 但是会依次触发<code>onTouchEvent()</code>回调. 也就是说会走三遍此回调. 当第一个触摸事件发生<code>down</code>时. 系统会创建保存一个事件对象并给这个对象的<code>pointerID</code>赋一个<code>0</code>的值并放到队列的首部, 这时当多点触控的第二个触摸事件按下的时候. 系统会遍历队列中的触摸事件的<code>pointerID</code>,如果队列第一个对象的<code>pointerID</code>不等于0那么就插入在这个对象的头部,如果等于继续下一个元素,如果下一个对象的<code>pointerID为1(就是顺序递增的效果)</code>那就继续遍历下一个元素,如果不是那就插入到这个元素也就是第二个元素对象的首部, 依次类推.  当插入后, 插入元素的<strong>所在队列的位置</strong>当做第二个触控点事件的<code>pointerID</code>; 当第三个多点触控发生时, 还是会重复上面的插入规则, 这个时候会遍历到已经存在的两个触摸对象其<code>pointerID</code>是从0开始的递增,所以这个触摸事件放到这个队列的尾部, 也就是第三个触控事件的<code>pointerID=3</code>. <code>这也就是同一个时间段,不会存在相同的pointerID的原因</code></p>
+<p><code>为什么要这么麻烦的说这个? 因为当多点触控的时候不弄仅通过getX()或者getY()来取得最后一个坐标点,这个方法只是返回这个队列中的第一个元素的坐标点, 而处理多点的时候我们应该知道具体是队列总的哪一个事件触发并获取其值需要getActionIndex()获得触发事件对象的位置,然后通过getX(actionIndex)才能获取真正的发生变化的触摸点, 而且我们自己在本地记录的出现过得Path路径轨迹进行存储整理. 所以我们需要一个唯一标示来区分不同的触控点进行后续的操作</code></p>
+<p><img src="multitouch_add.png"></p>
+<p><strong>而获取这个触控的事件的队列虽然在插入的时候会保证返回的所在<code>队列的位置</code>和其<code>pointerID</code>一致, 但是在连续抬起事件队列删除的元素时候有序队列元素的位置会变化, 就会导致这两个值有所不同, 请看下图</strong></p>
+<p><img src="multitouch_action_index.png"></p>
+<p>上图和实现代码中有一个<code>getActionIndex()</code>获得的<code>ActionIndex</code>的int值.<strong>这个值表示触发事件对象所在系统保存的所有还在运行的事件的队列的位置.</strong> 当我们知道是一个队列的时候规律也就不难推出<code>move事件</code>的时候, 此值不会发生改变. 但是当<code>down和up事件的时候</code>会动态变化. 因为队列前面元素的变化会导致后边的元素.</p>
+<p>这里可能我说的有点啰嗦, 如果看不懂解释可以去上面的连接地址down下代码, 观察输出日志即可.</p>
+<hr>
+<p><code>Android</code>中的<code>MotionEvent</code>类是所有<code>pointer</code>相关的操作的核心类, <code>pointer</code>意味着手指, 手写笔, 电脑鼠标或者一个外部的触摸板.</p>
+<h3 id="PointerCoordinates"><a href="#PointerCoordinates" class="headerlink" title="PointerCoordinates"></a>PointerCoordinates</h3><p>这个知识点只做了解, 因为关于触摸压力值并不是真正的支持, 有的是由按下面积和或者获得的值就是恒定的. </p>
+<p><code>MotionEvent</code>对象包含<code>pointer</code>的所有信息. 不同类型的的输入设备, 手指, 鼠标等都能生成<code>pointer</code>, 所以<code>MotionEvent</code>不仅包含x,y坐标. Android API支持所有<code>Linux</code>内核定义的输入设备. 因为不同设备的输入参数可能不同, 所以<code>pointer</code>被设计成有多个坐标轴. 最常用的就是坐标轴xy. 但也有描述其他信息的坐标轴, 比如压力, 距离, 方向等. </p>
+<p>另外<code>MotionEvent</code>类不仅支持生成<code>pointer</code>坐标的输入设备, 还支持游戏控制相关的坐标轴信息以及诸如节流阀, 方向舵, 倾斜, 滚轮之类的输入来源. </p>
+<h3 id="旋转手势"><a href="#旋转手势" class="headerlink" title="旋转手势"></a>旋转手势</h3><p><code>Android API</code>中有两个工具类能帮助开发者检测各种手势, <code>GestureDetector</code>类和<code>ScaleGestureDetector</code>类. 第一个类支持一些简单的触控手势: 比如长按, 双击, 快速滑动. 第二个类能检测类似于地图所用的双指缩放手势, 以及图片的放大手势等. </p>
+<p>类似这样的效果:</p>
+<p><img src="rotate.gif"></p>
+<p>代码就不贴了, 有兴趣<a href="">类链接地址</a></p>
+<h3 id="OpenGL-ES"><a href="#OpenGL-ES" class="headerlink" title="OpenGL ES"></a>OpenGL ES</h3><p>虽然可以使用SDK提供的部件, 或者使用自定义的视图来构建大部分的Android应用, 但有时需要更底层和更高性能的图形API. 主要用于游戏. <code>OpenGL ES</code>(嵌入式子系统)很适合. Android系统最高支持<code>OpenGL ES 3.0版本</code>主要取决于硬件和android版本. <code>Android 4.3</code>支持最新的3.0标准. </p>
+<p>Android已经在标准UI框架中使用<code>OpenGL ES 2.0</code>来启动硬件加速, 但是并没有对开发者开放. 而3.0完全向后兼容2.0的. 所以如果使用3.0可以放心使用. </p>
+<p>如果想要了解<code>Android上的OpenGl</code>, 可以在官网,这里跳转<a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/graphics/opengl.html">到Google介绍openGL</a></p>
+<h2 id="重识Service"><a href="#重识Service" class="headerlink" title="重识Service"></a>重识Service</h2><h3 id="何时并如何使用Service"><a href="#何时并如何使用Service" class="headerlink" title="何时并如何使用Service"></a>何时并如何使用Service</h3><p><code>Android</code>文档关于<code>Service</code>组件的描述如下:</p>
+<blockquote>
+<p>Service组件表示在不影响用户的情况下执行耗时的操作或者提供给其他应用使用的功能.</p>
+</blockquote>
+<p>即使使用<code>Service</code>还是需要把耗时的任务放到一个独立的线程中, 那为什么还有服务的出现?</p>
+<p>因为<code>Service</code>和<code>Activity</code>有着不同的生命周期, 对比起来<code>Service</code>更适合管理耗时的操作. </p>
+<p>那么耗时操作的定义, 其实建议把所有和用户界面无关的操作都放到后台线程去执行. 因为UI线程需要保持高度响应来与用户进行交互. 所以应尽可能排除掉一切可以不影响用户界面响应速度的操作.</p>
+<h3 id="Service类型"><a href="#Service类型" class="headerlink" title="Service类型"></a>Service类型</h3><ol>
+<li><strong>用来执行和用户输入无关的操作</strong>. 例如音乐播放器能够在用户从前台退出应用的情况下还能继续播放音乐. 或者例如即时通讯应用, 在用户退出前它要一直保持运行并接收消息.</li>
+<li><strong>直接由用户触发</strong> 比如照片共享应用, 用户拍完照后, 应用使用<code>Intent</code>把照片发送给<code>Service</code>(更准确地说是使用指向本地的Uri). 接下来<code>Service</code>启动并解析<code>Intent</code>里的数据, 最后在后台线程中上传该照片. 当操作完成后系统会自动停止<code>Service</code>.</li>
+</ol>
+<h3 id="Service的创建和销毁"><a href="#Service的创建和销毁" class="headerlink" title="Service的创建和销毁"></a>Service的创建和销毁</h3><p><code>service</code>有两个必定会调用的生命回调周期<code>onCreate()</code>和<code>onDestroy()</code></p>
+<ul>
+<li><code>onCreate():</code>做一些初始化例如初始化新的<code>Handler</code>对象, 获取系统服务, 注册广播, 以及执行<code>service</code>操作需要的其他初始化工作. <strong>请注意这个生命周期可是运行主线程的,如果要执行耗时操作需要使用<code>AsyncTask</code>,<code>Handler</code>等方法</strong></li>
+<li><code>onDestroy():</code>所有的清理工作都应该在<code>onDestroy()</code>方法完成, 特别的, 需要停止所有已经启动的<code>HandlerThread</code>对象, 并且注销之前注册的广播. 同样, 此回调也是运行在主线程中, 所以清理工作同样放在单独线程. </li>
+</ul>
+<h3 id="启动Service"><a href="#启动Service" class="headerlink" title="启动Service"></a>启动Service</h3><p><code>Service</code>的启动方式有两种: 通过<code>Content.startService()</code>或者<code>Content.bindService()</code>.</p>
+<p>这里先说<code>startService()</code>方法:</p>
+<p>当以<strong>启动模式</strong>打开<code>Service</code>时, 参数中的<code>Intent</code>必须匹配<code>Service</code>定义的<code>intent-filter</code>. (也可以显示地使用<code>Service</code>的<code>ComponentName</code>而不再定义<code>intent-filter</code>). 该方法不提供任何对<code>Service()</code>的引用, 但它在执行基于消息的触发操作方面很有用. 该方法适合执行由用户触发并且运行时间不确定的操作, 比如上传照片或者向服务器发送状态更新. 它在为其他应用提供简单的接口方便也很有用.</p>
+<p>当时用<strong>启动模式</strong>打开服务的时候, <code>Service#onStartCommand()</code>方法会被调用, 并收到发送给<code>Service</code>的<code>Intent</code>. 该方法返回一个整型常量, 用来告诉系统如何处理<code>Service</code>的重启操作. 这是<code>Service</code>比较复杂的部分, 所以最起码要记住以下三种返回值(真正返回不止3种):</p>
+<ul>
+<li><code>START_STICKY:</code> 代表当系统由于某些原因关闭<code>Service</code>时(通常是由于内存不足). <code>Service</code>会被重新启动. 然而当系统重新启动<code>Service</code>时, <code>onStartCommand()</code>参数中的<code>Intent</code>会被置为<code>null</code>, 请注意这一点. 使用<code>START_STICKY</code>返回值的一个典型例子就是音乐播放器.</li>
+<li><code>START_NOT_STICKY:</code> 表示<code>Service</code>不会再系统关闭之后重新启动. 这在使用<code>Service</code>执行一次性操作的时候特别有用, 比如上传的东西到服务器. 如果Service在完成任务前就被系统关闭了, 它不应该再尝试重复之前的操作.</li>
+<li><code>START_REDELIVER_INTENT:</code> 它和<code>START_STICKY</code>基本一样, 不过当系统重启<code>Service</code>时, <code>onStartCommand()</code>会收到<code>Service</code>被销毁之前接收到的最后一个<code>intent</code>.</li>
+</ul>
+<hr>
+<p><strong>接着说<code>onStartCommand()</code>这个回调方法的一共有三个返回值:</strong></p>
+<ul>
+<li><code>intent:</code> 根据前面讲解返回值的时候可以看出在某些特定情况下, 该参数可能会为null.</li>
+<li><code>标志位:</code> 标识本次启动请求, 可能的值为0, <code>START_FLAG_RETRY</code>, <code>START_FLAG_REDELIVERY</code>. </li>
+<li><code>startId:</code> 如果多次调用<code>onStartCommand()</code>且需要安全地停止<code>Service</code>, 此参数会有用.</li>
+</ul>
+<h3 id="绑定Service"><a href="#绑定Service" class="headerlink" title="绑定Service"></a>绑定Service</h3><p><strong>绑定模式</strong>这是使用<code>Content.bindService()</code>. 被绑定的<code>Service</code>会一直运行, 知道所有绑定的客户端都断开后才会停止. 在同一个应用进程中绑定<code>Service</code>只需获取<code>Service</code>对象的的引用, 并调用对象相应的方法即可. 这种方式成为<code>本地binder</code>.</p>
+<p>如下代码: 只贴出核心代码:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  实现一个bindService模式的, 简单演示方法被调用的服务类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LocalService</span> <span class="keyword">extends</span> <span class="title">Service</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doBackgroundOperation</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Toast.makeText(getApplicationContext(), <span class="string">&quot;定义服务方法被调用&quot;</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> LocalBinder();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LocalBinder</span> <span class="keyword">extends</span> <span class="title">Binder</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> LocalService <span class="title">getService</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> LocalService.<span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在Activity中进行强转即可</span></span><br><span class="line">serviceConnection = <span class="keyword">new</span> ServiceConnection() &#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceConnected</span><span class="params">(ComponentName name, IBinder service)</span> </span>&#123;</span><br><span class="line">      mService = ((LocalService.LocalBinder)service).getService();</span><br><span class="line">      <span class="comment">//  通过mService就可以调用服务的内部方法, 注意这只是在应用内部, 不可以跨进程</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceDisconnected</span><span class="params">(ComponentName name)</span> </span>&#123;</span><br><span class="line">      mService = <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="保持活跃"><a href="#保持活跃" class="headerlink" title="保持活跃"></a>保持活跃</h3><p>当服务已经启动, 并且应用程序在前台运行(当前正在展示应用的某个Activity), 那么该<code>Service</code>会是最后一个被杀死. 然而一旦用户离开了发起服务的应用, 那么此服务也就不再是前台应用, 有可能会被杀死. 所以如果需要在应用不处于前台活动状态下仍然保持<code>Service</code>在前台运行, 则可以调用<code>Service.startForeground()</code>. (当应用程序更新可以使用<code>Notification</code>通知配合服务来完成)</p>
+<blockquote>
+<p>系统会试图尽可能长地保持<code>Service</code>处于活动和运行状态. 只有当资源耗尽, 通常是没有足够内存(RAM), 才有可能会去停止<code>Service</code>. 当是我们应该在开发中假设这种情况会随时发生.</p>
+</blockquote>
+<h3 id="停止服务Service"><a href="#停止服务Service" class="headerlink" title="停止服务Service"></a>停止服务Service</h3><p>一旦<code>Service</code>启动, 它会尽可能长时间运行. 根据启动方式的不同, 系统会在系统资源不足杀死<code>Service</code>后重启.</p>
+<blockquote>
+<p>当Service再次启动时, 可能会出现一些意想不到的结果, 所以适当的停止服务就显得很重要.</p>
+</blockquote>
+<ul>
+<li><code>绑定模式:</code> 此模式下服务会一直运行到没有客户端连接为止. 但有一种例外情况, 即最后连接的客户端调用了<code>Service.startForeground()</code>时还会保持<code>Service</code>的运行, 所以需要在适当的时候调用<code>Service.stopForeground()</code></li>
+<li><code>启动模式:</code> 只能通过<code>Service.stopSelf()</code>或者<code>Content.stopService()</code>来停止<code>Service</code>. 这标志着需要停止和移除<code>service</code>. 而重新启动<code>Service</code>的唯一方式是显示调用<code>Content.startService()</code>或者<code>Content.bindService()</code>. 注意, 当通过<code>startService()</code>启动服务时, 不管调用多少次<code>onStartCommand()</code>(即调用<code>Content.startService()</code>不会叠加), 调用<code>Service.stopSelf()</code>或者<code>Content.stopSelf()</code>一定会停止服务.</li>
+</ul>
+<h3 id="后台运行的IntentService"><a href="#后台运行的IntentService" class="headerlink" title="后台运行的IntentService"></a>后台运行的IntentService</h3><p>普通的服务的生命周期回调都是触发在<strong>主线程上</strong>. 如果需要处理耗时操作那么需要把耗时操作移动到一个单独的线程中. </p>
+<p><strong>IntentService</strong></p>
+<p>由于<code>Handler</code>在android中的处理消息的便利, 和<code>Service</code>分离与UI线程无关的代码. 所以google提供了一个名为<code>IntentService</code>的工具类, 它在<code>Service</code>中包装了一个处理后台线程的<code>Handler</code>. 开发者只需要继承该类, 实现<code>onHandlerIntent()</code>方法, 并添加希望<code>Service</code>能够接收的action.</p>
+<p><code>onHandlerIntent()</code>方法运行在自己线程, 并不一定是主线程. 并且每次只能处理一个<code>Intent</code>,当处理结束之后服务也就自动关闭.  可以通过不同的<code>action</code>组装成intent, 也可以给<code>intent</code>附加信息, 用以在服务中区分不同的动作请求. 当多次通过<code>startService()</code>调用服务的时候, 每次调用的<code>Intent</code>会被保存到队列中, 所以该类能确保任意时间只会有一个<code>intent</code>会被处理. 知道队列为空, 那么服务也就随之消失.</p>
+<hr>
+<p><strong>并行问题</strong></p>
+<p><code>IntentService</code>虽然方便好用, 并且能够顺序处理同一时间内的多个请求. 但是正因为是<strong>串行的处理模式</strong>, 可能我们有的时候更需要并行更快的处理完成.如果是这样, 那我们就使用线程池来处理. 可以在<code>AsyncTask</code>中使用<code>Executor</code>并行地执行操作. 但是<code>AsyncTask</code>的特点是比较适合执行运行时间至多几面的操作, 如果要执行比较耗时的操作. 可以使用<code>ExecutorService</code>使用<code>Executors.newCacheThreadPool()</code>.</p>
+<h3 id="对Service的通信"><a href="#对Service的通信" class="headerlink" title="对Service的通信"></a>对Service的通信</h3><p>前面记录了何时使用, 如何执行. 那么接下来接说一下对服务的通信. 一般有两种:</p>
+<ul>
+<li><code>Content.StartService()</code>会把<code>Intent</code>分发给<code>Service.onStartCommand()</code>方法,可以在该方法中触发后台操作, 然后通过广播或者其他方式再把结果分发给调用组件.</li>
+<li><code>Content.bindService()</code>方法可以获得<code>Binder</code>对象, 使用它可以直接调用<code>Service</code>对象.</li>
+</ul>
+<hr>
+<p><strong>使用Intent进行异步消息的传递</strong> </p>
+<p>如果想要知道服务中处理的结果, 只需要采用发送广播的进行通知调用者即可. </p>
+<p>总结一下这种的优缺点:</p>
+<ul>
+<li><strong>优点:</strong> Android提供了线程的机制, 而不需要开发者自己构建复杂的组件间消息处理系统. 开发者只需要声明表示异步消息的<code>action</code>. 并在响应的组件中注册这些广播. 即便<code>Service</code>属于其他应用或者运行在一个单独的进程中, 该方法同样有效.</li>
+<li><strong>缺点:</strong> 通知的结果受限于<code>Intent</code>. 此外这种方式不适合在<code>IntentService</code>和<code>Activity</code>之间进行大规模快速更新的操作, 比如更新进度条, 因为这会阻塞系统. 如果确定需要实现此功能那么可以使用<code>bindService</code>.</li>
+</ul>
+<hr>
+<p><strong>本地绑定的Service进行的交互</strong></p>
+<p>当<code>Service</code>提供的接口太过复杂, 很难用<code>Intent</code>消息机制解决, 而普通的<code>Java</code>方法又可以很好的解决这个问题; 另一个使用绑定本地<code>Service</code>的原因是可以在<code>Service</code>中给Activity提供更为复杂的回调. 因为那些耗时的操作必须放到<code>Service</code>的后台线程, 所以<code>Service</code>的大部分回调应该是异步的. 实际的调用触发后台操作立即返回, 一旦操作完成, <code>Service</code>使用回调接口来通知<code>Activity</code>响应的执行结果.</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/09/28/《Android-编程实战》05-重识-IPC/" data-toggle="tooltip" data-placement="top" title="《Android 编程实战》05-重识 IPC">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/09/21/《Android-编程实战》03-组件-清单-资源和UI闲聊/" data-toggle="tooltip" data-placement="top" title="《Android 编程实战》03-组件 清单 资源和UI闲聊">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/09/26/%E3%80%8AAndroid-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B04-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-Service/";
+    var disqus_url = "http://szysky.com/2016/09/26/%E3%80%8AAndroid-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B04-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-Service/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

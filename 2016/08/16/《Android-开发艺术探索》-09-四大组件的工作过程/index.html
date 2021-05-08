@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android 开发艺术探索》 09-四大组件的工作过程 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/08/16/《Android-开发艺术探索》-09-四大组件的工作过程/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android 开发艺术探索》 09-四大组件的工作过程</h1>
+                    <h2 class="subheading">抄书系列</h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-08-16
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>第九章: 还原四大组件的本质</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/Notes_AndroidDevSeek">blog相关代码</a></p>
+<h2 id="四大组件的运行状态"><a href="#四大组件的运行状态" class="headerlink" title="四大组件的运行状态"></a>四大组件的运行状态</h2><p>四大组件中除了<code>BroadcastReceiver</code>以外, 其余的三种组件都必须在<strong>AndroidManifest</strong>中注册, 对于<code>BroadcastReceiver</code>来说, 既可以在清单文件中注册, 也可以通过代码来注册. 在调用形式上除了<code>ContentProvider</code>不需要借助<code>Intent</code>. 其余的三大组件都需要Intent</p>
+<p> <strong>Activity</strong>是一种展示型组件, 用于向用户直接地展示一个界面, 并且可以接收用户的输入信息从而进行交互. <code>Activity</code>是最重要的一种组件, 对于用户来说它就是应用的全部, 因为其他三大组件对用户来说是无法感知的. <code>Activity</code>的启动由<code>Intent</code>触发, 其中<code>Intent</code>可以分为<strong>显式和隐式</strong>. <strong>显式Intent</strong>可以明确的指向一个<code>Activity</code>, 而<strong>隐式Intent</strong>则指向一个或者多个Activity组件. 或者是没有<code>Activity</code>组件可以处理这个隐式的Intent. 一个<code>Activity</code>具有特定的启动模式. 也可以通过<code>finish</code>来停止. 总结来说, <code>Activity</code>组件的主要作用是展示一个界面并和用户交互, 它扮演的是一种前台界面的角色.</p>
+<hr>
+<p> <strong>Service</strong>是一种计算型组件, 用于后台执行一系列计算任务. 运行在后台,用户是无法感知的. <code>Service</code>和<code>Activity</code>的不同: <code>Activity</code>组件只有一种运行模式,即<code>Activity</code>处于启动状态, 但是<code>Service</code>组件有两种状态: <strong>启动状态</strong>和<strong>绑定状态</strong>. </p>
+<ul>
+<li>当<code>Service</code>处于启动状态时, 这个时候Service内部可以做一些后台计算. 尽管<code>Service</code>组件是用于执行后台计算的, 但是它本身是运行在主线程的. 因此单独的耗时操作仍然需要单独的线程去执行. </li>
+<li>当<code>Service</code>处于绑定状态时, 内部同样可以进行后台计算, 但是处于这种状态时, 外界可以很方便的和<code>Service</code>组件进行通信. </li>
+</ul>
+<p> <code>Service</code>可以停止, 需要灵活采用<code>stopService</code>和<code>unBindService</code></p>
+<hr>
+<p> <strong>BroadcastReceiver</strong>是一种消息型组件, 用于在不同的组件乃至不同的应用之间传递消息. 同样无法被用户感知, 因为是运行在系统内部, 广播的注册方式有两种:<strong>静态注册</strong>和<strong>动态注册</strong></p>
+<ul>
+<li><strong>静态注册</strong>: 在清单文件中进行注册广播, 这种广播在应用安装时会被系统解析, 此种形式的广播不需要应用启动就可以接收到相应的广播.</li>
+<li><strong>动态注册</strong>: 需要通过<code>Context.registerReceiver()</code>来实现, 并在不需要的时候通过<code>Context.unRegisterReceiver()</code>来解除广播. 此种形态的广播要应用启动才能注册和接收广播. 在实际开发中通过<code>Context</code>的一系列的<code>send</code>方法来发送广播, 被发送的广播会被系统发送给感兴趣的广播接收者, 发送和接收的过程的匹配是通过广播接收者的<code>&lt;intent-filter&gt;</code>来描述的. </li>
+</ul>
+<p> 可以实现低耦合的观察者模式, 观察者和被观察者之间可以没有任何耦合. 但广播不适合来做耗时操作. </p>
+<hr>
+<p> <strong>ContentProvider</strong>是一种数据共享组件, 用于向其他组件乃至其他应用共享数据. 无法被用户感知. 对于内容提供者来说, 它只需要实现增删改查四种基本操作, 在它内部维持着一份数据集合, 这个数据集合既可以通过数据库来实现, 也可以采用其他任何类型来实现, 例如list或者map.  <code>ContentProvider</code>对数据集合的具体实现并没有任何要求. </p>
+<p> 要注意处理好内部的<code>insert</code>, <code>delete</code>, <code>update</code>, <code>query</code>方法的线程同步, 因为这几个方法是在<code>Binder</code>线程池被调用.</p>
+<h2 id="Activity的工作过程"><a href="#Activity的工作过程" class="headerlink" title="Activity的工作过程"></a>Activity的工作过程</h2><p>虽然要打开一个<code>Activity</code>很简单, 但是不应该只是局限于表面. 了解其内部走向构成.所以一切从<code>startActivity(intent)</code>这个方法开始.</p>
+<p><code>startActivity()</code>有好几种重载方式但是最终都是调用<code>startActivityForResult()</code>方法.</p>
+<p><strong>注意这里分析的是5.0版本的源码,  和6.0源码实现稍微不同</strong></p>
+<p>首先看<code>startActivityForResult()</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startActivityForResult</span><span class="params">(Intent intent, <span class="keyword">int</span> requestCode, <span class="meta">@Nullable</span> Bundle options)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (mParent == <span class="keyword">null</span>) &#123;</span><br><span class="line">       Instrumentation.ActivityResult ar =</span><br><span class="line">           mInstrumentation.execStartActivity(</span><br><span class="line">               <span class="keyword">this</span>, mMainThread.getApplicationThread(), mToken, <span class="keyword">this</span>,</span><br><span class="line">               intent, requestCode, options);</span><br><span class="line">       <span class="keyword">if</span> (ar != <span class="keyword">null</span>) &#123;</span><br><span class="line">           mMainThread.sendActivityResult(</span><br><span class="line">               mToken, mEmbeddedID, requestCode, ar.getResultCode(),</span><br><span class="line">               ar.getResultData());</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (requestCode &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">           mStartedActivity = <span class="keyword">true</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">final</span> View decor = mWindow != <span class="keyword">null</span> ? mWindow.peekDecorView() : <span class="keyword">null</span>;</span><br><span class="line">       <span class="keyword">if</span> (decor != <span class="keyword">null</span>) &#123;</span><br><span class="line">           decor.cancelPendingInputEvents();</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// TODO Consider clearing/flushing other event sources and events for child windows.</span></span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (options != <span class="keyword">null</span>) &#123;</span><br><span class="line">           mParent.startActivityFromChild(<span class="keyword">this</span>, intent, requestCode, options);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="comment">// Note we want to go through this method for compatibility with</span></span><br><span class="line">           <span class="comment">// existing applications that may have overridden it.</span></span><br><span class="line">           mParent.startActivityFromChild(<span class="keyword">this</span>, intent, requestCode);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> (options != <span class="keyword">null</span> &amp;&amp; !isTopOfTask()) &#123;</span><br><span class="line">       mActivityTransitionState.startExitOutTransition(<span class="keyword">this</span>, options);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关注<code>mParent==null</code>的分支. <code>mParent</code>代表的是<code>ViewGroup</code>, <code>ActivityGroup</code>最开始被用来在一个界面中嵌入多个子<code>Activity</code>, 在<strong>API13</strong>已经被废弃. 系统推荐使用<code>Fragment</code>代替<code>ActivityGroup</code>. 注意<code>mMainThread.getApplicationThread()</code>这个参数, 它的参数类型是<code>ApplicationThread</code>, <code>ApplicationThread</code>是<code>ActivityThread</code>的一个内部类. </p>
+<p><strong>看一下<code>Instrumentation#execStartActivity()</code>这个方法</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ActivityResult <span class="title">execStartActivity</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">       Context who, IBinder contextThread, IBinder token, Activity target,</span></span></span><br><span class="line"><span class="params"><span class="function">       Intent intent, <span class="keyword">int</span> requestCode, Bundle options)</span> </span>&#123;</span><br><span class="line">       </span><br><span class="line">   IApplicationThread whoThread = (IApplicationThread) contextThread;</span><br><span class="line">   <span class="keyword">if</span> (mActivityMonitors != <span class="keyword">null</span>) &#123;</span><br><span class="line">       <span class="keyword">synchronized</span> (mSync) &#123;</span><br><span class="line">           <span class="keyword">final</span> <span class="keyword">int</span> N = mActivityMonitors.size();</span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">               <span class="keyword">final</span> ActivityMonitor am = mActivityMonitors.get(i);</span><br><span class="line">               <span class="keyword">if</span> (am.match(who, <span class="keyword">null</span>, intent)) &#123;</span><br><span class="line">                   am.mHits++;</span><br><span class="line">                   <span class="keyword">if</span> (am.isBlocking()) &#123;</span><br><span class="line">                       <span class="keyword">return</span> requestCode &gt;= <span class="number">0</span> ? am.getResult() : <span class="keyword">null</span>;</span><br><span class="line">                   &#125;</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       intent.migrateExtraStreamToClipData();</span><br><span class="line">       intent.prepareToLeaveProcess();</span><br><span class="line">       <span class="comment">// 启动Activity的真正实现</span></span><br><span class="line">       <span class="keyword">int</span> result = ActivityManagerNative.getDefault()</span><br><span class="line">           .startActivity(whoThread, who.getBasePackageName(), intent,</span><br><span class="line">                   intent.resolveTypeIfNeeded(who.getContentResolver()),</span><br><span class="line">                   token, target != <span class="keyword">null</span> ? target.mEmbeddedID : <span class="keyword">null</span>,</span><br><span class="line">                   requestCode, <span class="number">0</span>, <span class="keyword">null</span>, options);</span><br><span class="line">       checkStartActivityResult(result, intent);</span><br><span class="line">   &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>代码中真正启动<code>Activity</code>的真正实现是由<code>ActivityManagerNative.getDefault().startActivity()</code>方法完成的. 后面对<code>ActivityManagerService</code>简称<code>AMS</code>. <code>AMS</code>继承自<code>ActivityManagerNative()</code>, 而<code>ActivityManagerNative()</code>继承自<code>Binder</code>并实现了<code>IActivityManager</code>这个<code>Binder</code>接口, 因此<code>AMS</code>也是一个<code>Binder</code>, 它是<code>IActivityManager</code>的具体实现. </p>
+<p>由于<code>ActivityManagerNative.getDefault()</code>本质是一个<code>IActivityManager</code>类型的<code>Binder</code>对象, 因此具体实现是<code>AMS</code>.  在<code>ActivityManagerNative</code>中, <code>AMS</code>这个Binder对象采用单例模式对外提供, <code>Singleton</code>是一个单例封装类. 第一次调用它的<code>get()</code>方法时会通过create方法来初始化<code>AMS</code>这个<code>Binder</code>对象, 在后续调用中会返回这个对象.  具体实现如下代码.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">public</span> IActivityManager <span class="title">getDefault</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> gDefault.get();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton&lt;IActivityManager&gt; gDefault = <span class="keyword">new</span> Singleton&lt;IActivityManager&gt;() &#123;</span><br><span class="line">   <span class="function"><span class="keyword">protected</span> IActivityManager <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       IBinder b = ServiceManager.getService(<span class="string">&quot;activity&quot;</span>);</span><br><span class="line">       <span class="keyword">if</span> (<span class="keyword">false</span>) &#123;</span><br><span class="line">           Log.v(<span class="string">&quot;ActivityManager&quot;</span>, <span class="string">&quot;default service binder = &quot;</span> + b);</span><br><span class="line">       &#125;</span><br><span class="line">       IActivityManager am = asInterface(b);</span><br><span class="line">       <span class="keyword">if</span> (<span class="keyword">false</span>) &#123;</span><br><span class="line">           Log.v(<span class="string">&quot;ActivityManager&quot;</span>, <span class="string">&quot;default service = &quot;</span> + am);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> am;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>由上可以看到关于Activity的启动是由<code>ActivityManagerNative.getDefault()</code>来启动的, 而<code>ActivityManagerNative.getDefault()</code>实际上是<code>AMS</code>, 所以<code>Activity</code>的启动过程又被转移到了<code>AMS</code>中,  接下来查看<code>AMS</code>中的<code>startActivity()</code>方法. </p>
+<p>在分析<code>AMS#startActivity()</code>之前, 是否在开始时候碰到过<code>Activity</code>没有在清单文件中声明然后崩溃的现象? 这个步骤是在<code>Instrumentation#execStartActivity()</code>刚才分析<code>ActivityManagerNative.getDefault().startActivity()</code>的下一步. 有一个<code>checkStartActivityResult()</code>,看名字应该是检查的类, 看一下实现.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">checkStartActivityResult</span><span class="params">(<span class="keyword">int</span> res, Object intent)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (res &gt;= ActivityManager.START_SUCCESS) &#123;</span><br><span class="line">       <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">switch</span> (res) &#123;</span><br><span class="line">       <span class="keyword">case</span> ActivityManager.START_INTENT_NOT_RESOLVED:</span><br><span class="line">       <span class="keyword">case</span> ActivityManager.START_CLASS_NOT_FOUND:</span><br><span class="line">           <span class="keyword">if</span> (intent <span class="keyword">instanceof</span> Intent &amp;&amp; ((Intent)intent).getComponent() != <span class="keyword">null</span>)</span><br><span class="line">               <span class="keyword">throw</span> <span class="keyword">new</span> ActivityNotFoundException(</span><br><span class="line">                       <span class="string">&quot;Unable to find explicit activity class &quot;</span></span><br><span class="line">                       + ((Intent)intent).getComponent().toShortString()</span><br><span class="line">                       + <span class="string">&quot;; have you declared this activity in your AndroidManifest.xml?&quot;</span>);</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> ActivityNotFoundException(</span><br><span class="line">                   <span class="string">&quot;No Activity found to handle &quot;</span> + intent);</span><br><span class="line">       <span class="keyword">case</span> ActivityManager.START_PERMISSION_DENIED:</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">&quot;Not allowed to start activity &quot;</span></span><br><span class="line">                   + intent);</span><br><span class="line">       <span class="keyword">case</span> ActivityManager.START_FORWARD_AND_REQUEST_CONFLICT:</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> AndroidRuntimeException(</span><br><span class="line">                   <span class="string">&quot;FORWARD_RESULT_FLAG used while also requesting a result&quot;</span>);</span><br><span class="line">       <span class="keyword">case</span> ActivityManager.START_NOT_ACTIVITY:</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(</span><br><span class="line">                   <span class="string">&quot;PendingIntent is not an activity&quot;</span>);</span><br><span class="line">       <span class="keyword">case</span> ActivityManager.START_NOT_VOICE_COMPATIBLE:</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(</span><br><span class="line">                   <span class="string">&quot;Starting under voice control not allowed for: &quot;</span> + intent);</span><br><span class="line">       <span class="keyword">default</span>:</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> AndroidRuntimeException(<span class="string">&quot;Unknown error code &quot;</span></span><br><span class="line">                   + res + <span class="string">&quot; when starting &quot;</span> + intent);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看出这个方法是一言不合就抛异常. 看<strong>ActivityManager.START_CLASS_NOT_FOUND</strong>这个判断分支抛出的异常是不是很眼熟? 对就是没有在清单文件中注册就在这里抛出. 所以这个方法就是检查启动Activity的结果.</p>
+<p><strong>回到AMS的startActivity()</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">startActivity</span><span class="params">(IApplicationThread caller, String callingPackage,</span></span></span><br><span class="line"><span class="params"><span class="function">  Intent intent, String resolvedType, IBinder resultTo, String resultWho, <span class="keyword">int</span> requestCode,</span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="keyword">int</span> startFlags, ProfilerInfo profilerInfo, Bundle options)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 直接调用下面方法</span></span><br><span class="line"><span class="keyword">return</span> startActivityAsUser(caller, callingPackage, intent, resolvedType, resultTo,</span><br><span class="line">  resultWho, requestCode, startFlags, profilerInfo, options,</span><br><span class="line">  UserHandle.getCallingUserId());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">startActivityAsUser</span><span class="params">(IApplicationThread caller, String callingPackage,</span></span></span><br><span class="line"><span class="params"><span class="function">       Intent intent, String resolvedType, IBinder resultTo, String resultWho, <span class="keyword">int</span> requestCode,</span></span></span><br><span class="line"><span class="params"><span class="function">       <span class="keyword">int</span> startFlags, ProfilerInfo profilerInfo, Bundle options, <span class="keyword">int</span> userId)</span> </span>&#123;</span><br><span class="line">   enforceNotIsolatedCaller(<span class="string">&quot;startActivity&quot;</span>);</span><br><span class="line">   userId = handleIncomingUser(Binder.getCallingPid(), Binder.getCallingUid(), userId,</span><br><span class="line">           <span class="keyword">false</span>, ALLOW_FULL_ONLY, <span class="string">&quot;startActivity&quot;</span>, <span class="keyword">null</span>);</span><br><span class="line">           </span><br><span class="line">   <span class="comment">// <span class="doctag">TODO:</span> Switch to user app stacks here.</span></span><br><span class="line">   <span class="keyword">return</span> mStackSupervisor.startActivityMayWait(caller, -<span class="number">1</span>, callingPackage, intent,</span><br><span class="line">           resolvedType, <span class="keyword">null</span>, <span class="keyword">null</span>, resultTo, resultWho, requestCode, startFlags,</span><br><span class="line">           profilerInfo, <span class="keyword">null</span>, <span class="keyword">null</span>, options, userId, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><code>Activity</code>启动过程经过两次转移, 最后又转移到了<code>mStackSupervisor.startActivityMayWait()</code>这个方法, 所属类为<code>ActivityStackSupervisor</code>. 在<code>startActivityMayWait()</code>内部又调用了<code>startActivityLocked()</code>这里会返回结果码就是之前<code>checkStartActivityResult()</code>用到的. 继续跟进方法最后会调用<code>startActivityUncheckedLocked()</code>, 然后又调用了<code>ActivityStack#resumeTopActivityLocked()</code>. 这个时候启动过程已经从<code>ActivityStackSupervisor</code>转移到了<code>ActivityStack</code>类中.</p>
+<p><strong>具体实现</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">resumeTopActivityLocked</span><span class="params">(ActivityRecord prev, Bundle options)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (mStackSupervisor.inResumeTopActivity) &#123;</span><br><span class="line">       <span class="comment">// Don&#x27;t even start recursing.</span></span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">boolean</span> result = <span class="keyword">false</span>;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="comment">// Protect against recursion.</span></span><br><span class="line">       mStackSupervisor.inResumeTopActivity = <span class="keyword">true</span>;</span><br><span class="line">       <span class="keyword">if</span> (mService.mLockScreenShown == ActivityManagerService.LOCK_SCREEN_LEAVING) &#123;</span><br><span class="line">           mService.mLockScreenShown = ActivityManagerService.LOCK_SCREEN_HIDDEN;</span><br><span class="line">           mService.updateSleepIfNeededLocked();</span><br><span class="line">       &#125;</span><br><span class="line">       result = resumeTopActivityInnerLocked(prev, options);</span><br><span class="line">   &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">       mStackSupervisor.inResumeTopActivity = <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上可以看到result是根据调用的<code>resumeTopActivityInnerLocked()</code>返回, 而<code>resumeTopActivityInnerLocked()</code>又调用了<code>ActivityStackSupervisor#startSpecificActivityLocked()</code>方法. 看一下这个方法:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">startSpecificActivityLocked</span><span class="params">(ActivityRecord r,</span></span></span><br><span class="line"><span class="params"><span class="function">       <span class="keyword">boolean</span> andResume, <span class="keyword">boolean</span> checkConfig)</span> </span>&#123;</span><br><span class="line">   <span class="comment">// Is this activity&#x27;s application already running?</span></span><br><span class="line">   ProcessRecord app = mService.getProcessRecordLocked(r.processName,</span><br><span class="line">           r.info.applicationInfo.uid, <span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">   r.task.stack.setLaunchTime(r);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> (app != <span class="keyword">null</span> &amp;&amp; app.thread != <span class="keyword">null</span>) &#123;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="keyword">if</span> ((r.info.flags&amp;ActivityInfo.FLAG_MULTIPROCESS) == <span class="number">0</span></span><br><span class="line">                   || !<span class="string">&quot;android&quot;</span>.equals(r.info.packageName)) &#123;</span><br><span class="line">               app.addPackage(r.info.packageName, r.info.applicationInfo.versionCode,</span><br><span class="line">                       mService.mProcessStats);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">// 继续进入!!!</span></span><br><span class="line">           realStartActivityLocked(r, app, andResume, checkConfig);</span><br><span class="line">           <span class="keyword">return</span>;</span><br><span class="line">       &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">           Slog.w(TAG, <span class="string">&quot;Exception when starting activity &quot;</span></span><br><span class="line">                   + r.intent.getComponent().flattenToShortString(), e);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// If a dead object exception was thrown -- fall through to</span></span><br><span class="line">       <span class="comment">// restart the application.</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   mService.startProcessLocked(r.processName, r.info.applicationInfo, <span class="keyword">true</span>, <span class="number">0</span>,</span><br><span class="line">           <span class="string">&quot;activity&quot;</span>, r.intent.getComponent(), <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这个方法又进入了<code>realStartActivityLocked()</code>. 在这个方法中有如下一段代码:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">app.thread.scheduleLaunchActivity(<span class="keyword">new</span> Intent(r.intent), r.appToken,</span><br><span class="line">                   System.identityHashCode(r), r.info, <span class="keyword">new</span> Configuration(mService.mConfiguration),</span><br><span class="line">                   r.compat, r.launchedFromPackage, r.task.voiceInteractor, app.repProcState,</span><br><span class="line">                   r.icicle, r.persistentState, results, newIntents, !andResume,</span><br><span class="line">                   mService.isNextTransitionForward(), profilerInfo);</span><br></pre></td></tr></table></figure>
+
+<p>先整理一下刚才的调用过程, 我已经照着书上跟的不知所以然了…. = =</p>
+<p><img src="activity_01.png"></p>
+<p>继续看刚才<code>app.thread.scheduleLaunchActivity()</code>这个方法. 其中<code>app.thread</code>类型为<code>IApplicationThread</code>, 这个玩意继承了<code>IInterface</code>接口, 所以他也是一个<code>Binder</code>类型的接口接口. 从<code>IApplicationThread</code>声明的接口方法可以看出, 其内部包含了大量启动和停止<code>Activity</code>的接口, 此外还包含了<code>Service</code>的启动与停止. 可以猜想, <code>IApplicationThread</code>这个<code>Binder</code>接口的是实现者完成了大量和<code>Activity</code>以及<code>Service</code>启动和停止的相关功能. </p>
+<p><strong>那<code>IApplicationThread</code>的实现者是哪个类? 在<code>ActivityThread</code>中的内部类有一个<code>ApplicationThread</code>,看看定义</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationThread</span> <span class="keyword">extends</span> <span class="title">ApplicationThreadNative</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">abstract</span> <span class="title">class</span> <span class="title">ApplicationThreadNative</span> <span class="keyword">extends</span> <span class="title">Binder</span></span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">IApplicationThread</span></span></span><br><span class="line"><span class="class"></span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到<code>ApplicationThread</code>的继承关系, 而查看<code>ApplicationThreadNative</code>的作用其实和系统AIDL文件生成的类是一样的.</p>
+<p>在<code>ApplicationThreadNative</code>的内部, 还有一个<code>ApplicationThreadProxy</code>类, 眼熟吧在第二章讲解的时候<strong>aidl生成的java文件中</strong>也有一个内部的代理类. 所以<code>ApplicationThreadNative</code>就是<code>IApplicationThread</code>的实现者, 由于<code>ApplicationThreadNative</code>被系统定义为抽象类, 所以<code>ApplicationThread</code>就成了<code>IApplicationThread</code>的实现者</p>
+<hr>
+<p>绕了一大圈, <strong>Activity</strong>启动过程最终回到了<code>ApplicationThread</code>中, <code>ApplicationThread</code>通过<code>scheduleLaunchActivity()</code>来启动Activity.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">scheduleLaunchActivity</span><span class="params">(Intent intent, IBinder token, <span class="keyword">int</span> ident,</span></span></span><br><span class="line"><span class="params"><span class="function">                ActivityInfo info, Configuration curConfig, CompatibilityInfo compatInfo,</span></span></span><br><span class="line"><span class="params"><span class="function">                String referrer, IVoiceInteractor voiceInteractor, <span class="keyword">int</span> procState, Bundle state,</span></span></span><br><span class="line"><span class="params"><span class="function">                PersistableBundle persistentState, List&lt;ResultInfo&gt; pendingResults,</span></span></span><br><span class="line"><span class="params"><span class="function">                List&lt;ReferrerIntent&gt; pendingNewIntents, <span class="keyword">boolean</span> notResumed, <span class="keyword">boolean</span> isForward,</span></span></span><br><span class="line"><span class="params"><span class="function">                ProfilerInfo profilerInfo)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            updateProcessState(procState, <span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">            ActivityClientRecord r = <span class="keyword">new</span> ActivityClientRecord();</span><br><span class="line">            r.token = token;</span><br><span class="line">            r.ident = ident;</span><br><span class="line">            r.intent = intent;</span><br><span class="line">            r.referrer = referrer;</span><br><span class="line">            r.voiceInteractor = voiceInteractor;</span><br><span class="line">            r.activityInfo = info;</span><br><span class="line">            r.compatInfo = compatInfo;</span><br><span class="line">            r.state = state;</span><br><span class="line">            r.persistentState = persistentState;</span><br><span class="line">            r.pendingResults = pendingResults;</span><br><span class="line">            r.pendingIntents = pendingNewIntents;</span><br><span class="line">            r.startsNotResumed = notResumed;</span><br><span class="line">            r.isForward = isForward;</span><br><span class="line">            r.profilerInfo = profilerInfo;</span><br><span class="line">            updatePendingConfiguration(curConfig);</span><br><span class="line">            </span><br><span class="line">            sendMessage(H.LAUNCH_ACTIVITY, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码做的就是封装一个<code>Activity的记录信息</code>交给名字叫<strong>H</strong>的一个Handler对象去处理, 继续跟进看看里面的实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(<span class="keyword">int</span> what, Object obj, <span class="keyword">int</span> arg1, <span class="keyword">int</span> arg2, <span class="keyword">boolean</span> async)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (DEBUG_MESSAGES) Slog.v(</span><br><span class="line">       TAG, <span class="string">&quot;SCHEDULE &quot;</span> + what + <span class="string">&quot; &quot;</span> + mH.codeToString(what)</span><br><span class="line">       + <span class="string">&quot;: &quot;</span> + arg1 + <span class="string">&quot; / &quot;</span> + obj);</span><br><span class="line">   Message msg = Message.obtain();</span><br><span class="line">   msg.what = what;</span><br><span class="line">   msg.obj = obj;</span><br><span class="line">   msg.arg1 = arg1;</span><br><span class="line">   msg.arg2 = arg2;</span><br><span class="line">   <span class="keyword">if</span> (async) &#123;</span><br><span class="line">       msg.setAsynchronous(<span class="keyword">true</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   mH.sendMessage(msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>额, 没啥好瞅的就是封装一个<code>message</code>发送了一个消息. 好吧 那看看<code>Handler</code>接收的时候是如何处理的吧. 这个类里面对<code>Handler</code>进行了包装, 包装的类就是一个<code>H</code>的内部类.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">H</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> LAUNCH_ACTIVITY         = <span class="number">100</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PAUSE_ACTIVITY          = <span class="number">101</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PAUSE_ACTIVITY_FINISHING= <span class="number">102</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STOP_ACTIVITY_SHOW      = <span class="number">103</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STOP_ACTIVITY_HIDE      = <span class="number">104</span>;</span><br><span class="line"> <span class="comment">//这里省略一堆常量声明</span></span><br><span class="line"> <span class="comment">//在省略一堆switch分支, 直接看具体的消息处理</span></span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (DEBUG_MESSAGES) Slog.v(TAG, <span class="string">&quot;&gt;&gt;&gt; handling: &quot;</span> + codeToString(msg.what));</span><br><span class="line">       <span class="keyword">switch</span> (msg.what) &#123;</span><br><span class="line">           <span class="keyword">case</span> LAUNCH_ACTIVITY: &#123;</span><br><span class="line">               Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, <span class="string">&quot;activityStart&quot;</span>);</span><br><span class="line">               <span class="keyword">final</span> ActivityClientRecord r = (ActivityClientRecord) msg.obj;</span><br><span class="line"></span><br><span class="line">               r.packageInfo = getPackageInfoNoCheck(</span><br><span class="line">                       r.activityInfo.applicationInfo, r.compatInfo);</span><br><span class="line">               handleLaunchActivity(r, <span class="keyword">null</span>);</span><br><span class="line">               Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</span><br><span class="line">           &#125; <span class="keyword">break</span>;</span><br><span class="line">           <span class="keyword">case</span> PAUSE_ACTIVITY:</span><br><span class="line">               Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, <span class="string">&quot;activityPause&quot;</span>);</span><br><span class="line">               handlePauseActivity((IBinder)msg.obj, <span class="keyword">false</span>, (msg.arg1&amp;<span class="number">1</span>) != <span class="number">0</span>, msg.arg2,</span><br><span class="line">                       (msg.arg1&amp;<span class="number">2</span>) != <span class="number">0</span>);</span><br><span class="line">               maybeSnapshot();</span><br><span class="line">               Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">           <span class="keyword">case</span> PAUSE_ACTIVITY_FINISHING:</span><br><span class="line">               Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, <span class="string">&quot;activityPause&quot;</span>);</span><br><span class="line">               handlePauseActivity((IBinder)msg.obj, <span class="keyword">true</span>, (msg.arg1&amp;<span class="number">1</span>) != <span class="number">0</span>, msg.arg2,</span><br><span class="line">                       (msg.arg1&amp;<span class="number">1</span>) != <span class="number">0</span>);</span><br><span class="line">               Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//这里又省去了一大坨的case分支</span></span><br><span class="line">        &#125;</span><br><span class="line">       <span class="keyword">if</span> (DEBUG_MESSAGES) Slog.v(TAG, <span class="string">&quot;&lt;&lt;&lt; done: &quot;</span> + codeToString(msg.what));</span><br><span class="line">   &#125;  </span><br></pre></td></tr></table></figure>
+
+
+<p>我们目前只关心<code>LAUNCH_ACTIVITY</code>这个标记, 这个内部我们可以看到通过<code>handleLaunchActivity()</code>方法来实现.  这个方法内部通过**<code>PerformLaunchActivity()</code>**方法最终完成了<code>Activity</code>对象的创建和启动过程. 并且<code>ActivityThread</code>通过<code>handleResumeActivity()</code>方法来调用被启动的<code>onResume()</code>这一生命周期方法. </p>
+<p><strong>那么<code>PerformLaunchActivity()</code>究竟做了那几件事情完成了<code>Activity</code>的形成呢.</strong></p>
+<hr>
+<p><strong>1. 从ActivityClientRecord中获取待启动的Activity信息</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (r.packageInfo == <span class="keyword">null</span>) &#123;</span><br><span class="line">  r.packageInfo = getPackageInfo(aInfo.applicationInfo, r.compatInfo,</span><br><span class="line">          Context.CONTEXT_INCLUDE_CODE);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ComponentName component = r.intent.getComponent();</span><br><span class="line"><span class="keyword">if</span> (component == <span class="keyword">null</span>) &#123;</span><br><span class="line">  component = r.intent.resolveActivity(</span><br><span class="line">      mInitialApplication.getPackageManager());</span><br><span class="line">  r.intent.setComponent(component);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (r.activityInfo.targetActivity != <span class="keyword">null</span>) &#123;</span><br><span class="line">  component = <span class="keyword">new</span> ComponentName(r.activityInfo.packageName,</span><br><span class="line">          r.activityInfo.targetActivity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>2.通过Instrumentation的newActivity方法使用类加载器创建Activity对象</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">java.lang.ClassLoader cl = r.packageInfo.getClassLoader();</span><br><span class="line">activity = mInstrumentation.newActivity(</span><br><span class="line">        cl, component.getClassName(), r.intent);</span><br><span class="line">StrictMode.incrementExpectedActivityCount(activity.getClass());</span><br><span class="line">r.intent.setExtrasClassLoader(cl);</span><br><span class="line">r.intent.prepareToEnterProcess();</span><br><span class="line"><span class="keyword">if</span> (r.state != <span class="keyword">null</span>) &#123;</span><br><span class="line">    r.state.setClassLoader(cl);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.通过LoadedApk的makeApplication()方法来尝试创建Application对象</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Application <span class="title">makeApplication</span><span class="params">(<span class="keyword">boolean</span> forceDefaultAppClass,</span></span></span><br><span class="line"><span class="params"><span class="function">        Instrumentation instrumentation)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mApplication != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> mApplication;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Application app = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    String appClass = mApplicationInfo.className;</span><br><span class="line">    <span class="keyword">if</span> (forceDefaultAppClass || (appClass == <span class="keyword">null</span>)) &#123;</span><br><span class="line">        appClass = <span class="string">&quot;android.app.Application&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        java.lang.ClassLoader cl = getClassLoader();</span><br><span class="line">        <span class="keyword">if</span> (!mPackageName.equals(<span class="string">&quot;android&quot;</span>)) &#123;</span><br><span class="line">            initializeJavaContextClassLoader();</span><br><span class="line">        &#125;</span><br><span class="line">        ContextImpl appContext = ContextImpl.createAppContext(mActivityThread, <span class="keyword">this</span>);</span><br><span class="line">        app = mActivityThread.mInstrumentation.newApplication(</span><br><span class="line">                cl, appClass, appContext);</span><br><span class="line">        appContext.setOuterContext(app);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!mActivityThread.mInstrumentation.onException(app, e)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(</span><br><span class="line">                <span class="string">&quot;Unable to instantiate application &quot;</span> + appClass</span><br><span class="line">                + <span class="string">&quot;: &quot;</span> + e.toString(), e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    mActivityThread.mAllApplications.add(app);</span><br><span class="line">    mApplication = app;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (instrumentation != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            instrumentation.callApplicationOnCreate(app);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!instrumentation.onException(app, e)) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(</span><br><span class="line">                    <span class="string">&quot;Unable to create application &quot;</span> + app.getClass().getName()</span><br><span class="line">                    + <span class="string">&quot;: &quot;</span> + e.toString(), e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Rewrite the R &#x27;constants&#x27; for all library apks.</span></span><br><span class="line">    SparseArray&lt;String&gt; packageIdentifiers = getAssets(mActivityThread)</span><br><span class="line">            .getAssignedPackageIdentifiers();</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> N = packageIdentifiers.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> id = packageIdentifiers.keyAt(i);</span><br><span class="line">        <span class="keyword">if</span> (id == <span class="number">0x01</span> || id == <span class="number">0x7f</span>) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        rewriteRValues(getClassLoader(), packageIdentifiers.valueAt(i), id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从这个方法中可以看到, 如果<code>Application</code>这个对象已经被创建过, 那么就不会再重复创建了, 这也就意味着一个应用只有一个<code>Application</code>对象的原因. <code>Application</code>对象的创建也是通过<code>Instrumentation</code>类来完成, 这个过程和Activity对象的创建是一致的, 都是通过类加载器来实现. <code>Application</code>创建完毕后, 系统会通过<code>Instrumentation</code>的<code>callApplicationOnCreate()</code>方法来调用<code>Application#onCreate()</code>方法. </p>
+<p><strong>4. 创建ContextImpl对象并通过Activity的attach方法来完成重要数据的初始化</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Context appContext = createBaseContextForActivity(r, activity);</span><br><span class="line">               CharSequence title = r.activityInfo.loadLabel(appContext.getPackageManager());</span><br><span class="line">               Configuration config = <span class="keyword">new</span> Configuration(mCompatConfiguration);</span><br><span class="line">               <span class="keyword">if</span> (DEBUG_CONFIGURATION) Slog.v(TAG, <span class="string">&quot;Launching activity &quot;</span></span><br><span class="line">                       + r.activityInfo.name + <span class="string">&quot; with config &quot;</span> + config);</span><br><span class="line">               activity.attach(appContext, <span class="keyword">this</span>, getInstrumentation(), r.token,</span><br><span class="line">                       r.ident, app, r.intent, r.activityInfo, title, r.parent,</span><br><span class="line">                       r.embeddedID, r.lastNonConfigurationInstances, config,</span><br><span class="line">                       r.referrer, r.voiceInteractor);</span><br></pre></td></tr></table></figure>
+
+<p><code>ContextImpl</code>是一个很重要的数据结构, 它是Context的具体实现, <code>Context</code>中的大部分逻辑都是由<code>ContentImpl</code>来完成的. ContextImpl是通过Activity的<code>attach()</code>方法来和Activity建立关联的,除此之外, 在<code>attach()</code>中Activity还会完成Window的创建并建立自己和Window的关联, 这样当Window接收到外部输入事件收就可以将事件传递给Activity.</p>
+<p><strong>5. 调用Activity的onCreate()方法</strong></p>
+<p><code> mInstrumentation.callActivityOnCreate(activity, r.state);</code>, 由于Activity的<code>onCreate()</code>已经被调用, 这也意味着Activity已经完成整个启动过程. </p>
+<h2 id="Service的工作流程"><a href="#Service的工作流程" class="headerlink" title="Service的工作流程"></a>Service的工作流程</h2><h3 id="Service的启动过程"><a href="#Service的启动过程" class="headerlink" title="Service的启动过程"></a>Service的启动过程</h3><p>同样从<code>ContextImpl#startService()</code>这个方法作为入口.</p>
+<p>这个方法会调用<code>startServiceCommon()</code>并返回. 这个方法内部通过<code> ActivityManagerNative.getDefault()</code>获得一个<code>AMS</code>并调用<code>startService()</code>开启一个服务. 在这里通过<code>AMS</code>来启动一个服务的行为是属于远程调用的过程. </p>
+<p>看一下<code>startService()</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ComponentName <span class="title">startService</span><span class="params">(IApplicationThread caller, Intent service,</span></span></span><br><span class="line"><span class="params"><span class="function">        String resolvedType, <span class="keyword">int</span> userId)</span> </span>&#123;</span><br><span class="line">    enforceNotIsolatedCaller(<span class="string">&quot;startService&quot;</span>);</span><br><span class="line">    <span class="comment">// Refuse possible leaked file descriptors</span></span><br><span class="line">    <span class="keyword">if</span> (service != <span class="keyword">null</span> &amp;&amp; service.hasFileDescriptors() == <span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;File descriptors passed in Intent&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (DEBUG_SERVICE)</span><br><span class="line">        Slog.v(TAG, <span class="string">&quot;startService: &quot;</span> + service + <span class="string">&quot; type=&quot;</span> + resolvedType);</span><br><span class="line">    <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> callingPid = Binder.getCallingPid();</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> callingUid = Binder.getCallingUid();</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">long</span> origId = Binder.clearCallingIdentity();</span><br><span class="line">        ComponentName res = mServices.startServiceLocked(caller, service,</span><br><span class="line">                resolvedType, callingPid, callingUid, userId);</span><br><span class="line">        Binder.restoreCallingIdentity(origId);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段主要就是<code>AMS</code>通过<code>mServices</code>这个对象来完成<code>Service</code>后续的启动过程. 这里<code>mService</code>的对象类型是<code>ActivityServices</code>(这是一个辅助AMS进行Service管理的类, 包括Service的启动,绑定和停止等).</p>
+<p>这里调用了<code>mServices.startServiceLocked()</code>然后这个方法最后又调用了<code>startServiceInnerLocked()</code>, 实现如下. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">ComponentName <span class="title">startServiceInnerLocked</span><span class="params">(ServiceMap smap, Intent service,</span></span></span><br><span class="line"><span class="params"><span class="function">           ServiceRecord r, <span class="keyword">boolean</span> callerFg, <span class="keyword">boolean</span> addToStarting)</span> </span>&#123;</span><br><span class="line">       ProcessStats.ServiceState stracker = r.getTracker();</span><br><span class="line">       <span class="keyword">if</span> (stracker != <span class="keyword">null</span>) &#123;</span><br><span class="line">           stracker.setStarted(<span class="keyword">true</span>, mAm.mProcessStats.getMemFactorLocked(), r.lastActivity);</span><br><span class="line">       &#125;</span><br><span class="line">       r.callStart = <span class="keyword">false</span>;</span><br><span class="line">       <span class="keyword">synchronized</span> (r.stats.getBatteryStats()) &#123;</span><br><span class="line">           r.stats.startRunningLocked();</span><br><span class="line">       &#125;</span><br><span class="line">       String error = bringUpServiceLocked(r, service.getFlags(), callerFg, <span class="keyword">false</span>);</span><br><span class="line">       <span class="keyword">if</span> (error != <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">new</span> ComponentName(<span class="string">&quot;!!&quot;</span>, error);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (r.startRequested &amp;&amp; addToStarting) &#123;</span><br><span class="line">           <span class="keyword">boolean</span> first = smap.mStartingBackground.size() == <span class="number">0</span>;</span><br><span class="line">           smap.mStartingBackground.add(r);</span><br><span class="line">           r.startingBgTimeout = SystemClock.uptimeMillis() + BG_START_TIMEOUT;</span><br><span class="line">           <span class="keyword">if</span> (DEBUG_DELAYED_SERVICE) &#123;</span><br><span class="line">               RuntimeException here = <span class="keyword">new</span> RuntimeException(<span class="string">&quot;here&quot;</span>);</span><br><span class="line">               here.fillInStackTrace();</span><br><span class="line">               Slog.v(TAG, <span class="string">&quot;Starting background (first=&quot;</span> + first + <span class="string">&quot;): &quot;</span> + r, here);</span><br><span class="line">           &#125; <span class="keyword">else</span> <span class="keyword">if</span> (DEBUG_DELAYED_STARTS) &#123;</span><br><span class="line">               Slog.v(TAG, <span class="string">&quot;Starting background (first=&quot;</span> + first + <span class="string">&quot;): &quot;</span> + r);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span> (first) &#123;</span><br><span class="line">               smap.rescheduleDelayedStarts();</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (callerFg) &#123;</span><br><span class="line">           smap.ensureNotStartingBackground(r);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> r.name;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ServiceRecord</code>描述的是一个Service记录, <code>ServiceRecord</code>一直贯穿着整个Service的启动过程. <code>startServiceInnerLocked()</code>方法并没有完成具体的启动工作, 而是把后续的工作交给了<code>bringUpServiceLocked()</code>,在<code>bringUpServiceLocked()</code>又调用了<code>realStartServiceLocked()</code>方法. 这个方法算是真正的启动一个<code>Service</code>.</p>
+<p>**<code>realStartServiceLocked()</code>**首先通过<code>app.thread.scheduleCreateService()</code>方法来创建<code>Service</code>对象并调用其<code>onCreate()</code>, 接着再通过<code>sendServiceArgsLoceked()</code>方法来调用Service的其他方法, 比如<code>onStartCommond</code>这两个过程均是进程间通信. <code>app.thread</code>是一个<code>Binder</code>对象. 具体实现看<code>ApplicationThread</code>即可. 在<code>Activity</code>启动流程的时候已经解释过了. </p>
+<p>所以只查看<code>Application</code>对<code>Service</code>的启动过程的处理即可. 这对应着它的<code>scheduleCreateService()</code>.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">scheduleCreateService</span><span class="params">(IBinder token,</span></span></span><br><span class="line"><span class="params"><span class="function">        ServiceInfo info, CompatibilityInfo compatInfo, <span class="keyword">int</span> processState)</span> </span>&#123;</span><br><span class="line">    updateProcessState(processState, <span class="keyword">false</span>);</span><br><span class="line">    CreateServiceData s = <span class="keyword">new</span> CreateServiceData();</span><br><span class="line">    s.token = token;</span><br><span class="line">    s.info = info;</span><br><span class="line">    s.compatInfo = compatInfo;</span><br><span class="line"></span><br><span class="line">    sendMessage(H.CREATE_SERVICE, s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个过程和<code>Activity</code>类似, 都是通过<code>H</code>来完成.  最终处理消息接收结果会调用<code>handleCreateService</code>.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handleCreateService</span><span class="params">(CreateServiceData data)</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">    unscheduleGcIdler();</span><br><span class="line"></span><br><span class="line">    LoadedApk packageInfo = getPackageInfoNoCheck(</span><br><span class="line">            data.info.applicationInfo, data.compatInfo);</span><br><span class="line">    Service service = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        java.lang.ClassLoader cl = packageInfo.getClassLoader();</span><br><span class="line">        service = (Service) cl.loadClass(data.info.name).newInstance();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!mInstrumentation.onException(service, e)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(</span><br><span class="line">                <span class="string">&quot;Unable to instantiate service &quot;</span> + data.info.name</span><br><span class="line">                + <span class="string">&quot;: &quot;</span> + e.toString(), e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (localLOGV) Slog.v(TAG, <span class="string">&quot;Creating service &quot;</span> + data.info.name);</span><br><span class="line"></span><br><span class="line">        ContextImpl context = ContextImpl.createAppContext(<span class="keyword">this</span>, packageInfo);</span><br><span class="line">        context.setOuterContext(service);</span><br><span class="line"></span><br><span class="line">        Application app = packageInfo.makeApplication(<span class="keyword">false</span>, mInstrumentation);</span><br><span class="line">        <span class="comment">//----------------</span></span><br><span class="line">        service.attach(context, <span class="keyword">this</span>, data.info.name, data.token, app,</span><br><span class="line">                ActivityManagerNative.getDefault());</span><br><span class="line">        service.onCreate();</span><br><span class="line">        <span class="comment">//---------------</span></span><br><span class="line">        mServices.put(data.token, service);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ActivityManagerNative.getDefault().serviceDoneExecuting(</span><br><span class="line">                    data.token, SERVICE_DONE_EXECUTING_ANON, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">            <span class="comment">// nothing to do.</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!mInstrumentation.onException(service, e)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(</span><br><span class="line">                <span class="string">&quot;Unable to create service &quot;</span> + data.info.name</span><br><span class="line">                + <span class="string">&quot;: &quot;</span> + e.toString(), e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>handleCreateService做了如下事情</strong></p>
+<ol>
+<li>通过类加载器创建<code>Service</code>的实例</li>
+<li>创建<code>Application</code>对象并调用其onCreate(), 当然<code>Application</code>创建过程只会有一次.</li>
+<li>接着创建<code>ContextImpl</code>对象并通过<code>Service</code>的attach方法建立二者之间的关系, 这个过程和<code>Activity</code>实际上是类似的. 毕竟Service和Activity都是一个Context. </li>
+<li>调用<code>onCreate()</code>并将Service对象存储到<code>ActivityThread</code>中的一个列表. 就是<code>final ArrayMap&lt;IBinder, Service&gt; mServices = new ArrayMap&lt;IBinder, Service&gt;();</code></li>
+</ol>
+<p><code>onCreate()</code>方法被执行了也就意味着<code>Service</code>已经启动了. 除此之外, <code>ActivityThread</code>中还会通过<code>handleServiceArgs()</code>方法调用Service的<code>onStartCommand()</code>方法. </p>
+<h3 id="Service的绑定过程"><a href="#Service的绑定过程" class="headerlink" title="Service的绑定过程"></a>Service的绑定过程</h3><p>和启动过程一样, 绑定过程同样是从<code>ContextImpl</code>开始的. 先查看<code>bindServiceCommon()</code>.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">bindServiceCommon</span><span class="params">(Intent service, ServiceConnection conn, <span class="keyword">int</span> flags,</span></span></span><br><span class="line"><span class="params"><span class="function">        UserHandle user)</span> </span>&#123;</span><br><span class="line">    IServiceConnection sd;</span><br><span class="line">    <span class="keyword">if</span> (conn == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;connection is null&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (mPackageInfo != <span class="keyword">null</span>) &#123;</span><br><span class="line">        sd = mPackageInfo.getServiceDispatcher(conn, getOuterContext(),</span><br><span class="line">                mMainThread.getHandler(), flags);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;Not supported in system context&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    validateServiceIntent(service);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        IBinder token = getActivityToken();</span><br><span class="line">        <span class="keyword">if</span> (token == <span class="keyword">null</span> &amp;&amp; (flags&amp;BIND_AUTO_CREATE) == <span class="number">0</span> &amp;&amp; mPackageInfo != <span class="keyword">null</span></span><br><span class="line">                &amp;&amp; mPackageInfo.getApplicationInfo().targetSdkVersion</span><br><span class="line">                &lt; android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) &#123;</span><br><span class="line">            flags |= BIND_WAIVE_PRIORITY;</span><br><span class="line">        &#125;</span><br><span class="line">        service.prepareToLeaveProcess();</span><br><span class="line">        <span class="keyword">int</span> res = ActivityManagerNative.getDefault().bindService(</span><br><span class="line">            mMainThread.getApplicationThread(), getActivityToken(),</span><br><span class="line">            service, service.resolveTypeIfNeeded(getContentResolver()),</span><br><span class="line">            sd, flags, user.getIdentifier());</span><br><span class="line">        <span class="keyword">if</span> (res &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(</span><br><span class="line">                    <span class="string">&quot;Not allowed to bind to service &quot;</span> + service);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res != <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码首先将客户端的<code>ServiceConnection</code>对象转化成为<code>ServiceDispatcher.InnerConnection</code>对象. 不能直接使用<code>ServiceConnection</code>对象必须借助于Binder才能让远程服务回调自己的方法. 而<code>ServiceDispatcher</code>的内部类<code>InnerConnection</code>刚好充当了Binder这个角色.  </p>
+<p><code>ServiceDispatcher</code>的作用就是连接<code>ServiceConnection</code>和<code>InnerConnection</code>的作用. 这个过程由<code>LoadedApk</code>的<code>getServiceDispatcher()</code>方法完成. 实现如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> IServiceConnection <span class="title">getServiceDispatcher</span><span class="params">(ServiceConnection c,</span></span></span><br><span class="line"><span class="params"><span class="function">       Context context, Handler handler, <span class="keyword">int</span> flags)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">synchronized</span> (mServices) &#123;</span><br><span class="line">       LoadedApk.ServiceDispatcher sd = <span class="keyword">null</span>;</span><br><span class="line">       ArrayMap&lt;ServiceConnection, LoadedApk.ServiceDispatcher&gt; map = mServices.get(context);</span><br><span class="line">       <span class="keyword">if</span> (map != <span class="keyword">null</span>) &#123;</span><br><span class="line">           sd = map.get(c);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (sd == <span class="keyword">null</span>) &#123;</span><br><span class="line">           sd = <span class="keyword">new</span> ServiceDispatcher(c, context, handler, flags);</span><br><span class="line">           <span class="keyword">if</span> (map == <span class="keyword">null</span>) &#123;</span><br><span class="line">               map = <span class="keyword">new</span> ArrayMap&lt;ServiceConnection, LoadedApk.ServiceDispatcher&gt;();</span><br><span class="line">               mServices.put(context, map);</span><br><span class="line">           &#125;</span><br><span class="line">           map.put(c, sd);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           sd.validate(context, handler);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> sd.getIServiceConnection();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>mService</code>是一个<code>ArrayMap</code>, 它存储了一个应用当前活动的<code>ServiceConnection</code>和<code>ServiceDispatcher</code>的映射关系.</p>
+<p>系统首先会查找是否存在相同的<code>ServiceConnection</code>, 如果不存在就会重新创建一个<code>ServiceDispatch</code>对象并将其存储在<code>mService</code>中, 其中的key是<code>ServiceConnection</code>,value是<code>ServiceDispatcher</code>, 在<code>ServiceDispatcher</code>的内部又保存了<code>ServiceConnection</code>和<code>InnerConnection</code>对象. 当<code>Service</code>和客户端建立连接后, 系统会通过InnerConnection来调用<code>ServiceConnection</code>中的<code>onServiceConnected()</code>方法. 这个过程可能是跨进程的. 当<code>ServiceDispatcher</code>创建好了以后, <code>getServiceDispatcher</code>会返回其保存的<code>InnerConnection</code>对象. </p>
+<p>接着<code>bindServiceCommon</code>方法会通过AMS完成Service的具体绑定, 这对应着<code>AMS#bindService()</code>方法. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">bindService</span><span class="params">(IApplicationThread caller, IBinder token,</span></span></span><br><span class="line"><span class="params"><span class="function">        Intent service, String resolvedType,</span></span></span><br><span class="line"><span class="params"><span class="function">        IServiceConnection connection, <span class="keyword">int</span> flags, <span class="keyword">int</span> userId)</span> </span>&#123;</span><br><span class="line">    enforceNotIsolatedCaller(<span class="string">&quot;bindService&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Refuse possible leaked file descriptors</span></span><br><span class="line">    <span class="keyword">if</span> (service != <span class="keyword">null</span> &amp;&amp; service.hasFileDescriptors() == <span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;File descriptors passed in Intent&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> mServices.bindServiceLocked(caller, token, service, resolvedType,</span><br><span class="line">                connection, flags, userId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后<code>AMS</code>会调用<code>ActivityService#bindServiceLocked()</code>方法. 然后调用<code>bringUpServiceLocked()</code>, 继续调用.  发现调到了<code>realStartServiceLocked</code>. 这里面的逻辑和<strong>启动过程</strong>类似. 最终都是通过<code>ApplicationThread</code>来完成<code>Service</code>实例的创建并执行其onCreate()方法. 这里不再重复说明. </p>
+<p><strong>与Service启动稍微不同的是</strong>: </p>
+<ul>
+<li>绑定过程: 会调用到<code>app.thread(ActivityThread)</code>的<code>scheduleBindService()</code>方法. 而这个过程的实现是在<code>ActiveService#requestServiceBindingLocked()</code>方法.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">requestServiceBindingLocked</span><span class="params">(ServiceRecord r,</span></span></span><br><span class="line"><span class="params"><span class="function">        IntentBindRecord i, <span class="keyword">boolean</span> execInFg, <span class="keyword">boolean</span> rebind)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (r.app == <span class="keyword">null</span> || r.app.thread == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// If service is not currently running, can&#x27;t yet bind.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ((!i.requested || rebind) &amp;&amp; i.apps.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            bumpServiceExecutingLocked(r, execInFg, <span class="string">&quot;bind&quot;</span>);</span><br><span class="line">            r.app.forceProcessStateUpTo(ActivityManager.PROCESS_STATE_SERVICE);</span><br><span class="line">            r.app.thread.scheduleBindService(r, i.intent.getIntent(), rebind,</span><br><span class="line">                    r.app.repProcState);</span><br><span class="line">            <span class="keyword">if</span> (!rebind) &#123;</span><br><span class="line">                i.requested = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            i.hasBound = <span class="keyword">true</span>;</span><br><span class="line">            i.doRebind = <span class="keyword">false</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">            <span class="keyword">if</span> (DEBUG_SERVICE) Slog.v(TAG, <span class="string">&quot;Crashed while binding &quot;</span> + r);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>app.thread</code>实际上就是<code>ApplicationThread</code>. <code>ApplicationThread</code>的一系列以<code>schedule</code>开头的方法, 其内部都是通过Handler H来中转的. </p>
+<p><strong>H的内部</strong> 接收到<code>BIND_SERVICE</code>消息需要处理时, 会交给<code>ActivityThread#handleBindService()</code>. 在<code>handlerBindService</code>中, 首先根据<code>Service</code>的token取出<code>Service</code>对象. 然后调用<code>Service#onBind()</code>方法, Service的onBinder方法返回一个Binder对象给客户端使用. 原则上来说, <code>Service#onBind()</code>方法被调用后, <code>Service</code>就处于绑定状态, 但是<code>onBind</code>方法是<code>Service</code>的方法, 这个时候客户端并不知道已经成功连接<code>Service</code>, 所以还必须调用客户端的<code>ServiceConnection</code>中的<code>onServiceConnected()</code>, 这个过程是由<code>AMS#publishService()</code>来完成. </p>
+<p><code>handleBindService()</code>实现如下: </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handleBindService</span><span class="params">(BindServiceData data)</span> </span>&#123;</span><br><span class="line">    Service s = mServices.get(data.token);</span><br><span class="line">    <span class="keyword">if</span> (DEBUG_SERVICE)</span><br><span class="line">        Slog.v(TAG, <span class="string">&quot;handleBindService s=&quot;</span> + s + <span class="string">&quot; rebind=&quot;</span> + data.rebind);</span><br><span class="line">    <span class="keyword">if</span> (s != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            data.intent.setExtrasClassLoader(s.getClassLoader());</span><br><span class="line">            data.intent.prepareToEnterProcess();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (!data.rebind) &#123;</span><br><span class="line">                    IBinder binder = s.onBind(data.intent);</span><br><span class="line">                    <span class="comment">// 看我看我</span></span><br><span class="line">                    ActivityManagerNative.getDefault().publishService(</span><br><span class="line">                            data.token, data.intent, binder);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    s.onRebind(data.intent);</span><br><span class="line">                    ActivityManagerNative.getDefault().serviceDoneExecuting(</span><br><span class="line">                            data.token, SERVICE_DONE_EXECUTING_ANON, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                ensureJitEnabled();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (RemoteException ex) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!mInstrumentation.onException(s, e)) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(</span><br><span class="line">                        <span class="string">&quot;Unable to bind to service &quot;</span> + s</span><br><span class="line">                        + <span class="string">&quot; with &quot;</span> + data.intent + <span class="string">&quot;: &quot;</span> + e.toString(), e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还记得多次绑定会有什么效果么?  <code>Service#onBind()</code>方法只会执行一次, 除非Service被终止了. 当Service的<code>onBind()</code>执行之后, 系统还需要告知客户端已经成功连接Service了. 这些过程是在<code>AMS#publishService()</code>实现.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publishService</span><span class="params">(IBinder token, Intent intent, IBinder service)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Refuse possible leaked file descriptors</span></span><br><span class="line">    <span class="keyword">if</span> (intent != <span class="keyword">null</span> &amp;&amp; intent.hasFileDescriptors() == <span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;File descriptors passed in Intent&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!(token <span class="keyword">instanceof</span> ServiceRecord)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;Invalid service token&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        mServices.publishServiceLocked((ServiceRecord)token, intent, service);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到这里将具体的工作交给了<code>mServices.publishServiceLocked()</code>它是一个<code>ActiveService</code>类型. 其核心代码就是:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">c.conn.connected(r.name, service);</span><br><span class="line"><span class="comment">//c的类型是ConnectionRecord</span></span><br><span class="line"><span class="comment">//c.conn的类型是ServiceDispatcher.InnerConnection</span></span><br><span class="line"><span class="comment">//service参数就是Service的onBind返回的Binder对象</span></span><br></pre></td></tr></table></figure>
+
+
+<p>而<code>InnerConnection#connected()</code>方法内又调用<code>ServiceDispatcher的connected()</code>内部就是创建一个<code>RunConnection()</code>发送到<code>mActivityThread</code>的消息中. </p>
+<p>对于<code>Service</code>的绑定过程来说, <code>ServiceDispatcher</code>的<code>mActivityThread</code>是一个Handler, 就是<code>ActivityThread#H</code>, 从前面的<code>ServiceDispatcher</code>的创建过程来说, <code>mActivityThread</code>不会为null, 所以<code>RunConnection</code>就可以经由<code>H</code>的post方法从而运行在主线程. 因此客户端的<code>ServiceConnection</code>中的方法是在主线程被回调的. </p>
+<p><strong>RunConnection</strong>是一个<code>Runnable</code>接口, <code>run()</code>方法也是简单调用<code>ServiceDispatcher#doConnected方法</code>, 由于<code>ServiceDispatcher</code>内部保存了客户端的<code>ServiceConnection</code>对象, 因此他可以很方便调用<code>ServiceConnection</code>对象的<code>onServiceConnected()</code></p>
+<hr>
+<p>解绑和停止过程, 基本类似… 恩 书上这么说的. </p>
+<h2 id="BroadcastReceiver的工作流程"><a href="#BroadcastReceiver的工作流程" class="headerlink" title="BroadcastReceiver的工作流程"></a>BroadcastReceiver的工作流程</h2><p>简单回顾一下广播的使用方法, 首先定义广播接收者, 只需要继承<code>BroadcastReceiver</code>并重写<code>onReceive()</code>方法即可. 定义好了广播接收者, 还需要注册广播接收者, 分为两种静态注册或者动态注册. 注册完成之后就可以发送广播了. </p>
+<h3 id="广播的注册过程"><a href="#广播的注册过程" class="headerlink" title="广播的注册过程"></a>广播的注册过程</h3><p>广播的注册有两种<strong>静态注册</strong>, <strong>动态注册</strong>. 其中<strong>静态注册</strong>的广播在应用安装时由系统自动完成注册, 具体来说是有<strong>PMS</strong>(PackageManagerService)来完成整个注册过程的. 除了广播外, 其他三大组件也都是在应用安装时由<code>PMS</code>解析并注册的. </p>
+<p><strong>动态注册</strong>的过程是从<code>ContextWrapper#registerReceiver()</code>开始的. 和<code>Activity</code>或者<code>Service</code>一样. <code>ContextWrapper</code>并没有做实际的工作, 而是将注册的过程直接交给了<code>ContextImpl</code>来完成.</p>
+<p><code>ContextImpl#registerReceiver()</code>方法调用了本类的<code>registerReceiverInternal()</code>方法.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Intent <span class="title">registerReceiverInternal</span><span class="params">(BroadcastReceiver receiver, <span class="keyword">int</span> userId,</span></span></span><br><span class="line"><span class="params"><span class="function">        IntentFilter filter, String broadcastPermission,</span></span></span><br><span class="line"><span class="params"><span class="function">        Handler scheduler, Context context)</span> </span>&#123;</span><br><span class="line">    IIntentReceiver rd = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (receiver != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (mPackageInfo != <span class="keyword">null</span> &amp;&amp; context != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (scheduler == <span class="keyword">null</span>) &#123;</span><br><span class="line">                scheduler = mMainThread.getHandler();</span><br><span class="line">            &#125;</span><br><span class="line">            rd = mPackageInfo.getReceiverDispatcher(</span><br><span class="line">                receiver, context, scheduler,</span><br><span class="line">                mMainThread.getInstrumentation(), <span class="keyword">true</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (scheduler == <span class="keyword">null</span>) &#123;</span><br><span class="line">                scheduler = mMainThread.getHandler();</span><br><span class="line">            &#125;</span><br><span class="line">            rd = <span class="keyword">new</span> LoadedApk.ReceiverDispatcher(</span><br><span class="line">                    receiver, context, scheduler, <span class="keyword">null</span>, <span class="keyword">true</span>).getIIntentReceiver();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ActivityManagerNative.getDefault().registerReceiver(</span><br><span class="line">                mMainThread.getApplicationThread(), mBasePackageName,</span><br><span class="line">                rd, filter, broadcastPermission, userId);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>上述代码中, 系统首先从<code>mPackageInfo</code>获取到<code>IIntentReceiver</code>对象, 然后再采用跨进程的方式向AMS发送广播注册的请求. 之所以采用<code>IIntentReceiver</code>而不是直接采用<code>BroadcastReceiver</code>, 这是因为上述注册过程中是一个进程间通信的过程. 而<code>BroadcastReceiver</code>作为Android中的一个组件是不能直接跨进程传递的. 所有需要通过<code>IIntentReceiver</code>来中转一下. </p>
+<p><code>IIntentReceiver</code>作为一个<code>Binder</code>接口, 它的具体实现是<code>LoadedApk.ReceiverDispatcher.InnerReceiver</code>, <code>ReceiverDispatcher</code>的内部同时保存了<code>BroadcastReceiver</code>和<code>InnerReceiver</code>, 这样当接收到广播的时候, <code>ReceiverDispatcher</code>可以很方便的调用<code>BroadcastReceiver#onReceive()</code>方法.  这里和Service很像有同样的类, 并且内部类中同样也是一个Binder接口.</p>
+<p>看一下<code>LoadedApk.ReceiverDispatcher#getIIntentReceiver()</code>的实现, 很显然<code>getReceiverDispatcher()</code>重新创建了一个<code>ReceiverDispatcher</code>对象并将其保存的<code>InnerReceiver</code>对象作为返回值返回, 其中<code>InnerReceiver</code>对象和<code>BroadcastReceiver</code>都是在<code>ReceiverDispatcher</code>的构造方法中被保存起来的.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> IIntentReceiver <span class="title">getReceiverDispatcher</span><span class="params">(BroadcastReceiver r,</span></span></span><br><span class="line"><span class="params"><span class="function">        Context context, Handler handler,</span></span></span><br><span class="line"><span class="params"><span class="function">        Instrumentation instrumentation, <span class="keyword">boolean</span> registered)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (mReceivers) &#123;</span><br><span class="line">        LoadedApk.ReceiverDispatcher rd = <span class="keyword">null</span>;</span><br><span class="line">        ArrayMap&lt;BroadcastReceiver, LoadedApk.ReceiverDispatcher&gt; map = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (registered) &#123;</span><br><span class="line">            map = mReceivers.get(context);</span><br><span class="line">            <span class="keyword">if</span> (map != <span class="keyword">null</span>) &#123;</span><br><span class="line">                rd = map.get(r);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (rd == <span class="keyword">null</span>) &#123;</span><br><span class="line">            rd = <span class="keyword">new</span> ReceiverDispatcher(r, context, handler,</span><br><span class="line">                    instrumentation, registered);</span><br><span class="line">            <span class="keyword">if</span> (registered) &#123;</span><br><span class="line">                <span class="keyword">if</span> (map == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    map = <span class="keyword">new</span> ArrayMap&lt;BroadcastReceiver, LoadedApk.ReceiverDispatcher&gt;();</span><br><span class="line">                    mReceivers.put(context, map);</span><br><span class="line">                &#125;</span><br><span class="line">                map.put(r, rd);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            rd.validate(context, handler);</span><br><span class="line">        &#125;</span><br><span class="line">        rd.mForgotten = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">return</span> rd.getIIntentReceiver();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于注册广播真正实现过程是在<code>AMS</code>中, 因此跟进AMS中, 首先看<code>registerReceiver()</code>方法, 这里只关心里面的核心部分. 这段代码最终会把远程的<strong>InnerReceiver</strong>对象以及<strong>IntentFilter</strong>对象存储起来, 这样整个广播的注册就完成了. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Intent <span class="title">registerReceiver</span><span class="params">(IApplicationThread caller, String callerPackage,</span></span></span><br><span class="line"><span class="params"><span class="function">       IIntentReceiver receiver, IntentFilter filter, String permission, <span class="keyword">int</span> userId)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    mRegisteredReceivers.put(receiver.asBinder(), rl);</span><br><span class="line">    BroadcastFilter bf = <span class="keyword">new</span> BroadcastFilter(filter, rl, callerPackage,permission, callingUid, userId);</span><br><span class="line">    rl.add(bf);</span><br><span class="line">   </span><br><span class="line">    mReceiverResolver.addFilter(bf);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="广播的发送和接收过程"><a href="#广播的发送和接收过程" class="headerlink" title="广播的发送和接收过程"></a>广播的发送和接收过程</h3><p>当通过<code>send()</code>发送广播时, AMS会查找出匹配的广播接收者并将广播发送给他们处理. 广播的发送种类有: <strong>普通广播</strong>, <strong>有序广播</strong>, <strong>粘性广播</strong>.  这里分析普通广播.</p>
+<p>广播的发送和接收, 本质就是一个过程的两个阶段. 广播的发送仍然开始于<code>ContextImpl#sendBroadcase()</code>方法, 之所以不是<code>Context</code>, 那是因为<code>Context#sendBroad()</code>是一个抽象方法. 和广播的注册过程一样, <code>ContextWrapper#sendBroadcast()</code>仍然什么都不做, 只是把事情交给了<code>ContextImpl</code>去处理, <code>ContextImpl#sendBroadcast()</code>源码如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendBroadcast</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">   warnIfCallingFromSystemProcess();</span><br><span class="line">   String resolvedType = intent.resolveTypeIfNeeded(getContentResolver());</span><br><span class="line">  </span><br><span class="line">   intent.prepareToLeaveProcess();</span><br><span class="line">   ActivityManagerNative.getDefault().broadcastIntent(</span><br><span class="line">          mMainThread.getApplicationThread(), intent, resolvedType, <span class="keyword">null</span>,</span><br><span class="line">          Activity.RESULT_OK, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, AppOpsManager.OP_NONE, <span class="keyword">null</span>, <span class="keyword">false</span>, <span class="keyword">false</span>,</span><br><span class="line">          getUserId());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看到<code>ContextImpl</code>里面也几乎什么都没有做, 内部直接向<code>AMS</code>发起了一个异步请求用于发送广播. 接下来看<code>AMS#broadcastIntent()</code>方法.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">broadcastIntent</span><span class="params">(IApplicationThread caller,</span></span></span><br><span class="line"><span class="params"><span class="function">       Intent intent, String resolvedType, IIntentReceiver resultTo,</span></span></span><br><span class="line"><span class="params"><span class="function">       <span class="keyword">int</span> resultCode, String resultData, Bundle resultExtras,</span></span></span><br><span class="line"><span class="params"><span class="function">       String[] requiredPermissions, <span class="keyword">int</span> appOp, Bundle options,</span></span></span><br><span class="line"><span class="params"><span class="function">       <span class="keyword">boolean</span> serialized, <span class="keyword">boolean</span> sticky, <span class="keyword">int</span> userId)</span> </span>&#123;</span><br><span class="line">   enforceNotIsolatedCaller(<span class="string">&quot;broadcastIntent&quot;</span>);</span><br><span class="line">   <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">       intent = verifyBroadcastLocked(intent);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">final</span> ProcessRecord callerApp = getRecordForAppLocked(caller);</span><br><span class="line">       <span class="keyword">final</span> <span class="keyword">int</span> callingPid = Binder.getCallingPid();</span><br><span class="line">       <span class="keyword">final</span> <span class="keyword">int</span> callingUid = Binder.getCallingUid();</span><br><span class="line">       <span class="keyword">final</span> <span class="keyword">long</span> origId = Binder.clearCallingIdentity();</span><br><span class="line">       <span class="keyword">int</span> res = broadcastIntentLocked(callerApp,</span><br><span class="line">               callerApp != <span class="keyword">null</span> ? callerApp.info.packageName : <span class="keyword">null</span>,</span><br><span class="line">               intent, resolvedType, resultTo, resultCode, resultData, resultExtras,</span><br><span class="line">               requiredPermissions, appOp, <span class="keyword">null</span>, serialized, sticky,</span><br><span class="line">               callingPid, callingUid, userId);</span><br><span class="line">       Binder.restoreCallingIdentity(origId);</span><br><span class="line">       <span class="keyword">return</span> res;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看到这里, 又继续调用<code>broadcastIntentLocked()</code>方法, 这个方法有点长. 在代码开始处</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// By default broadcasts do not go to stopped apps.</span></span><br><span class="line">intent.addFlags(Intent.FLAG_EXCLUDE_STOPPED_PACKAGES);</span><br></pre></td></tr></table></figure>
+
+<p>这个表示默认情况下广播不会发送给已经停止的应用, android5.0中.  而android 3.1开始就增添了两个标记为. 分别是<code>FLAG_INCLUDE_STOPPED_PACKAGES</code>, <code>FLAG_EXCLUDE_STOPPED_PACKAGES</code>. 用来控制广播是否要对处于停止的应用起作用. </p>
+<ul>
+<li><code>FLAG_INCLUDE_STOPPED_PACKAGES</code>: 包含停止应用, 广播会发送给已停止的应用.</li>
+<li><code>FLAG_EXCLUDE_STOPPED_PACKAGES</code>: 不包含已停止应用, 广播不会发送给已停止的应用</li>
+</ul>
+<p>在<strong>android 3.1</strong>开始, 系统就为所有广播默认添加了<code>FLAG_EXCLUDE_STOPPED_PACKAGES</code>标识, <strong>为了防止广播无意间或者不必要的时候调起已经停止运行的应用</strong>. 当这两个标记共存的时候以<code>FLAG_INCLUDE_STOPPED_PACKAGES</code>(非默认项为主). </p>
+<hr>
+<p>应用处于停止分为两种</p>
+<ol>
+<li>应用安装后未运行</li>
+<li>被手动或者其他应用强停</li>
+</ol>
+<p>开机广播同样受到了这个标志位的影响. 从Android 3.1开始处于停止状态的应用同样无法接受到开机广播, 而在<code>android 3.1</code>之前处于停止的状态也是可以接收到的开机广播的.</p>
+<p>在<code>broadcastIntentLocked()</code>内部, 会根据intent-filter查找出匹配的广播接收者并经过一系列的条件过滤. 最终会将满足条件的广播接收者添加到<code>BroadcastQueue</code>中, 接着<code>BroadcastQueue</code>就会将广播发送给相应广播接收者.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span> ((receivers != <span class="keyword">null</span> &amp;&amp; receivers.size() &gt; <span class="number">0</span>)</span><br><span class="line">      || resultTo != <span class="keyword">null</span>) &#123;</span><br><span class="line">  BroadcastQueue queue = broadcastQueueForIntent(intent);</span><br><span class="line">  BroadcastRecord r = <span class="keyword">new</span> BroadcastRecord(queue, intent, callerApp,</span><br><span class="line">          callerPackage, callingPid, callingUid, resolvedType,</span><br><span class="line">          requiredPermissions, appOp, brOptions, receivers, resultTo, resultCode,</span><br><span class="line">          resultData, resultExtras, ordered, sticky, <span class="keyword">false</span>, userId);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (DEBUG_BROADCAST) Slog.v(TAG_BROADCAST, <span class="string">&quot;Enqueueing ordered broadcast &quot;</span> + r</span><br><span class="line">          + <span class="string">&quot;: prev had &quot;</span> + queue.mOrderedBroadcasts.size());</span><br><span class="line">  <span class="keyword">if</span> (DEBUG_BROADCAST) Slog.i(TAG_BROADCAST,</span><br><span class="line">          <span class="string">&quot;Enqueueing broadcast &quot;</span> + r.intent.getAction());</span><br><span class="line"></span><br><span class="line">  <span class="keyword">boolean</span> replaced = replacePending &amp;&amp; queue.replaceOrderedBroadcastLocked(r);</span><br><span class="line">  <span class="keyword">if</span> (!replaced) &#123;</span><br><span class="line">      queue.enqueueOrderedBroadcastLocked(r);</span><br><span class="line">      queue.scheduleBroadcastsLocked();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>跟进<code>BroadcastQueue#scheduleBroadcastsLocked()</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scheduleBroadcastsLocked</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (DEBUG_BROADCAST) Slog.v(TAG_BROADCAST, <span class="string">&quot;Schedule broadcasts [&quot;</span></span><br><span class="line">           + mQueueName + <span class="string">&quot;]: current=&quot;</span></span><br><span class="line">           + mBroadcastsScheduled);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> (mBroadcastsScheduled) &#123;</span><br><span class="line">       <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   mHandler.sendMessage(mHandler.obtainMessage(BROADCAST_INTENT_MSG, <span class="keyword">this</span>));</span><br><span class="line">   mBroadcastsScheduled = <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方法内并没有立即发送广播, 而是发送了一个<code>BROADCAST_INTENT_MSG</code>类型的消息, <code>BroadcastQueue</code>收到消息后会调用<code>processNextBroadcast()</code>方法. 这个方法对普通广播的处理如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// First, deliver any non-serialized broadcasts right away.</span></span><br><span class="line">  <span class="keyword">while</span> (mParallelBroadcasts.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      r = mParallelBroadcasts.remove(<span class="number">0</span>);</span><br><span class="line">      r.dispatchTime = SystemClock.uptimeMillis();</span><br><span class="line">      r.dispatchClockTime = System.currentTimeMillis();</span><br><span class="line">      <span class="keyword">final</span> <span class="keyword">int</span> N = r.receivers.size();</span><br><span class="line">      <span class="keyword">if</span> (DEBUG_BROADCAST_LIGHT) Slog.v(TAG_BROADCAST, <span class="string">&quot;Processing parallel broadcast [&quot;</span></span><br><span class="line">              + mQueueName + <span class="string">&quot;] &quot;</span> + r);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">          Object target = r.receivers.get(i);</span><br><span class="line">          <span class="keyword">if</span> (DEBUG_BROADCAST)  Slog.v(TAG_BROADCAST,</span><br><span class="line">                  <span class="string">&quot;Delivering non-ordered on [&quot;</span> + mQueueName + <span class="string">&quot;] to registered &quot;</span></span><br><span class="line">                  + target + <span class="string">&quot;: &quot;</span> + r);</span><br><span class="line">          deliverToRegisteredReceiverLocked(r, (BroadcastFilter)target, <span class="keyword">false</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      addBroadcastToHistoryLocked(r);</span><br><span class="line">      <span class="keyword">if</span> (DEBUG_BROADCAST_LIGHT) Slog.v(TAG_BROADCAST, <span class="string">&quot;Done with parallel broadcast [&quot;</span></span><br><span class="line">              + mQueueName + <span class="string">&quot;] &quot;</span> + r);</span><br><span class="line">  &#125;       </span><br></pre></td></tr></table></figure>
+
+<p>无序广播存储在<code>mParallelBroadcasts</code>中, 系统会遍历这个集合并将其中的广播发送给他们所有的接收者, 具体的发送过程是通过<code>deliverToRegisteredReceiverLocked()</code>方法实现. <code>deliverToRegisteredReceiverLocked()</code>负责将一个广播发送给一个特定的接收者, 它的内部调用了<code>performReceiverLocked</code>方法来完成具体发送过程.</p>
+<p><code>performReceiverLocked()</code>方法实现如下, 由于接收广播会调起应用程序, 因为<code>app.thread</code>不为null, 根据前面的总结<code>app.thread</code>仍然指<code>ApplicationThread</code>.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">performReceiveLocked</span><span class="params">(ProcessRecord app, IIntentReceiver receiver,</span></span></span><br><span class="line"><span class="params"><span class="function">            Intent intent, <span class="keyword">int</span> resultCode, String data, Bundle extras,</span></span></span><br><span class="line"><span class="params"><span class="function">            <span class="keyword">boolean</span> ordered, <span class="keyword">boolean</span> sticky, <span class="keyword">int</span> sendingUser)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">        <span class="comment">// Send the intent to the receiver asynchronously using one-way binder calls.</span></span><br><span class="line">        <span class="keyword">if</span> (app != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (app.thread != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">// If we have an app thread, do the call through that so it is</span></span><br><span class="line">                <span class="comment">// correctly ordered with other one-way calls.</span></span><br><span class="line">                app.thread.scheduleRegisteredReceiver(receiver, intent, resultCode,</span><br><span class="line">                        data, extras, ordered, sticky, sendingUser, app.repProcState);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// Application has died. Receiver doesn&#x27;t exist.</span></span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RemoteException(<span class="string">&quot;app.thread must not be null&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            receiver.performReceive(intent, resultCode, data, extras, ordered,</span><br><span class="line">                    sticky, sendingUser);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>而调用的<code>ApplicationThread#scheduleRegisteredReceiver()</code>实现比较简单, 它通过<code>InnerReceiver</code>来实现广播的接收</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scheduleRegisteredReceiver</span><span class="params">(IIntentReceiver receiver, Intent intent,</span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="keyword">int</span> resultCode, String dataStr, Bundle extras, <span class="keyword">boolean</span> ordered,</span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="keyword">boolean</span> sticky, <span class="keyword">int</span> sendingUser, <span class="keyword">int</span> processState)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">    updateProcessState(processState, <span class="keyword">false</span>);</span><br><span class="line">    receiver.performReceive(intent, resultCode, dataStr, extras, ordered,</span><br><span class="line">            sticky, sendingUser);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的<code>receiver.performReceive()</code>中的<code>receiver</code>对应着<code>IIntentReceiver</code>类型的接口. 而具体的实现就是<code>ReceiverDispatcher$InnerReceiver</code>. 这两个嵌套的内部类是所属在<code>LoadedApk</code>中的.  好了看一下<code>performReceiver()</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performReceive</span><span class="params">(Intent intent, <span class="keyword">int</span> resultCode, String data,</span></span></span><br><span class="line"><span class="params"><span class="function">                    Bundle extras, <span class="keyword">boolean</span> ordered, <span class="keyword">boolean</span> sticky, <span class="keyword">int</span> sendingUser)</span> </span>&#123;</span><br><span class="line">                LoadedApk.ReceiverDispatcher rd = mDispatcher.get();</span><br><span class="line">                <span class="keyword">if</span> (ActivityThread.DEBUG_BROADCAST) &#123;</span><br><span class="line">                    <span class="keyword">int</span> seq = intent.getIntExtra(<span class="string">&quot;seq&quot;</span>, -<span class="number">1</span>);</span><br><span class="line">                    Slog.i(ActivityThread.TAG, <span class="string">&quot;Receiving broadcast &quot;</span> + intent.getAction() + <span class="string">&quot; seq=&quot;</span> + seq</span><br><span class="line">                            + <span class="string">&quot; to &quot;</span> + (rd != <span class="keyword">null</span> ? rd.mReceiver : <span class="keyword">null</span>));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (rd != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    rd.performReceive(intent, resultCode, data, extras,</span><br><span class="line">                            ordered, sticky, sendingUser);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// The activity manager dispatched a broadcast to a registered</span></span><br><span class="line">                    <span class="comment">// receiver in this process, but before it could be delivered the</span></span><br><span class="line">                    <span class="comment">// receiver was unregistered.  Acknowledge the broadcast on its</span></span><br><span class="line">                    <span class="comment">// behalf so that the system&#x27;s broadcast sequence can continue.</span></span><br><span class="line">                    <span class="keyword">if</span> (ActivityThread.DEBUG_BROADCAST) Slog.i(ActivityThread.TAG,</span><br><span class="line">                            <span class="string">&quot;Finishing broadcast to unregistered receiver&quot;</span>);</span><br><span class="line">                    IActivityManager mgr = ActivityManagerNative.getDefault();</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">if</span> (extras != <span class="keyword">null</span>) &#123;</span><br><span class="line">                            extras.setAllowFds(<span class="keyword">false</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                        mgr.finishReceiver(<span class="keyword">this</span>, resultCode, data, extras, <span class="keyword">false</span>, intent.getFlags());</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">                        Slog.w(ActivityThread.TAG, <span class="string">&quot;Couldn&#x27;t finish broadcast to unregistered receiver&quot;</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>上面又调用了<code>LoadedApk$ReceiverDispatcher#performReceive()</code>的方法.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performReceive</span><span class="params">(Intent intent, <span class="keyword">int</span> resultCode, String data,</span></span></span><br><span class="line"><span class="params"><span class="function">                Bundle extras, <span class="keyword">boolean</span> ordered, <span class="keyword">boolean</span> sticky, <span class="keyword">int</span> sendingUser)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (ActivityThread.DEBUG_BROADCAST) &#123;</span><br><span class="line">                <span class="keyword">int</span> seq = intent.getIntExtra(<span class="string">&quot;seq&quot;</span>, -<span class="number">1</span>);</span><br><span class="line">                Slog.i(ActivityThread.TAG, <span class="string">&quot;Enqueueing broadcast &quot;</span> + intent.getAction() + <span class="string">&quot; seq=&quot;</span> + seq</span><br><span class="line">                        + <span class="string">&quot; to &quot;</span> + mReceiver);</span><br><span class="line">            &#125;</span><br><span class="line">            Args args = <span class="keyword">new</span> Args(intent, resultCode, data, extras, ordered,</span><br><span class="line">                    sticky, sendingUser);</span><br><span class="line">            <span class="keyword">if</span> (!mActivityThread.post(args)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (mRegistered &amp;&amp; ordered) &#123;</span><br><span class="line">                    IActivityManager mgr = ActivityManagerNative.getDefault();</span><br><span class="line">                    <span class="keyword">if</span> (ActivityThread.DEBUG_BROADCAST) Slog.i(ActivityThread.TAG,</span><br><span class="line">                            <span class="string">&quot;Finishing sync broadcast to &quot;</span> + mReceiver);</span><br><span class="line">                    args.sendFinished(mgr);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>performReceiver()</code>这个方法中, 会创建一个<code>Args</code>对象并通过<code>mActivityThread</code>的<strong>post</strong>方法执行<code>args</code>中的逻辑.  而这些类的本质关系就是: </p>
+<ul>
+<li>Args: 实现类Runnable</li>
+<li>mActivityThread: 是一个Handler, 就是<code>ActivityThread</code>中的mH. mH就是<code>ActivityThread$H</code>. 这个内部类H以前说过.</li>
+</ul>
+<p>而实现Runnable接口的<code>Args</code>中有如下代码:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ClassLoader cl =  mReceiver.getClass().getClassLoader();</span><br><span class="line">intent.setExtrasClassLoader(cl);</span><br><span class="line">setExtrasClassLoader(cl);</span><br><span class="line">receiver.setPendingResult(<span class="keyword">this</span>);</span><br><span class="line">receiver.onReceive(mContext, intent);</span><br></pre></td></tr></table></figure>
+
+<p>这个时候<code>BroadcastReceiver#onReceive()</code>方法被执行了, 也就是说应用已经接收到了广播, 同时<code>onReceive()</code>方法是在广播接收者的主线程中被调用的.</p>
+<h2 id="ContentProvider的工作机制"><a href="#ContentProvider的工作机制" class="headerlink" title="ContentProvider的工作机制"></a>ContentProvider的工作机制</h2><p><code>ContentProvider</code>是一种内容共享型组件, 它通过<code>Binder</code>向其他组件乃至其他应用提供数据. 当<code>ContentProvider</code>所在的进程启动时, <code>ContentProvider</code>会同时启动并发布到AMS中. 要注意:<strong>这个时候ContentProvider的onCreate()方法是先于Application的onCreate()执行的</strong>这一点在四大组件是少有的现象.</p>
+<p>当一个应用启动的时候, 入口的方法为<code>ActivityThread#main()</code>方法, main方法为一个静态方法, 在main方法中会创建<code>ActivityThread</code>的实例, 并创建主线程的消息队列, 然后在<code>ActivityThread#attach()</code>方法中会远程调用<code>AMS#attachApplication()</code>并将<code>ApplicationThread</code>对象提供给AMS. </p>
+<p><code>ApplicationThread</code>是一个<code>Binder</code>对象, 它的Binder接口是<code>IApplicationThread</code>, 主要用于<code>ActivityThread</code>和<code>AMS</code>之间的通信, 这一点在前面多次提到. 在<code>AMS</code>的<code>attachApplication()</code>中, 会调用<code>ApplicationThread#bindApplication()</code>. 这个过程同样是跨进程的. <code>bindApplication()</code>中会经过 <code>ActivityThread</code>中的mh(Handler) 切换到<code>ActivityThread</code>中去执行, 具体的方式是<code>handleBindApplication()</code>. </p>
+<p>在<code>handleBindApplication()</code>方法中, <code>ActivityThread</code>会创建<code>Application</code>对象并加载<code>ContentProvider</code>. 需要注意的是, <code>ActivityThread</code>会先加载<code>ContentProvider</code>, 然后在调用<code>Application#onCreate()</code>方法</p>
+<hr>
+<p>以上就是<code>ContentProvider</code>的启动过程, <code>ContentProvider</code>启动后, 外界就可以通过它所提供的增删改查这四个接口来操作<code>ContentProvider</code>中的数据源, 这四个方法都是通过Binder来调用的, 外界无法直接访问<code>ContentProvider</code>, 它只能通过<code>AMS</code>根据<code>URI</code>来获取到对应的<code>ContentProvider</code>的<code>Binder</code>接口<code>IContentProvider</code>, 然后再通过<code>IContentProvider</code>来访问<code>ContentProvider</code>中的数据源.</p>
+<p><strong>ContentProvider是否属于单实例?</strong></p>
+<p>具体<code>ContentProvider</code>是否是单实例取决于<code>android:multiprocess</code>属性来决定的, 当其值为<strong>false</strong>的时候, 就是单实例也是默认值. 如果为<strong>true</strong>那就为多实例. 这个时候在每一个调用者的进程中都会存在一个<code>ContentProvider</code>对象. </p>
+<hr>
+<p><strong>通过单实例的ContentProvider来分析一下启动过程</strong></p>
+<p>首先访问<code>ContentProvider</code>需要通过<code>ContentResolver</code>, <code>ContentResolver</code>是一个抽象类, 通过<code>Content#getContentResolver()</code>方法获取的实际上是<code>ApplicationContentResolver</code>对象, 而这个类继承了<code>ContentProvider</code>并实现了其抽象方法. 当<code>ContentProvider</code>所在的进程未启动时, 第一次访问它的时候就会触发<code>ContentProvider</code>的创建, 当然这也伴随着<code>ContentProvider</code>所在的进程的启动. 通过四个对数据的操作方法中的任何一个, 都可以触发<code>ContentProvider</code>的启动过程.</p>
+<p><strong>四种操作过程差不多, 那么这里以query方法为例</strong></p>
+<p>首先会获取<code>IContentProvider</code>对象, 不管是通过<code>acquireUnstableProvider()</code>方法还是直接通过<code>acquireProvider()</code>方法, 他们的本质都是一样的, 最终都是通过<code>acquireProvider</code>方法来获取ContentProvider. </p>
+<p><code>ApplicationContentResolver#acquireProvider()</code>方法并没有处理任何逻辑, 它直接调用了<code>ActivityThread#acquireProvider()</code>, 这个方法如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> IContentProvider <span class="title">acquireProvider</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">            Context c, String auth, <span class="keyword">int</span> userId, <span class="keyword">boolean</span> stable)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> IContentProvider provider = acquireExistingProvider(c, auth, userId, stable);</span><br><span class="line">        <span class="keyword">if</span> (provider != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> provider;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        IActivityManager.ContentProviderHolder holder = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            holder = ActivityManagerNative.getDefault().getContentProvider(</span><br><span class="line">                    getApplicationThread(), auth, userId, stable);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException ex) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (holder == <span class="keyword">null</span>) &#123;</span><br><span class="line">            Slog.e(TAG, <span class="string">&quot;Failed to find provider info for &quot;</span> + auth);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Install provider will increment the reference count for us, and break</span></span><br><span class="line">        <span class="comment">// any ties in the race.</span></span><br><span class="line">        holder = installProvider(c, holder, holder.info,</span><br><span class="line">                <span class="keyword">true</span> <span class="comment">/*noisy*/</span>, holder.noReleaseNeeded, stable);</span><br><span class="line">        <span class="keyword">return</span> holder.provider;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码主要从<code>ActivityThread</code>中查找是否已经存在了<code>ContentProvider</code>了, 如果存在那么就直接返回. <code>ActivityThread</code>中通过<code>mProviderMap</code>来存储已经启动的<code>ContentProvider</code>对象, 这个集合的存储类型<code>ArrayMap&lt;ProviderKey, ProviderClientRecord&gt; mProviderMap</code>. 如果目前<code>ContentProvider</code>没有启动, 那么就发送一个进程间请求给<code>AMS</code>让其启动项目目标<code>ContentProvider</code>, 最后再通过<code>installProvider()</code>方法来修改引用计数. </p>
+<p>那么AMS是如何启动<code>ContentProvider</code>的呢?</p>
+<p>关于<code>ContentProvider</code>被启动的时候会伴随着进程的启动, 在<code>AMS</code>中, 首先会启动<code>ContentProvider</code>所在的进程, 然后再启动<code>ContentProvider</code>. 启动进程是由<code>AMS#startProcessLocked()</code>方法来完成, 其内部主要是通过<code>Process#start()</code>方法来完成一个新进程的启动, 新进程启动后其入口方法为<code>ActivityThread#main()</code>方法. 如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, <span class="string">&quot;ActivityThreadMain&quot;</span>);</span><br><span class="line">        SamplingProfilerIntegration.start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// CloseGuard defaults to true and can be quite spammy.  We</span></span><br><span class="line">        <span class="comment">// disable it here, but selectively enable it later (via</span></span><br><span class="line">        <span class="comment">// StrictMode) on debug builds, but using DropBox, not logs.</span></span><br><span class="line">        CloseGuard.setEnabled(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        Environment.initForCurrentUser();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Set the reporter for event logging in libcore</span></span><br><span class="line">        EventLogger.setReporter(<span class="keyword">new</span> EventLoggingReporter());</span><br><span class="line"></span><br><span class="line">        AndroidKeyStoreProvider.install();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Make sure TrustedCertificateStore looks in the right place for CA certificates</span></span><br><span class="line">        <span class="keyword">final</span> File configDir = Environment.getUserConfigDirectory(UserHandle.myUserId());</span><br><span class="line">        TrustedCertificateStore.setDefaultUserDirectory(configDir);</span><br><span class="line"></span><br><span class="line">        Process.setArgV0(<span class="string">&quot;&lt;pre-initialized&gt;&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Looper.prepareMainLooper();</span><br><span class="line"></span><br><span class="line">        ActivityThread thread = <span class="keyword">new</span> ActivityThread();</span><br><span class="line">        thread.attach(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (sMainThreadHandler == <span class="keyword">null</span>) &#123;</span><br><span class="line">            sMainThreadHandler = thread.getHandler();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">false</span>) &#123;</span><br><span class="line">            Looper.myLooper().setMessageLogging(<span class="keyword">new</span></span><br><span class="line">                    LogPrinter(Log.DEBUG, <span class="string">&quot;ActivityThread&quot;</span>));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// End of event ActivityThreadMain.</span></span><br><span class="line">        Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</span><br><span class="line">        Looper.loop();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;Main thread loop unexpectedly exited&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ActivityThread#main()</code>是一个静态方法, 在它的内部首先会创建<code>ActivityThread</code>实例并调用<code>attach()</code>方法来进行一系列初始化, 接着就开始进行消息循环. <code>ActivityThread#attach()</code>方法会将<code>Application</code>对象通过<code>AMS#attachApplication</code>方法跨进程传递给AMS, 最终AMS会完成<code>ContentProvider</code>的创建过程. </p>
+<p><code>ActivityThread#attach()</code>部分代码:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">      mgr.attachApplication(mAppThread);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (RemoteException ex) &#123;</span><br><span class="line">      <span class="comment">// Ignore</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>AMS#attachApplication()</code>方法调用了<code>attachApplication()</code>, 然后又调用了<code>ApplicationThread#bindApplication()</code>,  这个过程也属于进程通信.</p>
+<p>而上面的<code>bindApplication()</code>方法会发送一个<code>BIND_APPLICATION</code>类型的消息给<code>mH</code>, 这是一个Handler, 它收到消息后会调用<code>ActivityThread#handleBindApplication()</code>方法. <code>bindApplication()</code>发送源码如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">AppBindData data = <span class="keyword">new</span> AppBindData();</span><br><span class="line">data.processName = processName;</span><br><span class="line">data.appInfo = appInfo;</span><br><span class="line">data.providers = providers;</span><br><span class="line">data.instrumentationName = instrumentationName;</span><br><span class="line">data.instrumentationArgs = instrumentationArgs;</span><br><span class="line">data.instrumentationWatcher = instrumentationWatcher;</span><br><span class="line">data.instrumentationUiAutomationConnection = instrumentationUiConnection;</span><br><span class="line">data.debugMode = debugMode;</span><br><span class="line">data.enableOpenGlTrace = enableOpenGlTrace;</span><br><span class="line">data.restrictedBackupMode = isRestrictedBackupMode;</span><br><span class="line">data.persistent = persistent;</span><br><span class="line">data.config = config;</span><br><span class="line">data.compatInfo = compatInfo;</span><br><span class="line">data.initProfilerInfo = profilerInfo;</span><br><span class="line">sendMessage(H.BIND_APPLICATION, data);</span><br></pre></td></tr></table></figure>
+
+<p><code>ActivityThread#handlerBindApplication()</code>则完成了Application的创建以及<code>ContentProvider</code> 可以分为如下四个步骤:</p>
+<ol>
+<li>创建<code>ContentProvider</code>和<code>Instrumentation</code></li>
+<li>创建<code>Application</code>对象</li>
+<li>启动当前进程的<code>ContentProvider</code>并调用onCreate()方法. 主要内部实现是<code>installContentProvider()</code>完成了<code>ContentProvider</code>的启动工作, 首先会遍历当前进程的<code>ProviderInfo</code>的列表并一一调用<code>installProvider()</code>方法来启动他们, 接着将已经启动的<code>ContentProvider</code>发布到AMS中, AMS会把他们存储在<code>ProviderMap</code>中, 这样一来外部调用者就可以直接从AMS中获取到<code>ContentProvider</code>.    **installProvider()**内部通过类加载器创建的<code>ContentProvider</code>实例并在方法中调用了<code>attachInfo()</code>, 在这内部调用了<code>ContentProvider#onCreate()</code></li>
+<li>调用<code>Application#onCreate()</code></li>
+</ol>
+<p>经过了上述的四个步骤, <code>ContentProvider</code>已经启动成功, 并且其所在的进程的<code>Application</code>也已经成功, 这意味着<code>ContentProvider</code>所在的进程已经完成了整个的启动过程, 然后其他应用就可以通过<code>AMS</code>来访问这个<code>ContentProvider</code>了. </p>
+<p>当拿到了<code>ContentProvider</code>以后, 就可以通过它所提供的接口方法来访问它. 这里要注意: <strong>这里的ContentProvider并不是原始的<code>ContentProvider</code></strong>. 而是<code>ContentProvider</code>的Binder类型对象<code>IContentProvider</code>,  而<code>IContentProvider</code>的具体实现是<code>ContentProviderNative</code>和<code>ContentProvider.Transport</code>.  后者继承了前者.</p>
+<p>如果还用query方法来解释流程: 那么最开始其他应用通过<code>AMS</code>获取到<code>ContentProvider</code>的<code>Binder</code>对象就是<code>IContentProvider</code>. 而<code>IContentProvider</code>的实际实现者是<code>ContentProvider.Transport</code>. 因此实际上外部应用调用的时候本质上<strong>会以进程间通信的方式调用ContentProvider.Transport的query()方法</strong></p>
+<blockquote>
+<p>下一章: 第10章 Android的消息机制</p>
+</blockquote>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/08/22/《Android-开发艺术探索》-10-Android的消息机制/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 10-Android的消息机制">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/08/15/《Android-开发艺术探索》-08-理解Window和WindowManager/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 08-理解Window和WindowManager">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/08/16/%E3%80%8AAndroid-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B-09-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B/";
+    var disqus_url = "http://szysky.com/2016/08/16/%E3%80%8AAndroid-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B-09-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

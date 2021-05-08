@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          面试之Binder的认知 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2017/02/08/面试之Binder的认知/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                    </div>
+                    <h1>面试之Binder的认知</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2017-02-08
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>说一说你对Binder的理解…</p>
+</blockquote>
+<h2 id="Binder为何存在"><a href="#Binder为何存在" class="headerlink" title="Binder为何存在"></a>Binder为何存在</h2><p>在日常代码编写中. 我们总是会理所应当的对函数进行调用, 对变量进行访问. 之所以能顺利访问时因为所有的<strong>函数</strong>和<strong>变量</strong>都在同一个<code>进程</code>之中.  也就是说因为在一个<code>内存空间</code>中. 虚拟地址的映射规则完全一致.  而如果想访问的是其他进程的函数或者变量, 是不可能直接通过<strong>内存地址</strong>来直接进行访问的. </p>
+<p>既然进程之间不能访问, 那么如果通过<code>间接</code>的方法建立一条通道应该就可以解决了问题. 而<code>Binder</code>就是这样一个东西.  </p>
+<p><code>Binder</code>是<code>Android</code>中使用最广泛的<code>IPC(Inter Process Communication)</code>进程间通信机制. </p>
+<p>例如. 比如<code>访问手机短信,联系人</code>, <code>startActivity()编写项目时我们新建一个界面</code>, <code>服务,广播,内容提供者</code>. <code>WMS窗口管理所有View的显示删除</code>等等. 几乎可以说<code>Binder</code>相当于人体的心脏可以让血液传输到各个地方提供声明的持续的保障. </p>
+<h2 id="Binder体系结构"><a href="#Binder体系结构" class="headerlink" title="Binder体系结构"></a>Binder体系结构</h2><p>由于<code>Google</code>对<code>Binder</code>封装的很好. 以至于我们都不容易发现它的存在. 并且因为<code>Binder</code>机制涉及的东西即多又杂,往往会走错路.  </p>
+<p>那么通过一个大体的执行流程, 和场景对比. 可以加深对整体的认知. </p>
+<p><code>Binder体系</code>有四个组成元素. 和网络中<code>TCP/IP</code>很相似,如下对应关系</p>
+<table>
+<thead>
+<tr>
+<th align="center">Binder体系</th>
+<th align="center">TCP/IP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Binder驱动</td>
+<td align="center">路由器</td>
+</tr>
+<tr>
+<td align="center">Service Manager</td>
+<td align="center">DNS</td>
+</tr>
+<tr>
+<td align="center">Binder Client</td>
+<td align="center">客户端</td>
+</tr>
+<tr>
+<td align="center">Binder Server</td>
+<td align="center">服务器</td>
+</tr>
+</tbody></table>
+<p>比如我们需要访问<code>www.baidu.com</code>.那么四个角色的大体流程是这样的. </p>
+<ol>
+<li><code>客户端</code>输入网址告诉<code>路由器</code>我要查询<code>域名www.baidu.com</code>.</li>
+<li><code>路由器</code>此时不知道<code>域名对应的ip地址</code>所以需要到<code>DNS</code>去查询对应的<code>IP</code>并告知<code>路由器</code></li>
+<li><code>路由器</code>在接收到<code>返回的IP</code>地址时会相应的返回给<code>客户端</code></li>
+<li><code>客户端</code>拿到<code>IP</code>地址再对<code>路由器</code>进行<code>IP</code>连接的发送请求. </li>
+<li><code>路由器</code>会连接到对应的<code>服务器</code>并建立连接返回给<code>客户端</code></li>
+</ol>
+<p>这里需要注意<code>DNS</code>其实本质上也是一个<code>服务器</code>, 只不过这个<code>服务器</code>比较特殊. 它可以提供<code>域名与IP</code>的对应关系, 并且其本身的<code>IP</code>地址提前就已经预设好的(客户端是知道DNS的IP).</p>
+<p><code>Binder</code>的原型结构如下图:</p>
+<p><img src="binder_structure.png"></p>
+<p>总结上图那么就是: <code>进程1(Client)</code>需要访问<code>进程2(Server)</code>, 需要借助<code>Binder驱动</code>来把请求传递到<code>进程2</code>中. 而参与通信的进程们需要持有<code>Binder</code>分配的<code>唯一标识</code>, 而这个<code>唯一标识</code>被保存到<code>SM(Servier Manager,后面简称SM)中</code>. 所以如果<code>进程1</code>想通过<code>Binder Driver</code>进行访问要知道<code>进程2</code>的<code>binder标识</code>所以需要先对<code>SM</code>进行查询相当于<code>网络中DNS</code>查询. 通过查询到<code>标识</code>来进行最终的请求. </p>
+<p>之前说过<code>DNS</code>也相当于<code>服务器</code>, 只不过比较特殊, 因为对于<code>Client</code>是预先知道其<code>IP</code>地址的.  那么<code>SM</code>作为功能相同的<code>DNS</code>, 其对应的<code>Binder标识</code>. 对于其他<code>Client进程</code>来说同样是预先知道的. 因为<code>Service Manger</code>在<code>Binder</code>通信过程中的<code>Binder标识</code>永远是<code>0</code>. </p>
+<h2 id="组成元素之Binder驱动"><a href="#组成元素之Binder驱动" class="headerlink" title="组成元素之Binder驱动"></a>组成元素之Binder驱动</h2><p>关于<code>Binder驱动</code>稍微了解即可. </p>
+<p>由于<code>Android</code>系统是基于<code>Linux</code>内核的, 所以<code>Binder驱动</code>也必须是一个标准的<code>Linux</code>驱动. 也就是<code>Binder Driver</code>会将自己注册成一个<code>misc device</code>并向上层提供一个<code>/dev/binder</code>节点. (注意: <code>Binder</code>节点并不对应真实的硬件设备, <code>Binder驱动</code>运行于内核态)</p>
+<hr>
+<p>那么为什么把<code>Binder</code>注册成一个<code>misc device</code>类型的驱动?</p>
+<p><code>Linux</code>中的字符设备通常要经过<code>alloc_chrdev_region()</code>,<code>cdev_init()</code>等一系列操作才能在内核中注册完成. 而<code>misc</code>类型驱动则比较简单, 只需要调用<code>misc_register()</code>既可以完成. </p>
+<hr>
+<p>例如上图<code>进程1</code>要访问<code>Binder Driver</code>时,通常要做如下操作:</p>
+<ol>
+<li>打开<code>Binder</code>驱动. 通过<code>Binder.c#binder_open()</code>打开</li>
+<li>与<code>Binder驱动</code>建立连接. 通过<code>binder_mmap()</code>. <code>mmap()</code>可以把设备指定的内存块直接映射到应用程序的内存空间. (应用程序通过<code>mmap()</code>获得的虚拟内存地址和<code>Binder中指针</code>指向的虚拟内存地址经过转换其实都指向一个<code>物理地址</code>, 这也是<code>Binder驱动</code>只用了<strong>一次</strong>复制就可以实现进程间的数据共享的原因)</li>
+<li>建立连接之后当然就是操作驱动. <code>Binder</code>并没提供常规文件操作如<code>read()</code>,<code>write()</code>等.  而是用了一个更强大的接口函数<code>binder_ioctl()</code>.</li>
+</ol>
+<h2 id="组成元素之ServiceManager"><a href="#组成元素之ServiceManager" class="headerlink" title="组成元素之ServiceManager"></a>组成元素之ServiceManager</h2><p>首先要知道<code>SM</code>的重要性. 当手机开机的时候会注册许多的系统服务来撑起整个手机的运行. 如<code>ActivityManagerService</code>, <code>InputManagerService</code>,<code>WindowManagerService</code>等等. 在之后我们开发的<code>app</code>启动的显示界面, 播放声音, 打开界面等等都是需要先获取系统服务才可以进行后续的操作.  而这些所有的操作都必须要经过<code>SM</code>才可以获取到.  <code>SM</code>是一个完成的映射表有了这个表我们可以去找任何一个手机里面的任何一个服务. </p>
+<hr>
+<p>既然把<code>SM</code>比作<code>DNS</code>并且<code>SM</code>本身也是一个<code>Binder Server服务端</code>, 只不过这个<code>Binder标识为0(相当于IP地址)</code>. 我们在任何地方都可以通过<code>binder id = 0</code>来向<code>Binder驱动</code>获取到<code>SM</code>, 通过<code>SM</code>查询各种系统的服务来得到对应的<code>binder标识(IP)</code>来进行具体的系统服务互动. </p>
+<h3 id="Service-Manager的启动"><a href="#Service-Manager的启动" class="headerlink" title="Service Manager的启动"></a>Service Manager的启动</h3><p>由于<code>SM</code>的重要性,以及前提性. 我们可以大概猜出其应该尽可能在系统启动的最开始就进行加载. 那么<code>Android系统</code>的启动首先加载的就是<code>init.rc</code>. </p>
+<p>从这个文件可以得到的信息是:  一旦当<code>SM</code>系统发生异常之后重启, 那么其他的系统服务如<code>zygote</code>,<code>media</code>,<code>surfaceflinger</code>等也会重启. </p>
+<p><code>SM</code>用的<code>C/C++</code>编写, 和其他系统服务用<code>Java</code>编写略有不同. </p>
+<h3 id="Service-Manager的构建"><a href="#Service-Manager的构建" class="headerlink" title="Service Manager的构建"></a>Service Manager的构建</h3><p>当<code>SM</code>启动了之后, 首先做了如下的事情:</p>
+<ol>
+<li>打开<code>Binder</code>设备, 进行初始化</li>
+<li>通过<code>ioctl()命令</code>注册flag为<code>BINDER_SET_CONTEXT_MGR</code>来让自己成为系统的管理者. 并生成了在<code>Binder驱动</code>中对应的<code>Binder Id = 0</code></li>
+<li>然后通过循环开始等待<code>客户端</code>的请求. </li>
+</ol>
+<hr>
+<h3 id="Service-Manger的获取"><a href="#Service-Manger的获取" class="headerlink" title="Service Manger的获取"></a>Service Manger的获取</h3><p>既然这个<code>SM</code>这个<strong>服务管家</strong>已经构建完毕并且等待着被其他客户端使用. 那么就以<code>SM</code>为<code>服务端</code>. 走一遍<code>client客户端</code>去访问<code>server服务端</code>的流程. </p>
+<blockquote>
+<p>虽然<code>SM</code>是基于<code>native</code>实现的, 但是由于<code>Binder Client</code>和<code>Binder Server</code>都是围绕着<code>Binder驱动</code>展开的, 因而只要能正确使用<code>Binder驱动</code>. 何种语言并不是固定的. </p>
+</blockquote>
+<p>想要访问<code>SM</code>其实主要流程就是如下三步</p>
+<ol>
+<li>打开<code>Binder</code>设备, 执行<code>mmap</code></li>
+<li>通过<code>Binder驱动</code>向<code>SM</code>发送请求. (SM的binder handler = 0)</li>
+<li>获取最终结果</li>
+</ol>
+<p>如果你看过<code>Binder</code>类你可能看到很多的比较别扭的术语<code>asBinder</code>,<code>asInterface</code>, <code>BpBinder</code>, <code>transaction</code>,<code>IBinder</code>等.  不需要死记这些东西, 因为这些都是都是从<code>如何提供Binder Server服务</code>这个问题而衍生的解决方案. 顺着主干线即一点点理解即可. </p>
+<hr>
+<p>试想一下如果我们需要设计<code>Client客户端</code>应该怎么做?</p>
+<p><strong>ProcessState和IPCThreadState</strong></p>
+<p>我们需要一个类来专门管理每个应用进程中的<code>Binder</code>操作, 而且关于<code>Binder驱动</code>的一系列命令对上层用户应该是<code>透明的</code>, 这个类对应的就是<code>ProcessState</code>.</p>
+<p>并且进程中的每一个线程都应该有与<code>Binder驱动</code>自由沟通的能力, 并且由于<code>Binder的IPC</code>通信是<strong>阻塞</strong>的, 所以可以保证个别线程在做进程间的通信的时候不会卡死整个应用程序.  所以<code>IPCThreadState</code>就是与<code>Binder驱动</code>进行实际命令的通信的类. </p>
+<hr>
+<p><strong>proxy</strong></p>
+<p>虽然通过<code>ProcessState</code>和<code>IPCThreadState</code>就可以让<code>Client</code>与<code>Binder驱动</code>进行通信了, 但是更好的方法是进行进一步的封装. 代理的出现可以让操作<code>SM</code>更加的简单, 封装成<code>ServiceManagerProxy</code>自后. 就可以提高模块与其他模块的无关性和便利性. </p>
+<p>还记得这样的代码片段么</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">getService(<span class="string">&quot;window&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这样对于上层来说, 只需要接收要获取的<code>服务端字符串名称</code>即可. </p>
+<p>既然是代理, 那么<code>ServiceManagerProxy(用户进程)</code>和<code>ServiceManager</code>应该具有相同的功能, 所以就可以向上提取出<code>IServiceManager</code>接口添加接口函数<code>getService()</code>,<code>addService()</code>等共同的函数. </p>
+<p>那么<code>IServiceManager</code>接口的实现就需要完成</p>
+<ol>
+<li>与<code>Binder</code>建立关系, 由于进程中存在<code>ProcessState</code>和<code>IPCThreadState</code>专门负责与<code>Binder驱动</code>通信(<code>Native层</code>), 而<code>Java层</code>基于上面两个类的实现称为<code>BpBinder</code>.</li>
+<li>向<code>Binder</code>发送命令, 获取SM提供的服务</li>
+</ol>
+<p>整理成一张图就是如下. </p>
+<p><img src="binder_proxy.png"></p>
+<p>该图描绘了<code>Binder模型中</code>的<strong>上层建筑</strong>. </p>
+<hr>
+<p>但是我们在获取服务的时候是使用的<code>ServiceManager.java</code>这个类, 这个类其实是<code>ServiceManagerProxy</code>的进一步封装. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">getSystemService(WINDOW_SERVICE);</span><br></pre></td></tr></table></figure>
+
+<p>当在代码中获取服务的时候. 内部首先查询缓存, 是否存在记录, 如果没有则会发送一条查询请求. 在请求过程中如果是第一次使用<code>SM</code>. 那么会调用<code>ServiceManagerNative.asInterface(BinderInternal.getContextObject())</code>获取一个<code>IServiceManger</code>.  <code>asInterface</code>函数会将一个<code>Binder</code>对象转换成<code>IServiceManager</code></p>
+<p>整理成两步就是:</p>
+<ol>
+<li>查询进程本地是否已经有了<code>IServiceManager</code></li>
+<li>如果没有 那么就新建一个<code>ServiceManagerProxy</code></li>
+</ol>
+<hr>
+<p>既然最后转到了<code>ServiceManagerProxy</code>的<code>getService(String name)</code>. 那么内部实现也就很明确了.</p>
+<ol>
+<li>通过<code>Parcel</code>打包数据. </li>
+<li>利用<code>IBinder#transact()</code>将请求发送出去,  内部就是使用封装好的<code>native层</code>的<code>ProcessState</code>和<code>IPCThreadState</code>来进行与驱动的通信. </li>
+<li><code>transact()</code>函数之后, 就可以获取到结果. 同<code>socket</code>相似, 这是一种阻塞的函数调用. 因为涉及进程间通信, 结果并不是马上就能获取到. 所以<code>Binder</code>驱动会先将调用者的线程<code>挂起</code>, 直到有了结果才会把它唤醒. </li>
+</ol>
+<h3 id="IBinder和BpBinder"><a href="#IBinder和BpBinder" class="headerlink" title="IBinder和BpBinder"></a>IBinder和BpBinder</h3><p>当进程第一次使用<code>SM</code>时, 会创建<code>ServiceManagerProxy</code>并传入了一个<code>IBinder</code>对象. 通过其<code>transact()</code>函数就可以与<code>binder驱动</code>通信. </p>
+<p>那么<code>IBinder</code>的内部实现和功能就是也很简单. </p>
+<ul>
+<li>接收<code>Native层的ProcessState中创建的Binder对象</code>并转化中<code>Java层的IBinder对象</code>.</li>
+<li><code>IBinder</code>只是一个接口类, <code>native层</code>对应实现类是<code>BpBinder.cpp</code>, <code>Java层</code>则是<code>Binder.java的内部类BinderProxy</code>. </li>
+</ul>
+<h3 id="ProcessState和IPCThreadState"><a href="#ProcessState和IPCThreadState" class="headerlink" title="ProcessState和IPCThreadState"></a>ProcessState和IPCThreadState</h3><p><strong>ProcessState</strong></p>
+<p>主要功能:</p>
+<ul>
+<li>保证同一个进程中只有一个<code>ProcessState</code>实例存在, 并且只有在<code>ProcessState</code>对象创建时才打开<code>Binder设备</code>以及做内存映射. </li>
+<li>向上层提供<code>IPC服务</code></li>
+<li>与<code>IPCThreadState</code>分工合作, 各司其职.</li>
+</ul>
+<hr>
+<p><strong>IPCThreadState</strong></p>
+<p>当需要时才会创建. 并且是<code>线程中</code>单实例. </p>
+<p><code>IPCThreadState</code>负责与<code>Binder驱动</code>进行具体的命令交互. 主要集中在<code>transact()</code>中. </p>
+<p>先整理一下到目前为止的调用流程:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ServiceManagerProxy#getService()  --&gt;</span><br><span class="line">BinderProxy#transact()            --&gt;</span><br><span class="line">BpBinder#transact()               --&gt;</span><br><span class="line">IPCThreadState#transact()</span><br></pre></td></tr></table></figure>
+
+
+<p>由于内部很多操作底层并且c代码. 有兴趣的可以查看<code>&lt;深入理解Android内核设计思想中的6.4.5节&gt;</code>. 这里做一个简短流程. </p>
+<p>接着上面进入到了<code>IPCThreadState类的transact()</code>函数中. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">通过调用</span><br><span class="line">IPCThreadState#waitForResponse() --&gt;</span><br><span class="line">IPCThreadState#talkWithDriver()  --&gt;</span><br><span class="line">Binder.c#binder_ioctl()          --&gt;</span><br><span class="line">Binder.c#binder_thread_read()</span><br></pre></td></tr></table></figure>
+
+<p>此时调用者也就是<code>client</code>线程就会进入睡眠等待. 直到它发起的服务请求已经回复, 才会<strong>被唤醒</strong>并接收结果. </p>
+<h3 id="重点元素的简要整理"><a href="#重点元素的简要整理" class="headerlink" title="重点元素的简要整理"></a>重点元素的简要整理</h3><p><strong>ServiceManagerProxy</strong></p>
+<p>当某个<code>Binder Service</code>启动时, 会把自己的名称<code>name</code>和对应的<code>Binder句柄(唯一标识)</code>保存在<code>SM</code>中. 调用者通常只知道<code>Binder Service</code>的名称, 所以必须先向<code>SM</code>发起查询请求. </p>
+<p>而<code>SM</code>同样是一个<code>Binder Service</code>不同的是其<code>Binder句柄==0</code>. 所以任何的<code>Binder Client</code>都可以通过<code>Binder=0</code>创建一个<code>BpBinder</code>, 再通过<code>Binder驱动</code>来获取<code>SM</code>的服务.</p>
+<p>由于同时支持<code>Android</code>和<code>C/C++</code>的Binder机制, 所以很多对象都具备了双重的身份, </p>
+<hr>
+<p><strong>ProcessState和IPCThreadState</strong></p>
+<p>大多数程序都<code>IPC</code>的需要, 而进程间通信本身又是非常繁琐的, 因为<code>Android</code>系统特别为程序进程使用<code>Binder机制</code>封装了两个实现类.  一个负责驱动的打开并做<code>mmap()</code>映射. 另一个就是负责具体的驱动交互. </p>
+<hr>
+<p><strong>binder驱动</strong></p>
+<p><code>Binder驱动</code>通过巧妙的机制让数据传递更加的高效. 只需要一次复制就可以把数据从一个进程复制到另一个进程. <code>Binder</code>中还保存着大量的全局以及进程相关的变量, 用于管理每个进程/线程的状态,内存申请和代办事项等数据信息. 通过这些变量的有效协作, 整个<code>Binder</code>通信得以流动起来. </p>
+<hr>
+<p><strong>Service Manager</strong></p>
+<p><code>SM</code>在<code>Android</code>系统启动之后就运行起来了, 并通过<code>BINDER_SET_CONTEXT_MGR</code>把自己注册成<code>Binder</code>的管理者. 在其进行完初始化之后, 会进入<strong>睡眠等待</strong>, 直到有<code>Binder Client</code>发起服务请求而被<code>Binder驱动</code>唤醒. </p>
+<p><code>SM</code>唤醒后, 程序分为两条主线索. </p>
+<ul>
+<li><code>SM</code>端将把调用者的具体请求读取出来并解析数据. 在根据实际情况填写<code>transaction</code>信息, 最后把结果通过<code>BR_REPLY</code>命令返回给<code>Binder驱动</code></li>
+<li>发起<code>getService()</code>请求的<code>Client</code>在等待<code>SM</code>回复的过程会进入休眠, 直到被<code>Binder</code>驱动唤醒. 当被唤醒的时候得到的就是<code>SM</code>的处理结果. 底层把结果填充到<code>reply</code>这个<code>Parcel</code>中, 然后向上层传递最终返回到<code>ServiceManagerProxy</code>, 再利用<code>Parcel.readStrongBinder</code>生成了一个<code>BpBinder</code>, 在经过类型转化为<code>IBinder</code>提供给应用层. </li>
+</ul>
+<p>得到了<code>IBinder</code>对于开发层我们就比较熟悉了. <code>IBinder</code>经过<code>asInterface</code>做一次包装. 例如<code>ServiceManger</code>的<code>BpBinder</code>就被包装成了<code>IServiceManager(实际就是ServiceManagerProxy)</code>, 这么做是为了让应用程序更好的使用<code>Service Manager</code>提供的服务. 其余的<code>Binder Service</code>也是类似. </p>
+<h2 id="组成元素之Binder-Client"><a href="#组成元素之Binder-Client" class="headerlink" title="组成元素之Binder Client"></a>组成元素之Binder Client</h2><p><code>Binder</code>的最大消费者是<code>Java层</code>的应用程序. 但是从开发人员的角度来看, 似乎并不需要过多的关心就可以安全方便的使用<code>binderService</code>, <code>startActivity</code>, <code>sendBroadcast</code>等一系列接口方法来实现与其他进程的交互. </p>
+<p>比如:</p>
+<ul>
+<li><code>Activity</code> 通过<code>startActivity</code>可以启动目标进程</li>
+<li><code>Service</code> 任何应用程序都可以通过<code>startService</code>或<code>bindService</code>来启动特定的服务, 而无论后者是否属于跨进程. </li>
+<li><code>Broadcast</code> 任何应用程序都可以通过<code>sendBroadcast</code>来发送一个广播, 且无论广播处理者是不是在同一个进程中</li>
+<li>…</li>
+</ul>
+<p>这里以<code>bindService</code>为例, 来揭示出这些常用方法背后的<code>Binder</code>内部大体流程.</p>
+<p>那么绑定一个<code>service</code>成功有哪几个关键点?</p>
+<ol>
+<li>应用程序填写<code>Intent</code>. 调用<code>bindService</code>发出请求</li>
+<li>收到请求<code>bindService</code>*(还在应用程序空间中)*将于<code>ActivityManagerService(AMS)</code>取得联系. 为了获得<code>AMS</code>的<code>Binder句柄</code>还要先调用<code>ServiceManager.getService()</code>来进行查询获取. 这个时候就已经涉及了进程间通信. 得到了<code>AMS</code>的句柄值后, 程序才能真正的向它发起请求. </li>
+<li><code>AMS</code>基于特定的<strong>最优匹配策略</strong>, 从其内部存储的系统所有服务组件集合中找到与<code>Intent</code>最匹配的一个, 然后向它发送<code>Service</code>绑定请求*(同样进程间通信)*. 如果目标不存在那么<code>AMS</code>会将其先启动起来. </li>
+<li>被绑定的服务进程需要响应绑定, 执行具体操作, 并在成功完成后通知<code>AMS</code>然后由后者再回调发起者请求的应用程序*(回调接口ServiceConnection)*</li>
+</ol>
+<p>ok从<code>bindService()</code>函数作为切入点. <code>Activity</code>的祖先类是<code>Context</code>. 而<code>bindService()</code>是从祖先类继承而来. 而<code>Context</code>本身是一个抽象类. 具体的功能实现是<code>ContextImpl</code>.  </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 跟踪bindService()函数会发现如下, 出现了ActivityManager</span></span><br><span class="line"><span class="keyword">int</span> res = ActivityManagerNative.getDefault().bindService(</span><br><span class="line">                mMainThread.getApplicationThread(), getActivityToken(), service,</span><br><span class="line">                service.resolveTypeIfNeeded(getContentResolver()),</span><br><span class="line">                sd, flags, getOpPackageName(), user.getIdentifier());</span><br><span class="line">                </span><br><span class="line"><span class="comment">// 继续查看getDefault()是什么</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">public</span> IActivityManager <span class="title">getDefault</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> gDefault.get();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton&lt;IActivityManager&gt; gDefault = <span class="keyword">new</span> Singleton&lt;IActivityManager&gt;() &#123;</span><br><span class="line">   <span class="function"><span class="keyword">protected</span> IActivityManager <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">// 通过SM获取ActivityManagerService的IBinder对象</span></span><br><span class="line">       IBinder b = ServiceManager.getService(<span class="string">&quot;activity&quot;</span>);</span><br><span class="line">       <span class="comment">// 利用IInterface继承特性, 创建一个可用的ActivityManagerProxy,</span></span><br><span class="line">       IActivityManager am = asInterface(b);</span><br><span class="line">       <span class="keyword">return</span> am;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<p>是否感觉和之前说的很相似?  <code>ActivityManagerNative</code>的作用之一就是帮助调用者方便快速地取得一个<code>ActivityManagerProxy</code>. 这个<code>ServiceManagerProxy</code>和<code>ServiceManagerNative</code>作用基本一致.  而其另一个作用就是为<code>AMS</code>的实现提供了便利例如其中的<code>onTransact()</code>函数.  这样只要在<code>AMS</code>中继承<code>ActivityManagerNative</code>就可以将用户业务请求码和自己的内部函数连接起来. </p>
+<p>所以可以总结出, <code>ActivityManagerNative(其他服务的Native也是一样)</code>既是面向调用者的, 也是面向服务实现本身的, 只不多<code>Native</code>这个名称比较容易让人迷惑. </p>
+<hr>
+<p>其实不管是调用何种服务何种形式. 整个<code>IPC</code>通信都是基于<code>Binder</code>驱动展开的. 以<code>Binder驱动</code>为中心. 可以有一个全局方向看的更加清楚. </p>
+<p>当应用程序需要通过<code>ServiceManager</code>来查询某个<code>Binder Server</code>时, 调用的是<code>getService()</code>. 几个关键点是: 之间面向程序的是<code>ServiceManager.java</code>, 它提供了很多静态函数来获取<code>SM</code>提供的服务. 这些静态函数内部通过<code>getIServiceManager</code>来得到<code>ServiceManagerProxy</code>对象. 后者作为<code>SM</code>的本地代理, 将利用<code>IBinder</code>来穿越<code>JNI层</code>调用到对应的<code>BpBinder</code>, 进而使用<code>ProccessState</code>和<code>IPCThreadState</code>的相关接口. 最终经由<code>Binder</code>驱动完成与<code>SM</code>的通信. </p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/02/09/Android系统的启动流程/" data-toggle="tooltip" data-placement="top" title="Android系统的启动流程">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/01/06/栈与队列/" data-toggle="tooltip" data-placement="top" title="栈与队列">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2017/02/08/%E9%9D%A2%E8%AF%95%E4%B9%8BBinder%E7%9A%84%E8%AE%A4%E7%9F%A5/";
+    var disqus_url = "http://szysky.com/2017/02/08/%E9%9D%A2%E8%AF%95%E4%B9%8BBinder%E7%9A%84%E8%AE%A4%E7%9F%A5/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

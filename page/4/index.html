@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/page/4/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Szy&#39;sky Blog</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">To Be A Lean Developer!</span>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+            
+                <!-- Main Content -->
+
+
+<div class="post-preview">
+
+    <a href="/2016/08/11/《Android开发艺术探索》-05-理解RemoteViews/">
+        <h2 class="post-title">
+            《Android 开发艺术探索》 05-理解RemoteViews
+        </h2>
+        <h3 class="post-subtitle">
+            抄书系列
+        </h3>
+        <div class="post-content-preview">
+            
+第五章:桌面小部件和使用RemoteViews跨进程更新界面
+
+blog相关代码
+RemoteView的应用**简介:**在开发中, 通知栏都知道是通过NotificationManager的notify方法实现. 桌面小部件则是通过AppWidgetProvider实现. 后者本质上是一个广播.更新他们无法像以前那样.这是因为不是一个进程,小部件是SystemServer进程. 为了跨进......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-08-11
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/08/10/《Android开发艺术探索》04-View的工作原理/">
+        <h2 class="post-title">
+            《Android 开发艺术探索》 04-View的工作原理
+        </h2>
+        <h3 class="post-subtitle">
+            抄书系列
+        </h3>
+        <div class="post-content-preview">
+            
+拨开炫酷的外表, 看看衣服里面的View是怎样工作的
+
+blog相关代码
+ViewRoot和DecorView这是在View三大流程之前(measure, layout, draw),需要了解的概念.
+ViewRoot对应于ViewRootImpl, 它是连接WindowManager和DecorView的纽带. View的三大流程都是通过ViewRoot来完成的. 当一个Activity......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-08-10
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/08/08/Android开发艺术探索-笔记03-View的事件体系/">
+        <h2 class="post-title">
+            《Android 开发艺术探索》 03-View的事件体系
+        </h2>
+        <h3 class="post-subtitle">
+            抄书系列
+        </h3>
+        <div class="post-content-preview">
+            
+
+
+Anroid中的事件是怎样进行的
+
+blog相关代码
+View的基础知识View的位置参数一个View的位置主要由四个顶点构成, 或者可以就是两个点就可以确定. 分别为左上点,右下角每个点都对应x,y两个属性. 因为默认都是矩形, 所以两个点就可以确定. 
+一个View的大小可以利用四个属性可知. 分别对应getLeft(),getRight(),getTop(),getBottom系......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-08-08
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/08/02/Android开发艺术探索-笔记02-IPC机制/">
+        <h2 class="post-title">
+            《Android 开发艺术探索》 02-IPC机制
+        </h2>
+        <h3 class="post-subtitle">
+            抄书系列
+        </h3>
+        <div class="post-content-preview">
+            
+第二章: Android中的IPC机制,深入记录Bundle, 文件共享, AIDL, Messenger, ContentProvider, Socket等进程间的通信.
+
+blog相关代码
+
+
+
+Android IPC简介IPC是Inter-Process Communication缩写,含义为进程间通信. 按照操作系统中的描述,线程是cpu调度的最小单元,而进程一般指一个执行单元. ......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-08-02
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/08/01/Android开发艺术探索-笔记01-Activity的生命周期和模式/">
+        <h2 class="post-title">
+            《Android 开发艺术探索》 01-Activity的生命周期和模式
+        </h2>
+        <h3 class="post-subtitle">
+            抄书系列
+        </h3>
+        <div class="post-content-preview">
+            
+
+
+第一章: Activity的启动模式详解,与Intent-filter的匹配
+
+ blog相关代码仓库
+Activity的生命周期
+
+onCreate: 声明周期的第一个方法.做一些初始化的动作,例如setContentView
+onRestart: 表示Activity重新启动.当界面从不可见变为可见时调用,场景Home键切换,从任务栈返回
+onStart: 表示Activity正在......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-08-01
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/07/18/Retrofit-一-入门使用/">
+        <h2 class="post-title">
+            Retrofit(一)-入门使用
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            体验RESTFul风格的请求, Retrofit
+
+
+简介Retrofit出自Square公司. 是一个基于RESTFul风格的网络请求库. 关于RESTFul风格,就是不同的请求操作通过在域名之后追加不同字段来区分.相对于服务器每一个请求都对应一个文件夹或者文件. 对同一个接口增删改查充分发挥对一个文件的PUT, POST, DELETE, GET.
+1.Retrofit的快速使用这里针对......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-07-18
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/07/12/mac系统android编译源码/">
+        <h2 class="post-title">
+            mac系统android编译源码
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            = =!!  太痛苦, 放弃保智商….
+
+
+
+操作环境
+mac系统:    OS X EI Captian    10.11.5
+下载源码:    Android 6.0.1
+
+结果: mac环境配置环境, 虚拟机可以启动, 真机使用构建的镜像没有试验.  源码导入ok,调试没做. 
+首先丢出链接: Google官方源码构建教程(自备梯子).
+我就直接记录我的操作步骤,不说明原因,因为我也不......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-07-12
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/07/05/Android-绘图篇-3-drawText详解/">
+        <h2 class="post-title">
+            Android绘图篇-03 drawText详解
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-07-05
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/07/05/Android-绘图篇-1-Canvas和Paint的基础使用/">
+        <h2 class="post-title">
+            Android绘图篇-01 Canvas和Paint的基础使用
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            了解Cavans和Paint的具体用处,才可以更好的发挥他们的用户,方便我们应对不同的样式…
+
+
+首先感谢启航blog,讲解的非常详细本文为整理笔记,让自己的认识加深.
+首先贴上这篇我要记录的知识点的效果图
+
+
+
+
+看到效果还是很基础的东西.下面开始整理实现方法
+源码下载: 查找SuGraphicsBaseCanvasPaintActivity类, 手机查看效果一级界面进入选择graphic......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-07-05
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/05/25/1/">
+        <h2 class="post-title">
+            善用继承实现,避免不必要的错误
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            用输出来显示出类究竟是如何被加载的,以及到底以什么样的顺序来进行的初始化,可以让我们跳过一些不必要的麻烦…
+
+错误场景:在一个activity中, 利用的pager类+viewpager实现显示界面. 四个界面pager类继承了一个basepager的抽象类. 抽象类的构造函数中调用了一个抽象方法init(); 当子类实现是,实现basepager的抽象方法并在实现具体的初始化动作.   
+......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-05-25
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/05/20/Android-Studio-快捷键-mac/">
+        <h2 class="post-title">
+            Android Studio 快捷键 mac版
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            工欲善其事必先利其器
+
+
+Preferences -&gt; Keymap 然后就可以选择你想要的快捷键，这里不止可以选择Eclipse，还可以选择 Emacs、Net Beans 等编辑器的快捷键。
+设置代码提示mac中常见按键
+⌘:command,⌃:ctrl, ⇧:shift, ⌥:alt/option, ⏎:enter/returnAndroid studio快捷键一览表
+
+操作  ......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-05-20
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/05/20/Android-中如何使用annotion替代Enum/">
+        <h2 class="post-title">
+            Android 中如何使用annotion替代Enum
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            抛弃枚举,  在android中一个更好的方法替代他.
+
+
+起因阅读原文
+当我们想从一些预定义的常量中使用一个变量我们能怎么做. 我可以声明常量并给他们赋值. 我们假设某一个值是表示今天,他可以从周日到周六有不一样的值来指定,我们在java中可以这样使用整数型常量.
+public class Main &#123;	public static final int SUNDAY = 0;pub......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-05-20
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/05/19/5.0特性Verctor2SVG/">
+        <h2 class="post-title">
+            5.0特性Verctor2SVG
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            你不知道svg? 那你知道矢量图? 也不知道!? 位图呢? …  快来看一看吧
+
+
+svg使用背景
+不会再因为分辨率的原因导致图片放大失真.
+同一个图片的不同状态不需要多张图片.
+可以实现多平台复制,不需要每个平台都有多套的切图.
+使用svg或者IconFont实现占用的空间更小,因为其本身就是字符串.
+
+了解一下PNG IconFont  SVG的区别
+PNG为位图,是由不同的排列和染色的......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-05-19
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/05/19/视频转换为gif/">
+        <h2 class="post-title">
+            安卓录制视频并转换为gif
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            本方法适用于mac, 利用ffmpeg实现转换
+
+
+视频转换为gif格式ffmpeg如果没有安装: 在终端输入 brew install ffmpeg
+cd到要转换的文件路径:
+ffmpeg -ss 2 -t 3 -i demo.mp4 -s 240x400 -f gif -r 10 4.gif
+
+-ss 2 : 从视频的第二秒开始
+-t 3    : 截取3秒的视频内容
+-i 后面跟的的是......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-05-19
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/05/18/MySql-四-数据控制语言控制器等/">
+        <h2 class="post-title">
+            MySql(四)--数据控制语言控制器等
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            自学小笔记
+
+
+数据控制语言 DCL  (Data Control Language)数据控制语言,是用于对mysql的用户及其权限进行管理的语句.
+用户管理
+mysql中的所有用户,都存在系统数据库(mysql)中的 user 表中–不敢那个数据库的用户,都存储在这里.(服务器: localhost--&gt;数据库: mysql--&gt; 表 user)
+创建用户
+形式: create......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-05-18
+    </p>
+
+</div>
+<hr>
+
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+        <li class="previous">
+            <a href="/page/3/">&larr; Newer Posts</a>
+        </li>
+    
+    
+        <li class="next">
+            <a href="/page/5/">Older Posts &rarr;</a>
+        </li>
+    
+</ul>
+
+
+
+                <!-- 如果开启评论功能 -->
+                
+
+            </div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                            <a href="/tags/#android" title="android" rel="47">android</a>
+                            
+                        
+                            
+                            <a href="/tags/#笔记" title="笔记" rel="31">笔记</a>
+                            
+                        
+                            
+                            <a href="/tags/#mySql" title="mySql" rel="4">mySql</a>
+                            
+                        
+                            
+                        
+                            
+                            <a href="/tags/#入门" title="入门" rel="11">入门</a>
+                            
+                        
+                            
+                            <a href="/tags/#PHP" title="PHP" rel="4">PHP</a>
+                            
+                        
+                            
+                            <a href="/tags/#framework" title="framework" rel="2">framework</a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                            <a href="/tags/#JavaScript" title="JavaScript" rel="6">JavaScript</a>
+                            
+                        
+                            
+                            <a href="/tags/#自定义View" title="自定义View" rel="2">自定义View</a>
+                            
+                        
+                            
+                            <a href="/tags/#数据结构" title="数据结构" rel="3">数据结构</a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                            <a href="/tags/#设计模式" title="设计模式" rel="2">设计模式</a>
+                            
+                        
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+
+                        
+                            <img src="/img/icon.png" />
+                        
+
+                        
+                            <p>我要成为魔法师!</p>
+                        
+
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            
+                                <li>
+                                    <a target="_blank" href="https://twitter.com/szyskys">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                            
+                                <li>
+                                    <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+
+                            
+
+                            
+
+                            
+                                <li>
+                                    <a target="_blank"  href="https://github.com/suzeyu1992">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                            
+                            
+                            
+                                <li>
+                                    <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        
+    </div>
+</div>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android 开发艺术探索》 01-Activity的生命周期和模式 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/08/01/Android开发艺术探索-笔记01-Activity的生命周期和模式/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android 开发艺术探索》 01-Activity的生命周期和模式</h1>
+                    <h2 class="subheading">抄书系列</h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-08-01
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <span id="more"></span>
+
+<blockquote>
+<p>第一章: Activity的启动模式详解,与Intent-filter的匹配</p>
+</blockquote>
+<p> <a target="_blank" rel="noopener" href="https://github.com/suzeyu1992/Notes_AndroidDevSeek">blog相关代码仓库</a></p>
+<h2 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h2><p><img src="activity_lifecycle.png"></p>
+<ul>
+<li><strong>onCreate</strong>: 声明周期的第一个方法.做一些初始化的动作,例如setContentView</li>
+<li><strong>onRestart</strong>: 表示Activity重新启动.当界面从不可见变为可见时调用,场景Home键切换,从任务栈返回</li>
+<li><strong>onStart</strong>: 表示Activity正在被启动.Activity为理论可见(取决上层界面是否透明),但不是前台无法操作.</li>
+<li><strong>onResume</strong>: 表示Activity已经可见,并且为前台. 与onStart主要是前台后台,有无焦点的区别</li>
+<li><strong>onPause</strong>: 表示Activity正在停止. 做一些存储数据,停止动画操作.不能太耗时,这会影响新的Activity启动,onPause()必须先执行完,新Activity的onResume()才会执行.</li>
+<li><strong>onStop</strong>: 表示Activity即将停止,可以做稍微重量级的回收工作,同样不能太耗时.</li>
+<li><strong>onDestroy</strong>: 表示Activity即将被销毁. 可以做一些最终的资源释放</li>
+</ul>
+<p><strong>场景</strong> 当界面A打开界面B时的生命周期调用顺序: A的onPause()-&gt; B的onCreate() -&gt; B的onStart() -&gt; B的onResume() -&gt; A的onStop().</p>
+<ul>
+<li><code>onStart()</code>和<code>onStop()</code> 是针对Activity是否可见的角度回调</li>
+<li><code>onResume()</code>和<code>onPause()</code> 是针对Activity是否位于前台的角度回调的</li>
+</ul>
+<h2 id="异常情况下的生命周期"><a href="#异常情况下的生命周期" class="headerlink" title="异常情况下的生命周期"></a>异常情况下的生命周期</h2><h3 id="当系统配置发生改变的时候"><a href="#当系统配置发生改变的时候" class="headerlink" title="当系统配置发生改变的时候"></a>当系统配置发生改变的时候</h3><p><strong>Activity就会因为异常情况被销毁并重新创建.例如横竖屏切换,语言切换等.</strong></p>
+<p>当异常状态发生的时候. 在界面销毁前会调用<code>onSaveInstanceState()</code>进行当前界面的数据保存,如文本输入的数据,listView滚动的位置等. 在重建后会调用<code>onRestoreInstanceState()</code>进行因为异常重建的原始数据的恢复.</p>
+<p>准确的说<code>onSaveInstanceState</code>() 会在<code>onStop</code>()之前执行, 而onRestoreInstanceState会在onStart之后执行.</p>
+<p>当屏幕发生旋转时,声明周期调用过程如下:</p>
+<p><img src="exceptionLife.png"></p>
+<p>这里我们要清楚,当发生了异常情况下,系统会帮我们自动恢复大部分的数据,但是如果我们想要自己从异常中恢复.那么我们可以通过<code>onCreate()</code>和<code>onRestoreInstanceState()</code>中的参数<code>Bundle</code>来进行值得保存.</p>
+<ul>
+<li>当正常情况下onCreate中的<code>Bundle</code>类型参数是为<strong>null</strong>的. 而onRestoreInstanceState是不会被调用的.</li>
+<li>当异常发生后的重建,onCreate,onRestoreInstanceState都会被触发,并且其中的Bundle类型参数都不为<strong>null</strong></li>
+</ul>
+<h3 id="资源内存不足时低优先级的Activity被杀死"><a href="#资源内存不足时低优先级的Activity被杀死" class="headerlink" title="资源内存不足时低优先级的Activity被杀死"></a>资源内存不足时低优先级的Activity被杀死</h3><p>这种场景不好模拟,但是在存储和恢复的过程是与上面的过程一致的.</p>
+<p>关于Activity的优先级的高低</p>
+<ul>
+<li>前台Activity–正在和用户交互的Activity,优先级最高</li>
+<li>可见但是非前台Activity–比如Activity中弹出了一个对话框,导致Activity可见但是无法操作.</li>
+<li>后台Activity–已经被暂停的Activity,比如执行了onStop,优先级最低.</li>
+</ul>
+<h3 id="禁止异常重建Activity"><a href="#禁止异常重建Activity" class="headerlink" title="禁止异常重建Activity"></a>禁止异常重建Activity</h3><p>如果不想Activity重建.可以通过清单文件中对activity标签进行配置.</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">android:configChanges=&quot;orientation|screenSize&quot;</span><br></pre></td></tr></table></figure>
+<p>当给一个Activity声明了上述的属性之后,当手机旋转的时候,activity不会重建,也就没有任何声明周期方法的回调, 但是会调用<code>onConfigurationChanged()</code>方法.</p>
+<ul>
+<li>orientation: 屏幕方向发生了改变,手机旋转</li>
+<li>screenSize: 屏幕的尺寸信息发生改变,此属性和编译版本有关系,当minSdkVersion和targetSdkVersion均低于13,此选项不会导致界面重启.如果高于那么会重启.</li>
+</ul>
+<p>所以这两个最好成对出现.</p>
+<p>日常开发中我们比较常用的<code>local</code>,<code>orientation</code>,<code>keyboardHidden</code>,<code>uiMode</code>. local为本地语言切换. uiMode界面模式发生切换,如夜间模式(API8中增加)</p>
+<h2 id="Activity的启动模式"><a href="#Activity的启动模式" class="headerlink" title="Activity的启动模式"></a>Activity的启动模式</h2><p>当我们打开的activity会被系统以任务栈的形式来存储起来.后进先出.当每一个任务栈为空的时候这个栈就会被回收</p>
+<ul>
+<li><strong>standard</strong>: 默认模式,就是新进入的压在已存在的界面之上.</li>
+<li><strong>singleTop</strong>: 栈顶复用模式. </li>
+<li><strong>singleTask</strong>: 栈内复用模式</li>
+<li><strong>singleInstance</strong>: 栈内单例模式</li>
+</ul>
+<p><strong>singleTop</strong></p>
+<p>如果新Activity已经位于任务栈的栈顶,那么此Activity不会被重新创建,同时<code>onNewIntent()</code>会被回调.</p>
+<p>如果使用此模式,那么在任务栈中栈顶到栈低为CBA的情况下,再次打开C,那么C界面的<code>onCreate()</code>和<code>onStart()</code>不会被调用,真正的调用时<code>onPause()</code>–&gt;<code>onNewIntent()</code>–&gt;<code>onResume()</code></p>
+<p><strong>singleTask</strong></p>
+<p>如果用栈内复用,当打开C时候,会查询所有的任务栈,如果有任务栈包含C,那么把这个任务栈移动到所有栈的首位,并清除掉这个栈内C到栈顶的其他Activity,最后调用C的<code>onNewIntent()</code>方法. 如果没有那就直接在<strong>所需任务栈</strong>的栈顶创建C的实例.</p>
+<p>这里由于singleTask默认具有clearTop的效果,所以会清除C以上activity的出栈. 这里和具体的启动模式有关.</p>
+<p><strong>所需任务栈</strong>: 和一个参数有关系,<code>TaskAffinity</code>.这个参数标识了一个Activity所需要的任务栈的名字,默认情况下所有的Activity的所需的任务栈的名字都为应用包名.</p>
+<p>这里我们可以通过命令<code>adb shell dumpsys activity</code>测试一下,打开顺序为<strong>MainActivity</strong>–&gt;<strong>ModeSingleTopArc</strong></p>
+<p>当我们不指定<code>taskAffinity</code>的所需栈的时候,查看任务栈的结果为:</p>
+<p><img src="singletop_1.png"></p>
+<p>如果指定了<code>taskAffinity</code> 这个时候任务栈的状况为:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">&quot;.launchmode.ModeSingleTaskAct&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:launchMode</span>=<span class="string">&quot;singleTask&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:taskAffinity</span>=<span class="string">&quot;.nishibendan&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="singletop_2.png"></p>
+<p>一般情况下<code>TaskAffinity</code>属性一般和<strong>singleTask</strong>启动模式或者<strong>allowTaskReparenting</strong>属性配对使用,其他情况下使用没有意义. 另外任务栈分为前台任务栈和后台任务栈,后台任务栈中的activity属于暂停状态,用户可以切换将后台调到前台.</p>
+<p><strong>singleInstance</strong></p>
+<p>这个模式是加强版的<strong>singleTask</strong>,除了<strong>singleTask</strong>具有的属性之外,还具有创建新栈的能力,这个栈只有这一个实例. 就是说如果假设EActivity没有被创建过,那么创建时,首先会创建一个新的任务栈,然后创建实例放入这个新的栈内,然后下一个实例不会和这个EActivity所属栈共存,会创建一个新的栈继续存放.</p>
+<h3 id="给Activity添加启动模式"><a href="#给Activity添加启动模式" class="headerlink" title="给Activity添加启动模式"></a>给Activity添加启动模式</h3><ol>
+<li>通过清单文件中<code>activity标签</code>添加<code>android:launchMode=&quot;singleTask|singleTop|singleInstance&quot;</code></li>
+<li>通过代码中startActivity(Intent)中的intent通过<code>addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)</code></li>
+</ol>
+<p><strong>优先级</strong> 代码设置优先于xml布局中的设置.</p>
+<p><strong>限定范围不同</strong></p>
+<ul>
+<li>xml无法直接为其设置<code>FLAG_ACTIVITY_CLEAR_TOP</code>.</li>
+<li>代码添加flag无法添加<code>singleInstance</code>模式.</li>
+</ul>
+<p>注意: 如果通过代码添加添加<code>Intent.FLAG_ACTIVITY_NEW_TASK</code>和xml中设置<code>singleTask</code>是不一样的.代码动态添加是没有<strong>clean_top</strong>的效果,看图:</p>
+<p><img src="singleTask_3.png"></p>
+<h3 id="Activity的Flags"><a href="#Activity的Flags" class="headerlink" title="Activity的Flags"></a>Activity的Flags</h3><ul>
+<li><p>影响启动模式的标识位: 可以设定Activity的启动模式</p>
+</li>
+<li><p>影响运行时的标识位: 可以影响运行的Activity的运行状态</p>
+</li>
+<li><p><code>FLAG_ACTIVITY_NEW_TASK</code>相对于xml中的<strong>singleTask</strong>,但是动态的时候需要给intent添加两个标志位,否则无法达到效果,如下</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>FLAG_ACTIVITY_SINGLE_TOP</code>相对于xml中的<strong>singleTop</strong></li>
+<li><code>FLAG_ACTIVITY_CLEAR_TOP</code>在同一个任务栈中所有位于它上面的Activity都要出栈,此标志一般和singleTask一起出现. 如果启动模式为<code>standard</code>它连同上面的都要出栈,之后系统会创建一个新的实例放入栈顶.</li>
+</ul>
+<h2 id="IntentFilter匹配规则"><a href="#IntentFilter匹配规则" class="headerlink" title="IntentFilter匹配规则"></a>IntentFilter匹配规则</h2><ul>
+<li>显示调用: 需要指定组件信息如包名,类名.</li>
+<li>隐式调用: 不需要指定组件信息, Intent需要匹配目标组件IntentFilter中所设置的过滤信息即可.</li>
+</ul>
+<p>IntentFilter的过滤信息有<strong>action</strong>,<strong>category</strong>,<strong>data</strong>. 一个Activity可以有多个Intentfilter,只要intent能匹配任意一组intent-filter即可成功启动.</p>
+<p>关于每一项的具体匹配规则</p>
+<ul>
+<li><strong>action</strong>: 本身是字符串. Intent匹配中存在action且必须和过滤规则中的其中一个action相同,那么action就算匹配ok.  <strong>xml中必须有一个action声明</strong>.</li>
+<li><strong>category</strong>: 本身是字符串.Intent匹配中intent可以不存在category,但是如果添加了category那么必须要和定义的<code>intent-filter</code>中的category一致,否则失败. 如果我们在Intent不添加的时候,那么系统会自动为我们添加一个预定义的属性<code>android.intent.category.DEFAULT</code>. <strong>xml中需添加这个默认的category属性</strong>.</li>
+<li><strong>data</strong>: <strong>xml过滤规则中可以不声明</strong>,如果声明只要匹配了一个就可以.一般情况下data有两部分组成mimeType和URI. mimeType指媒体类型,URI规则如下:</li>
+</ul>
+<p><code>&lt;scheme&gt;://&lt;host&gt;:&lt;port&gt;/[path]</code></p>
+<p>如下实例: scheme:表示URI的模式,例如http, file, content.</p>
+<p><code>http://www.baidu.com:80/search/info</code></p>
+<p>最简单的隐式打开</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//代码中</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">intent.setAction(<span class="string">&quot;com.test1&quot;</span>);</span><br><span class="line">startActivity(intent);</span><br><span class="line"></span><br><span class="line"><span class="comment">//xml中</span></span><br><span class="line">&lt;activity android:name=<span class="string">&quot;.intentfilter.FilterAct&quot;</span>&gt;</span><br><span class="line">  &lt;intent-filter&gt;</span><br><span class="line">      &lt;action android:name=<span class="string">&quot;com.test1&quot;</span>/&gt;</span><br><span class="line">      &lt;category android:name=<span class="string">&quot;android.intent.category.DEFAULT&quot;</span>/&gt;</span><br><span class="line">  &lt;/intent-filter&gt;</span><br><span class="line">&lt;/activity&gt;</span><br></pre></td></tr></table></figure>
+
+<p>一个比较完整的匹配代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//代码中</span></span><br><span class="line">  Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">  intent.setAction(<span class="string">&quot;com.test1&quot;</span>);</span><br><span class="line">  intent.addCategory(<span class="string">&quot;com.category1&quot;</span>);</span><br><span class="line"><span class="comment">//intent.setDataAndType(Uri.parse(&quot;content://&quot;),&quot;audio/plain&quot;);//如果过滤规则中没有声明URI的属性,那么会有默认值content和file的属性</span></span><br><span class="line">  intent.setDataAndType(Uri.parse(<span class="string">&quot;http://&quot;</span>),<span class="string">&quot;audio/plain&quot;</span>);</span><br><span class="line">  startActivity(intent);</span><br><span class="line"></span><br><span class="line"><span class="comment">//xml中</span></span><br><span class="line">&lt;activity android:name=<span class="string">&quot;.intentfilter.FilterAct&quot;</span>&gt;</span><br><span class="line">  &lt;intent-filter&gt;</span><br><span class="line">      &lt;action android:name=<span class="string">&quot;com.test1&quot;</span>/&gt;</span><br><span class="line">      &lt;action android:name=<span class="string">&quot;com.test2&quot;</span>/&gt;</span><br><span class="line"></span><br><span class="line">      &lt;category android:name=<span class="string">&quot;com.category1&quot;</span>/&gt;</span><br><span class="line">      &lt;category android:name=<span class="string">&quot;com.category2&quot;</span>/&gt;</span><br><span class="line">      &lt;category android:name=<span class="string">&quot;android.intent.category.DEFAULT&quot;</span>/&gt;</span><br><span class="line"></span><br><span class="line">      &lt;data android:mimeType=<span class="string">&quot;text/plain&quot;</span>/&gt;</span><br><span class="line">      &lt;data android:mimeType=<span class="string">&quot;audio/plain&quot;</span> android:scheme=<span class="string">&quot;http&quot;</span>/&gt;</span><br><span class="line">  &lt;/intent-filter&gt;</span><br><span class="line">&lt;/activity&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在进行data属性匹配的时候尽量使用<code>setDataAndType</code>, 因为源码中<code>setData</code>和<code>setType</code>会把彼此属性置为null.</p>
+<p>Intent-filter匹配规则对于Service和BroadcastReceiver也是同样. 不过建议Service的使用尽量使用显示调用服务.</p>
+<h3 id="判断是否有匹配的Intent"><a href="#判断是否有匹配的Intent" class="headerlink" title="判断是否有匹配的Intent"></a>判断是否有匹配的Intent</h3><ul>
+<li>PackageManager的<code>resolveActivity()</code>方法</li>
+<li>Intent的<code>resolveActivity()</code>方法</li>
+</ul>
+<p>使用演示:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ResolveInfo resolveInfo = getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);</span><br></pre></td></tr></table></figure>
+
+<p>参数二使用<code>PackageManager.MATCH_DEFAULT_ONLY</code>,意义在仅仅匹配哪些在<code>intent-filter</code>中声明<code>                &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;</code>,只要使用这个标记不返回null,那么startActivity就一定可以打开. 如果不用这个标记就会把没有设置default的匹配出来.从而导致判断失败.<strong>因为不含有DEFAULT这个category的Activity是无法接收隐式Intent的</strong></p>
+<p>这样如果返回的为null,那就是没有匹配到,如果不为null那就是可以匹配.</p>
+<blockquote>
+<p>下一章: IPC机制</p>
+</blockquote>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/08/02/Android开发艺术探索-笔记02-IPC机制/" data-toggle="tooltip" data-placement="top" title="《Android 开发艺术探索》 02-IPC机制">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/07/18/Retrofit-一-入门使用/" data-toggle="tooltip" data-placement="top" title="Retrofit(一)-入门使用">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/08/01/Android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F/";
+    var disqus_url = "http://szysky.com/2016/08/01/Android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

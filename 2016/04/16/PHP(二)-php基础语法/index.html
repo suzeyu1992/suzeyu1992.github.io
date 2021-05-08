@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          PHP(二)-php基础语法 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/04/16/PHP(二)-php基础语法/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#入门" title="入门">入门</a>
+                        
+                          <a class="tag" href="/tags/#PHP" title="PHP">PHP</a>
+                        
+                    </div>
+                    <h1>PHP(二)-php基础语法</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-04-16
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>自学小笔记</p>
+<span id="more"></span>
+
+<h3 id="php基本语法形式"><a href="#php基本语法形式" class="headerlink" title="php基本语法形式"></a>php基本语法形式</h3><p>区分大小写。</p>
+<p>一条语句使用一个分号结束。</p>
+<p>php注释形式。</p>
+<p>php的标记符</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">&lt;meta http-equiv=<span class="string">&quot;Content-Type&quot;</span> content=<span class="string">&quot;text/html;charset=UTF-8&quot;</span>/&gt;</span><br><span class="line"><span class="number">1</span>. <span class="meta">&lt;?php</span>   这里要写符合php语法的语句    <span class="meta">?&gt;</span>	</span><br><span class="line"><span class="number">2</span>. &lt;script language=<span class="string">&quot;php&quot;</span>&gt;这里要写符合php语法的语句&lt;/script&gt;</span><br><span class="line"><span class="number">3</span>. <span class="meta">&lt;?</span>		这里要写符合php语法的语句	<span class="meta">?&gt;</span>(不推荐，此方法依赖于php.ini中的设置项`short_open_tag = Off`(需要改为On))。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p><strong>php的结束标记<code>？&gt;</code></strong></p>
+<p>如果<code>php</code>的语句之后，不存在任何的<code>html</code>的代码，那么可以忽略。</p>
+<p><strong>php的区分大小写特性</strong></p>
+<ol>
+<li>常量区分大小写。</li>
+<li>常量通常默认也区分，但可以人为设定为不区分（不推荐）。</li>
+<li>其他场合的关键字都不区分，比如函数名，系统关键字(<code>for</code>,<code>if</code>,<code>return</code>…).</li>
+</ol>
+<p><strong>php的注释</strong></p>
+<p>单行注释: <code>形式1: //注释内容  #注释内容</code></p>
+<p>多行注释: <code>/*    注释内容,可以多行 */</code></p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p><strong>含义</strong>：名称和值得关系可以称为“引用”(指向).使用一个变量其实就是指使用该变量所引用的值。</p>
+<p><strong>使用形式</strong>:必须以<code>$</code>开头，后面紧跟变量名。</p>
+<p><strong>定义形式</strong>:直接个一个变量赋值，如果是第一次，就断是定义了。没有单纯定义变量而不赋值的语句。–所以<code>php</code>不支持“<em>单纯定义</em>”</p>
+<p><strong>变量的基本操作</strong></p>
+<ul>
+<li>赋值</li>
+<li>取值</li>
+<li>判断<code>isset()</code>:就是判断一个变量是否“有效”，不存在或者值为<code>null</code>都是无效，其他有效。</li>
+<li>删除<code>unset()</code>:就是判断断开变量名跟数据之间的引用关系。</li>
+</ul>
+<p><strong>常用的命名法</strong></p>
+<ul>
+<li>驼峰命名：手单词小写，其后每个单词首字母大写。</li>
+<li>帕斯卡命名：每个单子首字母大写。</li>
+<li>下划线命名：每个单词都小写，并且用下划线区分开。</li>
+</ul>
+<p><strong>传递类型</strong></p>
+<p>只有两种，引用传递和值传递。</p>
+<p>在php中，只有一种语法形式可以实现变量的引用传递方式:<code>&amp;</code>符号。</p>
+<pre><code>    $v1 = 1;
+    $v2 = &amp;$m1;        //引用传值方式
+</code></pre>
+<p><strong>可变变量</strong></p>
+<pre><code>    $s1 = &quot;abc&quot;;    //一个变量，里面存储的是字符串&quot;abc&quot;
+    $abc = 10;        //
+    echo    $$s1;    // =10
+</code></pre>
+<p>说明：</p>
+<ol>
+<li>在<code>php</code>中，一个“<code>$</code>”后面，总是跟着一个变量名。</li>
+<li>所以以第一个<code>$</code> 说明后面是一个变量名，名字为：<code>$1</code> 既“abc”。</li>
+<li>所以等价于<code>$abc</code>, 所以等于<code>10</code>.</li>
+</ol>
+<p>总结：所谓动态变量，其实就是变量的名字是可以动态变化的以获取不同的数据值。</p>
+<p><strong>预定义变量</strong></p>
+<p>所谓与定义变量，其实指，php这个语言工具中，预先就定义好的变量；我们只是“拿来使用”。</p>
+<p>综述：</p>
+<ul>
+<li>主要有：<code>$_GET</code>,<code>$_POST</code>,<code>$REQUEST</code>,<code>$SERVER</code>,<code>$GLOBALS</code>,</li>
+<li>均是数组</li>
+<li>系统定义与维护 –&gt; 我们不需要给其赋值或者销毁值，只需要用其值即可。</li>
+<li>具有超全局作用域 –&gt; 哪里都可以用</li>
+<li>不同情形下可能具有不同的值</li>
+</ul>
+<p><strong>$_POST变量</strong></p>
+<p>含义:它代表用户用过表单以post方式(method=”post”)提交的时候所提交的所有数据–这个称为post数据。</p>
+<pre><code>$name = $_POST[name] ;    //获取到上一个html中的form表单post提交，name=name的input标签的值。
+$age  = $_POST[age];//获取到上一个html中的form表单post提交，name=age的input标签的值。
+</code></pre>
+<p>isset(变量):    判断变量是否存在，或者变量是否为null；如果存在返回true，否则就是false。</p>
+<p>empty(变量):判断变量内容是否为空，也有一些硬性规定：0，“”，“0”，false，null，array()都是空。 空的话就返回true，否则false。</p>
+<p><strong>$_GET变量</strong></p>
+<p>含义:代表用户通过<code>get</code>方式(有四种get方式)提交的时候所提交的所有数据–这个称为get数据。</p>
+<p>1.<code>form</code>表单  <code>method</code>指定<code>get</code>方式。<br>2.<code>a</code>标签 在文件名后面追加携带参数 <code>&lt;a href=&quot;目标文件.php?data1=1&amp;data2=student&amp;age=10&quot;&gt;链接说明&lt;/a&gt;</code><br>3.通过<code>js</code>技术实现的页面跳转，跟<code>a</code>标签的连接功能一样</p>
+<pre><code>    &lt;script&gt;
+        location.href = &quot;目标文件.php?data1=1&amp;data2=student&amp;age=10&quot;;
+    &lt;/script&gt;
+    //或者使用页面跳转的另一个语法
+    &lt;script&gt;
+        location.assign = &quot;目标文件.php?data1=1&amp;data2=student&amp;age=10&quot;;
+    &lt;/script&gt;
+</code></pre>
+<p>4.php跳转形式</p>
+<pre><code>    &lt;?php
+        //语法形式:    header(&quot;location:目标网页地址&quot;);
+        header(&quot;location:目标文件.php?key1=value1&amp;key2=value2&quot;);
+    ?&gt;
+</code></pre>
+<p><strong>输出</strong></p>
+<pre><code>   print_r($_GET); 或者 var_dump($_GET);
+</code></pre>
+<p><strong>$_REQUEST变量</strong></p>
+<p>含义:是<code>$_GET变量</code>和<code>$_POST</code>变量的数据的合集，就是它里面同时存储了两种数据。</p>
+<p>只要在<code>form</code>表单<code>method</code>为<code>post</code>提交，并且<code>action</code>目标文件后追加参数，会同时出发两种请求。</p>
+<p>默认情况下<code>post</code>追加到<code>get</code>之后，但在<code>php.ini</code>中的<code>request_order</code>.可以设置。</p>
+<p><strong>$_SERVER变量</strong></p>
+<p>含义:它代表在一次浏览网页的过程中的浏览器端的一些信息或服务的一些信息。大约有30左右各信息。常用只是几个。</p>
+<ul>
+<li><code>$_SERVER[&#39;REMOTE_ADDR&#39;]</code>:    获取访问者的ip地址。</li>
+<li><code>$_SERVER[&#39;SERVER_ADDR&#39;]</code>:    获取服务器所在的ip地址。</li>
+<li><code>$_SERVER[&#39;SERVER_NAME&#39;]</code>:    获取服务器的名字，其实就是站点设置中的servername；</li>
+<li><code>$_SERVER[&#39;DOCUMENT_ROOT&#39;]</code>:    获取站点的真实物理位置，其实就是站点设置中的ducumentroot。</li>
+<li><code>$_SERVER[&#39;PHP_SELF&#39;]</code>:    获取当前网页地址，(不含域名部分)</li>
+<li><code>$_SERVER[&#39;QUERY_STRING&#39;]</code>: 获取当前网页地址中的所有get数据(?之后),就是一个字符串。</li>
+</ul>
+<p> <strong>GLOBALS变量</strong></p>
+<p> 含义:他是一个”重复性数据”,它里面存储了我们自己定义的所有”全局变量”。</p>
+<pre><code>$v1 = 1;    //定义了一个全局变量。
+    // 这个时候，就有了这样一个数据:$GLOBALS[V1],其值就是1.
+</code></pre>
+<p> 场景: 主要是用于在局部范围不可以使用全局变量，但是有需要该全局变量的值，此时就可以用来取全局变量的值。</p>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>常量是相对于变量说的:是一个其中存储的数据不会改变的”标识符”。</p>
+<p>常量的 使用就2个方面:定义，取值。</p>
+<p>常量的定义: </p>
+<ul>
+<li>方式1:<code>defind</code>(“常量名”,常量值);</li>
+<li>方式2:<code>const</code> 常量名 = 常量;</li>
+</ul>
+<p>常量的使用形式:</p>
+<ul>
+<li><p>直接使用常量的名字</p>
+</li>
+<li><p>使用函数<code>constant(name)</code>获得一个常量的值。  <code>name</code>是一个常量名字并且是一个字符串。</p>
+<pre><code>  //取常量值的灵活用法，contant()里面也可以不传字符串。
+  defind(&quot;student1&quot;,123);        //定义一个常量
+  
+  $1 = 1 ;
+  $2 = &quot;student&quot;.$1;
+  
+  echo &quot;&lt;br/&gt; 常量student1的值为:&quot;.constant($2);    //    这里$2 作为一个字符串的值，等价于常量的名字。
+  
+</code></pre>
+</li>
+</ul>
+<p><strong>引号中的常量是不能被识别的;而变量却可以。</strong> </p>
+<p>常量变量的区别</p>
+<ul>
+<li>定义形式不同:</li>
+<li>使用形式不同: 常量无需使用$</li>
+<li>可变程度不同: 常量的值不可以改变,常量也不可以销毁</li>
+<li>作用范围不同: 常量具有超全局作用域(函数内外都可以直接使用)</li>
+<li>可用类型不同: 常量只能存储标量类型(整数，浮点数，字符串，布尔)</li>
+</ul>
+<p>判断常量是否存在: <code>defind(name)</code>，返回true就存在。</p>
+<p>注意: 在<code>php</code>中，当使用一个未定义的常量的时候 ，系统会直接将该常量当做有值的常量去使用，并且其值就是该常量名字–虽然也会报错。</p>
+<h3 id="预定义常量"><a href="#预定义常量" class="headerlink" title="预定义常量"></a>预定义常量</h3><p>就是系统中预先定义好的一些常量，大约有几百个，初学知道几个就行:</p>
+<ul>
+<li><code>M_PI</code>: 就是圆周率的常量值。</li>
+<li><code>PHP_OS</code>: php运行所在的操作系统</li>
+<li><code>PHP_VERSION</code>: php的版本号</li>
+<li><code>PHP_INT_MAX</code>: php中的最大的整数值</li>
+<li>更多参考手册</li>
+</ul>
+<h3 id="魔术常量"><a href="#魔术常量" class="headerlink" title="魔术常量"></a>魔术常量</h3><p>其实只是常量的形式，但没有常量的”恒常”的含义:值会变化，只是很少的几个</p>
+<ul>
+<li><code>__FILE__</code> 代表当前网页文件的完整物理路径</li>
+<li><code>__DIR__</code>    代表当前网页文件所在的文件夹</li>
+<li><code>__LINE__</code> 代表当前这个常量名所在的行号</li>
+</ul>
+<h3 id="PHP的数据类型"><a href="#PHP的数据类型" class="headerlink" title="PHP的数据类型"></a>PHP的数据类型</h3><p><strong>基本类型(标量类型)</strong></p>
+<ul>
+<li>整数类型:    <code>int</code>, <code>integer</code></li>
+<li>浮点数类型: <code>float</code>，<code>double</code></li>
+<li>字符串类型: <code>string</code></li>
+<li>布尔类型: <code>bool</code>，<code>boolean</code></li>
+</ul>
+<p><strong>复合类型</strong></p>
+<ul>
+<li>数组:     <code>array</code></li>
+<li>对象: <code>object</code></li>
+</ul>
+<p><strong>特殊类型</strong></p>
+<ul>
+<li>空类型: <code>null</code>   这种类型中，只有一个数据，那就是<code>null</code></li>
+<li>资源类型: <code>resource</code></li>
+</ul>
+<p><strong>整数类型</strong></p>
+<p>证书类型的四种写法:</p>
+<ul>
+<li><code>$n1 = 123;    //10进制写法</code></li>
+<li><code>$n2 = 0123;    //8进制写法</code></li>
+<li><code>$n3 = 0x123;    //16进制写法</code></li>
+<li><code>$n4 = 0b1010;        //2进制写法(在php5.4以前不支持)</code></li>
+<li><code>以上定义变量，是因为赋值的值书写成整数形式，如果用字符串也可以 就不需要前面的标示区分例如:0,0x,0b。</code></li>
+</ul>
+<p><strong>进制的转换问题</strong></p>
+<ul>
+<li><code>bin</code>: 2进制</li>
+<li><code>oct</code>: 8进制</li>
+<li><code>dec</code>: 10进制</li>
+<li><code>hex</code>: 16进制</li>
+</ul>
+<p>使用方式: 两个进制转换的缩写名组合(要被转换数字)。六种</p>
+<pre><code>// 十进制转其他进制
+decbin(123);    //将十进制转成二进制 返回为一个字符串。
+decoct(123);    //将十进制转成八进制 返回为一个字符串。
+dechex(123);    //将十进制转成十六进制 返回为一个字符串。
+// 其他进制转十进制  同上3种
+注意 除了10进制为数字，其他进制类型可以认为是字符串。 
+</code></pre>
+<h3 id="进制转换的人工计算"><a href="#进制转换的人工计算" class="headerlink" title="进制转换的人工计算"></a>进制转换的人工计算</h3><p><strong>10进制转换为2进制</strong></p>
+<p>做法: 除2取余倒着写出所有余数。<br>详细解释: 讲一个10进制数字处理2，得到商和余数，如果商还大于等于2，则继续除以2，继续得到商和余数，以此类推，知道商为0为止，然后将前面的所有余数按倒序写出来就是对应的2进制数字。</p>
+<p><strong>10进制转换为8进制</strong></p>
+<p>做法: 除8取余倒着写出所有余数。<br>详细解释: 讲一个10进制数字处理8，得到商和余数，如果商还大于等于8，则继续除以8，继续得到商和余数，以此类推，知道商为0为止，然后将前面的所有余数按倒序写出来就是对应的8进制数字。</p>
+<p><strong>10进制转换为16进制</strong></p>
+<p>做法: 除16取余倒着写出所有余数。<br>详细解释: 讲一个10进制数字处理16，得到商和余数，如果商还大于等于16，则继续除以16，继续得到商和余数，以此类推，知道商为0为止，然后将前面的所有余数按倒序写出来就是对应的16进制数字。</p>
+<p><strong>其他进制换为10进制的做法:</strong></p>
+<p>一种数字的大小和”数字权值”有关。例如:</p>
+<p>例如: 对一个10进制数字: 1234，可以这样去理解它的大小:</p>
+<p>1234 = 1*10<sup>3</sup> + 2*10<sup>2</sup>  + 3*10<sup>1</sup>  + 1*10<sup>0</sup> = 1000+200+30+4 ;<br>对于10<sup>3</sup>，10<sup>2</sup>，10<sup>1</sup>等，称为”权值”，每个位的权值是不同的。</p>
+<p>对于10进制，每个位上权值都是10的几次方。</p>
+<p>对于16进制，每个位上权值都是16的几次方。</p>
+<p>对于8进制，每个位上权值都是8的几次方。</p>
+<h3 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h3><p><strong>浮点数的两种表示形式</strong></p>
+<p>1.常规写法：</p>
+<p><code>$v1 = 123.456;</code></p>
+<p>2.科学计数法:带一个特殊符号”E”</p>
+<p><code>$v1 = 123.456E3;    //123.456乘以10的3次方。 即使为123456，但是仍然是浮点类型。</code></p>
+<p><strong>浮点数使用的细节</strong></p>
+<p>1.浮点数不应该进行大小比较</p>
+<ol>
+<li>所有数字，最终的表示形式，都是2进制!!!</li>
+<li>大多数浮点数的2进制形式，不能完全表达准确。最终只能以很高的精度接近理论值。</li>
+<li>因此，浮点数比较是不可靠的。</li>
+</ol>
+<p>以上说明：<code>php</code>中输出其实是做了一定的处理之后的显示结果，而js得输出是计算机算出的结果。 <code>java</code>中<code>float</code>上限为小数点后六位，<code>double</code>为小数点后15位。</p>
+<p><strong>小数转二进制的做法:乘以2并顺序取整数部分</strong></p>
+<pre><code>//将小数0.6125转换为2进制小数形式：
+//小数转二进制的做法: 乘以2并顺序取整数部分。
+0.6125    整数
+*2
+=0.225    1
+*2
+=0.45    0
+*2 
+=0.9    0
+*2
+=0.8    1
+*2
+=0.6    1        --&gt; 已经开始循环
+*2
+=0.2    1
+*2
+=0.4    0
+*2
+=0.8    0
+*2
+=0.6    1        --&gt; 循环起始点
+*2
+=0.2    1
+......
+
+其最后结果: 0.1001 1100 1100 1100 ....(float 最多就是32个)
+
+如果小数位0.625  那么就不需要循环可以除开。 为:0.101
+</code></pre>
+<p><strong>当整数运算的结果超出整数的范围后，会自动转换为浮点数(了解)</strong></p>
+<p>获取一个数据(变量)的类型的函数：    </p>
+<ul>
+<li><code>getType($变量)</code>;    返回的是该类型的名字(字符串);</li>
+<li><code>var_dump($变量)</code>;    会输出该变量的类型，数据内容，(以及长度)。</li>
+</ul>
+<p>int类型最大数字为10位数字，max=2147483647≈21E</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>php中字符串的定义有四种形式:</p>
+<p>形式 1:双引号字符串</p>
+<p>*<code> $str1 = &quot;字符串内容&quot;;</code></p>
+<ul>
+<li>内容中可能使用到的转义符: <code>\\</code>,<code>\&#39;</code></li>
+</ul>
+<p>形式 2: 单引号字符串:</p>
+<ul>
+<li><code>$str2 = &quot;字符串内容&quot;;</code></li>
+<li>内容中可能使用到的转义符: <code>\\</code>,<code>\&#39;</code>,<code>\n（换行符）</code>,<code>\r（回车符）</code>,<code>\t(tab符)</code>,<code>\$ 取消了在双引号字符串中的php的变量名起始声明含义</code></li>
+</ul>
+<p>形式 3: 双引号定界符字符串</p>
+<ul>
+<li> <code>$str3 = &lt;&lt;&lt; &quot;标识符A&quot;&lt;br/&gt;字符串内容&lt;br/&gt;标识符 ;</code></li>
+</ul>
+<p>形式 4: 单引号定界符号字符串</p>
+<ul>
+<li><code>$str4 = &lt;&lt;&lt; &#39;标识符B&#39;    &lt;br/&gt;字符串内容&lt;br/&gt;标识符</code></li>
+</ul>
+<p>上处3 4形式结束一行，只能出现该标识符本身以及一个分号，其他什么都不允许出现。</p>
+<h3 id="布尔类型"><a href="#布尔类型" class="headerlink" title="布尔类型"></a>布尔类型</h3><p>单词bool，boolean。 只有true和false。</p>
+<p>需要知道以下数据是被当做false的存在。</p>
+<p>0，0.0， “”， “0”， null， array()， false，还有一个为定义变量。</p>
+<p>参考: 手册 –&gt; 附录 –&gt; php类型比较表</p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p><strong>自动转换</strong></p>
+<p>在任何运算中，如果需要某种类型的数据，而给出的数据不是该类型，通常会发生自动转换。将该类型转换为目标需要的类型。</p>
+<p>例如: <code>octdec($x),bindec($x),hexdec($x); 这里的$x必须是字符串如果不是就会自动转换。</code></p>
+<pre><code>    $n1 = 1+&quot;2&quot;;    //3
+    $n2 = &quot;1&quot;+&quot;2&quot;;    //3
+    //php中，算术运算符，就只能对数值进行计算，即使是字符串会强转为数字，如果不是数字那么强转结束，只保留从开始成功的一部分。
+    $n3 = 1 +&quot;2abc&quot;    //3
+    $n4 = 1 +&quot;abc2&quot;        //1
+    $n5 = 1 +true;        //2
+    $n6 = 1 +false;        //1
+</code></pre>
+<p><strong>强制转换</strong></p>
+<p>自动类型转换是由”运算符”或类似运算符的语句来决定。</p>
+<p>强制类型同java一样，在前面做类型声明强转。</p>
+<p>通常的转换类型有，<code>int</code>，<code>float</code>，<code>string</code>，<code>bool</code>，<code>array</code>，<code>object</code>。</p>
+<p>这种强转类型，并不能改变该变量的本身数据或类型。对应，有一个语法是直接改变本身的数据以及类型：</p>
+<ul>
+<li><code>settype</code>(变量名,要重设的值);</li>
+</ul>
+<h3 id="类型相关的函数"><a href="#类型相关的函数" class="headerlink" title="类型相关的函数"></a>类型相关的函数</h3><p><strong>var_dump()</strong></p>
+<p>用于输出变量的“完整信息”，几乎只用于调试代码。</p>
+<p><strong>getType($变量名)</strong></p>
+<p>获取给变量能够的类型名字，返回的是一个表示该类型的字符串。如“string”，“bool”</p>
+<p><strong>setType($变量名，”目标类型”)</strong></p>
+<p>将该变量强制改变为目标类型</p>
+<p><strong>isset(),empty(),unset()</strong></p>
+<p>之前有介绍。</p>
+<p><strong>is_XX类型() 系列函数</strong></p>
+<p>判断$x是否是一个整数类型</p>
+<ul>
+<li><code>is_int($s)</code>;    //判断是否是一个整数类型</li>
+<li><code>is_float($s)</code>;    </li>
+<li>…</li>
+<li><code>is_numeric($s)</code>;//判断是否是一个数字</li>
+<li><code>is_scalar($s)</code>;    //判断是否是一个标量类型</li>
+</ul>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><p><strong>算术运算符</strong></p>
+<p>符号 <code>+ - * / %</code></p>
+<ul>
+<li>在php中只是针对数字进行运算</li>
+<li>如果运算符两边有不是数字的数据，就会自动转换为数字</li>
+<li>其中取余运算%，它只会针对整数进行运算如果不是，会自动截取为整数。</li>
+</ul>
+<p><strong>自增自减运算符</strong></p>
+<ul>
+<li>常规: 对数字进行自加1或自减1.</li>
+<li>字符串: 只能自增，且自增的效果就是 下一个字符 ，只能针对字母或数字进行自加。</li>
+<li>布尔值递增递减无效</li>
+<li>null递减无效，递增结果为1</li>
+</ul>
+<p><strong>逻辑运算符</strong></p>
+<p>php中的<code>&amp;&amp;</code> <code>||</code>  支持短路现象，相当于java中的 单<code>&amp;</code>   和双<code>&amp;</code> 的区别，如果判断条件1可以得出结论，后面的判断条件不再执行。</p>
+<p><strong>字符串运算符</strong></p>
+<ul>
+<li>符号为<code>.</code>，也演出了另一个<code>.=</code></li>
+<li>如果两边不是字符串，就会自动转换为字符串在连接。</li>
+</ul>
+<h3 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h3><p><strong>基础规定</strong></p>
+<p>1 位是什么？ 就是二进制数字的每一个 位，一个整数数字，有32个位构成。</p>
+<p>2 位运算符仅仅针对整数进行的运算符。</p>
+<p>3.位运算符有如下几个</p>
+<ul>
+<li><code>&amp;</code>：按位与</li>
+<li><code>|</code>：按位或</li>
+<li><code>~</code>：按位非   按位取反</li>
+<li><code>^</code>：按位异或</li>
+</ul>
+<p>4.位运算符的基本语法规则。</p>
+<p>按位与基本规则：</p>
+<pre><code>* 1 &amp; 1 --&gt; 1
+* 1 &amp; 0 --&gt; 0
+* 0 &amp; 1 --&gt; 0
+* 0 &amp; 0 --&gt; 0
+</code></pre>
+<p>按位或基本规则：</p>
+<pre><code>* 1 | 1 --&gt; 1
+* 1 | 0 --&gt; 1
+* 0 | 1 --&gt; 1
+* 0 | 0 --&gt; 0
+</code></pre>
+<p>按位非基本规则：</p>
+<pre><code>* ~ 1 --&gt; 1
+* ~ 0 --&gt; 1
+</code></pre>
+<p> 按位异或基本规则：</p>
+<pre><code>* 1 ^ 1 --&gt; 0
+* 1 ^ 0 --&gt; 1
+* 0 ^ 1 --&gt; 1
+* 0 ^ 0 --&gt; 0
+</code></pre>
+<p><strong>原码，反码，补码</strong></p>
+<p>原码：是一个二进制数字，从数学观念上来表达的形式，其中，我们规定: 一个数字的最左边是符号位，0表示整数，1表示负数。</p>
+<p>反码：整数的反码不变，负数的反码：符号位不变，其他位取反。</p>
+<p>补码：整数的补码就是本身，负数补码：符号位不变，其他位取反后+1—-既反码+1</p>
+<p><strong>灯泡判断法</strong></p>
+<p>status 所有灯泡状态<br>d1，d2……dx    每个灯泡</p>
+<pre><code>1. 查看某个灯泡是否打开: (status &amp; d1）是否大于0
+2. 打开某个灯泡: status | d1
+3. 关闭某个灯泡: status &amp; (~d1)
+</code></pre>
+<p><strong>数组运算符</strong></p>
+<ul>
+<li>+：数组联合，也可以理解为数组串联。将游标的数组项合并到左边数组的后面，得到一个新数组，如果有重复键，则结果以左边的为准。</li>
+<li>==：如果两个数组具有相同的键名和键值(可以顺序不同类型不同)，则返回true。</li>
+<li>===：如果两个数组具有相同的键名和键值并且顺序类型都一样，则返回true。</li>
+</ul>
+<h3 id="错误控制运算符"><a href="#错误控制运算符" class="headerlink" title="错误控制运算符@"></a>错误控制运算符@</h3><p>通常就用在一个地方</p>
+<p><code>$link = @mysql_connect(&quot;数据库服务器地址&quot;,&quot;用户名&quot;,&quot;密码&quot;);</code><br>作用是:如果该链接数据的语句失败，则屏蔽该失败的错误提示。</p>
+<h3 id="循环语句特殊使用"><a href="#循环语句特殊使用" class="headerlink" title="循环语句特殊使用"></a>循环语句特殊使用</h3><p>php中，<code>break</code>和<code>continue</code>有扩展的使用功能，可以中断更多层的循环。break 正整数n;</p>
+<p>循环的层，值得是从当前中断语句(break，continue)算起，往代码的外部属循环个数，就是层数。</p>
+<pre><code>for()&#123;        //循环1
+    for()&#123;        //循环2
+        for()&#123;        //循环3
+            break 2; //会中断2：就是指中断2层
+                    //循环3为第一层，循环2为第二层，循环3为第三层。
+        &#125;
+    
+    &#125;
+&#125;
+</code></pre>
+<h3 id="控制脚本执行顺序"><a href="#控制脚本执行顺序" class="headerlink" title="控制脚本执行顺序"></a>控制脚本执行顺序</h3><p><strong>die(字符串)/exit(字符串)</strong></p>
+<p>输出该字符串后，立即停止php的执行!既后续程序不再执行，包括后续的其他所有php和html代码部分。</p>
+<p>exit是die的同义词。也可以不加字符串，而是直接停止。</p>
+<p><strong>sleep($n)</strong></p>
+<p>让程序停止运行指定的秒数。然后等待过了那个时间后，就继续运行。</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/04/16/基础篇(六)-HTML5介绍/" data-toggle="tooltip" data-placement="top" title="基础篇(六)-HTML5介绍">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/04/15/PHP(一)-环境搭建/" data-toggle="tooltip" data-placement="top" title="PHP(一)-环境搭建">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#入门" title="入门">入门</a>
+                        
+                          <a class="tag" href="/tags/#PHP" title="PHP">PHP</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/04/16/PHP(%E4%BA%8C)-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/";
+    var disqus_url = "http://szysky.com/2016/04/16/PHP(%E4%BA%8C)-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

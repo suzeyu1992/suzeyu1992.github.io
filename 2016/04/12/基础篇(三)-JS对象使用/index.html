@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          基础篇(三)-JS对象使用 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/04/12/基础篇(三)-JS对象使用/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#入门" title="入门">入门</a>
+                        
+                          <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
+                        
+                    </div>
+                    <h1>基础篇(三)-JS对象使用</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-04-12
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>自学小笔记</p>
+<span id="more"></span>
+
+
+<h3 id="JS内置对象"><a href="#JS内置对象" class="headerlink" title="JS内置对象"></a>JS内置对象</h3><p><strong>String对象:字符串对象，提供了对字符串进行操作的属性和方法。</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>length</td>
+<td>获取字符换长度</td>
+</tr>
+<tr>
+<td>toLowerCase()</td>
+<td>将str转为小写</td>
+</tr>
+<tr>
+<td>toUpperCase()</td>
+<td>将str转为大写</td>
+</tr>
+<tr>
+<td>charAt(index)</td>
+<td>指定下标位置的字符，没有找到返回空字符串</td>
+</tr>
+<tr>
+<td>indexOf(strsub)</td>
+<td>某一个字字符串所在的下标值，没有则返回-1</td>
+</tr>
+<tr>
+<td>lastIndexOf()</td>
+<td>同上，但是从右往左查找。</td>
+</tr>
+<tr>
+<td>substr(startIndex[,length])</td>
+<td>从startIndex下标起，返回length个字符</td>
+</tr>
+<tr>
+<td>substring(startIndex[,endIndex])</td>
+<td>返回从startIndex下标起到endIndex结束之间的所有字符</td>
+</tr>
+<tr>
+<td>split(str)</td>
+<td>按照传入的字符切割原字符串，返回一个数组</td>
+</tr>
+</tbody></table>
+<p><strong>Array对象:数组对象，提供了数组操作方面的属性和方法。</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lenght</td>
+<td>返回数组的长度</td>
+</tr>
+<tr>
+<td>join(连接号)</td>
+<td>将一个数组，用指定的连接号连接成一个字符串</td>
+</tr>
+<tr>
+<td>reverse()</td>
+<td>将数组的元素反转</td>
+</tr>
+<tr>
+<td>shift()</td>
+<td>删除数组中第一个元素，返回删除的值,并将长度减1</td>
+</tr>
+<tr>
+<td>pop()</td>
+<td>删除数组的最后一个元素,返回删除的值,并将长度减1</td>
+</tr>
+<tr>
+<td>unshift(boject[,object…])</td>
+<td>往数组前面添加一个或读个数组元素，长度要改变</td>
+</tr>
+<tr>
+<td>push([,object…])</td>
+<td>往数组结尾添加一个或多个数组元素，长度改变</td>
+</tr>
+</tbody></table>
+<p><strong>Date对象:日期时间对象，可以获取系统的日期时间信息。</strong></p>
+<p>Date对象的使用，必须使用new关键字来创建实例对象。</p>
+<p>1.创建当前日期对象的实例，不带任何参数。</p>
+<p><code>var today = new Date();</code></p>
+<p>2.指定毫秒值（参数为时间戳）</p>
+<p>时间戳:是指某一个时间距离1970年1月1日0时0分0秒，过去了多少毫秒值。</p>
+<p><code>var timer = new Date(99999);</code></p>
+<p>3.指定一个字符串日期时间信息(参数是一个时间字符串)</p>
+<p><code>var timer = new Date(&quot;2016/4/6 12:00:00&quot;);</code></p>
+<p>4.指定多个数值参数</p>
+<p><code>var timer = new Date（2015,4,20,19,29,59）;</code>    //顺序为: 年、月、日、时、分、秒。 年月日时必须的。</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getFullYear()</td>
+<td>获取四位年份</td>
+</tr>
+<tr>
+<td>getMonth()</td>
+<td>获取月份,取值0-11</td>
+</tr>
+<tr>
+<td>getDate()</td>
+<td>获取几号,取值1-31</td>
+</tr>
+<tr>
+<td>getHours()</td>
+<td>获取小时数</td>
+</tr>
+<tr>
+<td>getMinutes()</td>
+<td>分钟数</td>
+</tr>
+<tr>
+<td>getSeconds()</td>
+<td>获取秒</td>
+</tr>
+<tr>
+<td>getMilliseconds()</td>
+<td>获取毫秒</td>
+</tr>
+<tr>
+<td>getDay</td>
+<td>获取星期</td>
+</tr>
+<tr>
+<td>getTime()</td>
+<td>毫秒值  距离1970的毫秒值</td>
+</tr>
+</tbody></table>
+<p><strong>Boolean对象:布尔对象，一个布尔变量就是一个布尔对象(没有可用的属性和方法)</strong></p>
+<p><strong>Number对象:数值对象。一个数值变量就是一个数值对象。</strong></p>
+<p><code>toFiexd();</code><br>功能: 将一个数值转成字符串，并进行四舍五入，保留指定位数的小数。<br>语法: <code>numObj.toFixed(n)</code><br>参数: n就是要保留的小数位数。</p>
+<p><strong>Math对象:数学对象，提供了数学方面运算的属性和方法</strong></p>
+<p>Math对象会一个静态对象，可以直接使用。</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PI</td>
+<td>圆周率</td>
+</tr>
+<tr>
+<td>abs()</td>
+<td>绝对值。如:Math.abs(-9)=9</td>
+</tr>
+<tr>
+<td>ceil()</td>
+<td>向上取整(整数加1，小数去掉)。</td>
+</tr>
+<tr>
+<td>floor()</td>
+<td>向下取证(直接去掉小数)</td>
+</tr>
+<tr>
+<td>round()</td>
+<td>四舍五入</td>
+</tr>
+<tr>
+<td>pow(x,y)</td>
+<td>求x的y次方。</td>
+</tr>
+<tr>
+<td>sqrt()</td>
+<td>求平方根</td>
+</tr>
+<tr>
+<td>random()</td>
+<td>返回一个0到1之间的随机小数</td>
+</tr>
+</tbody></table>
+<h3 id="form对象"><a href="#form对象" class="headerlink" title="form对象"></a>form对象</h3><p>一个<code>&lt;form&gt;</code>标记，就是一个<code>&lt;form&gt;</code>对象。</p>
+<p><strong>1.form对象属性</strong></p>
+<ul>
+<li><code>name</code>：表单名称，让js来控制表单。</li>
+<li><code>action</code>：表单的数据处理程序（PHP文件）。</li>
+<li><code>method</code>：表单的提交方式，取值：GET、POST。</li>
+<li><code>enctype</code>：表单数据的编码方式。</li>
+</ul>
+<p><strong>2.form对象的方法</strong></p>
+<ul>
+<li><code>submit()</code>: 提交表单，与<input type="submit"/>功能一样。</li>
+<li><code>reset()</code>:重置表单，与重置按钮功能一样。</li>
+</ul>
+<p><strong>3.form对象的事件</strong></p>
+<ul>
+<li><code>onSubmit</code>：当单机提交按钮时发生，并数据发往服务器之前。主要用来表单验证。</li>
+<li><code>onreset</code>：当单机重置按钮时发生。</li>
+</ul>
+<p><strong>获取表单元素的方法</strong></p>
+<ol>
+<li>通过网页元素的id来获取对象。<code>document.getElementById(id)</code>.</li>
+<li>通过HTML标签名来获取对象。<code>parentNode.getElementsByTagName(tagName)</code>。</li>
+<li>通过<code>name</code>属性来获取表单元素对象。表单中所有元素的起点必须是<code>document</code>对象。如：<code>document.form(表单name值).username(表单元素name值)。</code></li>
+</ol>
+<p><strong>事件返回值</strong></p>
+<p>事件的返回值，会影响对象的默认动作。<br>如果事件返回false，则阻止默认动作的执行；如果事件返回<code>true</code>或空，则默认动作继续执行。例如<code>&lt;a href=&quot;www.baidu.com&quot; onclick=&quot;return false&quot;&gt;</code> 连接默认跳转会失效。</p>
+<p><strong>提交和验证方法总结</strong></p>
+<p>1.使用<code>submit</code>按钮，结合<code>onsubmit</code>事件来实现(最常用).</p>
+<p>2.<code>submit</code>按钮，结合<code>onclick</code>事件，实现表单的验证和提交。</p>
+<p>3.<code>button</code>按钮，结合<code>submit()</code>方法，实现表单验证提交。</p>
+<p><strong>input对象</strong></p>
+<p>一个<code>&lt;input&gt;</code>标记，就是一个<code>input</code>对象。</p>
+<p>1.<code>input</code>对象的属性(以type=text为例)</p>
+<ul>
+<li><code>name</code>：表单元素名称。</li>
+<li><code>value</code>：表单元素的值，用户输入的内容，可以通过该属性来获取。</li>
+<li><code>size</code>：表单的长度。</li>
+<li><code>maxlength</code>：表单元素的最大长度(最多可输的字符数)。</li>
+<li><code>disable</code>：禁用元素。</li>
+<li><code>readonly</code>：只读属性。</li>
+</ul>
+<p>2.<code>input</code>对象方法</p>
+<ul>
+<li> <code>focus()</code>:获得焦点的方法（定位光标）。</li>
+<li> <code>blur()</code>:失去焦点的方法（移走光标）。</li>
+<li> <code>select()</code>:选中文本的方法。 </li>
+</ul>
+<p>3.<code>input</code>对象的事件</p>
+<ul>
+<li><code>onfocus</code>:当获取焦点时</li>
+<li><code>onblur</code>:当失去焦点时</li>
+</ul>
+<p><strong>select对象</strong></p>
+<p><code>select</code>对象属性</p>
+<ul>
+<li><code>options</code>[]: 设置或返回下拉列表中<code>&lt;option&gt;</code>标记构成的数组。</li>
+<li><code>selectedIndex</code>:设置或选中指定<code>&lt;option&gt;</code>的索引号。</li>
+<li><code>length</code>:指定下拉列表中<code>&lt;option&gt;</code>标记的个数。</li>
+<li><code>name</code>:元素名称。</li>
+</ul>
+<p><code>option</code>对象属性</p>
+<ul>
+<li><code>text</code>：指<code>&lt;option&gt;</code>和<code>&lt;/option&gt;</code>之间的文本</li>
+<li><code>value</code>：指<code>&lt;option&gt;</code>标记的属性。</li>
+</ul>
+<p><a href="基础篇(三)-JS对象使用.html">简单小实例</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/04/13/基础篇(四)-JS-BOM/" data-toggle="tooltip" data-placement="top" title="基础篇(四)-JS-BOM">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/04/11/基础篇(二)-JS基本语法/" data-toggle="tooltip" data-placement="top" title="基础篇(二)-JS基本语法">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#入门" title="入门">入门</a>
+                        
+                          <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/04/12/%E5%9F%BA%E7%A1%80%E7%AF%87(%E4%B8%89)-JS%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/";
+    var disqus_url = "http://szysky.com/2016/04/12/%E5%9F%BA%E7%A1%80%E7%AF%87(%E4%B8%89)-JS%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

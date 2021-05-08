@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          设计模式之六大原则解析 - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/11/28/设计模式之六大原则解析/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#设计模式" title="设计模式">设计模式</a>
+                        
+                    </div>
+                    <h1>设计模式之六大原则解析</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-11-28
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>列举出设计模式中的六大原则应该如何实现</p>
+</blockquote>
+<h2 id="单一职责原则-SRP"><a href="#单一职责原则-SRP" class="headerlink" title="单一职责原则 SRP"></a>单一职责原则 SRP</h2><blockquote>
+<p>Single Responsibility Principle</p>
+</blockquote>
+<p><code>场景</code>: 如果让你写出一个图片缓存类, 要求内部实现缓存策略, 并提供方法只需要传递<code>控件</code>和<code>图片地址</code>就可以自动设置背景的类. </p>
+<p>先给出最简单<code>直接</code>的写法. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ImageLoader</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 图片的缓存</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    LruCache&lt;String , Bitmap&gt; mImageCache;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 线程池</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    ExecutorService mExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ImageLoader</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 初始化内存缓存策略</span></span><br><span class="line">        initImageCache();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initImageCache</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获得可使用的最大内存</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> maxMemory = (<span class="keyword">int</span>) (Runtime.getRuntime().maxMemory() / <span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置 1/4 的最大内存为作为缓存</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> cacheSize = maxMemory / <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">        mImageCache = <span class="keyword">new</span> LruCache&lt;String,Bitmap&gt;(cacheSize)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">sizeOf</span><span class="params">(String key, Bitmap value)</span> </span>&#123;</span><br><span class="line">                <span class="comment">//  返回缓存的bitmap大小</span></span><br><span class="line">                <span class="keyword">return</span> value.getRowBytes() * value.getHeight() /<span class="number">1024</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">displayImage</span><span class="params">(<span class="keyword">final</span> ImageView iv, <span class="keyword">final</span> String imgUrl)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 获取缓存</span></span><br><span class="line">        Bitmap bitmap = mImageCache.get(imgUrl);</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> != bitmap)&#123;</span><br><span class="line">             iv.setImageBitmap(bitmap);</span><br><span class="line">             <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 网络加载</span></span><br><span class="line">        iv.setTag(imgUrl);</span><br><span class="line">        mExecutorService.submit(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                Bitmap bitmap = downloadImage(imgUrl);</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">null</span> == bitmap)</span><br><span class="line">                    <span class="keyword">return</span> ;</span><br><span class="line">                <span class="keyword">if</span> (iv.getTag().equals(imgUrl)) &#123;</span><br><span class="line">                    iv.setImageBitmap(bitmap);</span><br><span class="line">                &#125;</span><br><span class="line">                mImageCache.put(imgUrl,bitmap);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据图片的url下载图片并转换成bitmap对象返回</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Bitmap <span class="title">downloadImage</span><span class="params">(String url)</span></span>&#123;</span><br><span class="line">        Bitmap bitmap = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            URL url1 = <span class="keyword">new</span> URL(url);</span><br><span class="line">            HttpURLConnection conn = (HttpURLConnection) url1.openConnection();</span><br><span class="line">            bitmap = BitmapFactory.decodeStream(conn.getInputStream());</span><br><span class="line">            conn.disconnect();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> bitmap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>对于功能来说这是没有问题的. 但是接下来分析一下. 这样写会有什么弊端. </p>
+<ol>
+<li>首先这个类的职责包括了两个<code>图片缓存的逻辑</code>和<code>图片下载的逻辑</code>. 耦合性太强,</li>
+<li><code>类的职责过多</code>那么就会造成类中的代码更多,两个逻辑的代码会交叉分布. 不易被阅读.</li>
+<li><code>扩展性</code>随着后续的实现<code>磁盘缓存</code>修改<code>加载图片</code>逻辑等会让代码越来越复杂难懂. </li>
+</ol>
+<p>那么重构一下, 让两个职责分离开来. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 处理图片的加载</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ImageLoader</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 图片的缓存</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    ImageCache mImageCache = <span class="keyword">new</span> ImageCache();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 线程池</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    ExecutorService mExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">displayImage</span><span class="params">(<span class="keyword">final</span> ImageView iv, <span class="keyword">final</span> String imgUrl)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 获取缓存</span></span><br><span class="line">         Bitmap bitmap = mImageCache.getCache(imgUrl);</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> != bitmap)&#123;</span><br><span class="line">            iv.setImageBitmap(bitmap);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 网络加载</span></span><br><span class="line">        iv.setTag(imgUrl);</span><br><span class="line">        mExecutorService.submit(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                Bitmap bitmap = downloadImage(imgUrl);</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">null</span> == bitmap)</span><br><span class="line">                    <span class="keyword">return</span> ;</span><br><span class="line">                <span class="keyword">if</span> (iv.getTag().equals(imgUrl)) &#123;</span><br><span class="line">                    iv.setImageBitmap(bitmap);</span><br><span class="line">                &#125;</span><br><span class="line">                mImageCache.putCache(imgUrl,bitmap);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据图片的url下载图片并转换成bitmap对象返回</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Bitmap <span class="title">downloadImage</span><span class="params">(String url)</span></span>&#123;</span><br><span class="line">        Bitmap bitmap = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            URL url1 = <span class="keyword">new</span> URL(url);</span><br><span class="line">            HttpURLConnection conn = (HttpURLConnection) url1.openConnection();</span><br><span class="line">            bitmap = BitmapFactory.decodeStream(conn.getInputStream());</span><br><span class="line">            conn.disconnect();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> bitmap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 图片缓存逻辑处理类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ImageCache</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 图片的缓存</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    LruCache&lt;String , Bitmap&gt; mImageCache;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ImageCache</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 初始化内存缓存策略</span></span><br><span class="line">        initImageCache();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initImageCache</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获得可使用的最大内存</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> maxMemory = (<span class="keyword">int</span>) (Runtime.getRuntime().maxMemory() / <span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置 1/4 的最大内存为作为缓存</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> cacheSize = maxMemory / <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">        mImageCache = <span class="keyword">new</span> LruCache&lt;String,Bitmap&gt;(cacheSize)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">sizeOf</span><span class="params">(String key, Bitmap value)</span> </span>&#123;</span><br><span class="line">                <span class="comment">//  返回缓存的bitmap大小</span></span><br><span class="line">                <span class="keyword">return</span> value.getRowBytes() * value.getHeight() /<span class="number">1024</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 提供一个对 bitmap 进行缓存的方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putCache</span><span class="params">(String imgUrl, Bitmap bitmap)</span></span>&#123;</span><br><span class="line">        mImageCache.put(imgUrl, bitmap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对外提供一个 获取缓存的方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Bitmap <span class="title">getCache</span><span class="params">(String imgUrl)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mImageCache.get(imgUrl);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将原类拆分为两个类之后, 每个类的职责变得清晰. 如果需要更改<code>缓存策略</code>那么只需要修改<code>ImageCache</code>类总逻辑. 如果需要替换<code>HttpURLConnection</code>为<code>OKHttp</code>那么只需要在<code>ImageLoader</code>类中修改. 这样充分了体现了一个类<code>单一职责SRP</code>的好处, 清晰, 排除了修改时的多余干扰代码.</p>
+<h2 id="开闭原则-OCP"><a href="#开闭原则-OCP" class="headerlink" title="开闭原则 OCP"></a>开闭原则 OCP</h2><blockquote>
+<p>全称<code>Open Close Principle</code></p>
+</blockquote>
+<p><code>定义</code>: 对于对象应该对于扩展是开放的, 对于修改是封闭的.  就是在后续的功能添加的时候要尽可能做到不修改已存在的代码!  就是通过<code>继承</code> <code>接口</code>的特性来实现的. 就是我们口中常说的<code>面向接口编程</code></p>
+<p>还是上面的代码, 这个时候我们如果想增添一个<code>二级缓存,添加一个磁盘的缓存</code>那么代码就如下了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 磁盘缓存</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DiskCache</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String cacheDir = <span class="string">&quot;sdcard/cache/&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从磁盘中获取缓存</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Bitmap <span class="title">getCache</span><span class="params">(String imgUrl)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> BitmapFactory.decodeFile(cacheDir+imgUrl);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向磁盘中缓存</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putCache</span><span class="params">(String imgUrl, Bitmap bitmap)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>(FileOutputStream fileOutputStream = <span class="keyword">new</span> FileOutputStream(cacheDir+imgUrl))&#123;</span><br><span class="line">            <span class="comment">// 对bitmap压缩到本地文件</span></span><br><span class="line">            bitmap.compress(Bitmap.CompressFormat.PNG, <span class="number">100</span>, fileOutputStream);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 还需要对ImageLoader类进行部分修改 只贴出添加的代码</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 处理图片的加载</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ImageLoader</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 磁盘缓存</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    DiskCache mDiskCache = <span class="keyword">new</span> DiskCache();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置一个标记表示是否开启磁盘缓存</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> isUseDiskCache = <span class="keyword">false</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">displayImage</span><span class="params">(<span class="keyword">final</span> ImageView iv, <span class="keyword">final</span> String imgUrl)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 获取缓存</span></span><br><span class="line">         Bitmap bitmap = mImageCache.getCache(imgUrl);</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> != bitmap)&#123;</span><br><span class="line">            iv.setImageBitmap(bitmap);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断磁盘缓存</span></span><br><span class="line">        <span class="keyword">if</span> (isUseDiskCache)&#123;</span><br><span class="line">            bitmap = mDiskCache.getCache(imgUrl);</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">null</span> != bitmap)</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 省略相同的网络下载代码...   </span></span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUseDiskCache</span><span class="params">(<span class="keyword">boolean</span> useDiskCache)</span> </span>&#123;</span><br><span class="line">        isUseDiskCache = useDiskCache;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>至此初步的添加功能需求已经完成, 增加了一个<code>DiskCache</code>类实现磁盘缓存, 并在<code>ImageLoader</code>类中进行判断使用的代码. </p>
+<p><code>分析</code>: 现在的加载可以有两种.一种是只使用<code>LruCache</code>缓存, 另一种是实现两种缓存同时实现. 那么这样的代码会有怎样的问题?</p>
+<ul>
+<li>问题1: 如果想实现单磁盘缓存? 那么必须再对<code>ImageLoader</code>进行修改. 添加判断条件. 并且三种缓存策略<code>if</code>的判断也就比较多.</li>
+<li>问题2: 如果用户想实现<code>自定义缓存</code>? 呵呵哒. 目前的代码没这么厉害的扩展性…</li>
+</ul>
+<p>那么看一下<code>UML</code>类图</p>
+<p><img src="1.png"></p>
+<p>可以看出只要添加一个缓存策略就要建立一个依赖关系. </p>
+<p>那么如果通过<code>接口</code>的方式来修改代码呢. 看一下…</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 缓存接口</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BaseCache</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加缓存的抽象方法</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">putCache</span><span class="params">(String imgUrl, Bitmap bitmap)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取缓存的抽象方法</span></span><br><span class="line">    <span class="function">Bitmap <span class="title">getCache</span><span class="params">(String imgUrl)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 双缓存</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DoubleCache</span> <span class="keyword">implements</span> <span class="title">BaseCache</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    BaseCache mMemoryCache = <span class="keyword">new</span> ImageCache();</span><br><span class="line">    BaseCache mDiskCache = <span class="keyword">new</span> DiskCache();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putCache</span><span class="params">(String imgUrl, Bitmap bitmap)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 缓存</span></span><br><span class="line">        mMemoryCache.putCache(imgUrl, bitmap);</span><br><span class="line">        mDiskCache.putCache(imgUrl, bitmap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Bitmap <span class="title">getCache</span><span class="params">(String imgUrl)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 先从缓存取没有再从sd取</span></span><br><span class="line">        Bitmap cache = mMemoryCache.getCache(imgUrl);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == cache)&#123;</span><br><span class="line">            cache = mDiskCache.getCache(imgUrl);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cache;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 图片缓存逻辑处理类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ImageCache</span>  <span class="keyword">implements</span> <span class="title">BaseCache</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 图片的缓存</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    LruCache&lt;String , Bitmap&gt; mImageCache;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ImageCache</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 初始化内存缓存策略</span></span><br><span class="line">        initImageCache();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initImageCache</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获得可使用的最大内存</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> maxMemory = (<span class="keyword">int</span>) (Runtime.getRuntime().maxMemory() / <span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置 1/4 的最大内存为作为缓存</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> cacheSize = maxMemory / <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">        mImageCache = <span class="keyword">new</span> LruCache&lt;String,Bitmap&gt;(cacheSize)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">sizeOf</span><span class="params">(String key, Bitmap value)</span> </span>&#123;</span><br><span class="line">                <span class="comment">//  返回缓存的bitmap大小</span></span><br><span class="line">                <span class="keyword">return</span> value.getRowBytes() * value.getHeight() /<span class="number">1024</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 提供一个对 bitmap 进行缓存的方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putCache</span><span class="params">(String imgUrl, Bitmap bitmap)</span></span>&#123;</span><br><span class="line">        mImageCache.put(imgUrl, bitmap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对外提供一个 获取缓存的方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Bitmap <span class="title">getCache</span><span class="params">(String imgUrl)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mImageCache.get(imgUrl);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 处理图片的加载</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ImageLoader</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 图片的缓存 默认只是内存缓存</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    BaseCache mImageCache = <span class="keyword">new</span> ImageCache();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注入缓存策略</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setmImageCache</span><span class="params">(BaseCache mImageCache)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mImageCache = mImageCache;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 线程池</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    ExecutorService mExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">displayImage</span><span class="params">(<span class="keyword">final</span> ImageView iv, <span class="keyword">final</span> String imgUrl)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 获取缓存 具体的缓存策略实现了依赖注入. 有调用者后续决定, 默认内存缓存</span></span><br><span class="line">         Bitmap bitmap = mImageCache.getCache(imgUrl);</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> != bitmap)&#123;</span><br><span class="line">            iv.setImageBitmap(bitmap);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 网络加载</span></span><br><span class="line">        iv.setTag(imgUrl);</span><br><span class="line">        mExecutorService.submit(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                Bitmap bitmap = downloadImage(imgUrl);</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">null</span> == bitmap)</span><br><span class="line">                    <span class="keyword">return</span> ;</span><br><span class="line">                <span class="keyword">if</span> (iv.getTag().equals(imgUrl)) &#123;</span><br><span class="line">                    iv.setImageBitmap(bitmap);</span><br><span class="line">                &#125;</span><br><span class="line">                mImageCache.putCache(imgUrl,bitmap);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据图片的url下载图片并转换成bitmap对象返回</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Bitmap <span class="title">downloadImage</span><span class="params">(String url)</span></span>&#123;</span><br><span class="line">        Bitmap bitmap = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            URL url1 = <span class="keyword">new</span> URL(url);</span><br><span class="line">            HttpURLConnection conn = (HttpURLConnection) url1.openConnection();</span><br><span class="line">            bitmap = BitmapFactory.decodeStream(conn.getInputStream());</span><br><span class="line">            conn.disconnect();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> bitmap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码没有<code>单磁盘缓存</code>的策略, 但是如果现在想要实现了这个功能, 怎么做? 只需要创建一个类实现<code>BaseCache</code>. 在创建<code>ImageLoader</code>的时候通过<code>setmImageCache()</code>来注入不同的实现. <code>不需要修改源代码</code>, 并且<code>ImageLoader</code>中的<code>if</code>语句判断和<code>布尔标记</code>也完全不需要, 代码更加简洁. </p>
+<p>看一下类图:</p>
+<p><img src="2.png"></p>
+<p>可以看到<code>ImageLoader</code>依赖了接口编程. 接口定义了缓存的共性方法. 在后续只要是其子类就可以使用.这不正满足了<code>开闭原则的定义</code>, <code>对修改封闭, 对于扩展开放</code>了.</p>
+<h2 id="里氏替换原则-LSP"><a href="#里氏替换原则-LSP" class="headerlink" title="里氏替换原则 LSP"></a>里氏替换原则 LSP</h2><blockquote>
+<p>全称<code>Liskov Substitution Principle</code></p>
+</blockquote>
+<p><code>定义</code>: 所有引用基类的地方必须能透明的使用其子类.</p>
+<p>说白了就是Java中的<code>继承</code>和<code>多态</code>的特性. 父类可以直接引用子类类型. 比如<code>Object</code>可以引用任何类型的概念. </p>
+<p>其实在上面的<code>开闭原则</code>中就已经存在了<code>里氏替换</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 注入缓存策略</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setmImageCache</span><span class="params">(BaseCache mImageCache)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">this</span>.mImageCache = mImageCache;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参数接收的<code>BaseCache</code>类型. 可以透明的引用任何的子类. 通过<code>抽象</code>实现了多种可能. </p>
+<p>一般来说<code>开闭原则</code>和<code>里氏替换</code>是不离不弃, 生死相依的. 通过<code>里氏替换</code>达到了对扩展的开发, 对修改封闭的效果. 这两个原则同时实现了一个<code>OOP</code>的一个重要特性<code>抽象</code></p>
+<h2 id="依赖倒置原则-DIP"><a href="#依赖倒置原则-DIP" class="headerlink" title="依赖倒置原则 DIP"></a>依赖倒置原则 DIP</h2><blockquote>
+<p>全称:Dependence Inversion Principle</p>
+</blockquote>
+<p><code>定义</code>: 指代了一种特定的解耦方式, 使得<code>高层次</code>的模块不依赖于<code>低层次的模块实现细节</code>. </p>
+<ul>
+<li>高层次模块不应该依赖低层次, 两者都应该依赖其抽象</li>
+<li>抽象不应该依赖细节</li>
+<li>细节应该依赖抽象</li>
+</ul>
+<p>而在<code>Java</code>中的表现就是: <code>模块间的依赖通过抽象发生, 实现类之间不发生直接的依赖关系, 其依赖关系是通过接口或抽象产生的</code></p>
+<p>直接看代码, 还是上面的<code>ImageLoader</code>类中</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 依赖于接口抽象, </span></span><br><span class="line">BaseCache mImageCache = <span class="keyword">new</span> ImageCache();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 依赖于细节, 内存缓存</span></span><br><span class="line">ImageCache mImageCache = <span class="keyword">new</span> ImageCache();</span><br><span class="line"><span class="comment">// 依赖于细节, 双缓存</span></span><br><span class="line">DoubleCache mImageCache = <span class="keyword">new</span> DoubleCache();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果依赖了内存缓存细节, 那么注入的缓存策略必须是<code>ImageCache</code>的子类. 但是这个子类已经具备一个细节的实现, 我们再去做其他细节的实现. 岂不是很怪异. 这个类中的出现的方法也是匪夷所思. 并且可能用户实现的具体策略也不一定是<code>内存</code>方法的缓存. 在命名上的限制也是很不友好. </p>
+<p>总结一句话: <code>依赖抽象, 而不依赖具体实现</code></p>
+<h2 id="接口隔离原则-ISP"><a href="#接口隔离原则-ISP" class="headerlink" title="接口隔离原则 ISP"></a>接口隔离原则 ISP</h2><blockquote>
+<p>全称: Interface Segregation Principle</p>
+</blockquote>
+<p><code>定义</code>: 类间的依赖关系应该建立在最小的接口上.</p>
+<p>接口隔离的原则就是让系统接口耦合, 从而更容易重构, 更改和重新部署.</p>
+<p>对于操作<code>IO</code>或者<code>网络</code>我们总是需要在<code>finally</code>中确保资源的释放. 如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">FileOutputStream fileOutputStream = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  fileOutputStream = <span class="keyword">new</span> FileOutputStream(cacheDir+imgUrl);</span><br><span class="line">  bitmap.compress(Bitmap.CompressFormat.PNG, <span class="number">100</span>, fileOutputStream);</span><br><span class="line">&#125;<span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line">&#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">      fileOutputStream.close();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是多么蛋疼的代码… 一堆堆的花括号.</p>
+<p>对于可关闭的对象, 都具备一个接口<code>Closeable</code>. 这个接口一个空接口, 也就是<code>标识接口</code>. 作用? 就是标识这个对象可以调用<code>close()</code>被关闭. 体现了一类对象的某一个特性. 而且这个特性<code>建立在了最小接口</code>的原则上. </p>
+<p>那么编写这么一段代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CloseUtils</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 整个方法通过最小接口的特性, 实现了隔离其他无用的属性. 只关心</span></span><br><span class="line">    <span class="comment">// Closeable接口即可. 接口隔离</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 参数 对应了里氏替换的原则</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fastClose</span><span class="params">(Closeable closeObj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != closeObj)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// close()方法的调用, 对应了 依赖倒置原则</span></span><br><span class="line">                closeObj.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之前的代码调用就变成了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">FileOutputStream fileOutputStream = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  fileOutputStream = <span class="keyword">new</span> FileOutputStream(cacheDir+imgUrl);</span><br><span class="line">  bitmap.compress(Bitmap.CompressFormat.PNG, <span class="number">100</span>, fileOutputStream);</span><br><span class="line">&#125;<span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line">&#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">  CloseUtils.fastClose(fileOutputStream);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不仅简单, 而且方便到处调用, 看起来也舒服多了.</p>
+<h2 id="迪米特原则-LOD"><a href="#迪米特原则-LOD" class="headerlink" title="迪米特原则 LOD"></a>迪米特原则 LOD</h2><blockquote>
+<p>Law of Demeter</p>
+</blockquote>
+<p>就是一个对象应该尽可能少的关联其他对象. </p>
+<p>通俗讲, 一个类应该对自己需要耦合或调用的类知道的<code>最少</code>, 类的内部如何实现与调用者或者依赖者没有关系, 调用者或者依赖者只需要知道他需要的方法即可, 其他的一概不关心. 因为类与类之间的关系越密切, 耦合度也就越大, 当一个类发生改变时, 对另一个类的影响也会变大.</p>
+<p>太懒了, 无具体实现… </p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/12/05/年终福利-SImageView实用的图片控件/" data-toggle="tooltip" data-placement="top" title="年终福利-一个实用方便的图片控件SImageView(第一弹)">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/11/28/WindowManagerService/" data-toggle="tooltip" data-placement="top" title="WindowManagerService">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#设计模式" title="设计模式">设计模式</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/11/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99%E8%A7%A3%E6%9E%90/";
+    var disqus_url = "http://szysky.com/2016/11/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99%E8%A7%A3%E6%9E%90/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

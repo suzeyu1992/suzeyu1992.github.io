@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          深入WindowManager - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/11/28/深入WindowManager/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#framework" title="framework">framework</a>
+                        
+                    </div>
+                    <h1>深入WindowManager</h1>
+                    <h2 class="subheading">WindowManager究竟起到了什么作用?</h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-11-28
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p><code>WindowManager</code>的重要程度不需要多说, 界面真正的显示, 外部事件的传递等. 这是一个子系统. 本章会梳理<code>WindowManager</code>,<code>WindowManagerService</code>,<code>Surface</code>,<code>SurfaceFlinger</code>之间的联系与交互的一个过程. </p>
+</blockquote>
+<p><a href="http://szysky.com/2016/08/15/%E3%80%8AAndroid-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B-08-%E7%90%86%E8%A7%A3Window%E5%92%8CWindowManager/">如果想了解不同的window级别的区别,如Activity,Dialog,Toast等请看另一篇blog</a></p>
+<p>在此之前需要知道这么几件事情:</p>
+<ol>
+<li>我们设置的<code>View</code>视图并不能直接显示在界面上.  而是需要依附在<code>Window</code>窗口上. 通过<code>WindowManager</code>操作才可以显示.</li>
+<li><code>Window</code>是一个抽象的概念, 它可以说以<code>DecorView</code>的形式表现其存在.</li>
+<li>代码层面<code>Window</code>是一个抽象类, 具体实现类是<code>PhoneWindow</code></li>
+</ol>
+<h3 id="应用WindowManager的由来"><a href="#应用WindowManager的由来" class="headerlink" title="应用WindowManager的由来"></a>应用WindowManager的由来</h3><p>对于重要的系统服务在手机开机的时候进行初始化, 然后保存在了<code>系统进程</code>中. 当我们应用启动的时候会触发<code>ContextImpl</code>类的加载, 在类加载的时候通过<code>静态代码块</code>对各个系统服务进行进行了注册,并保存到<code>一个静态map容器</code>中, 之后就可以通过<code>getSystemService(serviceName)</code>的形式获取不同的系统服务. </p>
+<h3 id="WM与Window的关联"><a href="#WM与Window的关联" class="headerlink" title="WM与Window的关联"></a>WM与Window的关联</h3><p>那么当创建一个<code>Dialog</code>, 就需要创建一个<code>Window</code>, 并把<code>Window</code>与<code>WM</code>进行关联. 那么可以直接看看<code>Dialog的构造函数</code>是如何做的. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Dialog(Context context, <span class="keyword">int</span> theme, <span class="keyword">boolean</span> createContextThemeWrapper) &#123;</span><br><span class="line">   <span class="comment">// 从ContextImpl的集合获取WM系统服务</span></span><br><span class="line">   mWindowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);</span><br><span class="line">   <span class="comment">// 构建Window对象</span></span><br><span class="line">   Window w = PolicyManager.makeNewWindow(mContext);</span><br><span class="line">   mWindow = w;</span><br><span class="line">   <span class="comment">// 实现Window.Callback接口, 为了后续的事件的传递</span></span><br><span class="line">   w.setCallback(<span class="keyword">this</span>);</span><br><span class="line">   <span class="comment">// Window 和 WM 进行关联</span></span><br><span class="line">   w.setWindowManager(mWindowManager, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关联的代码已经看到, 可以看一下内部调用顺序</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Window类</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWindowManager</span><span class="params">(WindowManager wm, IBinder appToken, String appName, <span class="keyword">boolean</span> hardwareAccelerated)</span> </span>&#123;</span><br><span class="line">   mWindowManager = ((WindowManagerImpl)wm).createLocalWindowManager(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 继续跟踪</span></span><br><span class="line"><span class="comment">// WindowManagerImpl类</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> WindowManagerImpl <span class="title">createLocalWindowManager</span><span class="params">(Window parentWindow)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">new</span> WindowManagerImpl(mDisplay, parentWindow);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后创建了一个<code>WindowManagerImpl</code>对象,  与<code>ContextImpl</code>注册<code>WindowManagerImpl</code>不同的是, 这里多了一个参数<code>parentWindow</code>. 这也就说此时构建的<code>WindowManagerImpl</code>对象是与具体的<code>Window</code>关联的, </p>
+<p>刚才说到了<code>WindowManagerImpl</code>类. 看一下这个类的大体你会发现. 这个类没有具体的逻辑处理, 而是把所有的逻辑利用<code>桥接模式</code>转给了<code>WindowMangerGlobal</code>这个对象的对应方法. 例如<code>addView()</code>,<code>removeViewImmediate()</code>,<code>updateViewLayout()</code>等. </p>
+<h3 id="View的显示过程"><a href="#View的显示过程" class="headerlink" title="View的显示过程"></a>View的显示过程</h3><p>刚才说过<code>WindowManager</code>的实现类<code>WindowManagerImpl</code>只是通过<code>桥接模式</code>将事件传递给了<code>WindowManagerGlobal</code>. 那么对应的<code>addView()</code>逻辑肯定也在<code>WindowManagerGlobal</code>中. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 手机窗口显示View的入口, View被添加到WM中</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addView</span><span class="params">(View view, ViewGroup.LayoutParams params, Display display, Window parentWindow)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 省略非关键代码</span></span><br><span class="line">        ViewRootImpl root;</span><br><span class="line">        View panelParentView = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">synchronized</span> (mLock) &#123;</span><br><span class="line">            <span class="comment">// 1.构建了ViewRootImpl</span></span><br><span class="line">            root = <span class="keyword">new</span> ViewRootImpl(view.getContext(), display);</span><br><span class="line">            <span class="comment">// 2.设置View的布局参数</span></span><br><span class="line">            view.setLayoutParams(wparams);</span><br><span class="line">            <span class="comment">// 3.分别对View, ViewRootImpl,param进行存储</span></span><br><span class="line">            mViews.add(view);</span><br><span class="line">            mRoots.add(root);</span><br><span class="line">            mParams.add(wparams);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">// 4.通过ViewRootImpl#setView()将View显示到手机窗口</span></span><br><span class="line">            root.setView(view, wparams, panelParentView);            </span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码中出现了一个<code>ViewRootImpl</code>对象, 不要认为它是一个<code>View</code>! 它继承自<code>Handler</code>类,<code>是native层和java层View系统通信的桥梁</code>. 例如<code>performTraversals()</code>就是收到系统绘制的View消息后, 通过调用是视图树的各个节点的绘制流程方法如<code>measure</code>,<code>layout</code>,<code>draw</code>来完成整棵树的视图. </p>
+<p><code>WMS</code>是运行在<code>Native层</code>的, 而现在只是在<code>Framewrok层</code>. 那么之间的是如何建立联系的?</p>
+<h3 id="Native和Framework的连接"><a href="#Native和Framework的连接" class="headerlink" title="Native和Framework的连接"></a>Native和Framework的连接</h3><p>既然<code>ViewRootImpl</code>是通信的桥梁, 那么就看看其构造函数的创建.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ViewRootImpl</span><span class="params">(Context context, Display display)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 省略非重要代码</span></span><br><span class="line">    <span class="comment">// 获取Window Session, 也就是与WindowManagerService建立连接</span></span><br><span class="line">    mWindowSession = WindowManagerGlobal.getWindowSession();</span><br><span class="line">    <span class="comment">// 保存创建本对象时的线程, 用于在更新UI的时候只能是mThread线程的条件判断</span></span><br><span class="line">    <span class="comment">// 这也就为什么需要在UI线程才可以更新, 因为`ViewRootImpl`是在UI线程创建的</span></span><br><span class="line">    mThread = Thread.currentThread();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>继续看看<code>getWinSession()</code>这个重要的函数</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// WindowManagerGlobal</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IWindowSession <span class="title">getWindowSession</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">synchronized</span> (WindowManagerGlobal.class) &#123;</span><br><span class="line">       <span class="keyword">if</span> (sWindowSession == <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">try</span> &#123;</span><br><span class="line">               InputMethodManager imm = InputMethodManager.getInstance();</span><br><span class="line">               <span class="comment">// 1. 获取了WindowManagerService</span></span><br><span class="line">               IWindowManager windowManager = getWindowManagerService();</span><br><span class="line">               <span class="comment">// 2. 与WindowManagerService建立了一个Session, 并返回</span></span><br><span class="line">               sWindowSession = windowManager.openSession(...);</span><br><span class="line">               &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">               Log.e(TAG, <span class="string">&quot;Failed to open window session&quot;</span>, e);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> sWindowSession;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 看一下获取WMS的实现</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IWindowManager <span class="title">getWindowManagerService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">synchronized</span> (WindowManagerGlobal.class) &#123;</span><br><span class="line">       <span class="keyword">if</span> (sWindowManagerService == <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="comment">// 典型的Binder通信</span></span><br><span class="line">           sWindowManagerService = IWindowManager.Stub.asInterface(</span><br><span class="line">                   ServiceManager.getService(<span class="string">&quot;window&quot;</span>));</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> sWindowManagerService;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>getWindowManagerService()</code>函数首先获取了<code>IWindowManager</code>对象, 本质就是一个远程对应的<code>Binder</code>对象. 而远程<code>WMS的Binder</code>获取是通过<code>ServiceManager.getService()</code>实现的. </p>
+<p>这里就可以总结为: <code>Android Framework</code>与<code>WMS</code>之间的通信也是通过<code>Binder</code>机制进行的. 这里就建立了与<code>WMS</code>的通信. 最后通过<code>openSession()</code>函数来与<code>WMS</code>建立一个通信会话, 相当于建立了一个长期的<code>处理中心</code>, 双方有什么需要够可以通过这个<code>Session</code>来交换信息. </p>
+<p>但是! 此时不管是<code>Dialog</code>或者<code>Activity</code>的View还没有显示在手机屏幕上, <code>WMS</code>只是负责管理手机屏幕上的<code>View的z-order</code>, 也就是<code>WMS</code>管理当前状态下哪一个<code>View</code>应该在最上层显示. 所以<code>WMS</code>管理的并不是<code>Window</code>而是<code>View</code>, 只不过它管理的是属于某个<code>Window</code>下的<code>View</code>.</p>
+<hr>
+<p>之前分析<code>ViewRootImpl</code>的构造函数结束了, 继续回<code>View</code>的显示问题上. 当与<code>WMS</code>建立<code>Session</code>之后就会调用<code>ViewRootImpl#setView()</code>函数, 该方法会向<code>WMS</code>发起显示<code>Dialog</code>或者<code>Activity的DecorView</code>的请求.</p>
+<p><code>setView()</code>函数这里只关心两步:</p>
+<ol>
+<li><code>requestLayout()</code>: 请求布局</li>
+<li>通过<code>WindowSession#add()</code>向<code>WMS</code>发起显示<code>Window</code>的请求</li>
+</ol>
+<p>先看一个请求布局的方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span>   <span class="comment">// ViewRootImpl类</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">requestLayout</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (!mHandlingLayoutInLayoutRequest) &#123;</span><br><span class="line">       <span class="comment">// 检测当前线程是否是创建ViewRootImpl对象的线程</span></span><br><span class="line">       <span class="comment">// 通常子线程更新的崩溃是在这里抛出的异常</span></span><br><span class="line">       checkThread();</span><br><span class="line">       mLayoutRequested = <span class="keyword">true</span>;</span><br><span class="line">       <span class="comment">// 向 handler 发送 DO_TRAVERSAL 消息</span></span><br><span class="line">       scheduleTraversals();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>scheduleTraversals()</code>发送消息之后, 就会触发整个视图树的绘制操作, 最终会触发执行<code>performTraversals()</code>. 这个函数主要做的操作如下:</p>
+<ol>
+<li>获取<code>Surface</code>对象, 用于图形绘制</li>
+<li>测量整个视图树的各个<code>View</code>的大小, 触发<code>performMeasure()</code></li>
+<li>布局整个视图树, 触发<code>performLayout()</code></li>
+<li>绘制整颗视图树, 触发<code>performDraw()</code></li>
+</ol>
+<p>在第四步中, <code>Framework</code>会获取到图形绘制表面<code>Surface</code>对象, 然后获取它的可绘制区域, 也就是常用的<code>Canvas</code>对象, 然后<code>Framework</code>在这个<code>Canvas</code>对象上绘制. 而在调用过程中通过<code>draw()</code>方法主要做了如下几个事情:</p>
+<ol>
+<li>判断是使用<code>CPU</code>还是<code>GPU</code>来进行绘制</li>
+<li>获取绘制表面<code>Surface</code>对象</li>
+<li>通过<code>Surface</code>对象获取并且锁住<code>Canvas</code>绘图对象</li>
+<li>从<code>DecorView</code>开始发起整颗视图树的绘制流程</li>
+<li><code>Surface</code>对象解锁<code>Canvas</code>, 并且通知<code>SurfaceFlinger</code></li>
+</ol>
+<p>当内容绘制完毕之后, 请求<code>WMS</code>显示该窗口上的内容, 至此,<code>Activity``Dialog</code>等组件的<code>View</code>就显示到了屏幕上.  这里整理的只是比较高层次的整体脉络. 整个<code>WMS</code>系统是即为复杂的, 涉及的概念和技术很是很多方面. 比如<code>Surface</code>等.  </p>
+<p>最后提出<code>&lt;Android源码设计模式解析与实战&gt;</code>一书的59页简化结构图</p>
+<p><img src="WindowStruc.png"></p>
+<p>下一篇<a href="http://szysky.com/2016/11/28/WindowManagerService/">WindowManagerService的认知</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/11/28/WindowManagerService/" data-toggle="tooltip" data-placement="top" title="WindowManagerService">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/11/16/设计模式之路/" data-toggle="tooltip" data-placement="top" title="设计模式之路">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#framework" title="framework">framework</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/11/28/%E6%B7%B1%E5%85%A5WindowManager/";
+    var disqus_url = "http://szysky.com/2016/11/28/%E6%B7%B1%E5%85%A5WindowManager/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

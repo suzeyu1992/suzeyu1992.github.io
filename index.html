@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Szy&#39;sky Blog</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">To Be A Lean Developer!</span>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+            
+                <!-- Main Content -->
+
+
+<div class="post-preview">
+
+    <a href="/2021/05/08/黑苹果-华硕M12E-USB定制/">
+        <h2 class="post-title">
+            黑苹果 华硕M12E USB定制
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+定制原因: 黑苹果升级系统 -&gt; BigSur 11.3.1 背部USB部分失效.
+
+使用环境
+主板 华硕 M12E
+系统版本 macOS Big Sur 11.3.1 (20E241)
+必要工具 OpenCore Configurator(下文简称OCC) Hackintool
+
+修改步骤
+使用 OCC 挂在EFI, 并打开config.plist文件, 在Kernel——内核设置......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2021-05-08
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/02/14/Android之BLE开发资料整理/">
+        <h2 class="post-title">
+            Android之蓝牙4.0BLE开发资料整理
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            使用
+官方ble使用文档中文
+官方ble使用文档英文
+基于android 5.x系统新api的ble连接
+
+问题
+BluetoothGatt status 133的解决方案
+
+深入
+android的经典蓝牙与低功耗蓝牙的区别
+如果想了解更多蓝牙底层,下面两个系列讲的很详细
+http://blog.csdn.net/tsy20100200/article/details/47726645
+ht......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2017-02-14
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/02/09/Android系统的启动流程/">
+        <h2 class="post-title">
+            Android系统的启动流程
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            第一个系统进程initAndroid设备的启动需要经过Boot Loader, Linux Kernel和Android系统服务三个核心阶段. 默认情况都有其对应的启动动画. 
+究其本质的话. Android系统并不算一个严格意义上的操作系统. 因为其实际上是运行在Linux内核之上的一系列的服务进程. 而正是因为这些进程才维持了设备的正常工作的关键. 而它们的祖先进程就是init
+
+作为第......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2017-02-09
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/02/08/面试之Binder的认知/">
+        <h2 class="post-title">
+            面试之Binder的认知
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+说一说你对Binder的理解…
+
+Binder为何存在在日常代码编写中. 我们总是会理所应当的对函数进行调用, 对变量进行访问. 之所以能顺利访问时因为所有的函数和变量都在同一个进程之中.  也就是说因为在一个内存空间中. 虚拟地址的映射规则完全一致.  而如果想访问的是其他进程的函数或者变量, 是不可能直接通过内存地址来直接进行访问的. 
+既然进程之间不能访问, 那么如果通过间接的方法建......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2017-02-08
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/01/06/栈与队列/">
+        <h2 class="post-title">
+            栈与队列
+        </h2>
+        <h3 class="post-subtitle">
+            栈是限定仅在表尾进行插入和删除操作的线性表. 队列是只允许在一端进行插入操作, 而在另一端进行删除操作的线性表
+        </h3>
+        <div class="post-content-preview">
+            栈的定义
+栈(stack)是限定仅在表尾进行插入和删除操作的线性表
+
+通常把插入和删除的一端称作为栈顶(top). 另一端就是栈底(bottom), 不含有任何数据元素的栈称作为空栈. 栈又称作为后进先出(Last In First Out)的线性表.  简称LFIO结构. 
+栈的插入操作, 叫作进栈, 或者也可以叫作压栈,入栈.
+栈的删除操作, 叫作出栈, 也可以叫作弹栈
+软件被应用的场景......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2017-01-06
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/01/04/线性表/">
+        <h2 class="post-title">
+            线性表
+        </h2>
+        <h3 class="post-subtitle">
+            数据结构之线性表
+        </h3>
+        <div class="post-content-preview">
+            首先看一下线性表都包括哪些结构:
+
+线性表的定义
+零个或多个数据元素的有限序列. 
+
+
+序列: 说明了元素之间是由顺序的. 
+有限: 泛指元素的个数为有限. 因为计算机中处理的对象都是有限的, 无限数列只存在数学的概念中. 
+
+线性表的元素个数为&gt;=0. 当元素的个数为0. 这个表称之为空表.
+线性表的特性一个线性表应该具备哪些基本的功能呢?
+
+置空
+查找 
+插入
+删除
+长度
+
+这是大......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2017-01-04
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/01/01/认知算法/">
+        <h2 class="post-title">
+            算法的了解
+        </h2>
+        <h3 class="post-subtitle">
+            算法究竟是什么, 都包括些什么
+        </h3>
+        <div class="post-content-preview">
+            算法定义
+算法是解决特定问题求解步骤的描述, 在计算机中表现为指令的有限序列, 并且每条指令表示一个或多个操作. 
+
+算法是针对一种或者是一类问题的解决方案.
+算法的特性算法具有5个基本特性: 输入, 输出, 有穷性, 确定性和可行性.
+输入输出算法具有0或者多个输入. 对于个别场景, 比如打印输出字符串. 可能会不需要任何的输入参数. 
+算法至少1个或者多个输出. 算法一定要有输出, 否则......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2017-01-01
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/12/30/操作系统简介/">
+        <h2 class="post-title">
+            操作系统简介
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+硬件是软件的基石. 所有的软件功能最终都是由硬件来实现的.计算机体系结构作为一门学科, 是软件和硬件的抽象体, 也是所有开发者都应该了解的. 
+
+计算机体系结构冯’诺依曼结构冯诺依曼是20世纪公认的最伟大的科学家之一. 
+冯诺依曼结构又被称为冯诺依曼模型或者普林斯顿结构. 起源于其本人在1945年发表的一篇关于EDVAC(电子离散变量自动计算机)的论文. 
+在其中. 提出了两个对计算机领域......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-12-30
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/12/27/vim常用笔记/">
+        <h2 class="post-title">
+            vim常用笔记
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            介绍vi编辑器是Unix系统最初的编辑器. 它使用控制台图形模式来模拟文本编辑窗口, 允许查看文件中的行, 在文件中移动, 插入, 编辑和替换文本.
+尽管可能是世界上最复杂的编辑器, 但其用用的大量特性使其成为Unix管理员多远来的支柱性工具. 
+在GNU项目将vi编辑器移植到开源世界时, 他们就决定对其做一些改变. 由于它不再是以前Unix中那个原始的vi编辑器, 所以开发人员对其进行了重......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-12-27
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/12/26/shell常用小手册/">
+        <h2 class="post-title">
+            shell常用小手册
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            文件系统遍历目录
+格式: cd destination
+
+# 绝对文件路径$ cd /usr/bin# 相对文件路径 进入当前目录下的doc文件夹$ cd doc# 进入当前文件夹的同级目录pics$ cd ../pics
+
+查看当前目录路径$ pwd
+
+文件基本操作操作# 显示当前目录下的文件和目录, 按字母排序, 展示顺序为按列$ ls# 如果想让文件夹变得更容易区分, -F参数可让显示......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-12-26
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/12/17/Android-Studio-常用手册/">
+        <h2 class="post-title">
+            Android Studio 常用手册
+        </h2>
+        <h3 class="post-subtitle">
+            Android studio 有我这篇就够了
+        </h3>
+        <div class="post-content-preview">
+            
+整理Android群英传和网上出现的比较完整AS的快捷小技巧. mac版已测, win大部分测试. 最后有一个整理的完整快捷键表格. win也好mac也好, 如果快捷被修改还是错误, 都可以通过提供的Keymap中的关键字来进行重设. 图中gif如果看不清, 放大页面即可. 
+
+转载标明出处: 
+
+作者GitHub
+博客地址
+
+常用小操作单词选择一般IDE通过option + 方向键左右(......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-12-17
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/12/14/年终福利-SImageView实用的图片控件2/">
+        <h2 class="post-title">
+            年终福利-一个实用方便的图片控件SImageView(第二弹)
+        </h2>
+        <h3 class="post-subtitle">
+            一行实现QQ群组头像,微信群组,圆角等效果. 并支持url直接加载图片
+        </h3>
+        <div class="post-content-preview">
+            
+一年快要过去了, 你的目标实现了么? 不管实现没有, 先来个小目标吧.比如造一个轮子?
+
+说点题外话. Coding中我们总是经历着这么几个过程.
+
+学会使用: 不管是API也好, 开源库也好. 总是在最开始的学会去用. 
+了解实现原理: 可能会因为一些不兼容, 代码的异常状态的处理不够完美等需要查看实现并修改, 或者因为你有一个好奇心向窥探一下内部实现.. 这时我们开始试着去阅读, 试着......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-12-14
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/12/05/年终福利-SImageView实用的图片控件/">
+        <h2 class="post-title">
+            年终福利-一个实用方便的图片控件SImageView(第一弹)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+一年快要过去了, 你的目标实现了么? 不管实现没有, 先来个小目标吧.比如造一个轮子?
+
+说点题外话. Coding中我们总是经历着这么几个过程.
+
+学会使用: 不管是API也好, 开源库也好. 总是在最开始的学会去用. 
+了解实现原理: 可能会因为一些不兼容, 代码的异常状态的处理不够完美等需要查看实现并修改, 或者因为你有一个好奇心向窥探一下内部实现.. 这时我们开始试着去阅读, 试着......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-12-05
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/11/28/设计模式之六大原则解析/">
+        <h2 class="post-title">
+            设计模式之六大原则解析
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+列举出设计模式中的六大原则应该如何实现
+
+单一职责原则 SRP
+Single Responsibility Principle
+
+场景: 如果让你写出一个图片缓存类, 要求内部实现缓存策略, 并提供方法只需要传递控件和图片地址就可以自动设置背景的类. 
+先给出最简单直接的写法. 
+public class ImageLoader &#123;    /**     * 图片的缓存     ......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-11-28
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/11/28/WindowManagerService/">
+        <h2 class="post-title">
+            WindowManagerService
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            前一节, 对Window和WindowManager进行了分析, blog, 其中的WMS是不容忽视的角色
+
+关于Android的framework层主要就是由它与另外一个系统服务ActivityManagerService和View构成, 这三个模块穿插在整个framework中. 
+
+和其他系统服务一样, WMS也是由SystemServer启动的. 调用了WMS#main()静态方法来......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Suzeyu on
+        2016-11-28
+    </p>
+
+</div>
+<hr>
+
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    
+        <li class="next">
+            <a href="/page/2/">Older Posts &rarr;</a>
+        </li>
+    
+</ul>
+
+
+
+                <!-- 如果开启评论功能 -->
+                
+
+            </div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                            <a href="/tags/#android" title="android" rel="47">android</a>
+                            
+                        
+                            
+                            <a href="/tags/#笔记" title="笔记" rel="31">笔记</a>
+                            
+                        
+                            
+                            <a href="/tags/#mySql" title="mySql" rel="4">mySql</a>
+                            
+                        
+                            
+                        
+                            
+                            <a href="/tags/#入门" title="入门" rel="11">入门</a>
+                            
+                        
+                            
+                            <a href="/tags/#PHP" title="PHP" rel="4">PHP</a>
+                            
+                        
+                            
+                            <a href="/tags/#framework" title="framework" rel="2">framework</a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                            <a href="/tags/#JavaScript" title="JavaScript" rel="6">JavaScript</a>
+                            
+                        
+                            
+                            <a href="/tags/#自定义View" title="自定义View" rel="2">自定义View</a>
+                            
+                        
+                            
+                            <a href="/tags/#数据结构" title="数据结构" rel="3">数据结构</a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                            <a href="/tags/#设计模式" title="设计模式" rel="2">设计模式</a>
+                            
+                        
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+
+                        
+                            <img src="/img/icon.png" />
+                        
+
+                        
+                            <p>我要成为魔法师!</p>
+                        
+
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            
+                                <li>
+                                    <a target="_blank" href="https://twitter.com/szyskys">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                            
+                                <li>
+                                    <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+
+                            
+
+                            
+
+                            
+                                <li>
+                                    <a target="_blank"  href="https://github.com/suzeyu1992">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                            
+                            
+                            
+                                <li>
+                                    <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        
+    </div>
+</div>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

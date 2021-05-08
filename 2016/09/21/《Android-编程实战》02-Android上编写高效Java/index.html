@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="suzeyu skyszy`blog">
+    <meta name="keyword"  content="suzeyu skyszy`blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Android 编程实战》02-Android上编写高效Java - 筑梦 suzeyu`苏泽钰
+        
+    </title>
+
+    <link rel="canonical" href="http://szysky.com/2016/09/21/《Android-编程实战》02-Android上编写高效Java/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                 
+
+
+                      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
+</script>
+
+                    
+
+
+
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://szysky.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+    .h1_nav{font-size: 13px; padding-left:0%; color: #ff0000;}
+    .h2_nav{font-size: 12px;padding-left: 4%;color: #ff0000; }
+    .h3_nav{font-size: 11px;padding-left: 12%;}
+    .h4_nav{font-size: 10px;padding-left: 18%;}
+    .h5_nav{font-size: 9px;padding-left: 24%;}
+    .h6_nav{font-size: 8px;padding-left: 30%;}
+
+
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>《Android 编程实战》02-Android上编写高效Java</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Suzeyu on
+                        2016-09-21
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>阅读《Android 编程实战》一书的随记笔记  –&gt; 第二章</p>
+</blockquote>
+<h2 id="Dalvik-Java和Java-SE"><a href="#Dalvik-Java和Java-SE" class="headerlink" title="Dalvik Java和Java SE"></a>Dalvik Java和Java SE</h2><p>在<code>Android</code>设备上运行的<code>VM</code>成为<code>Dalvik</code>. 适用于CPU和内存受限的移动设备. <code>Java SE</code>和<code>Dalvik Java</code>存在一些差异, 这些差异主要体现在虚拟机上. </p>
+<ul>
+<li><code>Java SE</code>: 使用了栈机设计</li>
+<li><code>Dalvik </code>: 使用了基于寄存器的机器的设计</li>
+</ul>
+<p><code>Android SDK</code>中个有一个<code>dx</code>工具, 它会把<code>Java SE</code>栈机器的字节码转换成基于寄存器的<code>Dalvik</code>机器字节码, 这个步骤平时是由<code>AS</code>自动完成的. </p>
+<p>虽然基于寄存器的虚拟机最多可以比基于栈的虚拟机快32%, 但这只限于执行解释代码的虚拟机. 在<code>Android 2.2</code>之前, <code>Dalvik</code>虚拟机都是纯解释性的. 之后才引入了<code>JIT</code>编译器.</p>
+<p><strong>JIT编译</strong></p>
+<p>也称<code>即时编译或者动态编译</code>. 它在执行前把字节码翻译成本地代码, 这样的两个好处:</p>
+<ul>
+<li>消除了那些纯解释性虚拟机的开销</li>
+<li>它能对本机代码执行优化, 这通常是静态编译代码无法做到的.</li>
+</ul>
+<p>另一个区别是: <code>Dalvik</code>在开机时会启动一个<code>zygote</code>的进程, 该进程会创建第一个<code>Dalvik</code>实例, 由这个实例创建所有其他的实例. 当应用程序启动的时候, <code>zygote</code>进行会收到一个创建新虚拟机实例的请求, 并给该应用程序创建一个新进程. </p>
+<hr>
+<p>对于两个方向的API也不是一模一样, 比方说<code>Android</code>移除了<code>Java SE</code>中<code>Swing/AWT</code>包. 因为<code>Android</code>有自己的UI框架. 还有一些例如<code>RMI</code>, <code>CORBA</code>,<code>JMX</code>等. </p>
+<h2 id="优化Android上的Java代码"><a href="#优化Android上的Java代码" class="headerlink" title="优化Android上的Java代码"></a>优化Android上的Java代码</h2><p><strong>1.更安全的队列</strong></p>
+<p>例如如果需要实现一个<strong>生产者/消费者</strong>模式, 关于所使用的管理存储的集合可能需要选择队列(<code>LinkedList</code>)并且具体的存取操作要套上<code>synchronize</code>防止并发问题. 但是如果通过<code>LinkedBlockingQueue</code>就可以实现上面的手动编写的步骤. 对于做同样的事情但是更快的实现方法,我们没有例如不去使用</p>
+<p>其实在<code>JDK1.5</code>之后, 提供了<code>java.util.concurrent</code>包, 这个包不仅有相关的类, 此外还包含信号量, 锁, 以及对单个变量进行原子操作的类.</p>
+<hr>
+<p><strong>2.更好的锁</strong></p>
+<p>对于Java提供的<code>synchronize</code>关键字允许创建线程安全的代码块和方法. <code>synchronize</code>关键字虽然便于使用, 但也很容易滥用, 对性能造成损耗. 当需要区分读数据和写数据时, <code>synchronize</code>也不是最有效的. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadWriteLockDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 控制读写操作并发的锁</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ReentrantReadWriteLock mLock ;</span><br><span class="line">    <span class="keyword">private</span> String mName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ReadWriteLockDemo</span><span class="params">()</span></span>&#123;</span><br><span class="line">        mLock = <span class="keyword">new</span> ReentrantReadWriteLock();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPersonData</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 获取写操作的锁</span></span><br><span class="line">        ReentrantReadWriteLock.WriteLock writeLock = mLock.writeLock();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//  获取 写锁使用权, 其余线程需要操作只有在写锁被关闭才可以</span></span><br><span class="line">            writeLock.lock();</span><br><span class="line">            mName = name;    </span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">//  释放 写锁使用权 </span></span><br><span class="line">            writeLock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ReentrantReadWriteLock.ReadLock readLock = mLock.readLock();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            readLock.lock();</span><br><span class="line">            <span class="keyword">return</span> mName;</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            readLock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 省略其余实现</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>上面代码允许多个并发线程对数据进行只读方法, 并确保同一时间只有一个线程写入数据. </p>
+<h2 id="管理和分配内存"><a href="#管理和分配内存" class="headerlink" title="管理和分配内存"></a>管理和分配内存</h2><p>Java的自动内存管理有效消除了开发过程中的许多问题. 不再需要记住为每个创建的对象进行手动释放对象内存. 当时同时也需要付出一定的性能代价. <strong>自动垃圾收集器会和程序并行运行. 垃圾回收器会一直运行, 并检查是否有可以回收的内存. 这种行为意味着应用程序进程会和垃圾收集器竞争<code>CPU</code>时间,即使垃圾回收器不会运行太长时间,但是也是一种性能损失. 虽然我们不能抛弃这中垃圾收集方式, 但是可以有效的控制, 例如:</strong></p>
+<p><strong>减少对象分配</strong></p>
+<p>如果可以不要在循环内部创建对象, 在循环的外部创建对象, 并复用此对象. 减少对象的生成造成的空间开辟, 和无用对象的回收. </p>
+<h2 id="Android中的多线程"><a href="#Android中的多线程" class="headerlink" title="Android中的多线程"></a>Android中的多线程</h2><p>确保不再<code>UI线程</code>做耗时操作, 这基本已经印在<code>Android</code>开发的脑袋里了. 那么如何知道一个方法是否在主线程执行? <code>Android</code>文档指出, <strong>默认情况下, 应用的所有组件都运行在同一个进程和线程中(主线程)</strong>. 更确切点的说三个组件(<code>Activity</code>, <code>Service</code>, <code>Broadcast</code>, <code>Application</code>)的所有回调基本上所有的<code>onXXXX()</code>这种命名的方法都是运行在主线程的. </p>
+<hr>
+<p><strong>那么什么样的代码在主线程执行才是安全的?</strong></p>
+<p>只有那些必须在主线程执行的方法才能放在主线程中. 其他一切操作都应该放在另一个单独的线程中执行. 实际情况下, 那些不会耗时的操作也可以放在主线程中. 如何能确保在另一个单独的线程中执行文件, 数据库或者网络操作, 通常主线程会是安全的. 当然也要确保同一时间不会运行太多线程, 原因是<code>CPU</code>切换线程也会造成性能损失. </p>
+<h3 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h3><p><code>Thread</code>类是<code>Android</code>中所有线程的基类, <code>Java SE</code>中也包含它. 如果要在线程中执行代码, 即可以创建一个继承, 也可以把实现<code>Runnable</code>接口的类对象传给<code>Thread</code>的构造函数.</p>
+<p>对于这个基础的类, 尽量能不用就不用. 除非配合缓冲池, 不然频繁的创建新的线程开销很大. </p>
+<h3 id="AsyncTask"><a href="#AsyncTask" class="headerlink" title="AsyncTask"></a>AsyncTask</h3><p>这是<code>Android</code>中比较流行的一种, 因为使用简单,并且允许定义一个运行在单独线程中的任务, 并且提供了不同阶段的回调, 如<code>doInBackground()</code>会被回调在单独的线程. 而其余的三个回调都是被回调在主线程. 这都是为了让开发者可以把代码编写的重点放在实现的功能上, 而不是考虑是否应该避免系统级的问题发生. </p>
+<p>使用<code>AsyncTask</code>创建的实例只能使用一次, 这也就意味着每次执行操作都新建一个实例对象. 虽然是个轻量级的类(实际的线程是由<code>ExecutorService</code>管理的), <strong>但是不适合那些频繁的操作</strong>, 因为这会快速聚集需要垃圾回收的对象, 并最终导致应用程序的卡顿.</p>
+<p>并且, <code>AsyncTask</code>不能对操作设置执行时间, 也无法间隔一段时间去执行操作. 它适合文件下载, 以及不会频繁发生或通过用户交互等类似情况的操作. 但是使用简单嘛.</p>
+<h3 id="Handler"><a href="#Handler" class="headerlink" title="Handler"></a>Handler</h3><p>当需要更细粒度地控制一个单独的线程中执行操作的时候, <code>Handler</code>类会是一个很有用的工具. 该类允许准确地控制操作的执行时间. 还可以重复多次的使用. 执行操作的线程会一直运行, 直到被显示地终止. <code>Loop</code>会处理幕后的事情, 但是作为开发人员却很少和其打交道. </p>
+<p>使用<code>Handler</code>类最常见的方式是发送<code>Message</code>. 当向后台线程传递数据和参数时, 这些消息对象简单,易于创建, 并且可以重用. <code>Message</code>对象通常是由它的共有整型成员变量<code>what</code>定义的. 还有两个名为<code>arg1和arg2</code>的整型成员变量, 他们用于创建低开销的的参数, 以及<code>obj</code>成员变量(可以存储任意单个对象的引用). 如果你需要存储更复杂的数据那么通过<code>setData(Bundle)</code>方法设置更复杂的数据. </p>
+<hr>
+<p><strong>发送消息</strong></p>
+<p>既可以使用<code>Message#sendToTarget()</code>也可以使用<code>Handler#sendXXX()</code>等方法. 如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建一个带有data参数的Message, 然后立刻把它发送到handler执行</span></span><br><span class="line">Message.obtain(mHandler, FLAG_SYNC_DATA, data).sendToTarget();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 立刻给handler发送一个空消息</span></span><br><span class="line">mHandler.sendEmptyMessage(FLAG_SYNC_DATA);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给handler发送一个空消息, 在30秒后执行</span></span><br><span class="line">mHandler.sendEmptyMessageAtTime(FLAG_SYNC_DATA, <span class="number">30</span> * <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给handler发送带有arguments和obj参数的消息, 并在10秒后执行</span></span><br><span class="line">Message msg = mHandler.obtainMessage(FLAG_SYNC_DATA, 参数<span class="number">1</span>, 参数<span class="number">2</span>, data);</span><br><span class="line">mHandler.sendMessageDelayed(msg, <span class="number">10</span> * <span class="number">1000</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<p>在创建<code>Handler</code>的时候构造函数传入<code>Looper</code>对象可以为<code>Handler</code>分配线程, 所以可以创建一个主线程消息的<code>Handler</code>, 避免使用<code>runOnUiThread()</code>这种丑陋缩进的代码并且还低效. </p>
+<p>只要确保把消息发送给正确的<code>handler</code>即可.</p>
+<h3 id="选择合适的线程"><a href="#选择合适的线程" class="headerlink" title="选择合适的线程"></a>选择合适的线程</h3><p>之前说过了三种在<code>Android</code>上创建和使用线程的方式, <code>API</code>中和线程相关的类还有<code>ExecutorService</code>和<code>Loader</code>. </p>
+<ul>
+<li><code>ExecutorService</code>适合处理并行运行的多个任务, 这个非常适合编写相应多客户端的服务器应用. <code>AsyncTask</code>内部同样使用了<code>ExecutorService</code>处理多线程</li>
+</ul>
+<p>三种中尽量少的直接使用<code>Thread</code>类, 大多数情况下推荐使用<code>AsyncTask</code>和<code>Handler</code>类, 具体使用哪一个取决于具体的需求. 如果不是很频繁地执行操作, 比如超过每分钟一次, 那么<code>AsyncTask</code>是个选择的对象. 如果需要安排操作时间或者需要快速间隔地执行操作, <code>Handler</code>是个更好的选择. 从长远的角度来看, <code>Handler</code>生成的代码较少, 而<code>AsyncTask</code>更容易使用.</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/09/21/《Android-编程实战》03-组件-清单-资源和UI闲聊/" data-toggle="tooltip" data-placement="top" title="《Android 编程实战》03-组件 清单 资源和UI闲聊">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/09/20/《Android-编程实战》完善开发环境和优化/" data-toggle="tooltip" data-placement="top" title="《Android 编程实战》01-完善开发环境和优化">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">文章目录</a>
+                    </h5>
+                    <ul class="catalog-body" style="padding-left: 0%; list-style:none;  width: 150%"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#android" title="android">android</a>
+                        
+                          <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "http-szysky-com";
+    var disqus_identifier = "http://szysky.com/2016/09/21/%E3%80%8AAndroid-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B02-Android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88Java/";
+    var disqus_url = "http://szysky.com/2016/09/21/%E3%80%8AAndroid-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B02-Android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88Java/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/szyskys">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/suzeyu1992">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Szy&#39;sky Blog 2021
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://szysky.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '5aca5df6308eba7bd10d5bac33225006';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
