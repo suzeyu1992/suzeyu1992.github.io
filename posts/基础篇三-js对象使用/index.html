@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>基础篇(三)-JS对象使用 - Blog</title><meta name="Description" content=" "><meta property="og:title" content="基础篇(三)-JS对象使用" />
+<meta property="og:description" content=" " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89-js%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-04-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-04-12T00:00:00+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="基础篇(三)-JS对象使用"/>
+<meta name="twitter:description" content=" "/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89-js%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%BA%8C-js%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" /><link rel="next" href="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E5%9B%9B-js-bom/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "基础篇(三)-JS对象使用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89-js%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8\/"
+        },"genre": "posts","keywords": "JavaScript, 入门","wordcount":  2119 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89-js%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8\/","datePublished": "2016-04-12T00:00:00+00:00","dateModified": "2016-04-12T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": " "
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">基础篇(三)-JS对象使用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/javascript/"><i class="far fa-folder fa-fw"></i>JavaScript</a>&nbsp;<a href="/categories/%E5%85%A5%E9%97%A8/"><i class="far fa-folder fa-fw"></i>入门</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-04-12">2016-04-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2119 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89-js%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/" class="leancloud_visitors" data-flag-title="基础篇(三)-JS对象使用">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#js内置对象">JS内置对象</a></li>
+        <li><a href="#form对象">form对象</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>自学小笔记</p>
+<h3 id="js内置对象">JS内置对象</h3>
+<p><strong>String对象:字符串对象，提供了对字符串进行操作的属性和方法。</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>length</td>
+<td>获取字符换长度</td>
+</tr>
+<tr>
+<td>toLowerCase()</td>
+<td>将str转为小写</td>
+</tr>
+<tr>
+<td>toUpperCase()</td>
+<td>将str转为大写</td>
+</tr>
+<tr>
+<td>charAt(index)</td>
+<td>指定下标位置的字符，没有找到返回空字符串</td>
+</tr>
+<tr>
+<td>indexOf(strsub)</td>
+<td>某一个字字符串所在的下标值，没有则返回-1</td>
+</tr>
+<tr>
+<td>lastIndexOf()</td>
+<td>同上，但是从右往左查找。</td>
+</tr>
+<tr>
+<td>substr(startIndex[,length])</td>
+<td>从startIndex下标起，返回length个字符</td>
+</tr>
+<tr>
+<td>substring(startIndex[,endIndex])</td>
+<td>返回从startIndex下标起到endIndex结束之间的所有字符</td>
+</tr>
+<tr>
+<td>split(str)</td>
+<td>按照传入的字符切割原字符串，返回一个数组</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Array对象:数组对象，提供了数组操作方面的属性和方法。</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lenght</td>
+<td>返回数组的长度</td>
+</tr>
+<tr>
+<td>join(连接号)</td>
+<td>将一个数组，用指定的连接号连接成一个字符串</td>
+</tr>
+<tr>
+<td>reverse()</td>
+<td>将数组的元素反转</td>
+</tr>
+<tr>
+<td>shift()</td>
+<td>删除数组中第一个元素，返回删除的值,并将长度减1</td>
+</tr>
+<tr>
+<td>pop()</td>
+<td>删除数组的最后一个元素,返回删除的值,并将长度减1</td>
+</tr>
+<tr>
+<td>unshift(boject[,object&hellip;])</td>
+<td>往数组前面添加一个或读个数组元素，长度要改变</td>
+</tr>
+<tr>
+<td>push([,object&hellip;])</td>
+<td>往数组结尾添加一个或多个数组元素，长度改变</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Date对象:日期时间对象，可以获取系统的日期时间信息。</strong></p>
+<p>Date对象的使用，必须使用new关键字来创建实例对象。</p>
+<p>1.创建当前日期对象的实例，不带任何参数。</p>
+<p><code>var today = new Date();</code></p>
+<p>2.指定毫秒值（参数为时间戳）</p>
+<p>时间戳:是指某一个时间距离1970年1月1日0时0分0秒，过去了多少毫秒值。</p>
+<p><code>var timer = new Date(99999);</code></p>
+<p>3.指定一个字符串日期时间信息(参数是一个时间字符串)</p>
+<p><code>var timer = new Date(&quot;2016/4/6 12:00:00&quot;);</code></p>
+<p>4.指定多个数值参数</p>
+<p><code>var timer = new Date（2015,4,20,19,29,59）;</code>	//顺序为: 年、月、日、时、分、秒。 年月日时必须的。</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>getFullYear()</td>
+<td>获取四位年份</td>
+</tr>
+<tr>
+<td>getMonth()</td>
+<td>获取月份,取值0-11</td>
+</tr>
+<tr>
+<td>getDate()</td>
+<td>获取几号,取值1-31</td>
+</tr>
+<tr>
+<td>getHours()</td>
+<td>获取小时数</td>
+</tr>
+<tr>
+<td>getMinutes()</td>
+<td>分钟数</td>
+</tr>
+<tr>
+<td>getSeconds()</td>
+<td>获取秒</td>
+</tr>
+<tr>
+<td>getMilliseconds()</td>
+<td>获取毫秒</td>
+</tr>
+<tr>
+<td>getDay</td>
+<td>获取星期</td>
+</tr>
+<tr>
+<td>getTime()</td>
+<td>毫秒值  距离1970的毫秒值</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Boolean对象:布尔对象，一个布尔变量就是一个布尔对象(没有可用的属性和方法)</strong></p>
+<p><strong>Number对象:数值对象。一个数值变量就是一个数值对象。</strong></p>
+<p><code>toFiexd();</code>
+功能: 将一个数值转成字符串，并进行四舍五入，保留指定位数的小数。
+语法: <code>numObj.toFixed(n)</code>
+参数: n就是要保留的小数位数。</p>
+<p><strong>Math对象:数学对象，提供了数学方面运算的属性和方法</strong></p>
+<p>Math对象会一个静态对象，可以直接使用。</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PI</td>
+<td>圆周率</td>
+</tr>
+<tr>
+<td>abs()</td>
+<td>绝对值。如:Math.abs(-9)=9</td>
+</tr>
+<tr>
+<td>ceil()</td>
+<td>向上取整(整数加1，小数去掉)。</td>
+</tr>
+<tr>
+<td>floor()</td>
+<td>向下取证(直接去掉小数)</td>
+</tr>
+<tr>
+<td>round()</td>
+<td>四舍五入</td>
+</tr>
+<tr>
+<td>pow(x,y)</td>
+<td>求x的y次方。</td>
+</tr>
+<tr>
+<td>sqrt()</td>
+<td>求平方根</td>
+</tr>
+<tr>
+<td>random()</td>
+<td>返回一个0到1之间的随机小数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="form对象">form对象</h3>
+<p>一个<code>&lt;form&gt;</code>标记，就是一个<code>&lt;form&gt;</code>对象。</p>
+<p><strong>1.form对象属性</strong></p>
+<ul>
+<li><code>name</code>：表单名称，让js来控制表单。</li>
+<li><code>action</code>：表单的数据处理程序（PHP文件）。</li>
+<li><code>method</code>：表单的提交方式，取值：GET、POST。</li>
+<li><code>enctype</code>：表单数据的编码方式。</li>
+</ul>
+<p><strong>2.form对象的方法</strong></p>
+<ul>
+<li><code>submit()</code>: 提交表单，与<!-- raw HTML omitted -->功能一样。</li>
+<li><code>reset()</code>:重置表单，与重置按钮功能一样。</li>
+</ul>
+<p><strong>3.form对象的事件</strong></p>
+<ul>
+<li><code>onSubmit</code>：当单机提交按钮时发生，并数据发往服务器之前。主要用来表单验证。</li>
+<li><code>onreset</code>：当单机重置按钮时发生。</li>
+</ul>
+<p><strong>获取表单元素的方法</strong></p>
+<ol>
+<li>通过网页元素的id来获取对象。<code>document.getElementById(id)</code>.</li>
+<li>通过HTML标签名来获取对象。<code>parentNode.getElementsByTagName(tagName)</code>。</li>
+<li>通过<code>name</code>属性来获取表单元素对象。表单中所有元素的起点必须是<code>document</code>对象。如：<code>document.form(表单name值).username(表单元素name值)。</code></li>
+</ol>
+<p><strong>事件返回值</strong></p>
+<p>事件的返回值，会影响对象的默认动作。
+如果事件返回false，则阻止默认动作的执行；如果事件返回<code>true</code>或空，则默认动作继续执行。例如<code>&lt;a href=&quot;www.baidu.com&quot; onclick=&quot;return false&quot;&gt;</code> 连接默认跳转会失效。</p>
+<p><strong>提交和验证方法总结</strong></p>
+<p>1.使用<code>submit</code>按钮，结合<code>onsubmit</code>事件来实现(最常用).</p>
+<p>2.<code>submit</code>按钮，结合<code>onclick</code>事件，实现表单的验证和提交。</p>
+<p>3.<code>button</code>按钮，结合<code>submit()</code>方法，实现表单验证提交。</p>
+<p><strong>input对象</strong></p>
+<p>一个<code>&lt;input&gt;</code>标记，就是一个<code>input</code>对象。</p>
+<p>1.<code>input</code>对象的属性(以type=text为例)</p>
+<ul>
+<li><code>name</code>：表单元素名称。</li>
+<li><code>value</code>：表单元素的值，用户输入的内容，可以通过该属性来获取。</li>
+<li><code>size</code>：表单的长度。</li>
+<li><code>maxlength</code>：表单元素的最大长度(最多可输的字符数)。</li>
+<li><code>disable</code>：禁用元素。</li>
+<li><code>readonly</code>：只读属性。</li>
+</ul>
+<p>2.<code>input</code>对象方法</p>
+<ul>
+<li><code>focus()</code>:获得焦点的方法（定位光标）。</li>
+<li><code>blur()</code>:失去焦点的方法（移走光标）。</li>
+<li><code>select()</code>:选中文本的方法。</li>
+</ul>
+<p>3.<code>input</code>对象的事件</p>
+<ul>
+<li><code>onfocus</code>:当获取焦点时</li>
+<li><code>onblur</code>:当失去焦点时</li>
+</ul>
+<p><strong>select对象</strong></p>
+<p><code>select</code>对象属性</p>
+<ul>
+<li><code>options</code>[]: 设置或返回下拉列表中<code>&lt;option&gt;</code>标记构成的数组。</li>
+<li><code>selectedIndex</code>:设置或选中指定<code>&lt;option&gt;</code>的索引号。</li>
+<li><code>length</code>:指定下拉列表中<code>&lt;option&gt;</code>标记的个数。</li>
+<li><code>name</code>:元素名称。</li>
+</ul>
+<p><code>option</code>对象属性</p>
+<ul>
+<li><code>text</code>：指<code>&lt;option&gt;</code>和<code>&lt;/option&gt;</code>之间的文本</li>
+<li><code>value</code>：指<code>&lt;option&gt;</code>标记的属性。</li>
+</ul>
+<p><!-- raw HTML omitted -->简单小实例<!-- raw HTML omitted --></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-04-12</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89-js%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/" data-title="基础篇(三)-JS对象使用" data-via="xxxx" data-hashtags="JavaScript,入门"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89-js%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/" data-hashtag="JavaScript"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89-js%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/" data-title="基础篇(三)-JS对象使用" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89-js%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/" data-title="基础篇(三)-JS对象使用"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89-js%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/" data-title="基础篇(三)-JS对象使用" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89-js%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/" data-title="基础篇(三)-JS对象使用" data-description=" "><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89-js%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/" data-title="基础篇(三)-JS对象使用" data-description=" "><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89-js%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/" data-title="基础篇(三)-JS对象使用"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/javascript/">JavaScript</a>,&nbsp;<a href="/tags/%E5%85%A5%E9%97%A8/">入门</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%BA%8C-js%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="prev" rel="prev" title="基础篇(二)-JS基本语法"><i class="fas fa-angle-left fa-fw"></i>基础篇(二)-JS基本语法</a>
+            <a href="/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E5%9B%9B-js-bom/" class="next" rel="next" title="基础篇(四)-JS-BOM">基础篇(四)-JS-BOM<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

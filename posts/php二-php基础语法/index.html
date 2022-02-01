@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>PHP(二)-php基础语法 - Blog</title><meta name="Description" content=" "><meta property="og:title" content="PHP(二)-php基础语法" />
+<meta property="og:description" content=" " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/php%E4%BA%8C-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-04-16T01:03:43+00:00" />
+<meta property="article:modified_time" content="2016-04-16T01:03:43+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PHP(二)-php基础语法"/>
+<meta name="twitter:description" content=" "/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/php%E4%BA%8C-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/php%E4%B8%80-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" /><link rel="next" href="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E5%85%AD-html5%E4%BB%8B%E7%BB%8D/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "PHP(二)-php基础语法",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/php%E4%BA%8C-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95\/"
+        },"genre": "posts","keywords": "PHP, 入门","wordcount":  6959 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/php%E4%BA%8C-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95\/","datePublished": "2016-04-16T01:03:43+00:00","dateModified": "2016-04-16T01:03:43+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": " "
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">PHP(二)-php基础语法</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/php/"><i class="far fa-folder fa-fw"></i>PHP</a>&nbsp;<a href="/categories/%E5%85%A5%E9%97%A8/"><i class="far fa-folder fa-fw"></i>入门</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-04-16">2016-04-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6959 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 14 分钟&nbsp;<span id="/posts/php%E4%BA%8C-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="leancloud_visitors" data-flag-title="PHP(二)-php基础语法">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#php基本语法形式">php基本语法形式</a></li>
+        <li><a href="#变量">变量</a></li>
+        <li><a href="#常量">常量</a></li>
+        <li><a href="#预定义常量">预定义常量</a></li>
+        <li><a href="#魔术常量">魔术常量</a></li>
+        <li><a href="#php的数据类型">PHP的数据类型</a></li>
+        <li><a href="#进制转换的人工计算">进制转换的人工计算</a></li>
+        <li><a href="#浮点类型">浮点类型</a></li>
+        <li><a href="#字符串">字符串</a></li>
+        <li><a href="#布尔类型">布尔类型</a></li>
+        <li><a href="#类型转换">类型转换</a></li>
+        <li><a href="#类型相关的函数">类型相关的函数</a></li>
+        <li><a href="#运算符">运算符</a></li>
+        <li><a href="#位运算符">位运算符</a></li>
+        <li><a href="#错误控制运算符">错误控制运算符@</a></li>
+        <li><a href="#循环语句特殊使用">循环语句特殊使用</a></li>
+        <li><a href="#控制脚本执行顺序">控制脚本执行顺序</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>自学小笔记</p>
+<h3 id="php基本语法形式">php基本语法形式</h3>
+<p>区分大小写。</p>
+<p>一条语句使用一个分号结束。</p>
+<p>php注释形式。</p>
+<p>php的标记符</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;</span><span class="nx">meta</span> <span class="nx">http</span><span class="o">-</span><span class="nx">equiv</span><span class="o">=</span><span class="s2">&#34;Content-Type&#34;</span> <span class="nx">content</span><span class="o">=</span><span class="s2">&#34;text/html;charset=UTF-8&#34;</span><span class="o">/&gt;</span>
+<span class="mf">1.</span> <span class="o">&lt;?</span><span class="nx">php</span>   <span class="nx">这里要写符合php语法的语句</span>    <span class="cp">?&gt;</span><span class="err">	
+</span><span class="err">2. &lt;script language=&#34;php&#34;&gt;这里要写符合php语法的语句&lt;/script&gt;
+</span><span class="err">3. &lt;?		这里要写符合php语法的语句	?&gt;(不推荐，此方法依赖于php.ini中的设置项`short_open_tag = Off`(需要改为On))。
+</span><span class="err">
+</span></code></pre></div><p><strong>php的结束标记<code>？&gt;</code></strong></p>
+<p>如果<code>php</code>的语句之后，不存在任何的<code>html</code>的代码，那么可以忽略。</p>
+<p><strong>php的区分大小写特性</strong></p>
+<ol>
+<li>常量区分大小写。</li>
+<li>常量通常默认也区分，但可以人为设定为不区分（不推荐）。</li>
+<li>其他场合的关键字都不区分，比如函数名，系统关键字(<code>for</code>,<code>if</code>,<code>return</code>&hellip;).</li>
+</ol>
+<p><strong>php的注释</strong></p>
+<p>单行注释: <code>形式1: //注释内容  #注释内容</code></p>
+<p>多行注释: <code>/*	注释内容,可以多行 */</code></p>
+<h3 id="变量">变量</h3>
+<p><strong>含义</strong>：名称和值得关系可以称为“引用”(指向).使用一个变量其实就是指使用该变量所引用的值。</p>
+<p><strong>使用形式</strong>:必须以<code>$</code>开头，后面紧跟变量名。</p>
+<p><strong>定义形式</strong>:直接个一个变量赋值，如果是第一次，就断是定义了。没有单纯定义变量而不赋值的语句。&ndash;所以<code>php</code>不支持“<em>单纯定义</em>”</p>
+<p><strong>变量的基本操作</strong></p>
+<ul>
+<li>赋值</li>
+<li>取值</li>
+<li>判断<code>isset()</code>:就是判断一个变量是否“有效”，不存在或者值为<code>null</code>都是无效，其他有效。</li>
+<li>删除<code>unset()</code>:就是判断断开变量名跟数据之间的引用关系。</li>
+</ul>
+<p><strong>常用的命名法</strong></p>
+<ul>
+<li>驼峰命名：手单词小写，其后每个单词首字母大写。</li>
+<li>帕斯卡命名：每个单子首字母大写。</li>
+<li>下划线命名：每个单词都小写，并且用下划线区分开。</li>
+</ul>
+<p><strong>传递类型</strong></p>
+<p>只有两种，引用传递和值传递。</p>
+<p>在php中，只有一种语法形式可以实现变量的引用传递方式:<code>&amp;</code>符号。</p>
+<pre><code>	$v1 = 1;
+	$v2 = &amp;$m1;		//引用传值方式
+</code></pre>
+<p><strong>可变变量</strong></p>
+<pre><code>	$s1 = &quot;abc&quot;;	//一个变量，里面存储的是字符串&quot;abc&quot;
+	$abc = 10;		//
+	echo	$$s1;	// =10
+</code></pre>
+<p>说明：</p>
+<ol>
+<li>在<code>php</code>中，一个“<code>$</code>”后面，总是跟着一个变量名。</li>
+<li>所以以第一个<code>$</code> 说明后面是一个变量名，名字为：<code>$1</code> 既“abc”。</li>
+<li>所以等价于<code>$abc</code>, 所以等于<code>10</code>.</li>
+</ol>
+<p>总结：所谓动态变量，其实就是变量的名字是可以动态变化的以获取不同的数据值。</p>
+<p><strong>预定义变量</strong></p>
+<p>所谓与定义变量，其实指，php这个语言工具中，预先就定义好的变量；我们只是“拿来使用”。</p>
+<p>综述：</p>
+<ul>
+<li>主要有：<code>$_GET</code>,<code>$_POST</code>,<code>$REQUEST</code>,<code>$SERVER</code>,<code>$GLOBALS</code>,</li>
+<li>均是数组</li>
+<li>系统定义与维护 &ndash;&gt; 我们不需要给其赋值或者销毁值，只需要用其值即可。</li>
+<li>具有超全局作用域 &ndash;&gt; 哪里都可以用</li>
+<li>不同情形下可能具有不同的值</li>
+</ul>
+<p><strong>$_POST变量</strong></p>
+<p>含义:它代表用户用过表单以post方式(method=&ldquo;post&rdquo;)提交的时候所提交的所有数据&ndash;这个称为post数据。</p>
+<pre><code>$name = $_POST[name] ;	//获取到上一个html中的form表单post提交，name=name的input标签的值。
+$age  = $_POST[age];//获取到上一个html中的form表单post提交，name=age的input标签的值。
+</code></pre>
+<p>isset(变量):	判断变量是否存在，或者变量是否为null；如果存在返回true，否则就是false。</p>
+<p>empty(变量):判断变量内容是否为空，也有一些硬性规定：0，“”，“0”，false，null，array()都是空。 空的话就返回true，否则false。</p>
+<p><strong>$_GET变量</strong></p>
+<p>含义:代表用户通过<code>get</code>方式(有四种get方式)提交的时候所提交的所有数据&ndash;这个称为get数据。</p>
+<p>1.<code>form</code>表单  <code>method</code>指定<code>get</code>方式。
+2.<code>a</code>标签 在文件名后面追加携带参数 <code>&lt;a href=&quot;目标文件.php?data1=1&amp;data2=student&amp;age=10&quot;&gt;链接说明&lt;/a&gt;</code>
+3.通过<code>js</code>技术实现的页面跳转，跟<code>a</code>标签的连接功能一样</p>
+<pre><code>	&lt;script&gt;
+		location.href = &quot;目标文件.php?data1=1&amp;data2=student&amp;age=10&quot;;
+	&lt;/script&gt;
+	//或者使用页面跳转的另一个语法
+	&lt;script&gt;
+		location.assign = &quot;目标文件.php?data1=1&amp;data2=student&amp;age=10&quot;;
+	&lt;/script&gt;
+</code></pre>
+<p>4.php跳转形式</p>
+<pre><code>	&lt;?php
+		//语法形式:	header(&quot;location:目标网页地址&quot;);
+		header(&quot;location:目标文件.php?key1=value1&amp;key2=value2&quot;);
+	?&gt;
+</code></pre>
+<p><strong>输出</strong></p>
+<pre><code>   print_r($_GET); 或者 var_dump($_GET);
+</code></pre>
+<p><strong>$_REQUEST变量</strong></p>
+<p>含义:是<code>$_GET变量</code>和<code>$_POST</code>变量的数据的合集，就是它里面同时存储了两种数据。</p>
+<p>只要在<code>form</code>表单<code>method</code>为<code>post</code>提交，并且<code>action</code>目标文件后追加参数，会同时出发两种请求。</p>
+<p>默认情况下<code>post</code>追加到<code>get</code>之后，但在<code>php.ini</code>中的<code>request_order</code>.可以设置。</p>
+<p><strong>$_SERVER变量</strong></p>
+<p>含义:它代表在一次浏览网页的过程中的浏览器端的一些信息或服务的一些信息。大约有30左右各信息。常用只是几个。</p>
+<ul>
+<li><code>$_SERVER['REMOTE_ADDR']</code>:	获取访问者的ip地址。</li>
+<li><code>$_SERVER['SERVER_ADDR']</code>:	获取服务器所在的ip地址。</li>
+<li><code>$_SERVER['SERVER_NAME']</code>:	获取服务器的名字，其实就是站点设置中的servername；</li>
+<li><code>$_SERVER['DOCUMENT_ROOT']</code>:	获取站点的真实物理位置，其实就是站点设置中的ducumentroot。</li>
+<li><code>$_SERVER['PHP_SELF']</code>:	获取当前网页地址，(不含域名部分)</li>
+<li><code>$_SERVER['QUERY_STRING']</code>: 获取当前网页地址中的所有get数据(?之后),就是一个字符串。</li>
+</ul>
+<p><strong>GLOBALS变量</strong></p>
+<p>含义:他是一个&quot;重复性数据&quot;,它里面存储了我们自己定义的所有&quot;全局变量&quot;。</p>
+<pre><code>$v1 = 1;	//定义了一个全局变量。
+	// 这个时候，就有了这样一个数据:$GLOBALS[V1],其值就是1.
+</code></pre>
+<p>场景: 主要是用于在局部范围不可以使用全局变量，但是有需要该全局变量的值，此时就可以用来取全局变量的值。</p>
+<h3 id="常量">常量</h3>
+<p>常量是相对于变量说的:是一个其中存储的数据不会改变的&quot;标识符&quot;。</p>
+<p>常量的 使用就2个方面:定义，取值。</p>
+<p>常量的定义:</p>
+<ul>
+<li>方式1:<code>defind</code>(&ldquo;常量名&rdquo;,常量值);</li>
+<li>方式2:<code>const</code> 常量名 = 常量;</li>
+</ul>
+<p>常量的使用形式:</p>
+<ul>
+<li>
+<p>直接使用常量的名字</p>
+</li>
+<li>
+<p>使用函数<code>constant(name)</code>获得一个常量的值。  <code>name</code>是一个常量名字并且是一个字符串。</p>
+<pre><code>  //取常量值的灵活用法，contant()里面也可以不传字符串。
+  defind(&quot;student1&quot;,123);		//定义一个常量
+
+  $1 = 1 ;
+  $2 = &quot;student&quot;.$1;
+
+  echo &quot;&lt;br/&gt; 常量student1的值为:&quot;.constant($2);	//	这里$2 作为一个字符串的值，等价于常量的名字。
+</code></pre>
+</li>
+</ul>
+<p><strong>引号中的常量是不能被识别的;而变量却可以。</strong></p>
+<p>常量变量的区别</p>
+<ul>
+<li>定义形式不同:</li>
+<li>使用形式不同: 常量无需使用$</li>
+<li>可变程度不同: 常量的值不可以改变,常量也不可以销毁</li>
+<li>作用范围不同: 常量具有超全局作用域(函数内外都可以直接使用)</li>
+<li>可用类型不同: 常量只能存储标量类型(整数，浮点数，字符串，布尔)</li>
+</ul>
+<p>判断常量是否存在: <code>defind(name)</code>，返回true就存在。</p>
+<p>注意: 在<code>php</code>中，当使用一个未定义的常量的时候 ，系统会直接将该常量当做有值的常量去使用，并且其值就是该常量名字&ndash;虽然也会报错。</p>
+<h3 id="预定义常量">预定义常量</h3>
+<p>就是系统中预先定义好的一些常量，大约有几百个，初学知道几个就行:</p>
+<ul>
+<li><code>M_PI</code>: 就是圆周率的常量值。</li>
+<li><code>PHP_OS</code>: php运行所在的操作系统</li>
+<li><code>PHP_VERSION</code>: php的版本号</li>
+<li><code>PHP_INT_MAX</code>: php中的最大的整数值</li>
+<li>更多参考手册</li>
+</ul>
+<h3 id="魔术常量">魔术常量</h3>
+<p>其实只是常量的形式，但没有常量的&quot;恒常&quot;的含义:值会变化，只是很少的几个</p>
+<ul>
+<li><code>__FILE__</code> 代表当前网页文件的完整物理路径</li>
+<li><code>__DIR__</code>	代表当前网页文件所在的文件夹</li>
+<li><code>__LINE__</code> 代表当前这个常量名所在的行号</li>
+</ul>
+<h3 id="php的数据类型">PHP的数据类型</h3>
+<p><strong>基本类型(标量类型)</strong></p>
+<ul>
+<li>整数类型:	<code>int</code>, <code>integer</code></li>
+<li>浮点数类型: <code>float</code>，<code>double</code></li>
+<li>字符串类型: <code>string</code></li>
+<li>布尔类型: <code>bool</code>，<code>boolean</code></li>
+</ul>
+<p><strong>复合类型</strong></p>
+<ul>
+<li>数组: 	<code>array</code></li>
+<li>对象: <code>object</code></li>
+</ul>
+<p><strong>特殊类型</strong></p>
+<ul>
+<li>空类型: <code>null</code>   这种类型中，只有一个数据，那就是<code>null</code></li>
+<li>资源类型: <code>resource</code></li>
+</ul>
+<p><strong>整数类型</strong></p>
+<p>证书类型的四种写法:</p>
+<ul>
+<li><code>$n1 = 123;	//10进制写法</code></li>
+<li><code>$n2 = 0123;	//8进制写法</code></li>
+<li><code>$n3 = 0x123;	//16进制写法</code></li>
+<li><code>$n4 = 0b1010;		//2进制写法(在php5.4以前不支持)</code></li>
+<li><code>以上定义变量，是因为赋值的值书写成整数形式，如果用字符串也可以 就不需要前面的标示区分例如:0,0x,0b。</code></li>
+</ul>
+<p><strong>进制的转换问题</strong></p>
+<ul>
+<li><code>bin</code>: 2进制</li>
+<li><code>oct</code>: 8进制</li>
+<li><code>dec</code>: 10进制</li>
+<li><code>hex</code>: 16进制</li>
+</ul>
+<p>使用方式: 两个进制转换的缩写名组合(要被转换数字)。六种</p>
+<pre><code>// 十进制转其他进制
+decbin(123);	//将十进制转成二进制 返回为一个字符串。
+decoct(123);	//将十进制转成八进制 返回为一个字符串。
+dechex(123);	//将十进制转成十六进制 返回为一个字符串。
+// 其他进制转十进制  同上3种
+注意 除了10进制为数字，其他进制类型可以认为是字符串。 
+</code></pre>
+<h3 id="进制转换的人工计算">进制转换的人工计算</h3>
+<p><strong>10进制转换为2进制</strong></p>
+<p>做法: 除2取余倒着写出所有余数。
+详细解释: 讲一个10进制数字处理2，得到商和余数，如果商还大于等于2，则继续除以2，继续得到商和余数，以此类推，知道商为0为止，然后将前面的所有余数按倒序写出来就是对应的2进制数字。</p>
+<p><strong>10进制转换为8进制</strong></p>
+<p>做法: 除8取余倒着写出所有余数。
+详细解释: 讲一个10进制数字处理8，得到商和余数，如果商还大于等于8，则继续除以8，继续得到商和余数，以此类推，知道商为0为止，然后将前面的所有余数按倒序写出来就是对应的8进制数字。</p>
+<p><strong>10进制转换为16进制</strong></p>
+<p>做法: 除16取余倒着写出所有余数。
+详细解释: 讲一个10进制数字处理16，得到商和余数，如果商还大于等于16，则继续除以16，继续得到商和余数，以此类推，知道商为0为止，然后将前面的所有余数按倒序写出来就是对应的16进制数字。</p>
+<p><strong>其他进制换为10进制的做法:</strong></p>
+<p>一种数字的大小和&quot;数字权值&quot;有关。例如:</p>
+<p>例如: 对一个10进制数字: 1234，可以这样去理解它的大小:</p>
+<p>1234 = 1*10<!-- raw HTML omitted -->3<!-- raw HTML omitted --> + 2*10<!-- raw HTML omitted -->2<!-- raw HTML omitted -->  + 3*10<!-- raw HTML omitted -->1<!-- raw HTML omitted -->  + 1*10<!-- raw HTML omitted -->0<!-- raw HTML omitted --> = 1000+200+30+4 ;
+对于10<!-- raw HTML omitted -->3<!-- raw HTML omitted -->，10<!-- raw HTML omitted -->2<!-- raw HTML omitted -->，10<!-- raw HTML omitted -->1<!-- raw HTML omitted -->等，称为&quot;权值&quot;，每个位的权值是不同的。</p>
+<p>对于10进制，每个位上权值都是10的几次方。</p>
+<p>对于16进制，每个位上权值都是16的几次方。</p>
+<p>对于8进制，每个位上权值都是8的几次方。</p>
+<h3 id="浮点类型">浮点类型</h3>
+<p><strong>浮点数的两种表示形式</strong></p>
+<p>1.常规写法：</p>
+<p><code>$v1 = 123.456;</code></p>
+<p>2.科学计数法:带一个特殊符号&quot;E&quot;</p>
+<p><code>$v1 = 123.456E3;	//123.456乘以10的3次方。 即使为123456，但是仍然是浮点类型。</code></p>
+<p><strong>浮点数使用的细节</strong></p>
+<p>1.浮点数不应该进行大小比较</p>
+<ol>
+<li>所有数字，最终的表示形式，都是2进制!!!</li>
+<li>大多数浮点数的2进制形式，不能完全表达准确。最终只能以很高的精度接近理论值。</li>
+<li>因此，浮点数比较是不可靠的。</li>
+</ol>
+<p>以上说明：<code>php</code>中输出其实是做了一定的处理之后的显示结果，而js得输出是计算机算出的结果。 <code>java</code>中<code>float</code>上限为小数点后六位，<code>double</code>为小数点后15位。</p>
+<p><strong>小数转二进制的做法:乘以2并顺序取整数部分</strong></p>
+<pre><code>//将小数0.6125转换为2进制小数形式：
+//小数转二进制的做法: 乘以2并顺序取整数部分。
+0.6125	整数
+*2
+=0.225	1
+*2
+=0.45	0
+*2 
+=0.9	0
+*2
+=0.8	1
+*2
+=0.6	1		--&gt; 已经开始循环
+*2
+=0.2	1
+*2
+=0.4	0
+*2
+=0.8	0
+*2
+=0.6	1		--&gt; 循环起始点
+*2
+=0.2	1
+......
+
+其最后结果: 0.1001 1100 1100 1100 ....(float 最多就是32个)
+
+如果小数位0.625  那么就不需要循环可以除开。 为:0.101
+</code></pre>
+<p><strong>当整数运算的结果超出整数的范围后，会自动转换为浮点数(了解)</strong></p>
+<p>获取一个数据(变量)的类型的函数：</p>
+<ul>
+<li><code>getType($变量)</code>;	返回的是该类型的名字(字符串);</li>
+<li><code>var_dump($变量)</code>;	会输出该变量的类型，数据内容，(以及长度)。</li>
+</ul>
+<p>int类型最大数字为10位数字，max=2147483647≈21E</p>
+<h3 id="字符串">字符串</h3>
+<p>php中字符串的定义有四种形式:</p>
+<p>形式 1:双引号字符串</p>
+<p>*<code> $str1 = &quot;字符串内容&quot;;</code></p>
+<ul>
+<li>内容中可能使用到的转义符: <code>\\</code>,<code>\'</code></li>
+</ul>
+<p>形式 2: 单引号字符串:</p>
+<ul>
+<li><code>$str2 = &quot;字符串内容&quot;;</code></li>
+<li>内容中可能使用到的转义符: <code>\\</code>,<code>\'</code>,<code>\n（换行符）</code>,<code>\r（回车符）</code>,<code>\t(tab符)</code>,<code>\$ 取消了在双引号字符串中的php的变量名起始声明含义</code></li>
+</ul>
+<p>形式 3: 双引号定界符字符串</p>
+<ul>
+<li><code>$str3 = &lt;&lt;&lt; &quot;标识符A&quot;&lt;br/&gt;字符串内容&lt;br/&gt;标识符 ;</code></li>
+</ul>
+<p>形式 4: 单引号定界符号字符串</p>
+<ul>
+<li><code>$str4 = &lt;&lt;&lt; '标识符B'	&lt;br/&gt;字符串内容&lt;br/&gt;标识符</code></li>
+</ul>
+<p>上处3 4形式结束一行，只能出现该标识符本身以及一个分号，其他什么都不允许出现。</p>
+<h3 id="布尔类型">布尔类型</h3>
+<p>单词bool，boolean。 只有true和false。</p>
+<p>需要知道以下数据是被当做false的存在。</p>
+<p>0，0.0， &ldquo;&quot;， &ldquo;0&rdquo;， null， array()， false，还有一个为定义变量。</p>
+<p>参考: 手册 &ndash;&gt; 附录 &ndash;&gt; php类型比较表</p>
+<h3 id="类型转换">类型转换</h3>
+<p><strong>自动转换</strong></p>
+<p>在任何运算中，如果需要某种类型的数据，而给出的数据不是该类型，通常会发生自动转换。将该类型转换为目标需要的类型。</p>
+<p>例如: <code>octdec($x),bindec($x),hexdec($x); 这里的$x必须是字符串如果不是就会自动转换。</code></p>
+<pre><code>	$n1 = 1+&quot;2&quot;;	//3
+	$n2 = &quot;1&quot;+&quot;2&quot;;	//3
+	//php中，算术运算符，就只能对数值进行计算，即使是字符串会强转为数字，如果不是数字那么强转结束，只保留从开始成功的一部分。
+	$n3 = 1 +&quot;2abc&quot;	//3
+	$n4 = 1 +&quot;abc2&quot;		//1
+	$n5 = 1 +true;		//2
+	$n6 = 1 +false;		//1
+</code></pre>
+<p><strong>强制转换</strong></p>
+<p>自动类型转换是由&quot;运算符&quot;或类似运算符的语句来决定。</p>
+<p>强制类型同java一样，在前面做类型声明强转。</p>
+<p>通常的转换类型有，<code>int</code>，<code>float</code>，<code>string</code>，<code>bool</code>，<code>array</code>，<code>object</code>。</p>
+<p>这种强转类型，并不能改变该变量的本身数据或类型。对应，有一个语法是直接改变本身的数据以及类型：</p>
+<ul>
+<li><code>settype</code>(变量名,要重设的值);</li>
+</ul>
+<h3 id="类型相关的函数">类型相关的函数</h3>
+<p><strong>var_dump()</strong></p>
+<p>用于输出变量的“完整信息”，几乎只用于调试代码。</p>
+<p><strong>getType($变量名)</strong></p>
+<p>获取给变量能够的类型名字，返回的是一个表示该类型的字符串。如“string”，“bool”</p>
+<p><strong>setType($变量名，&ldquo;目标类型&rdquo;)</strong></p>
+<p>将该变量强制改变为目标类型</p>
+<p><strong>isset(),empty(),unset()</strong></p>
+<p>之前有介绍。</p>
+<p><strong>is_XX类型() 系列函数</strong></p>
+<p>判断$x是否是一个整数类型</p>
+<ul>
+<li><code>is_int($s)</code>;	//判断是否是一个整数类型</li>
+<li><code>is_float($s)</code>;</li>
+<li>&hellip;</li>
+<li><code>is_numeric($s)</code>;//判断是否是一个数字</li>
+<li><code>is_scalar($s)</code>;	//判断是否是一个标量类型</li>
+</ul>
+<h3 id="运算符">运算符</h3>
+<p><strong>算术运算符</strong></p>
+<p>符号 <code>+ - * / %</code></p>
+<ul>
+<li>在php中只是针对数字进行运算</li>
+<li>如果运算符两边有不是数字的数据，就会自动转换为数字</li>
+<li>其中取余运算%，它只会针对整数进行运算如果不是，会自动截取为整数。</li>
+</ul>
+<p><strong>自增自减运算符</strong></p>
+<ul>
+<li>常规: 对数字进行自加1或自减1.</li>
+<li>字符串: 只能自增，且自增的效果就是 下一个字符 ，只能针对字母或数字进行自加。</li>
+<li>布尔值递增递减无效</li>
+<li>null递减无效，递增结果为1</li>
+</ul>
+<p><strong>逻辑运算符</strong></p>
+<p>php中的<code>&amp;&amp;</code> <code>||</code>  支持短路现象，相当于java中的 单<code>&amp;</code>   和双<code>&amp;</code> 的区别，如果判断条件1可以得出结论，后面的判断条件不再执行。</p>
+<p><strong>字符串运算符</strong></p>
+<ul>
+<li>符号为<code>.</code>，也演出了另一个<code>.=</code></li>
+<li>如果两边不是字符串，就会自动转换为字符串在连接。</li>
+</ul>
+<h3 id="位运算符">位运算符</h3>
+<p><strong>基础规定</strong></p>
+<p>1 位是什么？ 就是二进制数字的每一个 位，一个整数数字，有32个位构成。</p>
+<p>2 位运算符仅仅针对整数进行的运算符。</p>
+<p>3.位运算符有如下几个</p>
+<ul>
+<li><code>&amp;</code>：按位与</li>
+<li><code>|</code>：按位或</li>
+<li><code>~</code>：按位非   按位取反</li>
+<li><code>^</code>：按位异或</li>
+</ul>
+<p>4.位运算符的基本语法规则。</p>
+<p>按位与基本规则：</p>
+<pre><code>* 1 &amp; 1 --&gt; 1
+* 1 &amp; 0 --&gt; 0
+* 0 &amp; 1 --&gt; 0
+* 0 &amp; 0 --&gt; 0
+</code></pre>
+<p>按位或基本规则：</p>
+<pre><code>* 1 | 1 --&gt; 1
+* 1 | 0 --&gt; 1
+* 0 | 1 --&gt; 1
+* 0 | 0 --&gt; 0
+</code></pre>
+<p>按位非基本规则：</p>
+<pre><code>* ~ 1 --&gt; 1
+* ~ 0 --&gt; 1
+</code></pre>
+<p>按位异或基本规则：</p>
+<pre><code>* 1 ^ 1 --&gt; 0
+* 1 ^ 0 --&gt; 1
+* 0 ^ 1 --&gt; 1
+* 0 ^ 0 --&gt; 0
+</code></pre>
+<p><strong>原码，反码，补码</strong></p>
+<p>原码：是一个二进制数字，从数学观念上来表达的形式，其中，我们规定: 一个数字的最左边是符号位，0表示整数，1表示负数。</p>
+<p>反码：整数的反码不变，负数的反码：符号位不变，其他位取反。</p>
+<p>补码：整数的补码就是本身，负数补码：符号位不变，其他位取反后+1&mdash;-既反码+1</p>
+<p><strong>灯泡判断法</strong></p>
+<p>status 所有灯泡状态
+d1，d2……dx	每个灯泡</p>
+<pre><code>1. 查看某个灯泡是否打开: (status &amp; d1）是否大于0
+2. 打开某个灯泡: status | d1
+3. 关闭某个灯泡: status &amp; (~d1)
+</code></pre>
+<p><strong>数组运算符</strong></p>
+<ul>
+<li>+：数组联合，也可以理解为数组串联。将游标的数组项合并到左边数组的后面，得到一个新数组，如果有重复键，则结果以左边的为准。</li>
+<li>==：如果两个数组具有相同的键名和键值(可以顺序不同类型不同)，则返回true。</li>
+<li>===：如果两个数组具有相同的键名和键值并且顺序类型都一样，则返回true。</li>
+</ul>
+<h3 id="错误控制运算符">错误控制运算符@</h3>
+<p>通常就用在一个地方</p>
+<p><code>$link = @mysql_connect(&quot;数据库服务器地址&quot;,&quot;用户名&quot;,&quot;密码&quot;);</code>
+作用是:如果该链接数据的语句失败，则屏蔽该失败的错误提示。</p>
+<h3 id="循环语句特殊使用">循环语句特殊使用</h3>
+<p>php中，<code>break</code>和<code>continue</code>有扩展的使用功能，可以中断更多层的循环。break 正整数n;</p>
+<p>循环的层，值得是从当前中断语句(break，continue)算起，往代码的外部属循环个数，就是层数。</p>
+<pre><code>for(){		//循环1
+	for(){		//循环2
+		for(){		//循环3
+			break 2; //会中断2：就是指中断2层
+					//循环3为第一层，循环2为第二层，循环3为第三层。
+		}
+	
+	}
+}
+</code></pre>
+<h3 id="控制脚本执行顺序">控制脚本执行顺序</h3>
+<p><strong>die(字符串)/exit(字符串)</strong></p>
+<p>输出该字符串后，立即停止php的执行!既后续程序不再执行，包括后续的其他所有php和html代码部分。</p>
+<p>exit是die的同义词。也可以不加字符串，而是直接停止。</p>
+<p><strong>sleep($n)</strong></p>
+<p>让程序停止运行指定的秒数。然后等待过了那个时间后，就继续运行。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-04-16</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/php%E4%BA%8C-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-title="PHP(二)-php基础语法" data-via="xxxx" data-hashtags="PHP,入门"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/php%E4%BA%8C-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-hashtag="PHP"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/php%E4%BA%8C-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-title="PHP(二)-php基础语法" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/php%E4%BA%8C-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-title="PHP(二)-php基础语法"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/php%E4%BA%8C-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-title="PHP(二)-php基础语法" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/php%E4%BA%8C-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-title="PHP(二)-php基础语法" data-description=" "><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/php%E4%BA%8C-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-title="PHP(二)-php基础语法" data-description=" "><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/php%E4%BA%8C-php%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-title="PHP(二)-php基础语法"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/php/">PHP</a>,&nbsp;<a href="/tags/%E5%85%A5%E9%97%A8/">入门</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/php%E4%B8%80-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="prev" rel="prev" title="PHP(一)-环境搭建"><i class="fas fa-angle-left fa-fw"></i>PHP(一)-环境搭建</a>
+            <a href="/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E5%85%AD-html5%E4%BB%8B%E7%BB%8D/" class="next" rel="next" title="基础篇(六)-HTML5介绍">基础篇(六)-HTML5介绍<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

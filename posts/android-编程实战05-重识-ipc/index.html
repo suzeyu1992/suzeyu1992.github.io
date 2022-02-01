@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android 编程实战》05-重识 IPC - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android 编程实战》05-重识 IPC" />
+<meta property="og:description" content="阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第7章 Binder简介 Android有一个强大的功能, 就是能够在不同应用程序之间进行通" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-09-28T09:39:10+00:00" />
+<meta property="article:modified_time" content="2016-09-28T09:39:10+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android 编程实战》05-重识 IPC"/>
+<meta name="twitter:description" content="阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第7章 Binder简介 Android有一个强大的功能, 就是能够在不同应用程序之间进行通"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android 编程实战》05-重识 IPC",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  4989 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc\/","datePublished": "2016-09-28T09:39:10+00:00","dateModified": "2016-09-28T09:39:10+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android 编程实战》05-重识 IPC</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-09-28">2016-09-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4989 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;<span id="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" class="leancloud_visitors" data-flag-title="《Android 编程实战》05-重识 IPC">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#binder简介">Binder简介</a>
+      <ul>
+        <li><a href="#binder地址">Binder地址</a></li>
+        <li><a href="#binder事务">Binder事务</a></li>
+        <li><a href="#parcel">Parcel</a></li>
+        <li><a href="#link-to-death">link to death</a></li>
+      </ul>
+    </li>
+    <li><a href="#设计api">设计API</a>
+      <ul>
+        <li><a href="#aidl">AIDL</a></li>
+        <li><a href="#messenger">Messenger</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>阅读《Android 编程实战》一书的抄书笔记  &ndash;&gt; 对应书籍第7章</p>
+</blockquote>
+<h2 id="binder简介">Binder简介</h2>
+<p><code>Android</code>有一个强大的功能, 就是能够在不同应用程序之间进行通信. 绝大部分的实现都是由<code>Binder IPC(Inter-Process Communication)</code>进行处理的.</p>
+<p><code>Android</code>中的<code>Binder</code>有着悠久的历史. 最终它的名字叫做<code>OpenBinder</code>, 是Be公司开发的Be操作系统(BeOS). 后来被移植到<code>Android</code>平台, 并且进行了重写以支持应用程序间的IPC. 基本上<code>Binder</code>提供了在不同执行环境间绑定功能和数据的特性. <code>Binder</code>非常适合在<code>Android</code>应用程序间进行通信, 因为每个<code>Android</code>应用程序都运行在自己的<code>Dalvik</code>虚拟机里, 而每个虚拟机又是独立的运行环境.</p>
+<blockquote>
+<p>在2009年, <code>Linux</code>社区就谷歌选择<code>Binder</code>而非选择<code>dbus</code>的原因有过很长时间的争论, 因为在此之前<code>Linux</code>内核一直使用<code>dbus</code>来实现IPC机制. 最开始开发<code>Android</code>时, <code>Binder</code>成了IPC的最佳选择, 如今它已成为<code>Android</code>系统的一个组成成分. <code>Linux</code>中的<code>dbus</code>机制也用在许多的<code>Android</code>设备上, 特别是为无线接口层(Radio Interface Layer, RIL)通信以及<code>Android 4.3</code>以后的蓝牙通信. 但大部分IPC还是<code>Binder</code>.</p>
+</blockquote>
+<p>使用<code>Binder IPC</code>进行通信时, 两个应用程序使用内核驱动来传递消息(如下图), 除了发送消息, <code>Binder</code>还提供了其他功能, 比如识别远程调用者(进程ID和用户ID), 以及当远程进程被烧死(<code>link-to-death</code>)时发送通知.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="BinderIPC.png"
+        data-srcset="BinderIPC.png, BinderIPC.png 1.5x, BinderIPC.png 2x"
+        data-sizes="auto"
+        alt="BinderIPC.png"
+        title="BinderIPC.png" /></p>
+<p>例如, 当<code>系统Service</code>(通过WindowManager管理Android所有窗口)为每个应用保持一个<code>Binder</code>引用时会调用这些附加函数, 当应用窗口关闭时会收到link-to-death通知.</p>
+<p><code>Binder</code>通信遵循<strong>客户端-服务端模式</strong>, 客户端使用客户端代理来处理与内核驱动程序的通信. 在服务器端, <code>Binder</code>框架维护了一系列<code>Binder线程</code>. 内核驱动会使用服务端的<code>Binder</code>线程把消息从客户端代理分发个接收对象. 这一点需要特别注意, 因为当通过Binder接收<code>Service</code>调用时, 他们并不会运行在应用程序的主线程上, 这样一来, 客户端连接远程Service的连接就不会阻塞应用的主线程.</p>
+<h3 id="binder地址">Binder地址</h3>
+<p>使用<code>Binder</code>通信时, 客户端需要知道远程<code>Binder</code>对象的地址. 然而, <code>Binder</code>的设计要求只有实现类(比如要调用的Service)才知道该地址. 开发者使用<code>Intent</code>解析来进行寻址. 客户端使用<code>action</code>
+字符串或者组件名(componentName)来构造<code>Intent</code>对象, 然后使用它初始化于远程应用程序的通信. <code>Intent</code>只是实际<code>Binder</code>地址的抽象描述, 为了能够建立通信, 还需要翻译成实际的地址.</p>
+<p><code>ServiceManager</code>是一个特殊的<code>Binder</code>节点, 它运行在<code>Android</code>系统服务内, 管理所有的地址解析, 是唯一一个有全局地址的<code>Binder</code>节点. 因为所有的<code>Android组件</code>都是用<code>Binder</code>进行通信, 所以它们需要使用<code>ServiceManager</code>进行注册.</p>
+<p>客户端要想和<code>Service</code>或者其他组件进行通信, 需隐式地通过<code>Intent</code>查询<code>ServiceManager</code>来接收<code>Binder</code>地址.</p>
+<h3 id="binder事务">Binder事务</h3>
+<p>在<code>Android</code>中, **事务(transaction)**是指一个进程发送数据到另一个进程. 在<code>Binder</code>上开启事务首先会在客户端调用<code>IBinder,transact()</code>, 然后<code>Service</code>收到<code>Binder.onTranscat()</code>方法回调.</p>
+<p>如下演示了在客户端如何使用<code>IBinder</code>引用向服务端执行自定义的<code>Binder</code>事务</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">performCustomBinderTransaction</span><span class="o">(</span><span class="n">IBinder</span> <span class="n">binder</span><span class="o">,</span> <span class="n">String</span> <span class="n">arg0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">arg1</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">RemoteException</span> <span class="o">{</span>
+
+   <span class="n">Parcel</span> <span class="n">request</span> <span class="o">=</span> <span class="n">Parcel</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
+   <span class="n">Parcel</span> <span class="n">response</span> <span class="o">=</span> <span class="n">Parcel</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
+
+   <span class="c1">// 组装请求数据, 要发送到服务端的
+</span><span class="c1"></span>   <span class="n">request</span><span class="o">.</span><span class="na">writeString</span><span class="o">(</span><span class="n">arg0</span><span class="o">);</span>
+   <span class="n">request</span><span class="o">.</span><span class="na">writeInt</span><span class="o">(</span><span class="n">arg1</span><span class="o">);</span>
+
+   <span class="c1">// 执行事务
+</span><span class="c1"></span>   <span class="n">binder</span><span class="o">.</span><span class="na">transact</span><span class="o">(</span><span class="n">IBinder</span><span class="o">.</span><span class="na">FIRST_CALL_TRANSACTION</span><span class="o">,</span> <span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+
+   <span class="c1">// 从响应中读取结果
+</span><span class="c1"></span>   <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">readString</span><span class="o">();</span>
+
+   <span class="c1">// 释放资源, 以便循环利用
+</span><span class="c1"></span>   <span class="n">request</span><span class="o">.</span><span class="na">recycle</span><span class="o">();</span>
+   <span class="n">response</span><span class="o">.</span><span class="na">recycle</span><span class="o">();</span>
+
+   <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>而服务端会实现一个继承<code>Binder</code>类, 通过<code>onTransact()</code>来接收客户端的数据, 如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServerBinder</span> <span class="kd">extends</span> <span class="n">Binder</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">onTransact</span><span class="o">(</span><span class="kt">int</span> <span class="n">code</span><span class="o">,</span> <span class="n">Parcel</span> <span class="n">data</span><span class="o">,</span> <span class="n">Parcel</span> <span class="n">reply</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">RemoteException</span> <span class="o">{</span>
+<span class="c1">//        return super.onTransact(code, data, reply, flags);
+</span><span class="c1"></span>
+        <span class="c1">// 开始读取客户端发送的请求数据
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">arg0</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">readString</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">arg1</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">readInt</span><span class="o">();</span>
+
+        <span class="c1">// 处理接收结果, 并生成返回的数据
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">buildResult</span><span class="o">(</span><span class="n">arg0</span><span class="o">,</span> <span class="n">arg1</span><span class="o">);</span>
+
+        <span class="c1">// 把结果写入想用Parcel
+</span><span class="c1"></span>        <span class="n">reply</span><span class="o">.</span><span class="na">writeString</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+
+        <span class="c1">// 成功后返回true
+</span><span class="c1"></span>        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="nf">buildResult</span><span class="o">(</span><span class="n">String</span> <span class="n">arg0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">arg1</span><span class="o">){</span>
+        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="c1">// ...这里省略业务逻辑, 以后可自行添加
+</span><span class="c1"></span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p>如上, 因为属于作为远程服务端中实现自定义的<code>Binder</code>对象时没有使用<code>AIDL</code>. 所以这里需要自己处理<code>onTransact()</code>方法.</p>
+<p>上面两个代码通过<code>Binder IPC</code>进行的同步双向调用. 也可在客户端执行单项的调用, 只需在客户端发送事务的方法进行相应更改即可, 如<code>IBinder.transact()</code>方法调用中把标识位设置为<code>FLAG_ONEWAY</code>, 这样就可以把第二个<code>Parcel</code>参数设置为null. 单项调用会提供更好的性能, 因为只需对一个<code>Parcel</code>对象进行编解码操作.</p>
+<p>当然这里只是让其了解一下流程, 当真正实现进程间通信, 或者提供其他应用调用的API的时候不会直接操作这种底层的方式在两个程序之间执行事务, 而是使用对这种事务进行进一步封装的<code>AIDL</code>或者<code>Messenger</code>等.
+而对于更细粒度地控制数据如何应用间发送, 使用底层binder操作事务这是正确的.</p>
+<h3 id="parcel">Parcel</h3>
+<p><code>Binder</code>事务通常会传递事务数据, 这种数据被称为<code>Parcel</code>(包裹).</p>
+<p><code>Android</code>中的<code>Parcel</code>和<code>Java SE</code>中序列化对象类似, 不同之处在于, 开发者需要使用<code>Parcelable</code>接口实现对象的编解码工作. 该接口定义了两个编写<code>Parcel</code>对象的方法, 以及一个静态的不可被复写的<code>Creator</code>对象, 该对象用来从<code>Parcel</code>中读取相应的对象.</p>
+<h3 id="link-to-death">link to death</h3>
+<p><code>Binder</code>的另一个特点, 允许客户端在<code>Service</code>终止的时候收到通知. 这就被称为<code>link to death</code>.</p>
+<p><code>Binder</code>的<code>IBinder.linkToDeath()</code>方法实现了该机制. 当客户端在<code>onServiceConnected()</code>方法中收到<code>IBinder</code>对象, 它可以用实现了<code>IBinder.DeathRecipient</code>接口的参数调用<code>linkToDeath()</code>方法. 因为<code>Android</code>可能在资源不足的(RAM)时被系统杀死, 在客户端注册远程被终止的监听通知会很有用.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"> <span class="cm">/*
+</span><span class="cm">  * ClassDescription: 无实际意义, 只为演示如何使用IBinder注册link-to-death
+</span><span class="cm">  */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LinkToDeathSample</span> <span class="kd">extends</span> <span class="n">Service</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">LinkToDeathSample</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">();</span>
+
+
+    <span class="cm">/**
+</span><span class="cm">     *  对客户端提供注册方法
+</span><span class="cm">     */</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">notifyRemoteServiceDeath</span><span class="o">(</span><span class="n">IBinder</span> <span class="n">iBinder</span> <span class="o">){</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">iBinder</span><span class="o">.</span><span class="na">linkToDeath</span><span class="o">(</span><span class="k">new</span> <span class="n">MyLinkToDeath</span><span class="o">(),</span> <span class="n">0</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">class</span> <span class="nc">MyLinkToDeath</span> <span class="kd">implements</span> <span class="n">IBinder</span><span class="o">.</span><span class="na">DeathRecipient</span><span class="o">{</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">binderDied</span><span class="o">()</span> <span class="o">{</span>
+            <span class="c1">// 处理远端binder被杀死的情况
+</span><span class="c1"></span>        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Nullable</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">IBinder</span> <span class="nf">onBind</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>也可以调用<code>IBinder.pingBinder()</code>检查远端的<code>Binder</code>进程是否处于活动状态. 如果结果为true, 表明远端的进程处于活跃可用的状态.</p>
+<p>如果绑定到的是<code>Service</code>那么就不需要监听了, 因为断开连接时总会是伴随着<code>ServiceConnection.onServiceDisconnected()</code>函数被回调. 但是, 如果使用其他方式接受<code>Binder</code>对象, 该方法可能就有用处了.</p>
+<h2 id="设计api">设计API</h2>
+<p>虽然大多数的应用都不需要为第三方应用提供API, 但是说不定哪一天领导就突发奇想的想要这个结果.</p>
+<p>可以使用<code>Service</code>或者<code>ContentProvider</code>为第三方应用开发API. 这里先介绍使用<code>Service</code>提供API. 在后续的篇幅会展示如何使用<code>ContentProvider</code>. 当实现API是, 开发者还需要考虑的因素: 是否需要处理并发请求? 每次只处理一个客户端请求是否足够? API是否只包含一个或是很少的操作? 或者是一组更加复杂的方法? 这些问题的答案将决定实现远程API最合适的方法.</p>
+<p>另一个问题考虑的细节是否与其他开发者分享该API? 或者只是用于自己的应用? 如果是第一种情况 , 可以考虑构建一个库工程, 使用易于使用的Java API包装客户端的实现. 如果只是自己使用API, 那么可以使用<code>Messenger</code>或者<code>AIDL</code>, 下面我们将针对这两个使用展开.</p>
+<h3 id="aidl">AIDL</h3>
+<p>在软件工程中, <strong>接口定义语言</strong>(Interface Definition Language,IDL)已经成为通用的术语. 是用来描述软件组件接口的特定语言. 在<code>Android</code>中, 该<code>IDL</code>被称为<code>Android接口定义语言(AIDL)</code>. 它是纯文本文件,  使用Java类似语法编写. 但是, 编写Java接口和编写AIDL文件还有所有不同:</p>
+<ul>
+<li>首先, 对所有的非原始数据类型参数, 需要指定如下三种类型方向指示符之一:<code>in</code>, <code>out</code>, <code>inout</code>.<code>in</code>类型方向指示符只用于输入, 客户端不会看到<code>Service</code>对对象的修改. <code>out</code>类型表明输入对象不包含相关的数据, 但会由<code>Service</code>生成相关的数据. <code>inout</code>类型是上面两种类型的结合. 切记只使用需要的类型, 因为每种类型都有相应的消耗.</li>
+<li>所有用于通信的自定义都需要创建一个<code>AIDL</code>文件, 用来声明该类实现了<code>Parcelable</code>接口.</li>
+</ul>
+<p>整理一下步骤:</p>
+<ol>
+<li>首先创建<code>AIDL</code>文件, 为了客户端和服务端后续的使用. <a href="https://github.com/suzeyu1992/AndroidProgrammingPushingTheLimits/commit/592cd9ef1db38fc768e5defe87be6bc7c50f1801" target="_blank" rel="noopener noreffer">参考链接</a> 注意: 在<code>IMyApiInterfaceV1.aidl</code>文件中对<code>CustomData</code>进行了手动的<code>import</code>导入, 并且当作为参数传递的时候使用了<strong>方向指示符</strong>,因为只有原始数据类型才不需要<strong>方向指示符</strong>,因只调用其值.(有一个<code>CustomData</code>在下次参考链接中可以看到, 应该属于这一个步骤的)</li>
+<li>然后对客户端服务端进行代码实现. <a href="https://github.com/suzeyu1992/AndroidProgrammingPushingTheLimits/commit/2aa6da78376f33ac4aa3ad2f386c388ade0d6e0c" target="_blank" rel="noopener noreffer">参考链接</a>. 现在客户端就可以利用<code>Binder</code>调用远程的服务实现的<code>IBinder</code>方法. **注意:**一旦客户端实现了代码, 那么就不要在修改或者移除AIDL文件中的方法. 可以在文件末尾添加新的方法, 因为AIDL编译器会为每一个方法生成标识符, 所以不能修改现存的方法, 否则不能向后兼容老版本. 这个方法使用AIDL的缺点就是如上. 解决方案中的一种方法就是提供Java包装类, 并以库工程或者.jar文件的形式发布一遍使用. 后续会说道.</li>
+<li>现在可以考虑是否需要对客户端进行回调. 如果需要,那么相同的步骤创建<code>AIDL</code>接口文件. 并在客户端实现接口文件. 在服务端使用的<code>AIDL</code>文件中添加新的方法, 这个方法用来在服务端注册一个客户端回调.  客户端的回调通过方法的参数传入, 并在客户端获取远程服务端的<code>Binder</code>对象进行注册方法调用.<a href="https://github.com/suzeyu1992/AndroidProgrammingPushingTheLimits/commit/7e75d4d7b8aa27521952dac87b5fe3d951b5e5b1" target="_blank" rel="noopener noreffer">参考链接</a></li>
+</ol>
+<p>关于客户端实现AIDL文件的时候, 在使用了<code>oneway</code>关键字, 这会告诉AIDL编译器该接口只是单向通信. 对调用者(本类中的Service)的响应不是必须的. 这样做会轻微的性能提升. 例如:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.szysky.note.ipc.aidl</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.szysky.note.ipc.aidl.CustomData</span><span class="o">;</span>
+
+<span class="n">oneway</span> <span class="kd">interface</span> <span class="nc">IMyAidlCallback</span> <span class="o">{</span>
+  <span class="kt">void</span> <span class="nf">onDataUpdated</span><span class="o">(</span><span class="n">in</span> <span class="n">CustomData</span><span class="o">[]</span> <span class="n">data</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>到这里, 说明了两个应用之间传输Binder对象, 而不需要使用<code>ServiceManager</code>注册它. 由于只有客户端和<code>Service</code>知道<code>Binder</code>的地址, 因此它可以作为一种高效的IPC安全机制.</p>
+<h3 id="messenger">Messenger</h3>
+<p>使用<code>Messenger</code>进行远程通信, 有时会更简单, 当然使用场景是<strong>Service不需要支持并发操作时就可以选择使用Messenger信使来跨进程通信</strong>. <code>Messenger</code>使用<code>Handler</code>执行每个传入的消息, 所有的客户端的调用按顺序运行在同一个线程上.</p>
+<ul>
+<li><strong>服务端的实现</strong>: 在<code>onCreate()</code>中构建<code>Messenger</code>, 然后在<code>onBind()</code>中返回<code>Binder</code>对象. 当<code>Messenger</code>接收到消息的时候, 它可以使用在<code>replyTo</code>成员变量里的Messenger对象响应客户端都请求.<a href="https://github.com/suzeyu1992/AndroidProgrammingPushingTheLimits/commit/8833697273dc9bb0cda6850d76c82b1ffcc2d47b" target="_blank" rel="noopener noreffer">参考链接</a></li>
+<li><strong>客户端的实现</strong>: 为了可以在服务端响应回来数据, 在<code>onCreate()</code>方法中, 同样构建一个<code>Messenger</code>作为客户端的信使. 然后在<code>onResume()</code>进行服务绑定, 在<code>ServiceConnection#onServiceConnected()</code>回调中通过获取的<code>IBinder</code>来还原出服务端的<code>Messenger</code>. 然后就可以调用其<code>send(Message)</code>方法向远程发送消息.  当然参数中的<code>Message</code>需要新建一个. 如果要做到回应客户端那么使用<code>Message.replyTo=本地Messenger实例</code>, 这样就可以在客户端构建的Messenger时传入的<code>Handler.callback()</code>接收处理.<a href="https://github.com/suzeyu1992/AndroidProgrammingPushingTheLimits/commit/4b0f94b6a39a09e0a67784f8476ac839c13d1ed7" target="_blank" rel="noopener noreffer">参考链接</a></li>
+</ul>
+<p>这种方法和<code>IntentServiec</code>很相似, 但本例没有使用<code>Intent</code>, 而是使用<code>Message</code>触发<code>Handler</code>的操作. 此外, <code>Messenger</code>实现异步通信很方便, 并且也不需要使用<code>BroadcastReceiver</code>.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-09-28</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" data-title="《Android 编程实战》05-重识 IPC" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" data-title="《Android 编程实战》05-重识 IPC" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" data-title="《Android 编程实战》05-重识 IPC"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" data-title="《Android 编程实战》05-重识 IPC" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" data-title="《Android 编程实战》05-重识 IPC" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" data-title="《Android 编程实战》05-重识 IPC" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" data-title="《Android 编程实战》05-重识 IPC"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" class="prev" rel="prev" title="《Android 编程实战》04-手势操作进阶, 重识Service"><i class="fas fa-angle-left fa-fw"></i>《Android 编程实战》04-手势操作进阶, 重识Service</a>
+            <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/" class="next" rel="next" title="《Android 编程实战》06-重识 BroadcastReceiver">《Android 编程实战》06-重识 BroadcastReceiver<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>算法的了解 - Blog</title><meta name="Description" content=""><meta property="og:title" content="算法的了解" />
+<meta property="og:description" content="算法定义 算法是解决特定问题求解步骤的描述, 在计算机中表现为指令的有限序列, 并且每条指令表示一个或多个操作. 算法是针对一种或者是一类问题的解决" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2017-01-01T21:18:23+00:00" />
+<meta property="article:modified_time" content="2017-01-01T21:18:23+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="算法的了解"/>
+<meta name="twitter:description" content="算法定义 算法是解决特定问题求解步骤的描述, 在计算机中表现为指令的有限序列, 并且每条指令表示一个或多个操作. 算法是针对一种或者是一类问题的解决"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/" /><link rel="next" href="http://suzeyu.cc:20003/posts/%E7%BA%BF%E6%80%A7%E8%A1%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "算法的了解",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95\/"
+        },"genre": "posts","keywords": "数据结构","wordcount":  2162 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95\/","datePublished": "2017-01-01T21:18:23+00:00","dateModified": "2017-01-01T21:18:23+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">算法的了解</h1><h2 class="single-subtitle">算法究竟是什么, 都包括些什么</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-01-01">2017-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2162 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/" class="leancloud_visitors" data-flag-title="算法的了解">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#算法定义">算法定义</a></li>
+    <li><a href="#算法的特性">算法的特性</a>
+      <ul>
+        <li><a href="#输入输出">输入输出</a></li>
+        <li><a href="#有穷性">有穷性</a></li>
+        <li><a href="#确定性">确定性</a></li>
+        <li><a href="#可行性">可行性</a></li>
+      </ul>
+    </li>
+    <li><a href="#算法的设计">算法的设计</a></li>
+    <li><a href="#算法效率的度量方法">算法效率的度量方法</a>
+      <ul>
+        <li><a href="#事后统计法">事后统计法</a></li>
+        <li><a href="#事前分析估算">事前分析估算</a></li>
+      </ul>
+    </li>
+    <li><a href="#时间复杂度">时间复杂度</a>
+      <ul>
+        <li><a href="#推导大o阶的方法">推导大O阶的方法</a></li>
+        <li><a href="#常见的事件复杂度">常见的事件复杂度</a></li>
+      </ul>
+    </li>
+    <li><a href="#情况的采用">情况的采用</a></li>
+    <li><a href="#算法空间复杂度">算法空间复杂度</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="算法定义">算法定义</h2>
+<blockquote>
+<p>算法是解决特定问题求解步骤的描述, 在计算机中表现为指令的有限序列, 并且每条指令表示一个或多个操作.</p>
+</blockquote>
+<p>算法是针对<strong>一种</strong>或者是<strong>一类问题</strong>的解决方案.</p>
+<h2 id="算法的特性">算法的特性</h2>
+<p>算法具有5个基本特性: <code>输入</code>, <code>输出</code>, <code>有穷性</code>, <code>确定性</code>和<code>可行性</code>.</p>
+<h3 id="输入输出">输入输出</h3>
+<p>算法具有<code>0或者多个输入</code>. 对于个别场景, 比如打印输出字符串. 可能会不需要任何的输入参数.</p>
+<p>算法至少<code>1个或者多个输出</code>. 算法一定要有输出, 否则算法也就没有计算的意义. 输出的形式可以是<code>打印输出</code>或者是返回<code>1个以上的值</code></p>
+<h3 id="有穷性">有穷性</h3>
+<p>就是算法应该可以<code>有限时间</code>内可以<code>执行完毕</code>.</p>
+<ul>
+<li>有限时间: 一个算法如果计算需要几天,几月那就有点扯蛋了. 基本这不是我们需要的算法.</li>
+<li>执行完毕: 可以正常的执行结束. 而不会出现<code>死循环</code>的问题.</li>
+</ul>
+<h3 id="确定性">确定性</h3>
+<p>算法的每一步骤都具有确定的含义, 不会出现<code>二义性</code>.</p>
+<p>比如说. 某种条件下只会有一条执行的代码线路. 而不会因为<code>随机性</code>而导致相同的输入结果而出现了不同的输出结果.</p>
+<h3 id="可行性">可行性</h3>
+<p>算法的每一步必须是可行的. 也就是说, 每一步都能够通过执行有限的次数来完成.</p>
+<h2 id="算法的设计">算法的设计</h2>
+<ul>
+<li><code>正确性</code>: 算法至少可以保证结果的准确性.</li>
+<li><code>可读性</code>: 算法的另一个目的是为了便于阅读, 理解和交流. 为了日后不是非常难于<code>调试</code>和<code>修改</code>要尽可能让代码可以逻辑清晰. 不要写出只能<code>自己</code>和<code>机器</code>才能看懂的代码.</li>
+<li><code>健壮性</code>: 能对一些<code>非法</code>的输入进行容错的处理. 边界问题的处理.</li>
+<li><code>时间效率高和存储量低</code>: 这是算法不断演进的根本因素.</li>
+</ul>
+<h2 id="算法效率的度量方法">算法效率的度量方法</h2>
+<h3 id="事后统计法">事后统计法</h3>
+<p>这是方法的前置条件是. 算法已经存在. 通过设计好的程序和数据, 利用计算机计时器对不同算法编制的程序的运行时间进行比较. 通过执行时间来决定算法的好坏.</p>
+<p>缺陷:</p>
+<ul>
+<li>需要设计出算法, 但不一定这个算法就有用, 可能花费时间写出的算法只因测试一遍就放弃代码.</li>
+<li>时间的消耗依赖计算机的硬件, 和软件等因素.</li>
+<li>测试数据一般都是<code>一点盖面</code>的测试.</li>
+</ul>
+<p>一般是不使用此统计法</p>
+<h3 id="事前分析估算">事前分析估算</h3>
+<p>比如: 一个高级语言编写的程序的运算时间取决于如下因素:</p>
+<ol>
+<li>算法采用的策略, 方法</li>
+<li>编译产生的代码质量</li>
+<li>问题的输入规模</li>
+<li>机器执行指令的速度</li>
+</ol>
+<p>其中<code>2</code>和<code>4</code>分别是由软件和硬件来决定的.  所以剩下的两种就是关键因素. 可以认为代码需要进行计算的次数. 如下:两个代码片段.</p>
+<p>场景: 对<code>1~100</code>进行所有数累加求和.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">int</span> <span class="nf">normal_calculate</span><span class="o">(</span><span class="kt">int</span> <span class="n">count</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>                  <span class="c1">// 执行 1 次
+</span><span class="c1"></span>    
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">count</span> <span class="o">;</span> <span class="n">i</span><span class="o">++){</span>  <span class="c1">// 执行 count+1
+</span><span class="c1"></span>        <span class="n">sum</span> <span class="o">+=</span> <span class="n">i</span><span class="o">;</span>                 <span class="c1">// 执行 count
+</span><span class="c1"></span>    <span class="o">}</span>
+    
+    <span class="k">return</span> <span class="n">sum</span><span class="o">;</span>                   <span class="c1">// 执行 1 次
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">int</span> <span class="nf">optimize_calculate</span><span class="o">(</span><span class="kt">int</span> <span class="n">count</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>                   <span class="c1">// 执行 1 次
+</span><span class="c1"></span>    
+    <span class="n">sum</span> <span class="o">=</span> <span class="o">(</span> <span class="n">1</span> <span class="o">+</span> <span class="n">count</span> <span class="o">)</span> <span class="o">*</span> <span class="n">count</span><span class="o">/</span><span class="n">2</span><span class="o">;</span> <span class="c1">// 执行 1 次
+</span><span class="c1"></span>    
+    <span class="k">return</span> <span class="n">sum</span><span class="o">;</span>                    <span class="c1">// 执行 1 次
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p>可以看出第一种是每个数进行累加的语句执行次数总共是<code>2 * count + 3</code>次</p>
+<p>而第二种通过<code>高斯定律</code>只需要执行<code>3</code>次即可.</p>
+<h2 id="时间复杂度">时间复杂度</h2>
+<p>通常比较两个算法的好坏是通过对比<code>时间复杂度</code>来区分. 通常用大写<code>O()</code>来体现算法时间复杂度的记法. 称之为<code>大O记法</code></p>
+<p>例如最常见的<code>O(1)</code>常数阶, <code>O(n)</code>线性阶, <code>O(n^2)</code>平方阶</p>
+<h3 id="推导大o阶的方法">推导大O阶的方法</h3>
+<p>推导规律:</p>
+<ol>
+<li>用常数<code>1</code>来取代运行时间中的所有加法常数</li>
+<li>在修改后的运行次函数中, 只保留<code>最高</code>阶项</li>
+<li>如果最高阶项存在且不是<code>1</code>, 则去除与这个项相乘的常数</li>
+</ol>
+<hr>
+<p><strong>常数阶</strong></p>
+<p>例如上面代码块2中的. 运行次数函数是<code>f(count) = 3</code>. 那么根据第一要点. 要把常数<code>3</code>改为<code>1</code>. 在保留最高阶项是发现没有最高阶项. 所以算法的时间复杂度就是<code>O(1)</code></p>
+<p>常数不论是多少, 都记做为<code>O(1)</code>. 不要出现其他的数字. 而分支无论真假, 都不会随着<code>n</code>的变大而变大所以其时间复杂度不变.</p>
+<p><strong>线性阶</strong></p>
+<p>通常情况下<code>循环结构</code>的运行情况是分析时间复杂度的大部分的场景.</p>
+<p>例如上面代码块1 中的总执行次数是 <code>f(count) = 2*count + 3 </code></p>
+<p>那么根据<code>推导规律</code>其时间复杂度就是<code>O(n)</code>也可以是<code>O(count)</code>.</p>
+<p><strong>对数阶</strong></p>
+<p>例如求一个数能被2整除多少次(不包括0). 那么就相当于求这个数的<code>2^X = n</code>得到<code>x = log2 n</code>
+所以时间复杂度就是<code>O(logn)</code></p>
+<p><strong>平方阶</strong></p>
+<p>一个<code>n * n</code>乘法表. 的双循环次数是<code>1 + 2 + ... + (n-2) + (n-1) + (n)</code></p>
+<p>= <code>n * (n + 1) / 2</code> = <code>n^2 / 2  +  n/2</code></p>
+<p>根据<code>推导规律</code>第2和3条. 就会变成了<code>O(n^2)</code>的时间复杂度.</p>
+<h3 id="常见的事件复杂度">常见的事件复杂度</h3>
+<p>常见的时间复杂度所耗费的时间从小到大依次是:</p>
+<p><code>O(1) &lt; O(log n) &lt; O(n) &lt; O(n*log n) &lt; O(n^2) &lt; O(n^3) &lt; O(2^n) &lt; O(n!) &lt; O(n^n)</code></p>
+<p>以上的有很多是不太符合实际情况的算法时间的. 因为例如 <code>2^n</code>, <code>n^3</code>, <code>n!</code>. <code>n</code>只要是稍微大一点的数. 最终结果都会多几个量级的增加. 这么费时间的算法, 显示生活中也不会采用的.</p>
+<h2 id="情况的采用">情况的采用</h2>
+<p>在我们对一组无序数字进行排序的时候. 总会出现所谓<code>最好</code>, <code>最坏</code>, <code>正常(平均)</code>的场景.</p>
+<ul>
+<li>比如<code>恰好</code>这组数字是排序好的一组结果. 此时是<code>最好</code>情况. 一次查看就结束.</li>
+<li>比如<code>恰好</code>这组数字每一个数字都需要进行比较直到最后一个数字. 此时就是<code>最坏</code>情况.</li>
+<li>剩下的的就是中间范围的结果了. 我们可以认为其是<code>平均值(最好+最坏 的一半)</code></li>
+</ul>
+<p>因为<code>最坏情况</code>是一种保证, 那就是运行的时间不会再坏. 所以通常情况下都是以<code>最坏时间</code>当做其运行时间.</p>
+<h2 id="算法空间复杂度">算法空间复杂度</h2>
+<p>有时候不一定需要非要追求极致的时间算法. 巧妙的使用<code>空间换时间的</code>概念. 往往会让事情变得更简单.</p>
+<p>例如: 写一个函数, 可以判断传入的参数是否是<code>100</code>以内的质数. 如果通过规律循环比对完成一个算法. 那么每次的数字都是需要计算的.</p>
+<p>那么如果. 用一个内部的数组. 这个数组的大小就是<code>0~100</code>. 然后如果对应的下标是质数那么数组就存放<code>1</code>. 否则就是<code>0</code>. 这样每次传入的参数只需要<code>作为数组下标</code>去取值直接判断即可.</p>
+<p>当然. 根据具体场景不同. 到底是否使用<code>空间换时间</code>的方法需要商酌. 空间的浪费是否真的有必要. 数据的保存是否很占用空间. 能带来的好处是否高于空间浪费的弊端等&hellip;</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2017-01-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/" data-title="算法的了解" data-via="xxxx" data-hashtags="数据结构"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/" data-hashtag="数据结构"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/" data-title="算法的了解" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/" data-title="算法的了解"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/" data-title="算法的了解" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/" data-title="算法的了解" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/" data-title="算法的了解" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/" data-title="算法的了解"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/" class="prev" rel="prev" title="操作系统简介"><i class="fas fa-angle-left fa-fw"></i>操作系统简介</a>
+            <a href="/posts/%E7%BA%BF%E6%80%A7%E8%A1%A8/" class="next" rel="next" title="线性表">线性表<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

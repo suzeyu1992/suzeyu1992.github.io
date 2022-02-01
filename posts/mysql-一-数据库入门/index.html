@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>MySQL(一)--数据库入门 - Blog</title><meta name="Description" content=" "><meta property="og:title" content="MySQL(一)--数据库入门" />
+<meta property="og:description" content=" " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-05-15T16:26:27+00:00" />
+<meta property="article:modified_time" content="2016-05-15T16:26:27+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL(一)--数据库入门"/>
+<meta name="twitter:description" content=" "/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/php-%E5%9B%9B-%E5%87%BD%E6%95%B0-%E6%95%B0%E7%BB%84%E4%BB%8B%E7%BB%8D/" /><link rel="next" href="http://suzeyu.cc:20003/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MySQL(一)--数据库入门",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8\/"
+        },"genre": "posts","keywords": "mySql","wordcount":  5175 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8\/","datePublished": "2016-05-15T16:26:27+00:00","dateModified": "2016-05-15T16:26:27+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": " "
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">MySQL(一)--数据库入门</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql/"><i class="far fa-folder fa-fw"></i>mySql</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-05-15">2016-05-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5175 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;<span id="/posts/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8/" class="leancloud_visitors" data-flag-title="MySQL(一)--数据库入门">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#介绍">介绍</a></li>
+        <li><a href="#技术语法规定">技术语法规定</a></li>
+        <li><a href="#数据库定义语句">数据库定义语句</a></li>
+        <li><a href="#字段类型数据类型">字段类型(数据类型)</a></li>
+        <li><a href="#php操作mysql数据库的必要代码">php操作mysql数据库的必要代码</a></li>
+        <li><a href="#扩展php中操作mysql数据的几个函数">扩展php中操作mysql数据的几个函数:</a></li>
+        <li><a href="#字段类型">字段类型</a></li>
+        <li><a href="#表定义语句">表定义语句</a></li>
+        <li><a href="#索引">索引</a></li>
+        <li><a href="#约束">约束</a></li>
+        <li><a href="#表选项列表">表选项列表</a></li>
+        <li><a href="#修改表">修改表</a></li>
+        <li><a href="#删除表">删除表</a></li>
+        <li><a href="#其他表的相关语句">其他表的相关语句</a></li>
+        <li><a href="#视图的定义">视图的定义</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>自学小笔记</p>
+<h3 id="介绍">介绍</h3>
+<p>SQL: 这是关系数据库的语言标准，<code>STRUCT QUERY LANGUAGE</code> (结构化查询语言);</p>
+<p>几个基本的概念</p>
+<ul>
+<li>数据库<code>database</code>: 用于存储一个项目/产品/软件所使用的各种数据的一个逻辑单位</li>
+<li>数据库管理系统<code>dbms</code>: 其实就是指一个具体的数据库软件产品:<code>database management system</code></li>
+<li>表 <code>table</code>: 用于存储一种数据的结构形式</li>
+<li>字段 <code>filed</code>，列 <code>column</code>: 一个数据表中的一个纵列，其实有一个名字又叫字段</li>
+<li>记录 <code>record</code>，行 <code>row</code>:</li>
+</ul>
+<p><strong>mac mysql的默认数据库数据的路径</strong></p>
+<p><code>/usr/local/var/mysql</code></p>
+<p><strong>登录/退出mysql系统</strong></p>
+<ul>
+<li>登录: <code>mysql -h 服务器地址 -u 登录名 [-P 端口号] -p</code></li>
+<li>完整登录: <code>mysql --host=服务器地址 --user=用户名 --port=端口 --password</code></li>
+<li>退出: <code>quit; exit; \q;</code></li>
+<li>注意: 登录数据库系统后，需要使用 <code>set names 编码名;</code> 来设定当前连接数据库的&quot;环境编码名&quot;，及当前跟数据库打交道的客户端本身的编码，通常来说，<code>cmd</code>客户端中是固定的<code>gbk</code>编码，而<code>php</code>网页中，是该网页文件的编码。</li>
+</ul>
+<p><strong>数据库的备份和恢复</strong></p>
+<p>备份: 就是讲一个数据库，完整的转换为一个可以随时携带和传送的文件。</p>
+<p>语法: <code>mysqldump -h 服务器地址 -u 登录名 -p 数据库名 &gt; 文件名</code></p>
+<p>恢复: 就是将一个备份的数据库文件，完整的还原为一个可以使用的数据库。</p>
+<p>语法: <code>mysql -h 服务器地址 -u 登录名 -p 数据库名 &lt; 文件名</code></p>
+<p>注意: 这两个命令，都是在没有登录 进入的时候使用。其中<code>musqldump</code>命令还要求为管理员身份。</p>
+<h3 id="技术语法规定">技术语法规定</h3>
+<p><strong>注释</strong></p>
+<ol>
+<li>单行注释: <code>#</code>注释内容</li>
+<li>单行注释: <code>-- </code>注释内容(&ndash;后面有空格存在)</li>
+<li>多行注释: <code>/*</code>注释内容<code>*/</code></li>
+</ol>
+<p><strong>语句行</strong></p>
+<p>默认情况下，以英文分号作为一条语句的结束，而且常规操作中都是一次执行一条语句。</p>
+<p>mysql中可以认为设定语句的结束符。 <code>delimiter</code> 新的结束符。</p>
+<p><strong>大小写问题</strong></p>
+<p>mysql语言内部本身不区分大小写。但是<code>mysql</code>某些命令执行会生成文件夹，此时他们会区分，例如在区分大小写的系统中，<code>unix</code>，<code>linux</code>系统。</p>
+<h3 id="数据库定义语句">数据库定义语句</h3>
+<p><strong>创建数据库</strong></p>
+<p>形式: <code>create database 数据库名 [charset 字符编码名称] [collate 排序规则];</code></p>
+<p>说明:</p>
+<ul>
+<li>字符编码名称是用于设定当前数据库中存储的字符内容以什么编码来存储。</li>
+<li><code>collate</code>排序规则用于设定其中的字符内容的大小关系(先后顺序，对于英文基本没有任何问题,基本不用)。</li>
+</ul>
+<p>查看<code>mysql</code>可用的字符集: <code>show charset</code></p>
+<p>查看<code>mysql</code>可用的排序规则: <code>show collation</code></p>
+<p><strong>删除数据库</strong></p>
+<p>形式: <code>drop database [if exists] 数据库名;</code></p>
+<p>说明: <code>if exists</code> 适用于一种安全运行的考虑，如果数据库不存在，也不会报错。</p>
+<p><strong>修改数据库(字符编码)</strong></p>
+<p>基本上，就是修改数据库的属性：只有两个</p>
+<p>修改编码和修改排序规则</p>
+<p><code>alert database 数据库名 charset 新的编码名 collate 新的排序规则名</code></p>
+<p><strong>显示所有数据库</strong></p>
+<p><code>show databases;</code></p>
+<p><strong>显示一个数据库的创建语句</strong></p>
+<p>形式: <code>show create database 数据库名;</code></p>
+<h3 id="字段类型数据类型">字段类型(数据类型)</h3>
+<p><code>mysql</code>中，数据类型主要分3大类，数字型，字符型，时间型</p>
+<p><strong>整数字节</strong></p>
+<p>主要有: <code>int</code>, <code>tinyint</code>, <code>smallint</code>, <code>mediumint</code>, <code>bigint</code></p>
+<p>整数类型所占的空间字节:</p>
+<ul>
+<li><code>int</code>: 占4个字节，既32位</li>
+<li><code>tinyint</code>: 占1个字节，既8位，最多能存储256个数字，默认范围是-128~127</li>
+<li><code>bigint</code>: 占8个字节，既64位</li>
+</ul>
+<p>整数类型字段的设定形式：</p>
+<ul>
+<li><code>类型名 [(m)] [unsigned] [zerofill]</code></li>
+</ul>
+<p>说明:</p>
+<ol>
+<li><code>m</code>表示设定该整数的显示长度，既<code>select</code>输出的时候，123可能显示为00123.</li>
+<li><code>unsigned</code>用于设定该整数位无符号数，其实就是没有负数</li>
+<li><code>zerofill</code>用于设定是否填充 0 到一个数字的左边，此时需与设定的长度<code>m</code>配合。</li>
+</ol>
+<p><strong>小数类型</strong></p>
+<p>有三种: <code>float</code>, <code>double</code> , <code>decimal</code></p>
+<ul>
+<li><code>float</code>: 单精度浮点型，使用4个字节存储数据，其精度大约只有6~7位有效数字</li>
+<li><code>double</code>: 双精度浮点型，使用8个字节存储数据类型，其精度大约有20个有效数字</li>
+<li><code>decimal</code>: 定点小数类型，整数部分最长可以有65位，小数部分最长可以有30位，一般设置格式为: <code>decimal</code>(总位数，小数部分位数)</li>
+</ul>
+<h3 id="php操作mysql数据库的必要代码">php操作mysql数据库的必要代码</h3>
+<p>通常在php网页中完成有关数据库的操作，首先需要如下代码。</p>
+<pre><code>$link = mysql_connect(&quot;数据库服务器地址&quot;,&quot;用户名&quot;,&quot;密码&quot;);	//连接数据库系统
+mysql_query(&quot;set names 网页文件编码名&quot;);	//设定连接编码
+	//或者 mysql_set_charset(&quot;网页文件编码名&quot;);
+mysql_query(&quot;use 数据库名&quot;); //选定要使用的数据库
+	//或者: musql_select_db(&quot;数据库名&quot;);
+</code></pre>
+<p>当执行了连接的前置动作  之后就可以使用<code>mysql_query(&quot;&quot;)</code>; 来执行任何的sql语句。</p>
+<ul>
+<li>场景一:执行没有数据返回的语句，比如：<code>insert,update,delete,create,create table,drop...</code>（通过true和false判断）</li>
+<li>场景二:执行有数据返回的语句: <code>select, show tables,show databases, desc 表名(显示数据结构)</code>失败返回false，成功返回一个数据集。</li>
+</ul>
+<p>补充:
+<code>mysql_error()</code>: 获取<code>mysql</code>执行失败时的错误信息，通常在<code>mysql_query()</code>之后使用。</p>
+<p><strong>结果集的处理</strong></p>
+<pre><code>while($rec = mysql_fetch_array($result)){
+	// mysql_fetch_array()会取出该结果集中的&quot;一行数据&quot;,并取得该行数据后赋值值给$rec;
+	//$rec就是一个数组，其下标就是字段名
+	//在此while循环中，mysql_fetch_array()会一次次(一行行)取出结果集中的所有数据。
+}
+</code></pre>
+<p>fetch函数的3中形式</p>
+<ul>
+<li><code>mysql_fetch_assoc();</code>	返回的是字段名 和对应的字段值</li>
+<li><code>mysql_fetch_row();</code>	返回的没有字段名以下标0为起始点作为键</li>
+<li><code>mysql_fetch_array();</code>	返回的是键 为有规律的数字，也有字段名的两种组合，就是上面的两种组合。</li>
+</ul>
+<h3 id="扩展php中操作mysql数据的几个函数">扩展php中操作mysql数据的几个函数:</h3>
+<pre><code>$n1 = mysql_num_rows(结果集);	//获得该结果集的数据行数
+$n2 = mysql_num_fields(结果集);	//获得该结果集的数据列数
+$n3 = mysql_field_name(结果集,$i);	//获得该结果集的第i个字段的名字，从0开始。
+</code></pre>
+<h3 id="字段类型">字段类型</h3>
+<p><strong>字符类型</strong></p>
+<ul>
+<li><code>varchar</code>类型: 可变长度字符串，使用时我们必须设定其长度，其最大长度理论值为65535个，实际其实最大只能是65533个，单考虑到存储的字符编码不同，也会有进一步减少。例如如果哦存储中文<code>gbk</code>，则最多是65533/2个，如果存储中文<code>utf8</code>,则最多是65533/3个。此类型的实际长度是存储内容决定，而设定值只是表示最多可存储的字符个数，</li>
+<li><code>char</code>类型: 定长字符串；使用时通常需要设定其长度，如果不设定默认是1，最大理论长度是255个。定长字符串使用与存储的数据都是可预见的明确的固定长度的字符，比如手机号，中国邮政编码。实际存储的时候，如果少于设定长度，也能存，但都会补空格填满。</li>
+<li><code>enum</code>类型:	单选项字符串数据类型。它分成适用于存储表单界面中的<strong>单</strong>项值。它设定的时候，是需要给定固定的几个选项，然后存储的时候，就只存储其中一个值。<!-- raw HTML omitted -->使用形式: <code>enum</code>(&ldquo;选项1&rdquo;,&ldquo;选项2&rdquo;,&ldquo;选项3&rdquo;,&ldquo;选项4&rdquo;&hellip;.);<!-- raw HTML omitted -->实际内部: 这些字符串选项值对应的是如下数字值:1234&hellip;.65535个轩轩个</li>
+<li><code>set</code>类型: 单选项字符串数据类型。它分成适用于存储表单界面中的<strong>多</strong>项值。它设定的时候，是需要给定固定的几个选项，然后存储的时候，就只存储其中若干值。<!-- raw HTML omitted -->使用形式: <code>set</code>(&ldquo;选项1&rdquo;,&ldquo;选项2&rdquo;,&ldquo;选项3&rdquo;,&ldquo;选项4&rdquo;&hellip;.);<!-- raw HTML omitted -->实际内部: 这些字符串选项值对应的是如下数字值:1248&hellip;.64个选项</li>
+<li><code>text</code>类型: 长文本字符类型，通常，其中存储的数据不占据表格中的数据容量限制。其本身最长可存储65535个字符。其他同类字符类型: <code>smalltext,tinytext, longtext.</code></li>
+</ul>
+<p>其他类型(了解):</p>
+<ul>
+<li><code>binary</code>类型: 定长二进制字符串类型，里面存储的是二进制；</li>
+<li><code>varbinary</code>类型: 边仓二进制字符串类型，里面存储的是二进制值；</li>
+<li><code>blob</code>类型: 二进制数据类型，存的仍然是二进制值，但其适用于存储图片，其他文件等。单极少用。</li>
+</ul>
+<p><strong>时间类型</strong></p>
+<ul>
+<li><code>datetime</code>类型: 时间日期类型</li>
+<li><code>date</code>类型: 日期类型</li>
+<li><code>time</code>类型: 时间类型</li>
+<li><code>year</code>类型: 年份类型</li>
+</ul>
+<p>在应用中，时间日期类型，在我们自己给定的数据情况下，需要使用单引号引起来，跟字符串一样。</p>
+<p><code>timestamp</code>: 时间戳类型，就是指一个时间的数据值，本质就是一个数字，类似js中的<code>GetTime()</code>或php中的<code>Time()</code>。	它的一个重要的作用是: 是会自动获得时间戳的数据值&ndash;相当于&quot;<code>now()</code>&quot;</p>
+<h3 id="表定义语句">表定义语句</h3>
+<p><strong>创建表</strong></p>
+<p><code>create table [if not exists] 表名(字段列表[,索引或约束列表]) [表选项列表];</code></p>
+<p><strong>字段设定形式</strong></p>
+<p><code>字段名 类型 [字段属性1  字段属性2  ...]</code></p>
+<ul>
+<li>字段名可以自己取</li>
+<li>类型就是前面所学的数据类型: <code>int, tinyint, float, double , char(5), varchar(25),text,datetime...</code></li>
+<li>子弹属性可以有多个，相互之间直接空格隔开; 主要有<!-- raw HTML omitted --><code>auto_increment</code>: 只用于整数类型，让该字段的值自动获得一个增长值。通常用于做一个表的第一个字段的设定，并且通常还当做主键(primary key)<!-- raw HTML omitted --><code>primary key</code> : 用于设定该字段为主键，此时该字段的值就可以唯一的确定一行数据。<!-- raw HTML omitted --><code>unique key</code>: 设定该字段是惟一的，也就是不重复的<!-- raw HTML omitted --><code>not null</code>: 用于设定该字段不能为空。<!-- raw HTML omitted --><code>default</code> xx值: 用于水规定该字段的默认值，如果此时insert没有给值得时候就使用该默认值<!-- raw HTML omitted --><code>comment</code> : 字段说明文字。</li>
+</ul>
+<h3 id="索引">索引</h3>
+<p>系统内部自动维护的隐藏的数据表，它的作用是可以极大的加快数据的查询速度。</p>
+<p>这个隐藏的数据表，其中的数据是自动排好序的，其查找速度就是建立在这个基础上的。</p>
+<p><strong>索引的类型</strong></p>
+<ul>
+<li>普通索引: <code>形式	key(字段名)</code><!-- raw HTML omitted -->含义	仅仅是一个索引，没有其他作用只能加快查找速度。</li>
+<li>唯一索引: <code>形式 unique key(字段名)</code><!-- raw HTML omitted -->含义 是一个索引，而且具有区分改变中的任何一行数据的作用(其实也是唯一性),与唯一索引区别，唯一性可以为null，而主键不能为空。</li>
+<li>主键索引:<code> 形式 primary key(字段名)</code></li>
+<li>全文索引: <code>形式 fulltext (字段名)</code></li>
+<li>外建索引: <code>形式 foreign key(字段名) references 其他表(对应其他表中的字段名)</code></li>
+</ul>
+<p>外键: 就是设定某个表中的某一个字段，它的数据的值，必须在另一个表中某个字段中存在。</p>
+<h3 id="约束">约束</h3>
+<p>含义: 就是要求数据满足什么条件的一种规定。</p>
+<ul>
+<li>主键约束 作用：使该设定字段的值可以用于唯一确定一行数据，其实就是主键的意思</li>
+<li>唯一约束 作用：是该设定字段字段具有唯一性，自然也是可区分的</li>
+<li>外键约束 作用：使该设定字段的值，必须在其设定的对应表的对应字段中已经有该值了。</li>
+<li>非空约束 not null:	设定一个字段时写的那个not null属性。</li>
+<li>默认约束 default xx值. :设定一个字段的默认值属性。</li>
+<li>检查约束 check(某种判断语句)。</li>
+</ul>
+<p>索引和约束其实是相同一件事情的不同角度的两种说法，例如方法和函数。</p>
+<h3 id="表选项列表">表选项列表</h3>
+<p>创建一个表的时候，对该表的整体设定，主要有如下几个</p>
+<ul>
+<li><code>charset=要使用的字符编码</code></li>
+<li><code>engine=要使用的存储引擎(也叫表选项)</code></li>
+<li><code>auto_increment=设定当前表的自增长字段的初始值，默认是1</code></li>
+<li><code>comment='该表的一些说明文字'</code></li>
+</ul>
+<p>说明:</p>
+<ol>
+<li>设定的字符编码是为了跟数据库设定的不一样，如果一样就不需要设定了，因为其会自动使用数据库级别的设定。</li>
+<li><code>engine</code> 存储引擎，在代码层面，就是一个名词:<strong>InnoDB</strong>,<strong>MyIsam</strong>,BDB,archive,Memory.</li>
+</ol>
+<p>存储引擎:</p>
+<p>存储引擎是讲数据存储到硬盘的机制。不同的存储引擎，其实主要从两大层面设计存储机制-速度或者功能。</p>
+<h3 id="修改表">修改表</h3>
+<p>说明:</p>
+<ol>
+<li>修改表，是指修改表的结构&ndash;正如创建表也是设定表的结构。</li>
+<li>创建表能做的事，修改表几乎都能做&ndash;但不推荐去修改表，而是应该在创建表的时候就基本确定表的结构。</li>
+<li>对字段进行增删改；对索引进行增删</li>
+<li>标的选项通常都是修改，即使不写任何表选项，他们都有其默认值。</li>
+</ol>
+<p>常见的操作:</p>
+<ul>
+<li>新建字段: <code>alert table 表名 add [column] 新字段名 字段类型 [字段属性列表];</code></li>
+<li>修改字段: <code>alert table 表名 change [column] 旧字段名 新字段名 新字段类型 [新字段属性列表];</code></li>
+<li>删除字段: <code>alert table 表名 drop [column] 字段名;</code></li>
+<li>添加普通索引: <code>alter table 表名 add key [索引名] (字段名1[,字段名2,...]);</code></li>
+<li>添加唯一索引(约束): <code>alert table 表名 add unique key(字段名1[,字段名2,...]);</code></li>
+<li>添加主键索引(约束): <code>alter table 表名 add primary key(字段名1[,字段名2,...]);</code></li>
+<li>修改表名: <code>alter table 旧表名 rename [to] 新表名;</code></li>
+</ul>
+<h3 id="删除表">删除表</h3>
+<p><code>drop table [if exists] 表名;</code></p>
+<h3 id="其他表的相关语句">其他表的相关语句</h3>
+<ul>
+<li>显示当前数据库中的所有表: <code>show tables;</code></li>
+<li>显示某表的结构: <code>desc 表名; 或者 describe 表名;</code></li>
+<li>显示某表的创建语句: <code>show create table 表名;</code></li>
+<li>重命名表: <code>rename table 旧表名 to 新表名;</code></li>
+<li>从已有表复制表结构: <code>create table [if not exists] 新表名 like 元表名;</code></li>
+</ul>
+<h3 id="视图的定义">视图的定义</h3>
+<p>含义</p>
+<p>类似于函数的功能。 就是一个<code>select</code>语句(通常比较复杂),我们给其一个名字(视图名),以后要使用该<code>select</code>语句，直接用该视图名就可以。</p>
+<p>创建语法</p>
+<p>语法形式: <code>create view 视图名 as select语句;</code></p>
+<p>举例: <code>create view v1 as select id, fi, name, age from table where id&gt;7 and id&lt;100 or fi&lt;1000 and age&gt;10;</code></p>
+<p>使用视图</p>
+<p>当做一个表用即可： <code>select * from 视图名 [查询条件];</code></p>
+<p>删除视图</p>
+<p><code>drop view [if exists] 视图名;</code></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-05-15</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8/" data-title="MySQL(一)--数据库入门" data-via="xxxx" data-hashtags="mySql"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8/" data-hashtag="mySql"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8/" data-title="MySQL(一)--数据库入门" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8/" data-title="MySQL(一)--数据库入门"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8/" data-title="MySQL(一)--数据库入门" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8/" data-title="MySQL(一)--数据库入门" data-description=" "><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8/" data-title="MySQL(一)--数据库入门" data-description=" "><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8/" data-title="MySQL(一)--数据库入门"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/mysql/">mySql</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/php-%E5%9B%9B-%E5%87%BD%E6%95%B0-%E6%95%B0%E7%BB%84%E4%BB%8B%E7%BB%8D/" class="prev" rel="prev" title="PHP(四)-函数 数组介绍"><i class="fas fa-angle-left fa-fw"></i>PHP(四)-函数 数组介绍</a>
+            <a href="/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" class="next" rel="next" title="MySQL(二)--基本查询语句">MySQL(二)--基本查询语句<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

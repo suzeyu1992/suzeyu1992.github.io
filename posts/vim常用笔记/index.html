@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>vim常用笔记 - Blog</title><meta name="Description" content=""><meta property="og:title" content="vim常用笔记" />
+<meta property="og:description" content="介绍 vi编辑器是Unix系统最初的编辑器. 它使用控制台图形模式来模拟文本编辑窗口, 允许查看文件中的行, 在文件中移动, 插入, 编辑和替换文本. 尽" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-12-27T14:11:35+00:00" />
+<meta property="article:modified_time" content="2016-12-27T14:11:35+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="vim常用笔记"/>
+<meta name="twitter:description" content="介绍 vi编辑器是Unix系统最初的编辑器. 它使用控制台图形模式来模拟文本编辑窗口, 允许查看文件中的行, 在文件中移动, 插入, 编辑和替换文本. 尽"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/shell%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%89%8B%E5%86%8C/" /><link rel="next" href="http://suzeyu.cc:20003/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "vim常用笔记",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0\/"
+        },"genre": "posts","keywords": "vim","wordcount":  2395 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0\/","datePublished": "2016-12-27T14:11:35+00:00","dateModified": "2016-12-27T14:11:35+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">vim常用笔记</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-12-27">2016-12-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2395 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/posts/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/" class="leancloud_visitors" data-flag-title="vim常用笔记">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#vim基础">vim基础</a></li>
+    <li><a href="#编辑数据">编辑数据</a></li>
+    <li><a href="#复制和粘贴">复制和粘贴</a></li>
+    <li><a href="#查找和替换">查找和替换</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="介绍">介绍</h2>
+<p><code>vi</code>编辑器是<code>Unix</code>系统最初的编辑器. 它使用控制台图形模式来模拟文本编辑窗口, 允许查看文件中的行, 在文件中移动, 插入, 编辑和替换文本.</p>
+<p>尽管可能是世界上最复杂的编辑器, 但其用用的大量特性使其成为<code>Unix</code>管理员多远来的支柱性工具.</p>
+<p>在<code>GNU</code>项目将<code>vi</code>编辑器移植到开源世界时, 他们就决定对其做一些改变. 由于它不再是以前<code>Unix</code>中那个原始的<code>vi</code>编辑器, 所以开发人员对其进行了重命名<code>vi improved</code>, 或 <code>vim</code></p>
+<h2 id="vim基础">vim基础</h2>
+<p><code>vim</code>编辑器在内存缓冲区中处理数据.  只要键入<code>vim</code>命令和要编辑的文件的名字就可以启动<code>vim</code>编辑器.</p>
+<p>例如</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 新建一个 Hello.java</span>
+$ vim Hello.java
+</code></pre></div><p>如果在启动 <code>vim</code>时未指定文件名, 或者这个文件不存在, <code>vim</code>会开辟一段新的缓冲区域来编辑. 如果在命令行下指定了一个已有文件的名字. 那么<code>vim</code>会将文件的整个内容都读到一块缓冲区域来准备编辑.</p>
+<p><code>vim</code>编辑器会检测会话终端的类型, 并用全屏模式将整个控制台窗口作为编辑器区域.</p>
+<p>最初的<code>vim</code>编辑窗口显示了文件的内容, 并在窗口的底部显示了一条消息行. 如果文件内容并未占据整个屏幕, <code>vim</code>会在非文件内容行放置一个波浪线. 如下图</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="vim_1.png"
+        data-srcset="vim_1.png, vim_1.png 1.5x, vim_1.png 2x"
+        data-sizes="auto"
+        alt="vim_1.png"
+        title="vim_1.png" /></p>
+<p>底部显示了文件的状态, 以及所编辑的文件的信息. 如果是<strong>新建的文件</strong>那么会出现<code>[New File]</code></p>
+<hr>
+<p><code>Vim</code>编辑器有两种操作模式</p>
+<ul>
+<li>普通模式</li>
+<li>插入模式</li>
+</ul>
+<p>通过<code>vim</code>进入的时候就是普通模式</p>
+<ul>
+<li>在普通模式中, <code>vim</code>编辑器会将按键解释成命令.</li>
+<li>在插入模式下, <code>vim</code>会将你在当前光标位置输入的每个键都插入到缓冲区. 在<strong>普通模式</strong>下通过<code>i</code>键就可以进入<strong>插入模式</strong>.  要退回到<strong>普通模式</strong>只需要按<code>esc键</code></li>
+</ul>
+<hr>
+<p><strong>光标的控制</strong></p>
+<p>在普通模式中, 可以通过<code>方向键</code>来移动光标. 同样如果方向键都没有, 你也可以通过字母键来控制. 如下</p>
+<ul>
+<li><code>h</code>: 左移一个字符</li>
+<li><code>j</code>: 下移一行</li>
+<li><code>k</code>: 上移一行</li>
+<li><code>l</code>: 右移一个字符</li>
+</ul>
+<p>当然不可能只能一行一行的移动. 下面就提高移动速度的命令</p>
+<ul>
+<li><code>PageDown</code>(<code>Ctrl + F</code>): 下翻一屏</li>
+<li><code>PageUp</code>(<code>Ctrl + B</code>): 上翻一屏</li>
+<li><code>G</code>: 移动到缓冲区的最后一行</li>
+<li><code>num G</code>: 移动到缓冲区中的第 <code>num</code> 行</li>
+<li><code>gg</code>: 移动到缓冲区的第一行</li>
+</ul>
+<hr>
+<p><strong>命令行模式</strong></p>
+<p>在普通模式下有一个特别的功能就是<code>命令行模式</code>. 命令行模式提供了一个交互式命令行, 可以输入额外的命令来控制<code>vim</code>的行为. 要进入到命令行模式, 在普通模式下按<code>冒号键</code>. 光标会移动到消息行, 然后出现冒号, 等待输入命令.</p>
+<p>在命令行模式下有几个命令可以将缓冲区的数据保存到文件中并对出<code>vim</code></p>
+<ul>
+<li><code>q</code>: 如果未修改缓冲区数据, 退出.</li>
+<li><code>q!</code>: 取消所有对缓冲区数据的修改并退出.</li>
+<li><code>w filename</code>: 将文件保存到另一个文件中</li>
+<li><code>wq</code>: 将缓冲区数据保存到文件中并退出.</li>
+</ul>
+<p>缺点命令较多, 但是只要了解了一些基本的<code>vim</code>命令, 无论什么环境, 你都能快速在命令行下直接修改文件. 一旦使用了敲入命令, 在命令行下将数据和编辑命令一起输入就跟第二天性一样的自然, 而需要使用鼠标就显得比较多余了.</p>
+<h2 id="编辑数据">编辑数据</h2>
+<p>在<strong>普通模式</strong>下, <code>vim</code>提供了一些命令来编辑缓冲区的数据.</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td style="text-align:center">删除当前光标所在位置的字符</td>
+</tr>
+<tr>
+<td>dd</td>
+<td style="text-align:center">删除当前光标所在行</td>
+</tr>
+<tr>
+<td>dw</td>
+<td style="text-align:center">删除当前光标所在位置的单词</td>
+</tr>
+<tr>
+<td>d$</td>
+<td style="text-align:center">删除当前光标所在位置到行尾的内容</td>
+</tr>
+<tr>
+<td>J</td>
+<td style="text-align:center">删除当前光标所在行行位的换行符(拼接行)</td>
+</tr>
+<tr>
+<td>u</td>
+<td style="text-align:center">撤销前一个编辑命令</td>
+</tr>
+<tr>
+<td>a</td>
+<td style="text-align:center">在当前光标后追加数据</td>
+</tr>
+<tr>
+<td>A</td>
+<td style="text-align:center">在当前光标所在行行尾追加数据</td>
+</tr>
+<tr>
+<td>r char</td>
+<td style="text-align:center">用char替换当前光标所在位置的单个字符</td>
+</tr>
+<tr>
+<td>R text</td>
+<td style="text-align:center">用text覆盖当前光标所在位置的数据, 直到按下esc键</td>
+</tr>
+</tbody>
+</table>
+<p>有些编辑命令允许使用数据修饰符来指定重复该命令多少次. 例如:</p>
+<ul>
+<li><code>2x</code> : 删除从光标位置开始的两个字符</li>
+<li><code>5dd</code>: 删除从光标当前行为为起始行下面的5行</li>
+</ul>
+<h2 id="复制和粘贴">复制和粘贴</h2>
+<p><strong>剪切和粘贴相</strong>对容易一些. 在前面说过<strong>删除数据</strong>的命令, 但<code>vim</code>在删除数据时, 实际上会将数据保存在单独的一个寄存器中. 可以使用<code>p</code>命令取回数据.</p>
+<p>例如: <code>dd</code>命令删除了一行文本, 然后移动光标到其他行, 使用<code>p</code>命令. 就会将之前删除的文本插入到当前的光标所在行之后. 可以将它和任何删除文本命令一起搭配使用.</p>
+<hr>
+<p><strong>复制文本</strong>稍微复杂一点. <code>vim</code>中的复制命令是<code>y</code>代表<code>yank</code>. 可以在<code>y</code>后面使用和<code>d</code>命令相同的第二个字符(<code>yw</code>表示复制一个单词, <code>y$</code>表示复制到行尾). 在复制文本后, 把光标移动到想要复制的位置, 输入<code>p</code>命令. 复制的文本就会出现在该位置.</p>
+<p>复制的复杂之处在于, 由于不会影响到你复制的文本, 无法知道到底要发生什么. 也就无法得知具体到底复制了什么内容. 知道将它粘贴到可以看到的地方才会了解到具体复制的内容.但<code>vim</code>还有另外一个功能来解决这个问题.</p>
+<p><code>可视模式</code>会在你移动光标时高亮显示文本. 可以用可视模式选取要复制的文本. 要进入可视模式, 应移动光标到要开始复制的位置, 并按下<code>v</code>键. 这时就会光标所在位置已经被高亮显示. 下一步, 移动光标来覆盖你想要复制的文本(也可以向下移动几行来复制更多). 在移动光标时, <code>vim</code>会高亮显示复制区域的文本, 在覆盖了要复制的文本后, 通过<code>y</code>键来激活复制命令. 现在寄存器已经有了要复制的文本,  移动光标到你要放置的位置, 使用<code>p</code>命令来粘贴.</p>
+<h2 id="查找和替换">查找和替换</h2>
+<p>可以使用<code>vim</code>查找命令来轻松查找缓冲区的数据. 要输入一个查找字符串, 就按下斜线<code>/</code>. 光标会报道消息行, 然后<code>vim</code>会显示出斜线. 在输入你要查找的文本后,  就按下回车键. <code>vim</code>编辑器会采用以下三种回应的一种.</p>
+<ul>
+<li>如果要查找的文本出现在光标当前位置之后, 则光标会跳到该文本出现的第一个位置.</li>
+<li>如果要查找的恩本未出现在光标当前位置之后出现, 则光标会绕过文件末尾, 出现在该文本所在的第一个位置(并用一条消息指明)</li>
+<li>输出一条消息, 说明在文件中没有找到查找的文本.</li>
+</ul>
+<p>要继续查找同一个单词, 按下<code>斜线键</code>, 然后按<code>回车键</code>. 或者使用<code>n</code>键, 表示下一个(<code>next</code>).</p>
+<p>替换命令允许你快速用另一个单词来替换文本的某个单词. 必须进入<code>命令模式</code>才能使用<code>替换命令</code>. 替换命令的格式是:</p>
+<p><code>:s/old/new</code></p>
+<p><code>vim</code>编辑器会调到<code>old</code>第一次出现的地方, 并用<code>new</code>来替换. 可以对替换命令做一些修改多处文本.</p>
+<ul>
+<li><code>:s/old/new/g</code> : 一行命令替换所有<code>old</code></li>
+<li><code>:n,ms/old/new</code> : 替换行号<code>n</code>和<code>m</code>之间所有<code>old</code></li>
+<li><code>:%s/old/new/g</code> : 替换整个文件中的<code>old</code></li>
+<li><code>:%s/old/new/gc</code> : 替换整个文件中的所有<code>old</code>, 但在每次出现时提示.</li>
+</ul>
+<p>对一个命令行文本编辑器而言, <code>vim</code>包含了不少高级功能. 讲过的也只是一小部分.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-12-27</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/" data-title="vim常用笔记" data-via="xxxx" data-hashtags="vim"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/" data-hashtag="vim"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/" data-title="vim常用笔记" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/" data-title="vim常用笔记"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/" data-title="vim常用笔记" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/" data-title="vim常用笔记" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/" data-title="vim常用笔记" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/" data-title="vim常用笔记"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/vim/">vim</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/shell%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%89%8B%E5%86%8C/" class="prev" rel="prev" title="shell常用小手册"><i class="fas fa-angle-left fa-fw"></i>shell常用小手册</a>
+            <a href="/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/" class="next" rel="next" title="操作系统简介">操作系统简介<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

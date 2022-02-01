@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android 编程实战》03-组件 清单 资源和UI闲聊 - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android 编程实战》03-组件 清单 资源和UI闲聊" />
+<meta property="og:description" content="阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 第三,四章 应用程序清单 AndroidManifest是一个定义各种组件以及应用程序各个方向的X" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9803-%E7%BB%84%E4%BB%B6-%E6%B8%85%E5%8D%95-%E8%B5%84%E6%BA%90%E5%92%8Cui%E9%97%B2%E8%81%8A/" /><meta property="article:section" content="posts" />
+
+<meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android 编程实战》03-组件 清单 资源和UI闲聊"/>
+<meta name="twitter:description" content="阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 第三,四章 应用程序清单 AndroidManifest是一个定义各种组件以及应用程序各个方向的X"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9803-%E7%BB%84%E4%BB%B6-%E6%B8%85%E5%8D%95-%E8%B5%84%E6%BA%90%E5%92%8Cui%E9%97%B2%E8%81%8A/" /><link rel="next" href="http://suzeyu.cc:20003/posts/markdown-%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android 编程实战》03-组件 清单 资源和UI闲聊",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9803-%E7%BB%84%E4%BB%B6-%E6%B8%85%E5%8D%95-%E8%B5%84%E6%BA%90%E5%92%8Cui%E9%97%B2%E8%81%8A\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  4546 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9803-%E7%BB%84%E4%BB%B6-%E6%B8%85%E5%8D%95-%E8%B5%84%E6%BA%90%E5%92%8Cui%E9%97%B2%E8%81%8A\/","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android 编程实战》03-组件 清单 资源和UI闲聊</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4546 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;<span id="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9803-%E7%BB%84%E4%BB%B6-%E6%B8%85%E5%8D%95-%E8%B5%84%E6%BA%90%E5%92%8Cui%E9%97%B2%E8%81%8A/" class="leancloud_visitors" data-flag-title="《Android 编程实战》03-组件 清单 资源和UI闲聊">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#应用程序清单">应用程序清单</a>
+      <ul>
+        <li><a href="#manifest元素">manifest元素</a></li>
+        <li><a href="#user-feature">user-feature</a></li>
+        <li><a href="#application">application</a></li>
+        <li><a href="#组件元素和属性">组件元素和属性</a></li>
+        <li><a href="#intent过滤">Intent过滤</a></li>
+      </ul>
+    </li>
+    <li><a href="#resources-和-assets">resources 和 assets</a>
+      <ul>
+        <li><a href="#高级string资源">高级String资源</a></li>
+        <li><a href="#本地化">本地化</a></li>
+        <li><a href="#使用assets">使用assets</a></li>
+      </ul>
+    </li>
+    <li><a href="#ui的一些小知识">UI的一些小知识</a>
+      <ul>
+        <li><a href="#文本">文本</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>阅读《Android 编程实战》一书的抄书笔记  &ndash;&gt; 第三,四章</p>
+</blockquote>
+<h2 id="应用程序清单">应用程序清单</h2>
+<blockquote>
+<p><code>AndroidManifest</code>是一个定义各种组件以及应用程序各个方向的XML文件. 该清单是所有<code>Android</code>的核心.</p>
+</blockquote>
+<h3 id="manifest元素">manifest元素</h3>
+<p><code>AndroidManifest.xml</code>文件的根节点元素是<code>manifest</code>. 应用程序的<strong>包名</strong>和<strong>唯一识别符</strong>都定义在该节点. 还可以在该节点中定义<code>Linux用户ID</code>和<code>名称(应用程序将运行在该ID下)</code>. 应用的版本, APK的安装位置.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;manifest</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+    <span class="na">package=</span><span class="s">&#34;com.test.printertestdemo&#34;</span>
+    <span class="na">android:sharedUserId=</span><span class="s">&#34;com.szysky.userid&#34;</span>
+    <span class="na">android:sharedUserLabel=</span><span class="s">&#34;@string/user_name&#34;</span>
+    <span class="na">android:installLocation=</span><span class="s">&#34;auto&#34;</span>
+    <span class="na">android:versionCode=</span><span class="s">&#34;6&#34;</span>
+    <span class="na">android:versionName=</span><span class="s">&#34;2.0&#34;</span> <span class="nt">&gt;</span>
+    
+<span class="nt">&lt;/manifest&gt;</span>
+</code></pre></div><p>这是一个比较完整的配置. <code>sharedUserId</code>和<code>sharedUserLabel</code>是Linux用户ID和名称. 应用程序将会运行在上面. 默认情况下, 这些都是系统分配的. 如果为使用证书发布的多个应用设置同样的值时, 开发者就可以访问相同的数据, 并有可能可以共享这些应用的进程(下面说道).</p>
+<p>多个应用共享同一个进程可以节省应用程序使用的<code>RAM</code>总量. 但当其中一个应用出现运行时错误, 那所有共享相同进程的其他应用也会崩溃.</p>
+<p>使用<code>installLocation</code>属性来控制应用程序的安装位置. 即可以在设备的内部存储器(data分区)安装应用程序, 也可以在外部存储装置(SD卡)安装. 需要注意: 只能通过这个属性控制APK的<strong>安装位置</strong>. 应用程序数据仍然安全地存储在内部存储器中.</p>
+<h3 id="user-feature">user-feature</h3>
+<p>这个属性元素<code>&lt;user-feature&gt;</code>可以让<code>Google Play</code>去过滤应用在哪台设备可见. 比如应用需要一个打电话的功能, 但是当前设备只支持wifi的平板电脑. 或者说一个Android电视是不支持触屏控制, 但是应用需要这个硬件特性的支持. 就可以通过这个属性设置.</p>
+<p>例如:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;user-feature</span> <span class="na">android:name=</span><span class="s">&#34;android.hardware.microphone&#34;</span><span class="nt">&gt;</span>
+<span class="c">&lt;!--需要电话功能支持--&gt;</span>
+<span class="nt">&lt;user-feature</span> <span class="na">android:name=</span><span class="s">&#34;android.hardware.telephony&#34;</span><span class="nt">&gt;</span> 
+<span class="c">&lt;!--支持多点触控的触摸屏--&gt;</span>
+<span class="nt">&lt;user-feature</span> <span class="na">android:name=</span><span class="s">&#34;android.hardware.touchscreen.multitouch.jazzhand&#34;</span><span class="nt">&gt;</span>
+
+</code></pre></div><h3 id="application">application</h3>
+<p>使用自定义的<code>Application</code>必须要做的就是在清单文件中指定<code>&lt;application&gt;</code>中的<code>name</code>属性到自定义的application.</p>
+<p>列举一下属性:</p>
+<ul>
+<li><code>label</code>, <code>description</code>: 可以让用户在设置页面中看到关于应用的更多详细的描述.</li>
+<li><code>android:backupAgent</code>: 这是<code>Google</code>提供的一个备份服务, 需要实现自己的<strong>备份代理</strong>的类,并使用此属性指向此类.</li>
+<li><code>android:largeHeap</code>: 可以让系统知道需要更多的内存. 但是, 除非特别需要, 否则不要这么做. 因为这样做会浪费系统资源,而且<strong>系统会更快的终止应用程序</strong>.</li>
+<li><code>android:process</code>: 当多应用程序共享一个用户ID, 并且<code>process</code>属性设置为一个值的时候, 可以<strong>强制这些应用共享同一个进程</strong>.  (所以如果需要使多应用使用一个进程, 那么所有的应用必须共享同一个用户ID并同一个证书签名和相同的process)</li>
+<li><code>android:theme</code>: 属相设置整个应用的主题.</li>
+</ul>
+<h3 id="组件元素和属性">组件元素和属性</h3>
+<p>每个标准组件(<code>activity</code>, <code>service</code>, <code>broadcastReceiver</code>, <code>contentProvider</code>)在清单文件都有自己的节点元素, <code>AS</code>创建的默认属性通常能满足大部分情况. 下面看一下其他的属相把</p>
+<hr>
+<p><strong><code>android:enabled = &quot;false&quot;</code></strong></p>
+<p>我们所定义的所有组件默认都是<strong>可用的</strong>. 当把enable设置为false的时候, 可以修改默认行为, 这将阻止组件接收<code>Intent</code>.</p>
+<ul>
+<li>禁用的<code>Activity</code>不会显示在应用程序启动器中;</li>
+<li>禁用的<code>Service</code>不会响应<code>startService()</code>调用;</li>
+<li>禁用的<code>BroadcastReceiver</code>不会监听<code>BroadcastIntent</code>;</li>
+<li>禁用的<code>ContentProvider</code>不会响应<code>ContentResolver</code>.</li>
+</ul>
+<p>代码中同样可以设置:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">PackageManager</span> <span class="n">pm</span> <span class="o">=</span> <span class="n">getPackageManager</span><span class="o">();</span>
+		
+<span class="c1">// 启用一个activity
+</span><span class="c1"></span><span class="n">pm</span><span class="o">.</span><span class="na">setComponentEnabledSetting</span><span class="o">(</span><span class="k">new</span> <span class="n">ComponentName</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">MainActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
+		<span class="n">PackageManager</span><span class="o">.</span><span class="na">COMPONENT_ENABLED_STATE_ENABLED</span><span class="o">,</span>
+		<span class="n">PackageManager</span><span class="o">.</span><span class="na">DONT_KILL_APP</span><span class="o">);</span>
+	
+<span class="c1">// 禁用一个activity
+</span><span class="c1"></span><span class="n">pm</span><span class="o">.</span><span class="na">setComponentEnabledSetting</span><span class="o">(</span><span class="k">new</span> <span class="n">ComponentName</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">MainActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
+		<span class="n">PackageManager</span><span class="o">.</span><span class="na">COMPONENT_ENABLED_STATE_DISABLED</span><span class="o">,</span>
+		<span class="n">PackageManager</span><span class="o">.</span><span class="na">DONT_KILL_APP</span><span class="o">);</span>
+</code></pre></div><hr>
+<p>有时候出于安全的原因, 我们不希望把某个组件暴露给系统的其他应用使用, 这时可以通过<code>android:exported=&quot;false&quot;</code>, 这会有效地把对外可被调用属性关闭.</p>
+<hr>
+<p>如果你想设置一个组件供其他应用使用, 但又想提供某个安全级别, 则可以<strong>定义权限</strong>, 要做到这一点, 那么调用者应该在清单文件中添加使用权限(user-permission), 然后在提供者应用注册一个权限(permission).</p>
+<h3 id="intent过滤">Intent过滤</h3>
+<p>在<code>Android</code>中所有的组件都是通过<code>Intent</code>访问的, <code>Intent</code>抽象地描述了要执行的动作. <code>Intent</code>会被发送给<code>Activity</code>, <code>Service</code>, <code>BroadcastReceiver</code>. 一旦发送, <code>Android系统</code>的Intent将决定将Intent分发给哪个组件.</p>
+<ol>
+<li>
+<p><code>Intent</code>要确认的第一件事情就是分辨出<strong>隐式</strong>还是<strong>显示</strong>. <code>显示Intent</code>包含有关包和组件的名称信息, 他们可以立即分发, 因为只能匹配到一个组件. 此方法通常应用于程序内部的通信. <code>隐式Intent</code>的取决于三个因素: <strong>action</strong>, <strong>数据的URI和类型</strong>, <strong>以及类别</strong>. 注意: <strong>extras和flags对Intent区分没有影响</strong></p>
+</li>
+<li>
+<p><code>action</code>是最主要的, 通常也是唯一应该重点关注的. Android有许多预定义的action, 开发者也可以定义自己的action. 开发者定义自己的action时, 通常在前面加上自己的包名, 这样不同应用之间action定义的冲突也就基本不存在了.</p>
+</li>
+<li>
+<p><code>data</code>并没有实际的数据, 只是包含了<code>URI</code>和<code>MIME</code>类型, 使用<code>Activity</code>打开只包含特定类型文件会非常有用.</p>
+</li>
+<li>
+<p><code>category和Activity最相关</code>. 所有通过<code>startActivity()</code>发送的隐式Intent都至少定义了一个<code>category(android.intent.category,DEFAULT)</code>, 所以除非Activity的<code>Intent-filter</code>也包含这个<code>category</code>. 否则就不会通过<code>Intent</code>的匹配. 比较例外的是图标启动器的<code>intent-filter</code></p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;activity</span>
+  <span class="na">android:name=</span><span class="s">&#34;.PrinterTestDemoAct&#34;</span>
+  <span class="na">android:label=</span><span class="s">&#34;@string/app_name&#34;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;intent-filter&gt;</span>
+      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.action.MAIN&#34;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.LAUNCHER&#34;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/intent-filter&gt;</span>
+  
+  <span class="nt">&lt;intent-filter&gt;</span>
+      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.action.VIEW&#34;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.DEFAULT&#34;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;data</span> <span class="na">android:mimeType=</span><span class="s">&#34;video/*&#34;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/intent-filter&gt;</span>
+<span class="nt">&lt;/activity&gt;</span>
+</code></pre></div><p>如上清单配置: 有两个<code>intent-filter</code>, 第一个是用于桌面图标启动应用; 第二个是用于打开video开头的<code>MIME</code>类型文件.</p>
+<p>第一个<code>intent-filter</code>不需要<code>category.DEFAULT</code>. 因为它将由启动器程序管理.
+第二个<code>intent-filter</code>是我们经常使用<code>startActivity()</code>方法会匹配到的, 所以其中的<code>category</code>应该设置<code>default</code>, 无论被打开视频文件是本地还是网络, 只要<code>MIME</code>类型以<code>Video</code>开头就行.</p>
+<h2 id="resources-和-assets">resources 和 assets</h2>
+<p>开发中除了实现业务逻辑的代码, 还有就是一些像<code>XML布局</code>,<code>图标</code>,<code>文本值</code>等这样的内容, 这些静态内容存储在APK文件的<code>resources</code>或者<code>assets</code>目录中. 所有的组员都属于一个特定的类型(比如layout, drawable等), 而<code>assets</code>是简单地存储在应用内的通用文件. 大多数非代码的内容都以资源的形式呈现, 因为他们紧密集成在Android API中.</p>
+<p>从开发的角度来看, Android中的资源特性是平台最强大的功能之一, 它允许开发者根据<strong>屏幕尺寸</strong>, <strong>定位参数</strong>, <strong>设备能力</strong>等来提供多个版本的资源. 最常见的解决方案是通过在不同的文件中提供多个版本的文本字符串来支持多语言, 或者通过提供不同的布局文件和不同大小的图标来支持各种屏幕的尺寸.</p>
+<hr>
+<p><strong>在应用中定义资源要遵循的几个规则</strong></p>
+<ol>
+<li>一定要在应用中为每种类型的资源都提供一个默认值, 就是在没有任何限定符的资源目录中提供默认的图片, 图标, 文本字符串和布局. 确保当所有特定资源文件都无法匹配设备, 可以加载默认的资源而不会出现崩溃.</li>
+<li>避免硬编码, 例如字符串和值. 虽然可能会需要做一些额外工作也不算太累, 相比与之后当需要改变整个应用中的所有字体, 外边距, 内边距, 增加字符串本地化的时候. 修改起来这简直就是轻而易举的简单.</li>
+<li>通过提供<strong>限定符</strong>来过滤资源. 例如, 如果想为高密度像素的设备提供一套高分辨率的图标, 可以通过<code>drawable-xxxhdpi</code>目录内存储</li>
+</ol>
+<hr>
+<h3 id="高级string资源">高级String资源</h3>
+<p>通常, 应用中的所有字符串都应该放在<code>string</code>资源中. 这样比在java代码中相比, 可以消除一下问题, 特别是当涉及格式化字符串和本地化时.</p>
+<p>比如: 在<code>string.xml</code>声明</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&#34;personal_message&#34;</span><span class="nt">&gt;</span>Hi %s !<span class="nt">&lt;/string&gt;</span>
+
+<span class="nt">&lt;string-array</span> <span class="na">name=</span><span class="s">&#34;default_categories&#34;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;item&gt;</span>Work!<span class="nt">&lt;/item&gt;</span>
+   <span class="nt">&lt;item&gt;</span>personal<span class="nt">&lt;/item&gt;</span>
+<span class="nt">&lt;/string-array&gt;</span>
+</code></pre></div><p>在java中使用</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">oneStr</span> <span class="o">=</span> <span class="n">getString</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">personal_message</span><span class="o">,</span> <span class="s">&#34;suzeyu&#34;</span><span class="o">);</span>
+		<span class="n">String</span><span class="o">[]</span> <span class="n">stringArray</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getStringArray</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">array</span><span class="o">.</span><span class="na">default_categories</span><span class="o">);</span>
+</code></pre></div><p>第一个在获取string资源的时候, 传入了一个字符串参数, 并在<code>%s</code>处进行插入处理.</p>
+<h3 id="本地化">本地化</h3>
+<p>要做到本地化的支持, 把默认字符串资源复制到一个适当语言和地区限定符的新目录中, 然后开始翻译文本.</p>
+<p>如果要翻译一种语言的资源文件到另一种语言, 你可以通过使用<strong>谷歌翻译工具<code>Google Translator ToolKit</code></strong>, 这是谷歌的一个服务, 允许上传一个文件, 然后将字符串自动翻译为指定的语言.</p>
+<h3 id="使用assets">使用assets</h3>
+<p>如果有一些较大的资源文件可以考虑放到<code>assets</code>和<code>raw</code>目录下.</p>
+<p>考虑这样一种场景, 如果有一个游戏有许多的音效, 那么就可以在<code>assets</code>文件夹内创建一个<code>soundfx</code>目录, 接下来把所有的音频文件都放入此子目录中. (<code>assets</code>目录支持子文件夹)</p>
+<p>如下代码显示了如何使用<code>SoundPool</code>和<code>AssetManager</code>来加载<code>assets/soundfx</code>目录内的所有音频文件. 并且最后关闭打开的文件, 防止内存泄漏.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">loadSoundEffects</span><span class="o">(</span><span class="n">SoundPool</span> <span class="n">soundPool</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">{</span>
+		<span class="c1">// 获取assets资源管理者
+</span><span class="c1"></span>		<span class="n">AssetManager</span> <span class="n">assets</span> <span class="o">=</span> <span class="n">getAssets</span><span class="o">();</span>
+		<span class="n">String</span><span class="o">[]</span> <span class="n">soundEffectFiles</span> <span class="o">=</span> <span class="n">assets</span><span class="o">.</span><span class="na">list</span><span class="o">(</span><span class="s">&#34;soundfx&#34;</span><span class="o">);</span>
+		<span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">soundEffectMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;();</span>
+
+		<span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">soundEffectFile</span><span class="o">:</span> <span class="n">soundEffectFiles</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">AssetFileDescriptor</span> <span class="n">fileDescriptor</span> <span class="o">=</span> <span class="n">assets</span><span class="o">.</span><span class="na">openFd</span><span class="o">(</span><span class="s">&#34;soundfx/&#34;</span> <span class="o">+</span> <span class="n">soundEffectFile</span><span class="o">);</span>
+			<span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">soundPool</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">fileDescriptor</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+			<span class="n">soundEffectMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">soundEffectFile</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+			
+			<span class="n">fileDescriptor</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="n">soundEffectMap</span><span class="o">;</span>
+	<span class="o">}</span>
+</code></pre></div><h2 id="ui的一些小知识">UI的一些小知识</h2>
+<h3 id="文本">文本</h3>
+<p>**字体:**人脑利用图像识别来分辨不同的字母汉字, 所以逻辑上来说, 应该使用很容易辨认的字体, 而高度装饰字体只适用于标识(logo)等其他场合.</p>
+<hr>
+<p>**文本布局:**例如报纸中的布局分成若干个专栏, 人们更偏向于稍微适中, 比较短的文本阅读. 所以切记不要让你的文本布局显示一行很长很长的文字. 尽量可以保持一行在<code>45~72</code>个字符.</p>
+<hr>
+<p><strong>android中的大小单位</strong></p>
+<ul>
+<li><code>dp</code>  (density-independent) 控制控件大小</li>
+<li><code>sp</code>  基于dp产生, 主要用于文字大小</li>
+<li><code>pt</code>  (points, 磅)</li>
+<li><code>px</code>  (pixel, 像素)</li>
+<li><code>mm</code>  (millimeter, 毫米)</li>
+<li><code>in</code>  (inch, 英寸)</li>
+</ul>
+<hr>
+<p>**推荐尺寸:**一个按钮一个比较好的大小值为<code>48dp</code>转换之后相当于9毫米, 这个尺寸可以让用户手指在触摸屏上轻松的交互.</p>
+<hr>
+<p>**图标大小:**针对之前说的<code>48dp</code>,当不同分辨密度下相对应的为 48像素(MDPI), 72像素(HDPI), 96像素(XHDPI), 以及144像素(XXHDPI). 这就是所谓的2:3:4:6. 对应的DPI分别指~160, ~240, ~320, ~480.</p>
+<p>如果将位图作为图标使用, 那么就应该使用dp而不是像素为单位. 一个正常的图标, 如主屏幕上的启动图标, 应该为<code>48dp*48dp</code>, 而操作栏(action bar)的图标为<code>32dp*32dp</code>, 通知栏的图标<code>24dp*24dp</code></p>
+<hr>
+<p>**字体的大小:**谷歌创建的<code>Roboto</code>字体被用于所有标准的Android程序. 不同的字体的尺寸即使一样, 实际看起来可能也会不同, 主要是因为他们的<code>x-height</code>不同, <code>x-height</code>即为当前字体小写字母x的高度.  经常使用的<code>x-height</code>较大的字体有<code>Arial</code>和<code>Verdana</code></p>
+<p>谷歌为Android字体定义了四个标准大小:</p>
+<ul>
+<li><code>micro</code> 极小, 12sp</li>
+<li><code>small</code> 小, 14sp</li>
+<li><code>medium</code> 中, 18sp</li>
+<li><code>large</code> 大, 22sp</li>
+</ul>
+<hr>
+<p><strong>典型透视:<strong>当我们需要凭借记忆画一个物体时, 大多数人会从一个略高于它的角度来描述它, 这就叫做</strong>典型透视</strong>.</p>
+<p>**人脸识别:**人类擅长人脸识别, 许多人可以轻松地从一堆人中挑选出自己的朋友. 实际上相对于识别物体, 我们能更快识别人脸. 此外, 我们对文字的理解远远慢于识别人脸.</p>
+<hr>
+<p>不要让用户思考! 用户不应该花大量时间来研究如何使用应用程序. 开发者应该让第一次看到应用程序UI的用户无需置疑下一步该如何操作;</p>
+<p><strong>视觉线索</strong>是指一个物体向用户发出的如何与之交互的信息. 人们对文字的理解慢于对简单图标的理解.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 0001-01-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9803-%E7%BB%84%E4%BB%B6-%E6%B8%85%E5%8D%95-%E8%B5%84%E6%BA%90%E5%92%8Cui%E9%97%B2%E8%81%8A/" data-title="《Android 编程实战》03-组件 清单 资源和UI闲聊" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9803-%E7%BB%84%E4%BB%B6-%E6%B8%85%E5%8D%95-%E8%B5%84%E6%BA%90%E5%92%8Cui%E9%97%B2%E8%81%8A/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9803-%E7%BB%84%E4%BB%B6-%E6%B8%85%E5%8D%95-%E8%B5%84%E6%BA%90%E5%92%8Cui%E9%97%B2%E8%81%8A/" data-title="《Android 编程实战》03-组件 清单 资源和UI闲聊" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9803-%E7%BB%84%E4%BB%B6-%E6%B8%85%E5%8D%95-%E8%B5%84%E6%BA%90%E5%92%8Cui%E9%97%B2%E8%81%8A/" data-title="《Android 编程实战》03-组件 清单 资源和UI闲聊"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9803-%E7%BB%84%E4%BB%B6-%E6%B8%85%E5%8D%95-%E8%B5%84%E6%BA%90%E5%92%8Cui%E9%97%B2%E8%81%8A/" data-title="《Android 编程实战》03-组件 清单 资源和UI闲聊" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9803-%E7%BB%84%E4%BB%B6-%E6%B8%85%E5%8D%95-%E8%B5%84%E6%BA%90%E5%92%8Cui%E9%97%B2%E8%81%8A/" data-title="《Android 编程实战》03-组件 清单 资源和UI闲聊" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9803-%E7%BB%84%E4%BB%B6-%E6%B8%85%E5%8D%95-%E8%B5%84%E6%BA%90%E5%92%8Cui%E9%97%B2%E8%81%8A/" data-title="《Android 编程实战》03-组件 清单 资源和UI闲聊" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9803-%E7%BB%84%E4%BB%B6-%E6%B8%85%E5%8D%95-%E8%B5%84%E6%BA%90%E5%92%8Cui%E9%97%B2%E8%81%8A/" data-title="《Android 编程实战》03-组件 清单 资源和UI闲聊"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/posts/markdown-%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="next" rel="next" title="markdown 简单使用">markdown 简单使用<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

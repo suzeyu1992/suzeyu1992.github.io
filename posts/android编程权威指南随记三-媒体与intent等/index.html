@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android编程权威指南》随记三 媒体与Intent等 - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android编程权威指南》随记三 媒体与Intent等" />
+<meta property="og:description" content="这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-09-09T09:35:57+00:00" />
+<meta property="article:modified_time" content="2016-09-09T09:35:57+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android编程权威指南》随记三 媒体与Intent等"/>
+<meta name="twitter:description" content="这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%BA%8C-fragment%E7%9A%84%E6%A6%82%E6%8B%AC/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android编程权威指南》随记三 媒体与Intent等",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  8630 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89\/","datePublished": "2016-09-09T09:35:57+00:00","dateModified": "2016-09-09T09:35:57+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android编程权威指南》随记三 媒体与Intent等</h1><h2 class="single-subtitle">抄书笔记</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-09-09">2016-09-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 8630 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 18 分钟&nbsp;<span id="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/" class="leancloud_visitors" data-flag-title="《Android编程权威指南》随记三 媒体与Intent等">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#mediaplay播放音频">MediaPlay播放音频</a></li>
+    <li><a href="#播放视频">播放视频</a></li>
+    <li><a href="#camera与surfaceview">Camera与SurfaceView</a></li>
+    <li><a href="#隐式intent">隐式Intent</a></li>
+    <li><a href="#深入了解intent">深入了解Intent</a></li>
+    <li><a href="#应用图标与任务重排">应用图标与任务重排</a></li>
+    <li><a href="#进程和任务">进程和任务</a></li>
+    <li><a href="#xmlpullparser使用">XmlPullParser使用</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原理东西本书偏少. 可以学习本书中的代码的编写风格, 书中代码都是采用<strong>MVC</strong>模型来编写的. 就写这么多, 下面开始整理一些小知识点.</p>
+</blockquote>
+<blockquote>
+<p>关于Camera和SurfaceView的知识点练习都保存在仓库中的<strong>Criminal</strong>项目中.
+<a href="https://github.com/suzeyu1992/AndroidProgramminGuide" target="_blank" rel="noopener noreffer">git地址</a></p>
+</blockquote>
+<h2 id="mediaplay播放音频">MediaPlay播放音频</h2>
+<blockquote>
+<p><code>MediaPlayer</code>是一个支持音频及视频文件播放的Android类. 可播放不同的来源(本地或网络流媒体).多种格式(WAV, MP3, MPEG-4, 3GPP等)的多媒体文件.</p>
+</blockquote>
+<p>直接贴出代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm"> * Author :  suzeyu
+</span><span class="cm"> * Time   :  2016-09-07  上午10:17
+</span><span class="cm"> * Blog   :  http://szysky.com
+</span><span class="cm"> * GitHub :  https://github.com/suzeyu1992
+</span><span class="cm"> *
+</span><span class="cm"> * ClassDescription : 主要用来管理MediaPlayer的实例, 和对该实例的播放和停止等功能
+</span><span class="cm"> */</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AudioPlayer</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">MediaPlayer</span> <span class="n">mPlayer</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">stop</span><span class="o">(){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mPlayer</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+            <span class="c1">// 销毁, 否则MediaPlayer将一直占用着音频解码硬件及其他系统资源
+</span><span class="c1"></span>            <span class="n">mPlayer</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>
+            <span class="n">mPlayer</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">){</span>
+        <span class="c1">// 防止过多的创建MediaPlayer实例, 第一步先销毁已经存在的
+</span><span class="c1"></span>        <span class="n">stop</span><span class="o">();</span>
+
+        <span class="c1">//  设置要播放的音频文件, 如果音频来自其他渠道如网络或者URI, 则使用其他的create(...)函数
+</span><span class="c1"></span>        <span class="n">mPlayer</span> <span class="o">=</span> <span class="n">MediaPlayer</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">raw</span><span class="o">.</span><span class="na">ss_small</span><span class="o">);</span>
+        <span class="n">mPlayer</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+        <span class="c1">// 防止过多的创建MediaPlayer实例, 第二步设置监听, 存活时间为音频的时长
+</span><span class="c1"></span>        <span class="n">mPlayer</span><span class="o">.</span><span class="na">setOnCompletionListener</span><span class="o">(</span><span class="k">new</span> <span class="n">MediaPlayer</span><span class="o">.</span><span class="na">OnCompletionListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCompletion</span><span class="o">(</span><span class="n">MediaPlayer</span> <span class="n">mp</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// 音频播放完成
+</span><span class="c1"></span>                <span class="n">stop</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>记得在<code>res/raw/</code>放置要播放的文件. 一个简便的播放就是这样.详细的查看官网的对于<code>MediaPlayer</code>的介绍</p>
+<h2 id="播放视频">播放视频</h2>
+<p>关于播放视频, <code>Android</code>提供了多种实现方式. 其一便是使用上面说到的<code>MediaPlayer</code>, 而我们需要做的只是设置在哪里播放即可.</p>
+<p>在<code>Android</code>系统中, 快速刷新显示的可视图像(如视频)是在<code>SurfaceView</code>中显示的. 准确的说, 是在<code>SurfaceView</code>内嵌的<code>Surface</code>中显示的. 通过获取<code>SurfaceView的SurfaceHolder</code>可是实现在<code>Surface</code>上显示视频. 简单的说就是通过<code>MediaPlayer.setDisplay(SurfaceHolder)</code>方法, 将<code>MediaPlayer</code>类于<code>SurfaceHolder</code>关联起来即可.</p>
+<p>通常来说直接使用<code>VideoView</code>实例来播放视频会更简单些, 不同于<code>SurfaceView于MediaPlayer</code>之间的交互, <code>VideoView是与MediaController</code>交互的, 这样可以方便地提供视频播放界面.  而<code>VideoView</code>是不接受<em>ID资源的</em>. 而只接受文件路径或者URI对象.</p>
+<p>创建一个指向<strong>Android资源</strong>的URI, 可使用如下代码:</p>
+<p><code>Uri resourceUri = Uri.parse(&quot;android.resource://包名/raw/文件名称&quot;);</code></p>
+<p>使用了<code>android.resource</code>格式, 用包名作为主机名, 资源文件类型与文件名称组成了一个路径用以创建URI.完成后就可以将其传给<code>VideoView</code>使用.</p>
+<h2 id="camera与surfaceview">Camera与SurfaceView</h2>
+<ul>
+<li><code>Camera: </code>提供了对设备相机硬件级别的调用. 相机是一种<strong>独占性资源</strong>: 一次只能有一个activity调用(如果你的应用没有释放相机资源,那么系统的相机也就无法调起使用)</li>
+<li><code>SurfaceView: </code>这是一种特殊的视图, 可直接将要显示的内容渲染输出到设备的屏幕上.</li>
+</ul>
+<p>首先既然使用了相机那么就需要添加相机的使用权限</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">    <span class="c">&lt;!--增加相机使用权限--&gt;</span>
+    <span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&#34;android.permission.CAMERA&#34;</span><span class="nt">/&gt;</span>
+    <span class="c">&lt;!--指定应用使用的某项特色功能, 这个属性可以保证那些配备相机功能的设备才能看到发布在GooglePlay上的此应用--&gt;</span>
+    <span class="nt">&lt;uses-feature</span> <span class="na">android:name=</span><span class="s">&#34;android.hardware.camera&#34;</span><span class="nt">/&gt;</span>
+</code></pre></div><p><code>uses-feature</code>对我们貌似没什么用处.</p>
+<p>既然是拍照那么很多都是横屏的,所以清单文件中把所在的<code>&lt;activity&gt;</code>设置横屏模式</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">&#34;.activity.CrimeCameraActivity&#34;</span>
+            <span class="na">android:screenOrientation=</span><span class="s">&#34;landscape&#34;</span><span class="nt">/&gt;</span>
+</code></pre></div><hr>
+<p><strong>开始了解相机使用</strong></p>
+<ul>
+<li><code>public static Camera open(int)</code></li>
+<li><code>public static Camera release()</code></li>
+</ul>
+<p>这两个方法是管理<code>Camera</code>的方法. 最好用户可以与界面进行交互分别调用. 如<code>onResume()</code>和<code>onPause()</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onResume</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">super</span><span class="o">.</span><span class="na">onResume</span><span class="o">();</span>
+  <span class="c1">// 0为打开后置摄像头, 如果没有后置摄像头那么就打开前置摄像头
+</span><span class="c1"></span>  <span class="n">mCamera</span> <span class="o">=</span> <span class="n">Camera</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+<span class="o">}</span>
+    
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPause</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">super</span><span class="o">.</span><span class="na">onPause</span><span class="o">();</span>
+  <span class="k">if</span><span class="o">(</span><span class="n">mCamera</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+      <span class="n">mCamera</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>
+      <span class="n">mCamera</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>相机打开了现在轮到Surface,因为Camera的拍照需要它</strong></p>
+<p><code>SurfaceView</code>类实现了<code>SurfaceHolder</code>接口.  首先我们先获取<code>SurfaceHolder</code>实例.(在<code>Activity#onCreate</code>或者<code>Fragment#onCreateView()</code>只要能保证布局已经加载就可以)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm">*  对SurfaceView控件进行一些初始化和绑定客户端Camera
+</span><span class="cm">*/</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">initSurfaceView</span><span class="o">(</span><span class="n">View</span> <span class="n">rootView</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">mV_sfv_camera</span> <span class="o">=</span> <span class="o">(</span><span class="n">SurfaceView</span><span class="o">)</span> <span class="n">rootView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">sfv_camera_display</span><span class="o">);</span>
+   <span class="n">SurfaceHolder</span> <span class="n">holder</span> <span class="o">=</span> <span class="n">mV_sfv_camera</span><span class="o">.</span><span class="na">getHolder</span><span class="o">();</span>
+   <span class="c1">// setType设置只为兼容旧版本3.0之前,可以选择考虑是否需要
+</span><span class="c1"></span>   <span class="n">holder</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="n">SurfaceHolder</span><span class="o">.</span><span class="na">SURFACE_TYPE_PUSH_BUFFERS</span><span class="o">);</span>
+
+   <span class="c1">//  对SurfaceView的声明周期进行关联
+</span><span class="c1"></span>   <span class="n">holder</span><span class="o">.</span><span class="na">addCallback</span><span class="o">(</span><span class="k">new</span> <span class="n">SurfaceHolder</span><span class="o">.</span><span class="na">Callback</span><span class="o">()</span> <span class="o">{</span>
+
+       <span class="cm">/** SurfaceView的视图层级结构被放在屏幕上时候被调用, 这里也是SurfaceView与客户端(Camera)进行关联的地方*/</span>
+       <span class="nd">@Override</span>
+       <span class="kd">public</span> <span class="kt">void</span> <span class="nf">surfaceCreated</span><span class="o">(</span><span class="n">SurfaceHolder</span> <span class="n">holder</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">try</span> <span class="o">{</span>
+               <span class="k">if</span> <span class="o">(</span><span class="n">mCamera</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                   <span class="n">mCamera</span><span class="o">.</span><span class="na">setPreviewDisplay</span><span class="o">(</span><span class="n">holder</span><span class="o">);</span>
+               <span class="o">}</span>
+           <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+               <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;@@-&gt; Camera设置关联SurfaceView预览显示失败!&#34;</span> <span class="o">);</span>
+           <span class="o">}</span>
+       <span class="o">}</span>
+
+       <span class="cm">/**  Surface首次显示在屏幕上的时候被动调用的方法, 通过此参数可以知道Surface的像素格式以及他的宽高.
+</span><span class="cm">        通过此方法可以通知Surface客户端, 有多大的绘制区域可以使用. */</span>
+       <span class="nd">@Override</span>
+       <span class="kd">public</span> <span class="kt">void</span> <span class="nf">surfaceChanged</span><span class="o">(</span><span class="n">SurfaceHolder</span> <span class="n">holder</span><span class="o">,</span> <span class="kt">int</span> <span class="n">format</span><span class="o">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">,</span> <span class="kt">int</span> <span class="n">height</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">if</span> <span class="o">(</span><span class="n">mCamera</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+           <span class="c1">// The surface has change size, update the camera preview size
+</span><span class="c1"></span>           <span class="n">Camera</span><span class="o">.</span><span class="na">Parameters</span> <span class="n">parameters</span> <span class="o">=</span> <span class="n">mCamera</span><span class="o">.</span><span class="na">getParameters</span><span class="o">();</span>
+           <span class="n">Camera</span><span class="o">.</span><span class="na">Size</span> <span class="n">size</span> <span class="o">=</span> <span class="n">getSupportedSize</span><span class="o">(</span><span class="n">parameters</span><span class="o">.</span><span class="na">getSupportedPreviewSizes</span><span class="o">(),</span> <span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">);</span>
+           <span class="c1">//  设置图片尺寸大小
+</span><span class="c1"></span>           <span class="n">parameters</span><span class="o">.</span><span class="na">setPictureSize</span><span class="o">(</span><span class="n">size</span><span class="o">.</span><span class="na">width</span><span class="o">,</span> <span class="n">size</span><span class="o">.</span><span class="na">height</span><span class="o">);</span>
+
+           <span class="n">mCamera</span><span class="o">.</span><span class="na">setParameters</span><span class="o">(</span><span class="n">parameters</span><span class="o">);</span>
+
+           <span class="k">try</span> <span class="o">{</span>
+               <span class="c1">//  开始在Surface上绘制
+</span><span class="c1"></span>               <span class="n">mCamera</span><span class="o">.</span><span class="na">startPreview</span><span class="o">();</span>
+           <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+               <span class="c1">//  如果开始预览绘制失败那么我们通过这里来释放相机资源
+</span><span class="c1"></span>               <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;@@-&gt; startPreview()启动失败, 准备释放相机资源!&#34;</span> <span class="o">);</span>
+               <span class="n">mCamera</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>
+               <span class="n">mCamera</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+           <span class="o">}</span>
+       <span class="o">}</span>
+
+       <span class="cm">/** SurfaceView从屏幕上移除时, Surface也随之被销毁, 通过客户端停止使用Surface*/</span>
+       <span class="nd">@Override</span>
+       <span class="kd">public</span> <span class="kt">void</span> <span class="nf">surfaceDestroyed</span><span class="o">(</span><span class="n">SurfaceHolder</span> <span class="n">holder</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">if</span> <span class="o">(</span><span class="n">mCamera</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+               <span class="n">mCamera</span><span class="o">.</span><span class="na">stopPreview</span><span class="o">();</span>
+           <span class="o">}</span>
+       <span class="o">}</span>
+   <span class="o">});</span>
+<span class="o">}</span>
+
+<span class="cm">/**
+</span><span class="cm">*  找出具有最大数目的像素的尺寸
+</span><span class="cm">*/</span>
+<span class="kd">private</span> <span class="n">Camera</span><span class="o">.</span><span class="na">Size</span> <span class="nf">getSupportedSize</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Camera</span><span class="o">.</span><span class="na">Size</span><span class="o">&gt;</span> <span class="n">sizes</span><span class="o">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">,</span> <span class="kt">int</span> <span class="n">height</span><span class="o">){</span>
+   <span class="n">Camera</span><span class="o">.</span><span class="na">Size</span> <span class="n">bestSize</span> <span class="o">=</span> <span class="n">sizes</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+   <span class="kt">int</span> <span class="n">largestArea</span> <span class="o">=</span> <span class="n">bestSize</span><span class="o">.</span><span class="na">width</span> <span class="o">*</span> <span class="n">bestSize</span><span class="o">.</span><span class="na">height</span><span class="o">;</span>
+   <span class="k">for</span> <span class="o">(</span><span class="n">Camera</span><span class="o">.</span><span class="na">Size</span> <span class="n">s</span> <span class="o">:</span> <span class="n">sizes</span><span class="o">)</span> <span class="o">{</span>
+       <span class="kt">int</span> <span class="n">area</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">width</span> <span class="o">*</span> <span class="n">s</span><span class="o">.</span><span class="na">height</span><span class="o">;</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">area</span> <span class="o">&gt;</span> <span class="n">largestArea</span><span class="o">){</span>
+           <span class="n">bestSize</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>
+           <span class="n">largestArea</span> <span class="o">=</span> <span class="n">area</span><span class="o">;</span>
+       <span class="o">}</span>
+   <span class="o">}</span>
+
+   <span class="k">return</span> <span class="n">bestSize</span><span class="o">;</span>
+
+<span class="o">}</span>
+</code></pre></div><p><code>SurfaceHolder</code>是我们与<code>Surface</code>对象联系的纽带. <code>Surface</code>对象代表着原始像素数据的缓冲区.</p>
+<p><code>Surface</code>对象也有生命周期: <code>SurfaceView</code>出现在屏幕上时, 会创建<code>Surface</code>; <code>SurfaceView</code>从屏幕上消失的时候,<code>Surface</code>随即被销毁. <code>Surface</code>不存在的时候, 必须保证没有任何内容要在它上面绘制.</p>
+<p>不像其他视图一样, <code>SurfaceView</code>及其协同工作对象都不会自我绘制内容. 对于任何想要将内容绘制到<code>Surface</code>缓冲区的对象, 我们都称其为<code>Surface</code>的客户端. 比如这里的<code>Camera</code></p>
+<p>为了对应<code>Surface</code>各个生命周期, <code>SurfaceHolder</code>提供了另外一个接口<code>SurfaceHolder.Callback</code>来关联.</p>
+<p><strong>确定预览界面的大小</strong></p>
+<p>可能看到了<code>surfaceChanged()</code>的生命周期回调中设置了<code>Camera</code>实例的一个属性大小.</p>
+<p>首先要知道<strong>相机的预览大小不能随意设置</strong>, 如果设置了不可接受的值有可能会出现崩溃. 所以我们应该先获取到设备相机所支持的预览尺寸大小. 通过<code>Camera.Parameters</code>类中的<code>getSupportedPreviewSizes()</code>就可以获取到<strong>相机的支持的预览尺寸列表</strong>.</p>
+<p>这个方法返回的是一个<code>List&lt;Camera.Size&gt;</code>, 泛型<code>Camera.Size</code>每一个实例都封装了一个具体的图片宽高尺寸. 利用<code>getSupportedSize()</code>简便的比较方法可以达到选择一个最大的像素尺寸.</p>
+<p><strong>有可能你会需要先检测设备是否有前后相机</strong></p>
+<p>可以获取到<code>PackageManager</code>后, 调用<code>hasSystemFeature(String)</code>方法并传入表示设备特色功能的常量即可根据布尔值来判断. <code>FEATURE_CAMERA</code>常量代表后置相机, <code>FEATURE_CAMERA_FRONT</code>常量代表前置相机.</p>
+<p><strong>目前为止相机开启并渲染值Surface应该没问题了,下面就是利用Camera进行照片</strong></p>
+<p>主要逻辑就是从相机的实时预览中捕获一帧图像, 然后将其保存为JPEG格式的文件. 而要进行拍摄需要<code>Camera#takePicture(Camera.shutterCallback shutter, Camera.PictureCallback raw, Camera.PictureCallback jpeg)</code></p>
+<ul>
+<li><code>shutterCallback</code> 此回调里面的方法会在相机捕获图像的时候调用, 但此时图像数据还未处理完成.</li>
+<li><code>第一个PictureCallback</code>  回调方法是在原始图像数据可用时调用, 通常来说, 是在加工处理原始图像数据且没有存储之前.</li>
+<li><code>第二个PictureCallback</code>  回调方法是在JPEG版本的图像可用时候调用.</li>
+</ul>
+<p>如果不需要某一个步骤的回调可以直接传递null. 这里我们实现参数一和参数三的回调, 首先定义回调如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm">*  在进行快门的时候进行进度条View的显示
+</span><span class="cm">*/</span>
+<span class="kd">private</span> <span class="n">Camera</span><span class="o">.</span><span class="na">ShutterCallback</span> <span class="n">mShutterCallback</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Camera</span><span class="o">.</span><span class="na">ShutterCallback</span><span class="o">()</span> <span class="o">{</span>
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onShutter</span><span class="o">()</span> <span class="o">{</span>
+       <span class="c1">//  这里我做了照相开始时候显示进度条, 如果为了练习这里可以不需要
+</span><span class="c1"></span>       <span class="n">mVFlProgress</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">VISIBLE</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">};</span>
+
+<span class="cm">/**
+</span><span class="cm">*  Camera如果快门之后有数据处理生成成功,  那么会调此回调, 可以进行把数据写入到本地的动作
+</span><span class="cm">*/</span>
+<span class="kd">private</span> <span class="n">Camera</span><span class="o">.</span><span class="na">PictureCallback</span> <span class="n">mJpegCallback</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Camera</span><span class="o">.</span><span class="na">PictureCallback</span><span class="o">()</span> <span class="o">{</span>
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPictureTaken</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span><span class="o">,</span> <span class="n">Camera</span> <span class="n">camera</span><span class="o">)</span> <span class="o">{</span>
+       <span class="c1">// create a filename
+</span><span class="c1"></span>       <span class="n">String</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;.jpg&#34;</span><span class="o">;</span>
+       <span class="c1">//  save the jpeg date to disk
+</span><span class="c1"></span>       <span class="n">FileOutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+       <span class="k">try</span> <span class="o">{</span>
+           <span class="c1">// 获得输出流进行数据的写入
+</span><span class="c1"></span>           <span class="n">out</span> <span class="o">=</span> <span class="n">mContext</span><span class="o">.</span><span class="na">openFileOutput</span><span class="o">(</span><span class="n">filename</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
+           <span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+       <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onPictureTaken: @@-&gt; 图片写入disk失败, 失败文件地址:&#34;</span><span class="o">+</span><span class="n">filename</span><span class="o">,</span> <span class="n">e</span> <span class="o">);</span>
+       <span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
+           <span class="c1">// 进行清扫动作, 关流
+</span><span class="c1"></span>           <span class="k">if</span> <span class="o">(</span><span class="n">out</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+               <span class="k">try</span> <span class="o">{</span>
+                   <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+               <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                   <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onPictureTaken: @@-&gt; 流文件关流失败, 失败文件地址:&#34;</span><span class="o">+</span><span class="n">filename</span><span class="o">,</span> <span class="n">e</span> <span class="o">);</span>
+                  
+               <span class="o">}</span>
+           <span class="o">}</span>
+       <span class="o">}</span>
+
+      <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onPictureTaken(): 照片 JPEG 保存成功, 即将关闭activity, 保存地址:&#34;</span><span class="o">+</span><span class="n">filename</span><span class="o">);</span>
+<span class="o">};</span>
+</code></pre></div><p>回调定义好了之后, 剩下的只需要搞一个按钮, 添加点击事件通过调用<code>Camera</code>的实例的<code>takePicture()</code>传入自定义的回调方法即可.</p>
+<p><strong>扩展:</strong></p>
+<p>如果需要显示大图可以直接<code>DialogFragment</code>.</p>
+<ol>
+<li>首先设置<code>Fragment</code>的样式为<code>DialogFragment.STYLE_NO_TITLE</code>.</li>
+<li>因为想要的效果为一个图片查看放大, 那么不需要显示<code>AlertDialog</code>视图自带的标题和按钮. 所以可以直接复写<code>onCreateView()</code>方法使用一个简单视图, 比覆盖<code>onCreateDialog()</code>方法使用<code>Dialog</code>更简单.快捷灵活.</li>
+<li>通过文件的路径得到<code>Bitmap</code>设置到在<code>onCreateView()</code>中创建并返回的<code>ImageView</code>即可.</li>
+</ol>
+<h2 id="隐式intent">隐式Intent</h2>
+<p>在<code>Android</code>系统中, 使用<strong>隐式Intent</strong>可以启动其他应用的activity. 在<strong>显示Intent</strong>中, 需要指定要启动的<code>activity</code>类. 操作系统会负责启动它. 而<strong>隐式Intent</strong>中, 只要描述清楚要完成的任务, 操作系统会找到合适的应用. 并在其中启动相应的<code>activity</code>.</p>
+<p><strong>典型的隐式Intent的组成</strong></p>
+<ul>
+<li><strong>要执行的动作(action)</strong>: 通常以<code>Intent</code>类中的常量进行表示. 例如要访问查看某个<code>URL</code>,可以使用<code>Intent_ACTION_VIEW</code>; 要发送邮件,可以使用<code>Intent.ACTION_SEND</code></li>
+<li><strong>要发送的数据位置以及数据类型</strong>: 数据位置的话可能会是某个网页的<code>URL</code>,也可能是指向某个文件的<code>URI</code>, 或者指向<code>ContentProvider</code>中某条记录的某个内容<code>URI</code>; 数据类型这里指的是<code>MIME</code>形式的数据类型, 如<code>text/html</code>或者<code>audio/mpeg3</code>. 如果一个intent包含某类数据的位置, 那么通常可以从中推测出数据的类型.</li>
+<li><strong>可选类别(category)</strong>:   如果<code>action</code>用于描述具体要做什么, 那么类别通常用来描述我们<strong>何时,何地或者说如何使用</strong>某个activity. <code>android.intent.category.LAUNCHER</code>类别表明, activity应该显示在顶级应用启动器中. 而<code>android.intent.category.INFO</code>类别表明,虽然activity向用户显示了包信息, 但它不应该显示在启动器中.</li>
+</ul>
+<p><strong>而在配置清单文件中的intent过滤器设置时</strong></p>
+<ul>
+<li><code>&lt;action&gt;</code>: 告诉操作系统, activity能够处理指定的哪个action动作.</li>
+<li><code>&lt;category&gt;</code>: 一般情况下都是要指定<code>DEFAULT</code>类别. 每发起<strong>隐式intent</strong>如果没有指定<code>category那么系统都会默认的添加</code>DEFALUT`类别.</li>
+</ul>
+<p>操作系统进行<code>隐式Intent</code>寻找的时候, 是不需要使用数据(extra)来参与匹配规则的.</p>
+<p><strong>利用Intent选择器</strong></p>
+<p>比如打开一个视频文件的时候, 如果手机上有多个选择的话可能会弹出一个全部列表, 然后选择一个进行播放, 而之后会发现再也不会询问用户使用哪个视频播放软件进行播放. 对于这种情况有时候或许不需要, 这个时候就可以使用<strong>选择器</strong>来创建一个activity来展示可打开的软件, 每次都进行选择. 使用很简单.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">();</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="s">&#34;text/plain&#34;</span><span class="o">);</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_TEXT</span><span class="o">,</span> <span class="n">getCrimeReport</span><span class="o">());</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_SUBJECT</span><span class="o">,</span> <span class="n">getString</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">crime_report_subject</span><span class="o">));</span>
+
+<span class="c1">// 设置一个选择每一次都显示activity的选择器. 
+</span><span class="c1">// 这是重点
+</span><span class="c1"></span><span class="n">intent</span><span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">createChooser</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="n">getString</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">send_report</span><span class="o">));</span>
+
+<span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+</code></pre></div><p>通过<code>createChooser()</code>方法重新构建一个<code>intent</code>即可, 参数二传递的字符串是用来作为弹出的选择界面的标题.</p>
+<p><strong>再说一下获取联系人信息</strong></p>
+<p>如果要获取手机通讯录, 那么要指定<code>action</code>,并且要找指定获取位置; action对应的<code>Intent.ACTION_PICK</code>. 获取的位置为<code>ContactsContract.Contacts.CONTENT_URI</code>. 就是请求Android协助从手机联系人数据库获取某个具体联系人.</p>
+<p>打开手机联系人代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 打开联系人Contract列表
+</span><span class="c1">// 这是通讯录应用将其权限临时给了本应用, 首先通讯录应用对联系人的数据库具有全部权限. 所以在通讯录应用
+</span><span class="c1">// 返回包含在Intent中的URI的时候, 他会添加一个Intent.FLAG_GRANT_READ_URI_PERMISSION标识,
+</span><span class="c1">// 此标志向系统表示, 我们这个应用可以使用联系人数据一次.
+</span><span class="c1"></span><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_PICK</span><span class="o">,</span> <span class="n">ContactsContract</span><span class="o">.</span><span class="na">Contacts</span><span class="o">.</span><span class="na">CONTENT_URI</span><span class="o">);</span>
+
+<span class="c1">// 检测是否有接收此Intent的应用
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">ResolveInfo</span><span class="o">&gt;</span> <span class="n">resolveInfos</span> <span class="o">=</span> <span class="n">getActivity</span><span class="o">().</span><span class="na">getPackageManager</span><span class="o">().</span><span class="na">queryIntentActivities</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">resolveInfos</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">){</span>
+<span class="n">startActivityForResult</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="n">REQUEST_CONTACT</span><span class="o">);</span>
+<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+<span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">getActivity</span><span class="o">().</span><span class="na">getApplicationContext</span><span class="o">(),</span> <span class="s">&#34;无法打开Intent&#34;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>以上代码很容易懂, 并且做了一定的防错处理.  接下来就准备接收返回结果就可以在<code>onActivityResult()</code>中</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">requestCode</span> <span class="o">==</span> <span class="n">REQUEST_CONTACT</span><span class="o">){</span>
+  <span class="c1">//  打开联系人列表关闭后返回的逻辑
+</span><span class="c1"></span>
+  <span class="c1">//  从intent取出URI, 该数据URI是一个指向用户所选联系人的定位符.
+</span><span class="c1"></span>  <span class="n">Uri</span> <span class="n">contactUri</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">getData</span><span class="o">();</span>
+
+  <span class="c1">//  specify which fields you want you query to return values for
+</span><span class="c1"></span>  <span class="c1">//  指定在返回数据的时候所对应查找的字段
+</span><span class="c1"></span>  <span class="n">String</span><span class="o">[]</span> <span class="n">queryFileds</span> <span class="o">=</span> <span class="o">{</span><span class="n">ContactsContract</span><span class="o">.</span><span class="na">Contacts</span><span class="o">.</span><span class="na">DISPLAY_NAME</span><span class="o">};</span>
+
+  <span class="c1">//  perform query
+</span><span class="c1"></span>  <span class="n">Cursor</span> <span class="n">query</span> <span class="o">=</span> <span class="n">getActivity</span><span class="o">().</span><span class="na">getContentResolver</span><span class="o">().</span><span class="na">query</span><span class="o">(</span><span class="n">contactUri</span><span class="o">,</span> <span class="n">queryFileds</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+
+  <span class="k">if</span> <span class="o">(</span><span class="n">query</span><span class="o">.</span><span class="na">getCount</span><span class="o">()</span> <span class="o">==</span> <span class="n">0</span><span class="o">){</span>
+      <span class="n">query</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+      <span class="k">return</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="c1">// 获取嫌疑人的姓名 添加到陋习记录中的suspect
+</span><span class="c1"></span>  <span class="n">query</span><span class="o">.</span><span class="na">moveToFirst</span><span class="o">();</span>
+  <span class="n">String</span> <span class="n">suspect</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+
+  <span class="c1">// 拿到了姓名 可以做后续的事情....
+</span><span class="c1"></span>
+<span class="o">}</span>
+</code></pre></div><p>上面获得了一个<code>Cursor</code>, 因为已经知道<code>Cursor</code>只是包含一条记录, 所以将<code>Cursor</code>移动到第一条记录并获取它的字符串形式.就是姓名.</p>
+<p>上面代码中有两句话是对可以响应的<code>activity</code>做检查. 通过<code>PackageManager#queryIntentActivitys()</code>返回集合的size大小来决定是否可以执行后续的操作.</p>
+<p><strong>打电话的隐式Intent</strong></p>
+<p>电话相关的<code>Intent</code>有两种</p>
+<ul>
+<li><code>Intent.ACTION_DIAL</code>: 选择联系人(得到号码发送一个<code>tel:xxx</code>数据uri)之后会停止到拨号界面等待用户手动呼叫</li>
+<li><code>Intent.ACTION_CALL</code>: 选择联系人(得到号码发送一个<code>tel:xxx</code>数据uri)之后会立即拨打出去. 而不会等待用户的手动拨打.</li>
+</ul>
+<h2 id="深入了解intent">深入了解Intent</h2>
+<p>利用<code>隐式的Intent</code>可以创建一个启动器来替换系统默认的启动器应用. 例如这样:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="Launch.png"
+        data-srcset="Launch.png, Launch.png 1.5x, Launch.png 2x"
+        data-sizes="auto"
+        alt="Launch.png"
+        title="Launch.png" /></p>
+<p>展示出来手机上面的所有应用, 选择一个并可以打开, 有点丑, 你也可以设置上图片.  显示实现这个直接贴出代码.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">
+<span class="c1">//  创建一个隐式Intent, 从PackageManager中获取匹配intent的activity列表
+</span><span class="c1"></span><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_MAIN</span><span class="o">);</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">addCategory</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">CATEGORY_LAUNCHER</span><span class="o">);</span>
+
+<span class="n">PackageManager</span> <span class="n">pm</span> <span class="o">=</span> <span class="n">getActivity</span><span class="o">().</span><span class="na">getPackageManager</span><span class="o">();</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">ResolveInfo</span><span class="o">&gt;</span> <span class="n">resolveInfos</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="na">queryIntentActivities</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+
+<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onCreate: 可以打开的数量:&#34;</span><span class="o">+</span><span class="n">resolveInfos</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+
+<span class="c1">//  进行排序
+</span><span class="c1"></span><span class="n">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">resolveInfos</span><span class="o">,</span> <span class="k">new</span> <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">ResolveInfo</span><span class="o">&gt;()</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="n">ResolveInfo</span> <span class="n">o1</span><span class="o">,</span> <span class="n">ResolveInfo</span> <span class="n">o2</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">PackageManager</span> <span class="n">pm</span> <span class="o">=</span> <span class="n">getActivity</span><span class="o">().</span><span class="na">getPackageManager</span><span class="o">();</span>
+      <span class="c1">//  按照名称进行排序
+</span><span class="c1"></span>      <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">CASE_INSENSITIVE_ORDER</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">o1</span><span class="o">.</span><span class="na">loadLabel</span><span class="o">(</span><span class="n">pm</span><span class="o">).</span><span class="na">toString</span><span class="o">(),</span> <span class="n">o2</span><span class="o">.</span><span class="na">loadLabel</span><span class="o">(</span><span class="n">pm</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span>
+      <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">});</span>
+
+</code></pre></div><p>首先利用<code>PackageManager</code>对<code>Main/Launcher</code>进行匹配, 这个没什么说的, 所有的应用都有一个启动入口就是这个. 可以得到所有应用的入口信息集合.</p>
+<p>这里有一点需要了解: <strong><code>MAIN/LAUNCHER</code>intent过滤器不能<code>startActivity()</code>这种方式发送的<code>MAIN/LAUNCHER</code>相匹配</strong>.  因为对于<code>类别category为Launcher</code>的时候, 系统是不希望你通过隐式Intent的方式去打开. 而是要你使用显示intent. 一般情况下隐式Intent打开的时候系统总是会给你添加<code>category为default</code>的类别. 所以可以认为<code>隐式Intent</code>打开的基本都是过滤器信息中类别包含为<code>Default</code>的类别的Intent. 而这一点在系统的入口<code>activity</code>过滤其中却无法得到保证.</p>
+<p>定义了<code>MAIN/LAUNCHER</code>过滤器的activity是应用的主要入口, 它只关心作为应用主要入口点要处理的工作. 通常不关心自己是否属于默认的主要入口点, 因此,他也就不必包含<code>CATEGORY_DEFAULT</code>类别.</p>
+<p><strong>但好在我们可以通过隐式的<code>MAIN/LAUNCHER</code><strong>查到匹配的<code>activity</code>集合信息, 而不需要先打开. 通过集合中的每个activity的<code>ResolveInfo</code>实例得到<code>ActivityInfo</code>我们也就可以得到</strong>包名, 类名</strong>. 那么就可以通过<strong>显示Intent打开</strong>! 如下代码</p>
+<p>通过上面得到的集合, 随便获取一个<code>resolveInof</code>实例.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">ResolveInfo</span> <span class="n">resolveInfo</span> <span class="o">=</span> <span class="o">(</span><span class="n">ResolveInfo</span><span class="o">)</span> <span class="n">resolveInfos</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">0</span><span class="o">);;</span>
+
+<span class="c1">//  准备获取要打开activity的包名 类名等信息
+</span><span class="c1"></span><span class="n">ActivityInfo</span> <span class="n">activityInfo</span> <span class="o">=</span> <span class="n">resolveInfo</span><span class="o">.</span><span class="na">activityInfo</span><span class="o">;</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">activityInfo</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+
+<span class="c1">// 创建显示Intent来打开Activity
+</span><span class="c1">//  先指定一个action
+</span><span class="c1"></span><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_MAIN</span><span class="o">);</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">setClassName</span><span class="o">(</span><span class="n">activityInfo</span><span class="o">.</span><span class="na">applicationInfo</span><span class="o">.</span><span class="na">packageName</span><span class="o">,</span> <span class="n">activityInfo</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+<span class="c1">//  添加新任务标识给intent
+</span><span class="c1"></span><span class="n">intent</span><span class="o">.</span><span class="na">addFlags</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_NEW_TASK</span><span class="o">);</span>
+
+<span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+</code></pre></div><p>上面使用的是<code>setClassName()</code>方法, 这个方法可以自动创建<strong>组件名</strong>, 也可以自己通过类名和包名创建一个<strong>ComponentName</strong>, 然后使用<code>setComponent()</code>创建一个显示的intent.</p>
+<p>上面还添加了一个<code>FLAG</code>, 主要的区别就是没有这个<code>Flag</code>的话, 那么打开的新应用的界面本质上是存在我们的<strong>应用任务栈中</strong>, 如果有那么就会在<strong>属于自己独立的任务中</strong>. 如下图, 在我们自己的应用打开同一个任务. 然后查看任务管理器. (前面为没有添加flag的)</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="taskStack.png"
+        data-srcset="taskStack.png, taskStack.png 1.5x, taskStack.png 2x"
+        data-sizes="auto"
+        alt="taskStack.png"
+        title="taskStack.png" /></p>
+<p>至此, 现在这个应用可以得到手机的全部应用并可以做为展示列表.  但是还没完, 还差一点<strong>将我们这个应用作为设备主屏幕</strong>.</p>
+<p>没有人愿意通过一个应用来启动另一个应用, 所以要做的就是替换<code>Android主界面</code>配置我们应用的启动<code>activity</code>再添加两个类别category,</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">&#34;.NerdLauncherActivity&#34;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;intent-filter&gt;</span>
+      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.action.MAIN&#34;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.LAUNCHER&#34;</span> <span class="nt">/&gt;</span>
+
+      <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.HOME&#34;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.DEFAULT&#34;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/intent-filter&gt;</span>
+<span class="nt">&lt;/activity&gt;</span>
+</code></pre></div><h2 id="应用图标与任务重排">应用图标与任务重排</h2>
+<p>通过上面的获得的<code>ResolveInfo.loadLable()</code>方法, 可以获取各个<code>activity</code>的名称, 其中还有一个方法<code>loadIcon()</code>可以使用该方法为每一个应用加载显示图标.</p>
+<p>关于<strong>任务重排</strong>, 需要使用<code>ActivityManager</code>系统服务, 该系统服务提供了当前运行<code>activity</code>, 任务以及应用的有用信息.  通过<code>Activity.getSystemService(Activity.ACTIVITY_SERVICE)</code>来获取<code>ActivityManager</code>然后调用<code>ActivityManager实例的getRunningTasks()</code>方法, 得到按照时间由近到久的排序的任务列表. 在调用<code>moveTaskToFront()</code>方法实现将任意任务切换到前台. 关于任务切换需要一些权限配置, 具体参考android文档.</p>
+<h2 id="进程和任务">进程和任务</h2>
+<ul>
+<li>进程: 是操作系统创建的供应用对象生存以及应用运行的地方. 包含了应用的全部运行代码和对象.</li>
+<li>每一个<code>activity</code>实例都仅存在一个进程和一个任务中. 这也是进程与任务的唯一类似的地方.</li>
+<li>任务: 只包含<code>activity</code>, 这些<code>activity</code>通常来自不同应用.</li>
+</ul>
+<p><code>activity</code>赖以生存的任务和进程有可能会有所不同. 比如上面的<code>深入了解Intentn</code>中给出的图片参考. 可以发现. 当我没有指定<code>new_task</code>的时候, 新的应用打开的activity是和我们的应用在一个任务栈的. 这也就意味当后退的时候虽然看着只是界面的切换,但是实际上发生了<code>进程间的切换</code></p>
+<h2 id="xmlpullparser使用">XmlPullParser使用</h2>
+<p><code>XmlPullParser</code>接口采用拉的方式从<code>xml</code>数据流中获取解析事件. Android内部也使用<code>XmlPullParser</code>接口来实例化布局文件.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 模拟一个xml字符串
+</span><span class="c1"></span><span class="n">String</span> <span class="n">textXMLStr</span> <span class="o">=</span> <span class="s">&#34;&lt;school&gt;\n&#34;</span> <span class="o">+</span>
+     <span class="s">&#34;    &lt;class name=\&#34;1年级\&#34;&gt;\n&#34;</span> <span class="o">+</span>
+     <span class="s">&#34;        &lt;student name=\&#34;张三\&#34;/&gt;\n&#34;</span> <span class="o">+</span>
+     <span class="s">&#34;        &lt;student name=\&#34;李四\&#34;/&gt;\n&#34;</span> <span class="o">+</span>
+     <span class="s">&#34;    &lt;/class&gt;\n&#34;</span> <span class="o">+</span>
+     <span class="s">&#34;\n&#34;</span> <span class="o">+</span>
+     <span class="s">&#34;    &lt;class name=\&#34;2年级\&#34;&gt;\n&#34;</span> <span class="o">+</span>
+     <span class="s">&#34;        优班\n&#34;</span> <span class="o">+</span>
+     <span class="s">&#34;        &lt;student name=\&#34;张三\&#34;/&gt;\n&#34;</span> <span class="o">+</span>
+     <span class="s">&#34;        &lt;student name=\&#34;李四\&#34;/&gt;\n&#34;</span> <span class="o">+</span>
+     <span class="s">&#34;    &lt;/class&gt;\n&#34;</span> <span class="o">+</span>
+     <span class="s">&#34;\n&#34;</span> <span class="o">+</span>
+     <span class="s">&#34;&lt;/school&gt;&#34;</span><span class="o">;</span>
+
+<span class="c1">// 利用xmlPullParser的工厂类创建出一个解析流对象
+</span><span class="c1"></span><span class="n">XmlPullParser</span> <span class="n">xmlPullParser</span> <span class="o">=</span> <span class="n">XmlPullParserFactory</span><span class="o">.</span><span class="na">newInstance</span><span class="o">().</span><span class="na">newPullParser</span><span class="o">();</span>
+
+<span class="c1">// 把要解析的xml格式的字符串设置到解析流对象中
+</span><span class="c1"></span><span class="n">xmlPullParser</span><span class="o">.</span><span class="na">setInput</span><span class="o">(</span><span class="k">new</span> <span class="n">StringReader</span><span class="o">(</span><span class="n">textXMLStr</span><span class="o">));</span>
+
+<span class="c1">// 准备开始解析 移动指针到第一个标签
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">eventType</span> <span class="o">=</span> <span class="n">xmlPullParser</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+
+<span class="c1">// 如果标签类型不是结束文档标签标示, 那么就标示还有内容继续循环
+</span><span class="c1"></span><span class="k">while</span><span class="o">(</span><span class="n">eventType</span> <span class="o">!=</span> <span class="n">XmlPullParser</span><span class="o">.</span><span class="na">END_DOCUMENT</span><span class="o">){</span>
+ <span class="c1">// 判断class标签
+</span><span class="c1"></span> <span class="k">if</span> <span class="o">(</span><span class="n">eventType</span> <span class="o">==</span> <span class="n">xmlPullParser</span><span class="o">.</span><span class="na">START_TAG</span> <span class="o">&amp;&amp;</span> <span class="s">&#34;class&#34;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">xmlPullParser</span><span class="o">.</span><span class="na">getName</span><span class="o">())){</span>
+     <span class="n">String</span> <span class="n">className</span> <span class="o">=</span> <span class="n">xmlPullParser</span><span class="o">.</span><span class="na">getAttributeValue</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">&#34;name&#34;</span><span class="o">);</span>
+     <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">&#34;sususu&#34;</span><span class="o">,</span><span class="s">&#34;获得的class标签的名称属性为: &#34;</span><span class="o">+</span><span class="n">className</span> <span class="o">);</span>
+ <span class="o">}</span>
+
+ <span class="c1">// 判断student标签
+</span><span class="c1"></span> <span class="k">if</span> <span class="o">(</span><span class="n">eventType</span> <span class="o">==</span> <span class="n">xmlPullParser</span><span class="o">.</span><span class="na">START_TAG</span> <span class="o">&amp;&amp;</span> <span class="s">&#34;student&#34;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">xmlPullParser</span><span class="o">.</span><span class="na">getName</span><span class="o">())){</span>
+     <span class="n">String</span> <span class="n">studentName</span> <span class="o">=</span> <span class="n">xmlPullParser</span><span class="o">.</span><span class="na">getAttributeValue</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">&#34;name&#34;</span><span class="o">);</span>
+     <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">&#34;sususu&#34;</span><span class="o">,</span><span class="s">&#34;获得的student标签的属性: &#34;</span><span class="o">+</span><span class="n">studentName</span> <span class="o">);</span>
+ <span class="o">}</span>
+ <span class="c1">// 移动指针到下一个标签
+</span><span class="c1"></span> <span class="n">eventType</span> <span class="o">=</span> <span class="n">xmlPullParser</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+<span class="o">}</span>
+
+</code></pre></div><p>运行结果:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="xmlPullParser.png"
+        data-srcset="xmlPullParser.png, xmlPullParser.png 1.5x, xmlPullParser.png 2x"
+        data-sizes="auto"
+        alt="xmlPullParser.png"
+        title="xmlPullParser.png" /></p>
+<p>代码中的注释已经很详细了, 不用再做解释. 有一点需要注意, 如果要获得便签的内容的话,那么别忘了考虑到空白字符或者换行符的也是存在的.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-09-09</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/" data-title="《Android编程权威指南》随记三 媒体与Intent等" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/" data-title="《Android编程权威指南》随记三 媒体与Intent等" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/" data-title="《Android编程权威指南》随记三 媒体与Intent等"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/" data-title="《Android编程权威指南》随记三 媒体与Intent等" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/" data-title="《Android编程权威指南》随记三 媒体与Intent等" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/" data-title="《Android编程权威指南》随记三 媒体与Intent等" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/" data-title="《Android编程权威指南》随记三 媒体与Intent等"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%BA%8C-fragment%E7%9A%84%E6%A6%82%E6%8B%AC/" class="prev" rel="prev" title="《Android编程权威指南》随记二 Fragment的概括"><i class="fas fa-angle-left fa-fw"></i>《Android编程权威指南》随记二 Fragment的概括</a>
+            <a href="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/" class="next" rel="next" title="《Android编程权威指南》随记四 组件等">《Android编程权威指南》随记四 组件等<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

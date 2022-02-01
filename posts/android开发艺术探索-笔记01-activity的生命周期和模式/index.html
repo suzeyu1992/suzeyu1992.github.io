@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android 开发艺术探索》 01-Activity的生命周期和模式 - Blog</title><meta name="Description" content=" "><meta property="og:title" content="《Android 开发艺术探索》 01-Activity的生命周期和模式" />
+<meta property="og:description" content=" " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-08-01T09:44:52+00:00" />
+<meta property="article:modified_time" content="2016-08-01T09:44:52+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android 开发艺术探索》 01-Activity的生命周期和模式"/>
+<meta name="twitter:description" content=" "/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/retrofit-%E4%B8%80-%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B002-ipc%E6%9C%BA%E5%88%B6/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android 开发艺术探索》 01-Activity的生命周期和模式",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  4660 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F\/","datePublished": "2016-08-01T09:44:52+00:00","dateModified": "2016-08-01T09:44:52+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": " "
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android 开发艺术探索》 01-Activity的生命周期和模式</h1><h2 class="single-subtitle">抄书系列</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-08-01">2016-08-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4660 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;<span id="/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F/" class="leancloud_visitors" data-flag-title="《Android 开发艺术探索》 01-Activity的生命周期和模式">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#activity的生命周期">Activity的生命周期</a></li>
+    <li><a href="#异常情况下的生命周期">异常情况下的生命周期</a>
+      <ul>
+        <li><a href="#当系统配置发生改变的时候">当系统配置发生改变的时候</a></li>
+        <li><a href="#资源内存不足时低优先级的activity被杀死">资源内存不足时低优先级的Activity被杀死</a></li>
+        <li><a href="#禁止异常重建activity">禁止异常重建Activity</a></li>
+      </ul>
+    </li>
+    <li><a href="#activity的启动模式">Activity的启动模式</a>
+      <ul>
+        <li><a href="#给activity添加启动模式">给Activity添加启动模式</a></li>
+        <li><a href="#activity的flags">Activity的Flags</a></li>
+      </ul>
+    </li>
+    <li><a href="#intentfilter匹配规则">IntentFilter匹配规则</a>
+      <ul>
+        <li><a href="#判断是否有匹配的intent">判断是否有匹配的Intent</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>第一章: Activity的启动模式详解,与Intent-filter的匹配</p>
+</blockquote>
+<p><a href="https://github.com/suzeyu1992/Notes_AndroidDevSeek" target="_blank" rel="noopener noreffer">blog相关代码仓库</a></p>
+<h2 id="activity的生命周期">Activity的生命周期</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="activity_lifecycle.png"
+        data-srcset="activity_lifecycle.png, activity_lifecycle.png 1.5x, activity_lifecycle.png 2x"
+        data-sizes="auto"
+        alt="activity_lifecycle.png"
+        title="activity_lifecycle.png" /></p>
+<ul>
+<li><strong>onCreate</strong>: 声明周期的第一个方法.做一些初始化的动作,例如setContentView</li>
+<li><strong>onRestart</strong>: 表示Activity重新启动.当界面从不可见变为可见时调用,场景Home键切换,从任务栈返回</li>
+<li><strong>onStart</strong>: 表示Activity正在被启动.Activity为理论可见(取决上层界面是否透明),但不是前台无法操作.</li>
+<li><strong>onResume</strong>: 表示Activity已经可见,并且为前台. 与onStart主要是前台后台,有无焦点的区别</li>
+<li><strong>onPause</strong>: 表示Activity正在停止. 做一些存储数据,停止动画操作.不能太耗时,这会影响新的Activity启动,onPause()必须先执行完,新Activity的onResume()才会执行.</li>
+<li><strong>onStop</strong>: 表示Activity即将停止,可以做稍微重量级的回收工作,同样不能太耗时.</li>
+<li><strong>onDestroy</strong>: 表示Activity即将被销毁. 可以做一些最终的资源释放</li>
+</ul>
+<p><strong>场景</strong> 当界面A打开界面B时的生命周期调用顺序: A的onPause()-&gt; B的onCreate() -&gt; B的onStart() -&gt; B的onResume() -&gt; A的onStop().</p>
+<ul>
+<li><code>onStart()</code>和<code>onStop()</code> 是针对Activity是否可见的角度回调</li>
+<li><code>onResume()</code>和<code>onPause()</code> 是针对Activity是否位于前台的角度回调的</li>
+</ul>
+<h2 id="异常情况下的生命周期">异常情况下的生命周期</h2>
+<h3 id="当系统配置发生改变的时候">当系统配置发生改变的时候</h3>
+<p><strong>Activity就会因为异常情况被销毁并重新创建.例如横竖屏切换,语言切换等.</strong></p>
+<p>当异常状态发生的时候. 在界面销毁前会调用<code>onSaveInstanceState()</code>进行当前界面的数据保存,如文本输入的数据,listView滚动的位置等. 在重建后会调用<code>onRestoreInstanceState()</code>进行因为异常重建的原始数据的恢复.</p>
+<p>准确的说<code>onSaveInstanceState</code>() 会在<code>onStop</code>()之前执行, 而onRestoreInstanceState会在onStart之后执行.</p>
+<p>当屏幕发生旋转时,声明周期调用过程如下:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="exceptionLife.png"
+        data-srcset="exceptionLife.png, exceptionLife.png 1.5x, exceptionLife.png 2x"
+        data-sizes="auto"
+        alt="exceptionLife.png"
+        title="exceptionLife.png" /></p>
+<p>这里我们要清楚,当发生了异常情况下,系统会帮我们自动恢复大部分的数据,但是如果我们想要自己从异常中恢复.那么我们可以通过<code>onCreate()</code>和<code>onRestoreInstanceState()</code>中的参数<code>Bundle</code>来进行值得保存.</p>
+<ul>
+<li>当正常情况下onCreate中的<code>Bundle</code>类型参数是为<strong>null</strong>的. 而onRestoreInstanceState是不会被调用的.</li>
+<li>当异常发生后的重建,onCreate,onRestoreInstanceState都会被触发,并且其中的Bundle类型参数都不为<strong>null</strong></li>
+</ul>
+<h3 id="资源内存不足时低优先级的activity被杀死">资源内存不足时低优先级的Activity被杀死</h3>
+<p>这种场景不好模拟,但是在存储和恢复的过程是与上面的过程一致的.</p>
+<p>关于Activity的优先级的高低</p>
+<ul>
+<li>前台Activity&ndash;正在和用户交互的Activity,优先级最高</li>
+<li>可见但是非前台Activity&ndash;比如Activity中弹出了一个对话框,导致Activity可见但是无法操作.</li>
+<li>后台Activity&ndash;已经被暂停的Activity,比如执行了onStop,优先级最低.</li>
+</ul>
+<h3 id="禁止异常重建activity">禁止异常重建Activity</h3>
+<p>如果不想Activity重建.可以通过清单文件中对activity标签进行配置.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">android:configChanges=&#34;orientation|screenSize&#34;
+</code></pre></div><p>当给一个Activity声明了上述的属性之后,当手机旋转的时候,activity不会重建,也就没有任何声明周期方法的回调, 但是会调用<code>onConfigurationChanged()</code>方法.</p>
+<ul>
+<li>orientation: 屏幕方向发生了改变,手机旋转</li>
+<li>screenSize: 屏幕的尺寸信息发生改变,此属性和编译版本有关系,当minSdkVersion和targetSdkVersion均低于13,此选项不会导致界面重启.如果高于那么会重启.</li>
+</ul>
+<p>所以这两个最好成对出现.</p>
+<p>日常开发中我们比较常用的<code>local</code>,<code>orientation</code>,<code>keyboardHidden</code>,<code>uiMode</code>. local为本地语言切换. uiMode界面模式发生切换,如夜间模式(API8中增加)</p>
+<h2 id="activity的启动模式">Activity的启动模式</h2>
+<p>当我们打开的activity会被系统以任务栈的形式来存储起来.后进先出.当每一个任务栈为空的时候这个栈就会被回收</p>
+<ul>
+<li><strong>standard</strong>: 默认模式,就是新进入的压在已存在的界面之上.</li>
+<li><strong>singleTop</strong>: 栈顶复用模式.</li>
+<li><strong>singleTask</strong>: 栈内复用模式</li>
+<li><strong>singleInstance</strong>: 栈内单例模式</li>
+</ul>
+<p><strong>singleTop</strong></p>
+<p>如果新Activity已经位于任务栈的栈顶,那么此Activity不会被重新创建,同时<code>onNewIntent()</code>会被回调.</p>
+<p>如果使用此模式,那么在任务栈中栈顶到栈低为CBA的情况下,再次打开C,那么C界面的<code>onCreate()</code>和<code>onStart()</code>不会被调用,真正的调用时<code>onPause()</code>&ndash;&gt;<code>onNewIntent()</code>&ndash;&gt;<code>onResume()</code></p>
+<p><strong>singleTask</strong></p>
+<p>如果用栈内复用,当打开C时候,会查询所有的任务栈,如果有任务栈包含C,那么把这个任务栈移动到所有栈的首位,并清除掉这个栈内C到栈顶的其他Activity,最后调用C的<code>onNewIntent()</code>方法. 如果没有那就直接在<strong>所需任务栈</strong>的栈顶创建C的实例.</p>
+<p>这里由于singleTask默认具有clearTop的效果,所以会清除C以上activity的出栈. 这里和具体的启动模式有关.</p>
+<p><strong>所需任务栈</strong>: 和一个参数有关系,<code>TaskAffinity</code>.这个参数标识了一个Activity所需要的任务栈的名字,默认情况下所有的Activity的所需的任务栈的名字都为应用包名.</p>
+<p>这里我们可以通过命令<code>adb shell dumpsys activity</code>测试一下,打开顺序为<strong>MainActivity</strong>&ndash;&gt;<strong>ModeSingleTopArc</strong></p>
+<p>当我们不指定<code>taskAffinity</code>的所需栈的时候,查看任务栈的结果为:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="singletop_1.png"
+        data-srcset="singletop_1.png, singletop_1.png 1.5x, singletop_1.png 2x"
+        data-sizes="auto"
+        alt="singletop_1.png"
+        title="singletop_1.png" /></p>
+<p>如果指定了<code>taskAffinity</code> 这个时候任务栈的状况为:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">&#34;.launchmode.ModeSingleTaskAct&#34;</span>
+          <span class="na">android:launchMode=</span><span class="s">&#34;singleTask&#34;</span>
+          <span class="na">android:taskAffinity=</span><span class="s">&#34;.nishibendan&#34;</span><span class="nt">/&gt;</span>
+</code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="singletop_2.png"
+        data-srcset="singletop_2.png, singletop_2.png 1.5x, singletop_2.png 2x"
+        data-sizes="auto"
+        alt="singletop_2.png"
+        title="singletop_2.png" /></p>
+<p>一般情况下<code>TaskAffinity</code>属性一般和<strong>singleTask</strong>启动模式或者<strong>allowTaskReparenting</strong>属性配对使用,其他情况下使用没有意义. 另外任务栈分为前台任务栈和后台任务栈,后台任务栈中的activity属于暂停状态,用户可以切换将后台调到前台.</p>
+<p><strong>singleInstance</strong></p>
+<p>这个模式是加强版的<strong>singleTask</strong>,除了<strong>singleTask</strong>具有的属性之外,还具有创建新栈的能力,这个栈只有这一个实例. 就是说如果假设EActivity没有被创建过,那么创建时,首先会创建一个新的任务栈,然后创建实例放入这个新的栈内,然后下一个实例不会和这个EActivity所属栈共存,会创建一个新的栈继续存放.</p>
+<h3 id="给activity添加启动模式">给Activity添加启动模式</h3>
+<ol>
+<li>通过清单文件中<code>activity标签</code>添加<code>android:launchMode=&quot;singleTask|singleTop|singleInstance&quot;</code></li>
+<li>通过代码中startActivity(Intent)中的intent通过<code>addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)</code></li>
+</ol>
+<p><strong>优先级</strong> 代码设置优先于xml布局中的设置.</p>
+<p><strong>限定范围不同</strong></p>
+<ul>
+<li>xml无法直接为其设置<code>FLAG_ACTIVITY_CLEAR_TOP</code>.</li>
+<li>代码添加flag无法添加<code>singleInstance</code>模式.</li>
+</ul>
+<p>注意: 如果通过代码添加添加<code>Intent.FLAG_ACTIVITY_NEW_TASK</code>和xml中设置<code>singleTask</code>是不一样的.代码动态添加是没有<strong>clean_top</strong>的效果,看图:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="singleTask_3.png"
+        data-srcset="singleTask_3.png, singleTask_3.png 1.5x, singleTask_3.png 2x"
+        data-sizes="auto"
+        alt="singleTask_3.png"
+        title="singleTask_3.png" /></p>
+<h3 id="activity的flags">Activity的Flags</h3>
+<ul>
+<li>
+<p>影响启动模式的标识位: 可以设定Activity的启动模式</p>
+</li>
+<li>
+<p>影响运行时的标识位: 可以影响运行的Activity的运行状态</p>
+</li>
+<li>
+<p><code>FLAG_ACTIVITY_NEW_TASK</code>相对于xml中的<strong>singleTask</strong>,但是动态的时候需要给intent添加两个标志位,否则无法达到效果,如下</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">intent3</span><span class="o">.</span><span class="na">addFlags</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_NEW_TASK</span><span class="o">);</span>
+<span class="n">intent3</span><span class="o">.</span><span class="na">addFlags</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_CLEAR_TOP</span><span class="o">);</span>
+</code></pre></div><ul>
+<li><code>FLAG_ACTIVITY_SINGLE_TOP</code>相对于xml中的<strong>singleTop</strong></li>
+<li><code>FLAG_ACTIVITY_CLEAR_TOP</code>在同一个任务栈中所有位于它上面的Activity都要出栈,此标志一般和singleTask一起出现. 如果启动模式为<code>standard</code>它连同上面的都要出栈,之后系统会创建一个新的实例放入栈顶.</li>
+</ul>
+<h2 id="intentfilter匹配规则">IntentFilter匹配规则</h2>
+<ul>
+<li>显示调用: 需要指定组件信息如包名,类名.</li>
+<li>隐式调用: 不需要指定组件信息, Intent需要匹配目标组件IntentFilter中所设置的过滤信息即可.</li>
+</ul>
+<p>IntentFilter的过滤信息有<strong>action</strong>,<strong>category</strong>,<strong>data</strong>. 一个Activity可以有多个Intentfilter,只要intent能匹配任意一组intent-filter即可成功启动.</p>
+<p>关于每一项的具体匹配规则</p>
+<ul>
+<li><strong>action</strong>: 本身是字符串. Intent匹配中存在action且必须和过滤规则中的其中一个action相同,那么action就算匹配ok.  <strong>xml中必须有一个action声明</strong>.</li>
+<li><strong>category</strong>: 本身是字符串.Intent匹配中intent可以不存在category,但是如果添加了category那么必须要和定义的<code>intent-filter</code>中的category一致,否则失败. 如果我们在Intent不添加的时候,那么系统会自动为我们添加一个预定义的属性<code>android.intent.category.DEFAULT</code>. <strong>xml中需添加这个默认的category属性</strong>.</li>
+<li><strong>data</strong>: <strong>xml过滤规则中可以不声明</strong>,如果声明只要匹配了一个就可以.一般情况下data有两部分组成mimeType和URI. mimeType指媒体类型,URI规则如下:</li>
+</ul>
+<p><code>&lt;scheme&gt;://&lt;host&gt;:&lt;port&gt;/[path]</code></p>
+<p>如下实例: scheme:表示URI的模式,例如http, file, content.</p>
+<p><code>http://www.baidu.com:80/search/info</code></p>
+<p>最简单的隐式打开</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//代码中
+</span><span class="c1"></span><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">();</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">setAction</span><span class="o">(</span><span class="s">&#34;com.test1&#34;</span><span class="o">);</span>
+<span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+
+<span class="c1">//xml中
+</span><span class="c1"></span><span class="o">&lt;</span><span class="n">activity</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;.intentfilter.FilterAct&#34;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">intent</span><span class="o">-</span><span class="n">filter</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">action</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;com.test1&#34;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="n">category</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;android.intent.category.DEFAULT&#34;</span><span class="o">/&gt;</span>
+  <span class="o">&lt;/</span><span class="n">intent</span><span class="o">-</span><span class="n">filter</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">activity</span><span class="o">&gt;</span>
+</code></pre></div><p>一个比较完整的匹配代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//代码中
+</span><span class="c1"></span>  <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">();</span>
+  <span class="n">intent</span><span class="o">.</span><span class="na">setAction</span><span class="o">(</span><span class="s">&#34;com.test1&#34;</span><span class="o">);</span>
+  <span class="n">intent</span><span class="o">.</span><span class="na">addCategory</span><span class="o">(</span><span class="s">&#34;com.category1&#34;</span><span class="o">);</span>
+<span class="c1">//intent.setDataAndType(Uri.parse(&#34;content://&#34;),&#34;audio/plain&#34;);//如果过滤规则中没有声明URI的属性,那么会有默认值content和file的属性
+</span><span class="c1"></span>  <span class="n">intent</span><span class="o">.</span><span class="na">setDataAndType</span><span class="o">(</span><span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">&#34;http://&#34;</span><span class="o">),</span><span class="s">&#34;audio/plain&#34;</span><span class="o">);</span>
+  <span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+
+<span class="c1">//xml中
+</span><span class="c1"></span><span class="o">&lt;</span><span class="n">activity</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;.intentfilter.FilterAct&#34;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">intent</span><span class="o">-</span><span class="n">filter</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">action</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;com.test1&#34;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="n">action</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;com.test2&#34;</span><span class="o">/&gt;</span>
+
+      <span class="o">&lt;</span><span class="n">category</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;com.category1&#34;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="n">category</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;com.category2&#34;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="n">category</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;android.intent.category.DEFAULT&#34;</span><span class="o">/&gt;</span>
+
+      <span class="o">&lt;</span><span class="n">data</span> <span class="n">android</span><span class="o">:</span><span class="n">mimeType</span><span class="o">=</span><span class="s">&#34;text/plain&#34;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="n">data</span> <span class="n">android</span><span class="o">:</span><span class="n">mimeType</span><span class="o">=</span><span class="s">&#34;audio/plain&#34;</span> <span class="n">android</span><span class="o">:</span><span class="n">scheme</span><span class="o">=</span><span class="s">&#34;http&#34;</span><span class="o">/&gt;</span>
+  <span class="o">&lt;/</span><span class="n">intent</span><span class="o">-</span><span class="n">filter</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">activity</span><span class="o">&gt;</span>
+</code></pre></div><p>在进行data属性匹配的时候尽量使用<code>setDataAndType</code>, 因为源码中<code>setData</code>和<code>setType</code>会把彼此属性置为null.</p>
+<p>Intent-filter匹配规则对于Service和BroadcastReceiver也是同样. 不过建议Service的使用尽量使用显示调用服务.</p>
+<h3 id="判断是否有匹配的intent">判断是否有匹配的Intent</h3>
+<ul>
+<li>PackageManager的<code>resolveActivity()</code>方法</li>
+<li>Intent的<code>resolveActivity()</code>方法</li>
+</ul>
+<p>使用演示:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">ResolveInfo</span> <span class="n">resolveInfo</span> <span class="o">=</span> <span class="n">getPackageManager</span><span class="o">().</span><span class="na">resolveActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="n">PackageManager</span><span class="o">.</span><span class="na">MATCH_DEFAULT_ONLY</span><span class="o">);</span>
+</code></pre></div><p>参数二使用<code>PackageManager.MATCH_DEFAULT_ONLY</code>,意义在仅仅匹配哪些在<code>intent-filter</code>中声明<code>                &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;</code>,只要使用这个标记不返回null,那么startActivity就一定可以打开. 如果不用这个标记就会把没有设置default的匹配出来.从而导致判断失败.<strong>因为不含有DEFAULT这个category的Activity是无法接收隐式Intent的</strong></p>
+<p>这样如果返回的为null,那就是没有匹配到,如果不为null那就是可以匹配.</p>
+<blockquote>
+<p>下一章: IPC机制</p>
+</blockquote></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-08-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F/" data-title="《Android 开发艺术探索》 01-Activity的生命周期和模式" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F/" data-title="《Android 开发艺术探索》 01-Activity的生命周期和模式" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F/" data-title="《Android 开发艺术探索》 01-Activity的生命周期和模式"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F/" data-title="《Android 开发艺术探索》 01-Activity的生命周期和模式" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F/" data-title="《Android 开发艺术探索》 01-Activity的生命周期和模式" data-description=" "><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F/" data-title="《Android 开发艺术探索》 01-Activity的生命周期和模式" data-description=" "><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B001-activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%A8%A1%E5%BC%8F/" data-title="《Android 开发艺术探索》 01-Activity的生命周期和模式"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/retrofit-%E4%B8%80-%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/" class="prev" rel="prev" title="Retrofit(一)-入门使用"><i class="fas fa-angle-left fa-fw"></i>Retrofit(一)-入门使用</a>
+            <a href="/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-%E7%AC%94%E8%AE%B002-ipc%E6%9C%BA%E5%88%B6/" class="next" rel="next" title="《Android 开发艺术探索》 02-IPC机制">《Android 开发艺术探索》 02-IPC机制<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,973 +1,231 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
+    <head>
+	<meta name="generator" content="Hugo 0.89.4" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Blog</title><meta name="Description" content=""><meta property="og:title" content="Blog" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://suzeyu.cc:20003/" /><meta property="og:site_name" content="szySky Blog" />
 
-<!-- Head tag -->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="suzeyu skyszy`blog">
-    <meta name="keyword"  content="suzeyu skyszy`blog">
-    <link rel="shortcut icon" href="/img/favicon.ico">
-
-    <title>
-        
-          筑梦 suzeyu`苏泽钰
-        
-    </title>
-
-    <link rel="canonical" href="http://szysky.com/page/2/">
-
-    <!-- Bootstrap Core CSS -->
-    
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-
-
-    <!-- Custom CSS -->
-    
-<link rel="stylesheet" href="/css/hux-blog.min.css">
-
-
-    <!-- Pygments Github CSS -->
-    
-<link rel="stylesheet" href="/css/syntax.css">
-
-
-    <!-- Custom Fonts -->
-    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- Hux change font-awesome CDN to qiniu -->
-    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-
-    <!-- Hux Delete, sad but pending in China
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
-    css'>
-    -->
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- ga & ba script hoook -->
-    <script></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
-
-
-<!-- hack iOS CSS :active style -->
-<body ontouchstart="">
-
-    <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Szy&#39;sky Blog</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <!-- Known Issue, found by Hux:
-            <nav>'s height woule be hold on by its content.
-            so, when navbar scale out, the <nav> will cover tags.
-            also mask any touch event of tags, unfortunately.
-        -->
-        <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-
-                 
-
-
-                      <script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-  
-  _st('install','uaGE1nqtyiBMes6-h6b9','2.0.0');
-</script>
-
-                    
-
-
-
-
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-
-                    
-
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/archives/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-                    
-                </ul>
-            </div>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
-<script>
-    // Drop Bootstarp low-performance Navbar
-    // Use customize navbar with high-quality material design animation
-    // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
-    var $toggle = document.querySelector('.navbar-toggle');
-    var $navbar = document.querySelector('#huxblog_navbar');
-    var $collapse = document.querySelector('.navbar-collapse');
-
-    $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
-        if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
-            $navbar.className = " ";
-            // wait until animation end.
-            setTimeout(function(){
-                // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
-                    $collapse.style.height = "0px"
-                }
-            },400)
-        }else{
-        // OPEN
-            $collapse.style.height = "auto"
-            $navbar.className += " in";
-        }
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Blog"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/" /><link rel="alternate" href="/index.xml" type="application/rss+xml" title="Blog">
+    <link rel="feed" href="/index.xml" type="application/rss+xml" title="Blog"><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "url": "http:\/\/suzeyu.cc:20003\/","inLanguage": "zh-CN","author": {
+                "@type": "Person",
+                "name": "su"
+            },"name": "Blog"
     }
-</script>
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-
-    <!-- Main Content -->
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>Szy&#39;sky Blog</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">To Be A Lean Developer!</span>
-
-
-                </div>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
             </div>
         </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header>
-
-
-
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
-
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <!-- Main Content -->
-
-
-<div class="post-preview">
-
-    <a href="/2016/11/28/深入WindowManager/">
-        <h2 class="post-title">
-            深入WindowManager
-        </h2>
-        <h3 class="post-subtitle">
-            WindowManager究竟起到了什么作用?
-        </h3>
-        <div class="post-content-preview">
-            
-WindowManager的重要程度不需要多说, 界面真正的显示, 外部事件的传递等. 这是一个子系统. 本章会梳理WindowManager,WindowManagerService,Surface,SurfaceFlinger之间的联系与交互的一个过程. 
-
-如果想了解不同的window级别的区别,如Activity,Dialog,Toast等请看另一篇blog
-在此之前需要知道这么几......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-11-28
-    </p>
-
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
 </div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/11/16/设计模式之路/">
-        <h2 class="post-title">
-            设计模式之路
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            灵活之路 - 面向对象六大原则如果下面文字描述,不是很明白那么跳转到后面链接有详细代码说明原则解析
-
-单一职责原则SRP(Single Responsibility Principle)
-定义: 就一个类而言, 应该仅有一个引起它的变化的原因. 通俗点就是一个类应该是相关性很高数据封装
-举例: 现在有一个图片加载类. 但是这个类内部包含了图片下载的逻辑,图片缓存的逻辑这样就使得这个类的职责过......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-11-16
-    </p>
-
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
 </div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/11/16/面经之Java篇/">
-        <h2 class="post-title">
-            面经之Java篇
-        </h2>
-        <h3 class="post-subtitle">
-            内容有点多
-        </h3>
-        <div class="post-content-preview">
-            [TOC]
-Java基础关键字transient volatiletransient
-
-加了该关键字的属性，不会被序列化。
-
-换句话说，这个字段仅存于调用者内存，而不会写到磁盘里持久化。序列化原理：将待续列化的对象中的信息写入到磁盘或网络流中。序列化中的引用会进行“深度复制”，并且如果两个对象有共同的引用对象，且两个对象都写入同一个流，那么该引用对象不会重复创建，只会创建一次，并还原到虚拟机......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-11-16
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/11/01/Git再识-一-拥抱开始/">
-        <h2 class="post-title">
-            Git操作再识 拥抱开始
-        </h2>
-        <h3 class="post-subtitle">
-            这些应该可以满足很多需求了
-        </h3>
-        <div class="post-content-preview">
-            
-如果你喜欢GitHub方便日后浏览,也可以点我哦保存.
-
-安装GitLinux
-$ sudo yum install git
-或者
-$ sudo apt-get install git
-Mac
-直接在Terminal执行git命令, 如果没有会提示安装方法.
-如果喜欢安装程序的话, 点这里 
-配置文件第一次安装, 千万别要忘了配置你的git的使用者名字和邮箱.  这个道理很简单, 每一次的......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-11-01
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/10/08/《Android-编程实战》12-远程设备其余通信方式/">
-        <h2 class="post-title">
-            《Android-编程实战》12-远程设备其余通信方式
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-阅读《Android 编程实战》一书的抄书笔记  –&gt; 对应书籍第18章
-
-Android中的连接技术大多数Android设备都支持多种连接技术. 通常, 例如USB, 蓝牙, Wi-Fi. 
-
-USB 使用API通过USB进行原始串行通信, 或者使用谷歌专门为访问Android设备硬件配件定义的Android开放配件协议(Android Open Accessory Protoco......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-10-08
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/10/08/《Android-编程实战》11-网络-Web服务/">
-        <h2 class="post-title">
-            《Android-编程实战》11-网络 Web服务
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-阅读《Android 编程实战》一书的抄书笔记  –&gt; 对应书籍第17章
-
-Android上的网络调用虽然Android同时支持TCP和UDP通信, 但应用程序的大部分网络调用都是建立在TCP之上的HTTP请求完成的.  
-网络操作的两个比较重要的规则:
-
-永远不要在主线程做耗时操作
-在Service而不是Activity中执行网络操作. 因为有很多情况下, 在Activity中执行......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-10-08
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/10/04/《Android-编程实战》10-隐藏的Android-API/">
-        <h2 class="post-title">
-            《Android-编程实战》10-隐藏的Android API
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-阅读《Android 编程实战》一书的抄书笔记  –&gt; 对应书籍第15章
-
-官方API和隐藏APISDK文档中的所有类, 接口, 方法以及常量都属于官方API. 虽然这些API通常能满足大多数应用的需求, 但开发者有时候需要访问更多的东西, 但却不知道如何在官方API中找到它们. 
-Android SDK中包含了一个JAR文件(android.jar), 在编译代码的时候会引用它, ......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-10-04
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/10/04/《Android-编程实战》09-Android应用安全问题/">
-        <h2 class="post-title">
-            《Android-编程实战》09-Android应用安全问题
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-阅读《Android 编程实战》一书的抄书笔记  –&gt; 对应书籍第14章
-
-Android安全的概念Android具备一个先进的安全模型来保护应用数据和服务不被其他应用访问.  每个应用都有自己的唯一ID来提供最基本的保护. 每个应用都经过它唯一的密钥签名, 这种机制是Android框架中的安全模型基础. 此外只有当其他应用在清单文件中显式声明了正确权限后, Android的权限系统......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-10-04
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/10/03/《Android-编程实战》08-高级音频-视频及相机应用/">
-        <h2 class="post-title">
-            《Android 编程实战》08-高级音频,视频及相机应用
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-阅读《Android 编程实战》一书的抄书笔记  –&gt; 对应书籍第11章
-
-高级音频应用Android音频API提供了一些高级功能, 开发者可以把他们集成到自己的应用中. 有了这些API, 就可以很容易的实现VoIP网络电话, 构建定制的流媒体音乐客户端, 实现低延迟的游戏音效. 此外, 还有提供文本到语音转换以及语音识别API, 用户可以直接使用音频和用户交互, 而不需要使用用户界......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-10-03
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/10/02/《Android-编程实战》07-序列化说明/">
-        <h2 class="post-title">
-            《Android 编程实战》07-序列化说明
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-阅读《Android 编程实战》一书的抄书笔记  –&gt; 对应书籍第9章
-
-数据存储的介绍谈到数据数据存储通常会使用持久化, 而用序列化描述数据是如何表现其存储状态的. 如果没有数据的持久化, 那么数据还能在RAM中保持其状态, 一旦相关进程结束数据就会消失. 实现数据的持久化通常涉及性能, 延迟, 数据大小和复杂度等因素的这种. 例如, 快速的数据读取往往会导致较慢的写入. 序列化就......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-10-02
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/09/29/《Android-编程实战》06-重识-BroadcastReceiver/">
-        <h2 class="post-title">
-            《Android 编程实战》06-重识 BroadcastReceiver
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-阅读《Android 编程实战》一书的抄书笔记  –&gt; 对应书籍第8章
-
-BroadcastReceiverAndroid中发送广播事件最常用的方式是通过Content.sendBroadcast()方法给BroadcastReceiver发送Intent对象. 许多标准系统事件都被定义成操作字符串, 并可以在Intent类的API文档中查看. 例如, 如果需要在用户连接或者断开充电......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-09-29
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/09/28/《Android-编程实战》05-重识-IPC/">
-        <h2 class="post-title">
-            《Android 编程实战》05-重识 IPC
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-阅读《Android 编程实战》一书的抄书笔记  –&gt; 对应书籍第7章
-
-Binder简介Android有一个强大的功能, 就是能够在不同应用程序之间进行通信. 绝大部分的实现都是由Binder IPC(Inter-Process Communication)进行处理的.
-Android中的Binder有着悠久的历史. 最终它的名字叫做OpenBinder, 是Be公司开发的Be操作......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-09-28
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/09/26/《Android-编程实战》04-界面操作-Service/">
-        <h2 class="post-title">
-            《Android 编程实战》04-手势操作进阶, 重识Service
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-阅读《Android 编程实战》一书的抄书笔记  –&gt; 对应书籍第五,六章
-
-设计自定义视图View的声明周期View也有自己的声明周期. 该生命周期并不直接和展示它的Fragment或者Activity相连, 相反它和显示它的窗口状态以及渲染循环相关
-当视图被添加到View层级结构中时, 第一个被回调的函数是View.onAttachedToWindow(), 这标志着它现在可以加......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-09-26
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/09/21/《Android-编程实战》03-组件-清单-资源和UI闲聊/">
-        <h2 class="post-title">
-            《Android 编程实战》03-组件 清单 资源和UI闲聊
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-阅读《Android 编程实战》一书的抄书笔记  –&gt; 第三,四章
-
-应用程序清单
-AndroidManifest是一个定义各种组件以及应用程序各个方向的XML文件. 该清单是所有Android的核心. 
-
-manifest元素AndroidManifest.xml文件的根节点元素是manifest. 应用程序的包名和唯一识别符都定义在该节点. 还可以在该节点中定义Linux用户ID......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-09-21
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/09/21/《Android-编程实战》02-Android上编写高效Java/">
-        <h2 class="post-title">
-            《Android 编程实战》02-Android上编写高效Java
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-阅读《Android 编程实战》一书的随记笔记  –&gt; 第二章
-
-Dalvik Java和Java SE在Android设备上运行的VM成为Dalvik. 适用于CPU和内存受限的移动设备. Java SE和Dalvik Java存在一些差异, 这些差异主要体现在虚拟机上. 
-
-Java SE: 使用了栈机设计
-Dalvik : 使用了基于寄存器的机器的设计
-
-Android SDK......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Suzeyu on
-        2016-09-21
-    </p>
-
-</div>
-<hr>
-
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-        <li class="previous">
-            <a href="/">&larr; Newer Posts</a>
-        </li>
-    
-    
-        <li class="next">
-            <a href="/page/3/">Older Posts &rarr;</a>
-        </li>
-    
-</ul>
-
-
-
-                <!-- 如果开启评论功能 -->
-                
-
-            </div>
-    <!-- Sidebar Container -->
-            <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
-                <!-- Featured Tags -->
-                
-                <section>
-                    <!-- no hr -->
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                            
-                            <a href="/tags/#android" title="android" rel="47">android</a>
-                            
-                        
-                            
-                            <a href="/tags/#笔记" title="笔记" rel="31">笔记</a>
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#入门" title="入门" rel="11">入门</a>
-                            
-                        
-                            
-                            <a href="/tags/#mySql" title="mySql" rel="4">mySql</a>
-                            
-                        
-                            
-                            <a href="/tags/#PHP" title="PHP" rel="4">PHP</a>
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#framework" title="framework" rel="2">framework</a>
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#JavaScript" title="JavaScript" rel="6">JavaScript</a>
-                            
-                        
-                            
-                            <a href="/tags/#自定义View" title="自定义View" rel="2">自定义View</a>
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#数据结构" title="数据结构" rel="3">数据结构</a>
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#设计模式" title="设计模式" rel="2">设计模式</a>
-                            
-                        
-                            
-                        
-                    </div>
-                </section>
-                
-
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-
-                        
-                            <img src="/img/icon.png" />
-                        
-
-                        
-                            <p>我要成为魔法师!</p>
-                        
-
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                                <li>
-                                    <a target="_blank" href="https://twitter.com/szyskys">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                                <li>
-                                    <a target="_blank" href="https://www.zhihu.com/people/szysky">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-
-                            
-
-                            
-
-                            
-                                <li>
-                                    <a target="_blank"  href="https://github.com/suzeyu1992">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                            
-                            
-                                <li>
-                                    <a target="_blank"  href="https://www.linkedin.com/in/szysky">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                        </ul>
-                    </div>
-                </section>
-                
-                <!-- Friends Blog -->
-                
-                <hr>
-                <h5>FRIENDS</h5>
-                <ul class="list-inline">
-
-                    
-                        <li><a href="#" target="_blank">Kaijun&#39;s Blog</a></li>
-                    
-                        <li><a href="#" target="_blank">Foo</a></li>
-                    
-                        <li><a href="#" target="_blank">Bar</a></li>
-                    
-                        <li><a href="#" target="_blank">Example Friends</a></li>
-                    
-                        <li><a href="#" target="_blank">It helps SEO</a></li>
-                    
-                </ul>
-                
-            </div>
-        
-    </div>
-</div>
-
-
-
-    <!-- Footer -->
-    <!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                
-                
-                    <li>
-                        <a target="_blank" href="https://twitter.com/szyskys">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-                
-                    <li>
-                        <a target="_blank" href="https://www.zhihu.com/people/szysky">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">知</i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-
-                
-
-                
-                    <li>
-                        <a target="_blank"  href="https://github.com/suzeyu1992">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                
-                    <li>
-                        <a target="_blank"  href="https://www.linkedin.com/in/szysky">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-
-                </ul>
-                <p class="copyright text-muted">
-                    Copyright &copy; Szy&#39;sky Blog 2021
-                    <br>
-                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a>
-                    <span style="display: inline-block; margin: 0 5px;">
-                        <i class="fa fa-heart"></i>
+<main class="main">
+                <div class="container"><div class="page home" posts><div class="home-profile"><div class="home-avatar"><a href="/posts/" title="所有文章"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/image/avatar_circle.png"
+        data-srcset="/image/avatar_circle.png, /image/avatar_circle.png 1.5x, /image/avatar_circle.png 2x"
+        data-sizes="auto"
+        alt="/image/avatar_circle.png"
+        title="/image/avatar_circle.png" /></a></div><h2 class="home-subtitle"><div id="id-1" class="typeit"></div></h2><div class="links"><a href="https://github.com/suzeyu1992" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href="https://twitter.com/xxxx" title="Twitter" target="_blank" rel="noopener noreffer me"><i class="fab fa-twitter fa-fw"></i></a><a href="https://weibo.com/611267109" title="微博" target="_blank" rel="noopener noreffer me"><i class="fab fa-weibo fa-fw"></i></a><a href="mailto:suzeyu_1992@163.com" title="Email" rel=" me"><i class="far fa-envelope fa-fw"></i></a><a href="/index.xml" title="RSS" target="_blank" rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
+<article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/">《Android-编程实战》10-隐藏的Android API</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-10-04">2016-10-04</time></span></div><div class="content">阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第15章 官方API和隐藏API SDK文档中的所有类, 接口, 方法以及常量都属于官方API</div><div class="post-footer">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/">《Android-编程实战》09-Android应用安全问题</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-10-04">2016-10-04</time></span></div><div class="content">阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第14章 Android安全的概念 Android具备一个先进的安全模型来保护应用数据和服</div><div class="post-footer">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9808-%E9%AB%98%E7%BA%A7%E9%9F%B3%E9%A2%91-%E8%A7%86%E9%A2%91%E5%8F%8A%E7%9B%B8%E6%9C%BA%E5%BA%94%E7%94%A8/">《Android 编程实战》08-高级音频,视频及相机应用</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-10-03">2016-10-03</time></span></div><div class="content">阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第11章 高级音频应用 Android音频API提供了一些高级功能, 开发者可以把他们集成到</div><div class="post-footer">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9808-%E9%AB%98%E7%BA%A7%E9%9F%B3%E9%A2%91-%E8%A7%86%E9%A2%91%E5%8F%8A%E7%9B%B8%E6%9C%BA%E5%BA%94%E7%94%A8/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9807-%E5%BA%8F%E5%88%97%E5%8C%96%E8%AF%B4%E6%98%8E/">《Android 编程实战》07-序列化说明</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-10-02">2016-10-02</time></span></div><div class="content">阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第9章 数据存储的介绍 谈到数据数据存储通常会使用持久化, 而用序列化描述数据是如何表现其存</div><div class="post-footer">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9807-%E5%BA%8F%E5%88%97%E5%8C%96%E8%AF%B4%E6%98%8E/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/">《Android 编程实战》06-重识 BroadcastReceiver</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-09-29">2016-09-29</time></span></div><div class="content">阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第8章 BroadcastReceiver Android中发送广播事件最常用的方式是通过Content.sendBroa</div><div class="post-footer">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/">《Android 编程实战》05-重识 IPC</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-09-28">2016-09-28</time></span></div><div class="content">阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第7章 Binder简介 Android有一个强大的功能, 就是能够在不同应用程序之间进行通</div><div class="post-footer">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/">《Android 编程实战》04-手势操作进阶, 重识Service</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-09-26">2016-09-26</time></span></div><div class="content">阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第五,六章 设计自定义视图 View的声明周期 View也有自己的声明周期. 该生命周期并不直</div><div class="post-footer">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/">《Android 编程实战》02-Android上编写高效Java</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-09-21">2016-09-21</time></span></div><div class="content">阅读《Android 编程实战》一书的随记笔记 &ndash;&gt; 第二章 Dalvik Java和Java SE 在Android设备上运行的VM成为Dalvik. 适用于CPU和内</div><div class="post-footer">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E5%AE%8C%E5%96%84%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%92%8C%E4%BC%98%E5%8C%96/">《Android 编程实战》01-完善开发环境和优化</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-09-20">2016-09-20</time></span></div><div class="content">阅读《Android 编程实战》一书的随记笔记 Android SDK 进一步了解 SDK基本我们都是确保为最新的. 更新SDK最简单的方法就是命令行: $ android update sdk --no-ui 命令脚</div><div class="post-footer">
+        <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E5%AE%8C%E5%96%84%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%92%8C%E4%BC%98%E5%8C%96/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/">《Android编程权威指南》随记四 组件等</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-09-10">2016-09-10</time></span></div><div class="content">这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原</div><div class="post-footer">
+        <a href="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/">《Android编程权威指南》随记三 媒体与Intent等</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-09-09">2016-09-09</time></span></div><div class="content">这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原</div><div class="post-footer">
+        <a href="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%BA%8C-fragment%E7%9A%84%E6%A6%82%E6%8B%AC/">《Android编程权威指南》随记二 Fragment的概括</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-09-08">2016-09-08</time></span></div><div class="content">这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原</div><div class="post-footer">
+        <a href="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%BA%8C-fragment%E7%9A%84%E6%A6%82%E6%8B%AC/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/">《Android编程权威指南》随记一 零散知识整理</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-09-07">2016-09-07</time></span></div><div class="content">这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原</div><div class="post-footer">
+        <a href="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">《Android 开发艺术探索》 15-Android性能优化</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-08-27">2016-08-27</time></span></div><div class="content">第15章: 通过一些常见的性能优化方法, 这将有助于提高Android程序的性能, 于一些性能能分析等. 优化主要几个方面: 布局优化 绘制优化 内存泄漏</div><div class="post-footer">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-14-jni%E5%92%8Cndk%E7%BC%96%E7%A8%8B/">《Android 开发艺术探索》 14-JNI和NDK编程</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-08-26">2016-08-26</time></span></div><div class="content">第14章: 弥补Java的跨平台特性导致的于本地交互能力不足而出现的. Java JNI本意为Java Native Interface(java本地接口), 是为方便</div><div class="post-footer">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-14-jni%E5%92%8Cndk%E7%BC%96%E7%A8%8B/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-13-%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/">《Android 开发艺术探索》 13-综合技术</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-08-25">2016-08-25</time></span></div><div class="content">crash的异常处理, Android中的方法限制, 反编译等也是需要了解的技术. blog相关代码 捕捉Crash信息 应用总会不可避免的发生Cra</div><div class="post-footer">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-13-%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-12-bitmap%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8Ccache/">《Android 开发艺术探索》 12-Bitmap的加载和Cache</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-08-23">2016-08-23</time></span></div><div class="content">由于Bitmap的特殊性以及Android对单个应用所施加的内存限制, 会导致加载Bitmap的时候很容易出现内存溢出. 还有常用的缓存策略. b</div><div class="post-footer">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-12-bitmap%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8Ccache/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">《Android 开发艺术探索》 11-Android的线程和线程池</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-08-22">2016-08-22</time></span></div><div class="content">第11章: 不仅仅是在Android中, 就算java中线程都是一块很重要的知识, 占有不小的比重. blog相关代码 除了最常使用的Thread之外</div><div class="post-footer">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-10-android%E7%9A%84%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/">《Android 开发艺术探索》 10-Android的消息机制</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-08-22">2016-08-22</time></span></div><div class="content">第10章: Handler究竟是如何运行的. Android的消息机制主要指Handler的运行机制, Handler的运行需要底层的Messag</div><div class="post-footer">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-10-android%E7%9A%84%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-09-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B/">《Android 开发艺术探索》 09-四大组件的工作过程</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2016-08-16">2016-08-16</time></span></div><div class="content">第九章: 还原四大组件的本质 blog相关代码 四大组件的运行状态 四大组件中除了BroadcastReceiver以外, 其余的三种组件都必须在An</div><div class="post-footer">
+        <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-09-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
+</article><ul class="pagination"><li class="page-item ">
+                    <span class="page-link">
+                        <a href="/">1</a>
                     </span>
-                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> |
-                    <iframe
-                        style="margin-left: 2px; margin-bottom:-5px;"
-                        frameborder="0" scrolling="0" width="91px" height="20px"
-                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
-                    </iframe>
-                </p>
-            </div>
+                </li><li class="page-item active">
+                    <span class="page-link">
+                        <a href="/page/2/">2</a>
+                    </span>
+                </li><li class="page-item ">
+                    <span class="page-link">
+                        <a href="/page/3/">3</a>
+                    </span>
+                </li><li class="page-item ">
+                    <span class="page-link">
+                        <a href="/page/4/">4</a>
+                    </span>
+                </li></ul></div></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
-    </div>
-</footer>
+    </footer></div>
 
-<!-- jQuery -->
-
-<script src="/js/jquery.min.js"></script>
-
-
-<!-- Bootstrap Core JavaScript -->
-
-<script src="/js/bootstrap.min.js"></script>
-
-
-<!-- Custom Theme JavaScript -->
-
-<script src="/js/hux-blog.min.js"></script>
-
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-
-<!--
-     Because of the native support for backtick-style fenced code blocks
-     right within the Markdown is landed in Github Pages,
-     From V1.6, There is no need for Highlight.js,
-     so Huxblog drops it officially.
-
-     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
-     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
--->
-<!--
-    <script>
-        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-            hljs.initHighlightingOnLoad();
-        })
-    </script>
-    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
--->
-
-
-<!-- jquery.tagcloud.js -->
-<script>
-    // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async("http://szysky.com/js/jquery.tagcloud.js",function(){
-            $.fn.tagcloud.defaults = {
-                //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
-
-<!--fastClick.js -->
-<script>
-    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
-</script>
-
-
-<!-- Google Analytics -->
-
-
-
-
-<!-- Baidu Tongji -->
-
-<script>
-    // dynamic User by Hux
-    var _baId = '5aca5df6308eba7bd10d5bac33225006';
-
-    // Originial
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?" + _baId;
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-
-
-
-
-
-<!-- Side Catalog -->
-
-
-
-
-<!-- Image to hack wechat -->
-<img src="http://szysky.com/img/icon_wechat.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work -->
-
-</body>
-
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"data":{"id-1":"一二三四五六七八九"},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

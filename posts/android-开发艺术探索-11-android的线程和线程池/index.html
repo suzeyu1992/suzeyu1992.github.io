@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android 开发艺术探索》 11-Android的线程和线程池 - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android 开发艺术探索》 11-Android的线程和线程池" />
+<meta property="og:description" content="第11章: 不仅仅是在Android中, 就算java中线程都是一块很重要的知识, 占有不小的比重. blog相关代码 除了最常使用的Thread之外" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-08-22T16:34:00+00:00" />
+<meta property="article:modified_time" content="2016-08-22T16:34:00+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android 开发艺术探索》 11-Android的线程和线程池"/>
+<meta name="twitter:description" content="第11章: 不仅仅是在Android中, 就算java中线程都是一块很重要的知识, 占有不小的比重. blog相关代码 除了最常使用的Thread之外"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-10-android%E7%9A%84%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-12-bitmap%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8Ccache/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android 开发艺术探索》 11-Android的线程和线程池",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  9221 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0\/","datePublished": "2016-08-22T16:34:00+00:00","dateModified": "2016-08-22T16:34:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android 开发艺术探索》 11-Android的线程和线程池</h1><h2 class="single-subtitle">抄书系列</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-08-22">2016-08-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9221 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 19 分钟&nbsp;<span id="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" class="leancloud_visitors" data-flag-title="《Android 开发艺术探索》 11-Android的线程和线程池">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#主线程和子线程">主线程和子线程</a></li>
+    <li><a href="#android中的线程形态">Android中的线程形态</a>
+      <ul>
+        <li><a href="#asynctask">AsyncTask</a></li>
+        <li><a href="#asynctask的工作原理">AsyncTask的工作原理</a></li>
+        <li><a href="#handlerthread">HandlerThread</a></li>
+        <li><a href="#intentservice">IntentService</a></li>
+      </ul>
+    </li>
+    <li><a href="#android中的线程池">Android中的线程池</a>
+      <ul>
+        <li><a href="#threadpoolexecutor">ThreadPoolExecutor</a></li>
+        <li><a href="#线程池的分类">线程池的分类</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>第11章: 不仅仅是在Android中, 就算java中线程都是一块很重要的知识, 占有不小的比重.</p>
+</blockquote>
+<p><a href="https://github.com/suzeyu1992/Notes_AndroidDevSeek" target="_blank" rel="noopener noreffer">blog相关代码</a></p>
+<p>除了最常使用的<code>Thread</code>之外, 在Android之中可以扮演线程角色的还有很多: 如<code>AsyncTask</code>和<code>IntentService</code>, 同时<code>HandlerThread</code>也是一种特殊的线程.  虽然这些线程的表现形式有别于基础线程. 但是本质上还是传统的线程. 例如<code>AsyncTask</code>它的底层使用了线程池. 而对于<code>IntentService</code>和<code>HandlerThread</code>来说, 他们的底层则直接使用了线程.</p>
+<p><strong>根据不同的特性来实现不同的场景</strong></p>
+<ul>
+<li><code>AsyncTask</code>: 封装了线程池和Handler, 它主要是为了方便开发者在子线程中更新UI.</li>
+<li><code>HandlerThread</code>: 是一种具有消息循环的线程, 在它的内部可以使用Handler.</li>
+<li><code>IntentService</code>: 是一个服务, 系统对其进行了封装使其可以更方便地执行后台任务, IntentService内部采用了<code>HandlerThread</code>来执行任务, 当任务执行完毕后<code>IntentService</code>会自动退出. 从执行任务的角度来看, 更像一个后台的线程. 但是因为其本身是一种服务, 所以导致不容易被系统杀死从而保证任务的执行. 而如果是一个后台线程, 由于这个时候进行中没有活动的四大组件, 那么这个进程的优先级会很低, 很容易被系统杀死, 这就是<code>IntentService</code>的优点.</li>
+</ul>
+<p><strong>线程的简单概述</strong></p>
+<p>在操作系统中, 线程是操作系统调度的最小单元, 同时线程又是一种受限的系统资源, 即线程不可能无限制的产生, 并且线程的创建和销毁都会有相应的开销. 当系统中存在大量的线程时, 系统会通过时间片转轮的方式调度每个线程, 因此线程不可能做到绝对的并行, 除非线程数量小于等于cpu的核心数. 但这种情况太少了, 所以线程池的概念就由此出现. 通过线程池就可以避免因为频繁创建和销毁线程所带来的系统开销.</p>
+<h2 id="主线程和子线程">主线程和子线程</h2>
+<p>主线程是指进程所拥有的线程, 在Java中默认情况下一个进程只有一个线程, 这个线程就是主线程. 主线程主要处理界面交互相关的逻辑, 因为用户随时会和界面发生交互, 因此主线程在任何时候都必须有较高的响应速度, 否则就会产生一种界面卡顿的感觉. 为了保持较高的响应速度, 这就要求主线程中不能执行耗时的任务, 这个时候子线程就派上用场. 子线程也叫作工作线程, 除了主线程以外的线程都叫做子线程</p>
+<p>Android沿用了Java的线程模型, 其中的线程也分为主线程和子线程, 其中主线程也叫UI线程. 主线程的作用是运行四大组件以及处理它们和用户的交互. 而子线程的作用则是执行耗时任务, 比如网络请求, I/O操作等. 从Android 3.0 开始系统要求网络访问必须在子线程中进行, 否则网络访问将会失败并抛出<code>NetworkOnMainThreadException</code>这个异常, 这样做是为了避免主线程由于耗时操作所阻塞从而出现ANR现象.</p>
+<h2 id="android中的线程形态">Android中的线程形态</h2>
+<h3 id="asynctask">AsyncTask</h3>
+<blockquote>
+<p><code>AsyncTask</code>是一种轻量级的异步任务类, 他可以在线程池中执行后台任务, 然后把执行的进度和最终的结果传递给主线程并在主线程更新UI. 从实现上来说. <code>AsyncTask</code>封装了Thread和Handler, 通过<code>AsyncTask</code>可以更加方便地执行后台任务, 对于特别耗时的任务来说, 建议使用线程池.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AsyncTask</span><span class="o">&lt;</span><span class="n">Params</span><span class="o">,</span> <span class="n">Progress</span><span class="o">,</span> <span class="n">Result</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="c1">// 省略一大坨代码
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p><code>AsyncTask</code>就是一个抽象的泛型类. 这三个泛型的意义.</p>
+<ul>
+<li>Params: 表示参数的类型</li>
+<li>Progress: 表示后台任务的执行进度的类型</li>
+<li>Result: 则表示后台任务的返回结果的类型</li>
+</ul>
+<p>如果不需要传递具体的参数, 那么这三个泛型参数可以用Void来代替.</p>
+<p><strong>AsyncTask提供了4个核心方法, 含义如下</strong></p>
+<ol>
+<li><code>onPreExecute()</code>: <strong>在主线程执行</strong>, 在异步任务执行之前, 此方法会被调用, 一般可以用于做一些准备工作</li>
+<li><code>doInBackground()</code>: <strong>在线程池中执行</strong>, 此方法用于执行异步任务, 参数<code>params</code>表示异步任务的输入参数. 在此方法中可以通过<code>publishProgress()</code>方法来更新任务的进度, <code>publishProgress()</code>方法会调用<code>onProgressUpdate()</code>方法. 另外此方法需要返回计算结果给<code>onPostExecute()</code></li>
+<li><code>onProgressUpdate()</code>: <strong>在主线程执行</strong>,在异步任务执行之后, 此方法会被调用, 其中<code>result</code>参数是后台任务的返回值, 即<code>doInBackground()</code>的返回值.</li>
+<li><code>onPostExecute()</code>: <strong>在主线程执行</strong>, 在异步任务执行之后, 此方法会被调用, 其中<code>result</code>参数是后台任务的返回值, 即<code>doInBackground</code>的返回值.</li>
+</ol>
+<p>除了上述的四种方法,还有<code>onCancelled()</code>, 它同样在主线程执行, 当异步任务被取消时, <code>onCancelled()</code>方法会被调用, 这个时候<code>onPostExecute()</code>则不会被调用.</p>
+<p><strong>AsyncTask在使用过程中有一些条件限制</strong></p>
+<ol>
+<li><code>AsyncTask</code>的类必须在主线程被加载, 这就意味着第一次访问<code>AsyncTask</code>必须发生在主线程, 这个问题不是绝对, 因为在Android 4.1及以上的版本已经被系统自动完成. 在Android 5.0的源码中, 可以看到<code>ActivityThread#main()</code>会调用<code>AsyncTask#init()</code>方法.</li>
+<li><code>AsyncTask</code>的对象必须在主线程中创建.</li>
+<li><code>execute</code>方法必须在UI线程调用.</li>
+<li>不要在程序中直接调用<code>onPreExecute()</code>, <code>onPostExecute()</code>, <code>doInBackground</code>和<code>onProgressUpdate()</code></li>
+<li>一个<code>AsyncTask</code>对象只能执行一次, 即只能调用一次<code>execute()</code>方法, 否则会报运行时异常.</li>
+<li>在Android 1.6之前, <code>AsyncTask</code>是串行执行任务的; Android 1.6的时候<code>AsyncTask</code>开始采用线程池里处理并行任务; 但是Android 3.0开始, 为了避免<code>AsyncTask</code>带来的并发错误, <code>AsyncTask</code>又采用了一个线程来串行的执行任务. 尽管如此在3.0以后, 仍然可以通过<code>AsyncTask#executeOnExecutor()</code>方法来并行执行任务.</li>
+</ol>
+<h3 id="asynctask的工作原理">AsyncTask的工作原理</h3>
+<p>这里以源码5.0来分析, 不同的版本源码具体实现是不同的.</p>
+<p>为了分析<code>AsyncTask</code>的工作原理, 可以从它的<code>execute()</code>方法开始分析, <code>execute()</code>方法又会调用<code>executeOnExecutor()</code>方法. 实际上这里调用进来后是一个串行的线程池, 一个进程中所有的<code>AsyncTask</code>全都在这个串行的线程池中排队执行, 然后会先调用<code>AsyncTask#onPreExecute()</code>方法, 然后线程池开始执行. 看看<code>SerialExecutor()</code>的源码实现:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Executor</span> <span class="n">SERIAL_EXECUTOR</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SerialExecutor</span><span class="o">();</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">volatile</span> <span class="n">Executor</span> <span class="n">sDefaultExecutor</span> <span class="o">=</span> <span class="n">SERIAL_EXECUTOR</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">SerialExecutor</span> <span class="kd">implements</span> <span class="n">Executor</span> <span class="o">{</span>
+   <span class="kd">final</span> <span class="n">ArrayDeque</span><span class="o">&lt;</span><span class="n">Runnable</span><span class="o">&gt;</span> <span class="n">mTasks</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;</span><span class="n">Runnable</span><span class="o">&gt;();</span>
+   <span class="n">Runnable</span> <span class="n">mActive</span><span class="o">;</span>
+
+   <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="kd">final</span> <span class="n">Runnable</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">mTasks</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+           <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+               <span class="k">try</span> <span class="o">{</span>
+                   <span class="n">r</span><span class="o">.</span><span class="na">run</span><span class="o">();</span>
+               <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                   <span class="n">scheduleNext</span><span class="o">();</span>
+               <span class="o">}</span>
+           <span class="o">}</span>
+       <span class="o">});</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">mActive</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">scheduleNext</span><span class="o">();</span>
+       <span class="o">}</span>
+   <span class="o">}</span>
+
+   <span class="kd">protected</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">scheduleNext</span><span class="o">()</span> <span class="o">{</span>
+       <span class="k">if</span> <span class="o">((</span><span class="n">mActive</span> <span class="o">=</span> <span class="n">mTasks</span><span class="o">.</span><span class="na">poll</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">THREAD_POOL_EXECUTOR</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">mActive</span><span class="o">);</span>
+       <span class="o">}</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>在<code>SerialExecutor</code>的实现可以分析<code>AsyncTask</code>的排队执行的过程. 首先系统会把<code>AsyncTask#Params</code>参数封装成<code>FutureTask</code>对象, <code>FutureTask</code>是一个并发类, 在这里充当了<code>Runnable</code>的作用. 接着这个<code>FutureTask</code>会交给<code>SerialExecutor#execute()</code>方法去处理. 这个方法首先会把<code>FutureTask</code>对象插入到任务队列<code>mTasks</code>中, 如果这个时候没有正在活动<code>AsyncTask</code>任务, 那么就会调用<code>SerialExecutor#scheduleNext()</code>方法来执行下一个<code>AsyncTask</code>任务. 同时当一个<code>AsyncTask</code>任务执行完后, <code>AsyncTask</code>会继续执行其他任务直到所有的任务都执行完毕为止, 从这一点可以看出, 在默认情况下, <strong>AsyncTask是串行执行的</strong></p>
+<p><code>AsyncTask</code>中有两个线程池(SerialExecutor和THREAD_POOL_EXECUTOR)和一个<code>Handler</code>(InternalHandler), 其中线程池<code>SerialExecutor</code>用于任务的排列, 而线程池<code>THREAD_POOL_EXECUTOR</code>用于真正的执行任务, 而<code>InternalHandler</code>用于将执行环境从线程切换到主线程, 其本质仍然是线程的调用过程.</p>
+<p>在<code>AsyncTask</code>的构造方法中有如下这段代码, 由于<code>FutureTask#run()</code>方法会调用<code>mWorker.call()</code>方法, 因此mWorker的call方法最终会在线程池中执行.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">mWorker</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WorkerRunnable</span><span class="o">&lt;</span><span class="n">Params</span><span class="o">,</span> <span class="n">Result</span><span class="o">&gt;()</span> <span class="o">{</span>
+       <span class="kd">public</span> <span class="n">Result</span> <span class="nf">call</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+           <span class="n">mTaskInvoked</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+
+           <span class="n">Process</span><span class="o">.</span><span class="na">setThreadPriority</span><span class="o">(</span><span class="n">Process</span><span class="o">.</span><span class="na">THREAD_PRIORITY_BACKGROUND</span><span class="o">);</span>
+           <span class="c1">//noinspection unchecked
+</span><span class="c1"></span>           <span class="k">return</span> <span class="n">postResult</span><span class="o">(</span><span class="n">doInBackground</span><span class="o">(</span><span class="n">mParams</span><span class="o">));</span>
+       <span class="o">}</span>
+   <span class="o">};</span>
+</code></pre></div><p>在<code>mWorker.call()</code>方法中, 首先将<code>mTaskInvoked</code>设为了true. 表示当前任务已经被调用过了. 然后执行<code>AsyncTask#doInBackground()</code>方法, 接着将其返回值传递给<code>postResult()</code>, 这个方法的实现:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">Result</span> <span class="nf">postResult</span><span class="o">(</span><span class="n">Result</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+   <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">&#34;unchecked&#34;</span><span class="o">)</span>
+   <span class="n">Message</span> <span class="n">message</span> <span class="o">=</span> <span class="n">sHandler</span><span class="o">.</span><span class="na">obtainMessage</span><span class="o">(</span><span class="n">MESSAGE_POST_RESULT</span><span class="o">,</span>
+           <span class="k">new</span> <span class="n">AsyncTaskResult</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;(</span><span class="k">this</span><span class="o">,</span> <span class="n">result</span><span class="o">));</span>
+   <span class="n">message</span><span class="o">.</span><span class="na">sendToTarget</span><span class="o">();</span>
+   <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>这里, <code>postResult()</code>会通过<code>sHandler</code>发送一个<code>MESSAGE_POST_RESULT</code>消息, 而<code>sHandler</code>的定义如下:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">InternalHandler</span> <span class="n">sHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InternalHandler</span><span class="o">();</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">InternalHandler</span> <span class="kd">extends</span> <span class="n">Handler</span> <span class="o">{</span>
+   <span class="nd">@SuppressWarnings</span><span class="o">({</span><span class="s">&#34;unchecked&#34;</span><span class="o">,</span> <span class="s">&#34;RawUseOfParameterizedType&#34;</span><span class="o">})</span>
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleMessage</span><span class="o">(</span><span class="n">Message</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">AsyncTaskResult</span> <span class="n">result</span> <span class="o">=</span> <span class="o">(</span><span class="n">AsyncTaskResult</span><span class="o">)</span> <span class="n">msg</span><span class="o">.</span><span class="na">obj</span><span class="o">;</span>
+       <span class="k">switch</span> <span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="na">what</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">case</span> <span class="n">MESSAGE_POST_RESULT</span><span class="o">:</span>
+               <span class="c1">// There is only one result
+</span><span class="c1"></span>               <span class="n">result</span><span class="o">.</span><span class="na">mTask</span><span class="o">.</span><span class="na">finish</span><span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">mData</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+               <span class="k">break</span><span class="o">;</span>
+           <span class="k">case</span> <span class="n">MESSAGE_POST_PROGRESS</span><span class="o">:</span>
+               <span class="n">result</span><span class="o">.</span><span class="na">mTask</span><span class="o">.</span><span class="na">onProgressUpdate</span><span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">mData</span><span class="o">);</span>
+               <span class="k">break</span><span class="o">;</span>
+       <span class="o">}</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>可以看出<code>sHandler</code>是一个静态的Handler对象, 为了能够将执行环境切换到主线程, 这就要求<code>sHandler</code>这个对象必须在主线程中创建. 由于静态成员会在加载类的时候进行初始化, 因此这就变相要求<code>AsyncTask</code>的类必须在主线程中加载, 否则同一个进程中的<code>AsyncTask</code>都无法正常工作.  <code>sHandler</code>收到了消息后会调用<code>AsyncTask#finish()</code>方法, 如下:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">finish</span><span class="o">(</span><span class="n">Result</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+   <span class="k">if</span> <span class="o">(</span><span class="n">isCancelled</span><span class="o">())</span> <span class="o">{</span>
+       <span class="n">onCancelled</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+   <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+       <span class="n">onPostExecute</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+   <span class="o">}</span>
+   <span class="n">mStatus</span> <span class="o">=</span> <span class="n">Status</span><span class="o">.</span><span class="na">FINISHED</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>这个<code>finish()</code>方法很简单, 如果<code>AsyncTask</code>被取消了, 那么就调用<code>onCancelled()</code>方法, 否则就会调用<code>onPostExecute()</code>方法, 可以看到<code>doInBackground</code>的反馈结果会传递给<code>onPostExecute()</code>方法.</p>
+<p>通过源码分析, 可以确定从3.0开始, 默认情况下<code>AsyncTask</code>就是串行的. 通过一段代码测试.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+   <span class="k">switch</span> <span class="o">(</span><span class="n">v</span><span class="o">.</span><span class="na">getId</span><span class="o">()){</span>
+       <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btn_main</span><span class="o">:</span>
+           <span class="k">new</span> <span class="n">MyAsync</span><span class="o">(</span><span class="s">&#34;任务_1&#34;</span><span class="o">).</span><span class="na">execute</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+           <span class="k">new</span> <span class="n">MyAsync</span><span class="o">(</span><span class="s">&#34;任务_2&#34;</span><span class="o">).</span><span class="na">execute</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+           <span class="k">new</span> <span class="n">MyAsync</span><span class="o">(</span><span class="s">&#34;任务_3&#34;</span><span class="o">).</span><span class="na">execute</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+           <span class="k">new</span> <span class="n">MyAsync</span><span class="o">(</span><span class="s">&#34;任务_4&#34;</span><span class="o">).</span><span class="na">execute</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+           <span class="k">new</span> <span class="n">MyAsync</span><span class="o">(</span><span class="s">&#34;任务_5&#34;</span><span class="o">).</span><span class="na">execute</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+           <span class="k">break</span><span class="o">;</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MyAsync</span> <span class="kd">extends</span> <span class="n">AsyncTask</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;{</span>
+   <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">MyAsync</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">();</span>
+   <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">mTaskName</span><span class="o">;</span>
+
+   <span class="kd">public</span> <span class="nf">MyAsync</span><span class="o">(</span><span class="n">String</span> <span class="n">taskName</span><span class="o">){</span>
+       <span class="n">mTaskName</span> <span class="o">=</span> <span class="n">taskName</span><span class="o">;</span>
+   <span class="o">}</span>
+   
+   <span class="nd">@Override</span>
+   <span class="kd">protected</span> <span class="n">String</span> <span class="nf">doInBackground</span><span class="o">(</span><span class="n">String</span><span class="o">...</span> <span class="n">params</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">SystemClock</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">3000</span><span class="o">);</span>
+       <span class="k">return</span> <span class="n">mTaskName</span><span class="o">;</span>
+   <span class="o">}</span>
+
+   <span class="nd">@Override</span>
+   <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPostExecute</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+       <span class="kd">super</span><span class="o">.</span><span class="na">onPostExecute</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+       <span class="n">SimpleDateFormat</span> <span class="n">df</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleDateFormat</span><span class="o">(</span><span class="s">&#34;HH:mm:ss&#34;</span><span class="o">);</span>
+       <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">s</span><span class="o">+</span><span class="s">&#34; onPostExecute finish time: &#34;</span> <span class="o">+</span><span class="n">df</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">()));</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>给按钮添加一个点击触发, 点击的时候会触发五个<code>AsyncTask</code>的创建和执行 , 看一下结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="checkAsyncTask.png"
+        data-srcset="checkAsyncTask.png, checkAsyncTask.png 1.5x, checkAsyncTask.png 2x"
+        data-sizes="auto"
+        alt="checkAsyncTask.png"
+        title="checkAsyncTask.png" /></p>
+<p>在5.0机器上测试所有的任务是串行执行的. 总共耗费了10秒.  而在2.x的版本所有的结束时间却都是一样的.</p>
+<p>如果使用<code>executeOnExecutor()</code>那么结果看一下:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm">* 在版本3.0以上使用并行的方式开启
+</span><span class="cm">*/</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">checkConcurrent</span><span class="o">()</span> <span class="o">{</span>
+   <span class="k">new</span> <span class="n">MyAsync</span><span class="o">(</span><span class="s">&#34;任务_1&#34;</span><span class="o">).</span><span class="na">executeOnExecutor</span><span class="o">(</span><span class="n">AsyncTask</span><span class="o">.</span><span class="na">THREAD_POOL_EXECUTOR</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+   <span class="k">new</span> <span class="n">MyAsync</span><span class="o">(</span><span class="s">&#34;任务_2&#34;</span><span class="o">).</span><span class="na">executeOnExecutor</span><span class="o">(</span><span class="n">AsyncTask</span><span class="o">.</span><span class="na">THREAD_POOL_EXECUTOR</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+   <span class="k">new</span> <span class="n">MyAsync</span><span class="o">(</span><span class="s">&#34;任务_3&#34;</span><span class="o">).</span><span class="na">executeOnExecutor</span><span class="o">(</span><span class="n">AsyncTask</span><span class="o">.</span><span class="na">THREAD_POOL_EXECUTOR</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+   <span class="k">new</span> <span class="n">MyAsync</span><span class="o">(</span><span class="s">&#34;任务_4&#34;</span><span class="o">).</span><span class="na">executeOnExecutor</span><span class="o">(</span><span class="n">AsyncTask</span><span class="o">.</span><span class="na">THREAD_POOL_EXECUTOR</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+   <span class="k">new</span> <span class="n">MyAsync</span><span class="o">(</span><span class="s">&#34;任务_5&#34;</span><span class="o">).</span><span class="na">executeOnExecutor</span><span class="o">(</span><span class="n">AsyncTask</span><span class="o">.</span><span class="na">THREAD_POOL_EXECUTOR</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="checkConcurrent.png"
+        data-srcset="checkConcurrent.png, checkConcurrent.png 1.5x, checkConcurrent.png 2x"
+        data-sizes="auto"
+        alt="checkConcurrent.png"
+        title="checkConcurrent.png" /></p>
+<p>ok, 按照你的需求可以选择使用哪种实现方式.</p>
+<h3 id="handlerthread">HandlerThread</h3>
+<p><code>HandlerThread</code>继承了<code>Thread</code>, 它是一种可以使用<code>Handler</code>的Thread, 它的实现也很简单, 就是run方法中通过<code>Looper.prepare()</code>来创建消息队列, 并通过<code>Looper.loop()</code>来开启消息循环, 这样在实际的使用中就允许在<code>HandlerThread</code>中创建<code>Handler</code>, 看一下run()方法.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+   <span class="n">mTid</span> <span class="o">=</span> <span class="n">Process</span><span class="o">.</span><span class="na">myTid</span><span class="o">();</span>
+   <span class="n">Looper</span><span class="o">.</span><span class="na">prepare</span><span class="o">();</span>
+   <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">mLooper</span> <span class="o">=</span> <span class="n">Looper</span><span class="o">.</span><span class="na">myLooper</span><span class="o">();</span>
+       <span class="n">notifyAll</span><span class="o">();</span>
+   <span class="o">}</span>
+   <span class="n">Process</span><span class="o">.</span><span class="na">setThreadPriority</span><span class="o">(</span><span class="n">mPriority</span><span class="o">);</span>
+   <span class="n">onLooperPrepared</span><span class="o">();</span>
+   <span class="n">Looper</span><span class="o">.</span><span class="na">loop</span><span class="o">();</span>
+   <span class="n">mTid</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>从<code>HandlerThread</code>的实现来看, 它和普通的Thread有显著的不同之处. 普通的Thread主要用于在run方法中执行一个耗时任务; 而<code>HandlerThread</code>在内部创建了消息队列, 外界需要通过Handler的消息方式来通知<code>HandlerThread</code>执行一个具体的任务. <code>HandlerThread</code>是一个很有用的类, 在Android中一个具体使用场景就是<code>IntentService</code>.</p>
+<p>由于<code>HandlerThread#run()</code>是一个无线循环方法, 因此当明确不需要再使用<code>HandlerThread</code>时, 最好通过<code>quit()</code>或者<code>quitSafely()</code>方法来终止线程的执行.</p>
+<h3 id="intentservice">IntentService</h3>
+<p><code>IntentService</code>是一种特殊的<code>Service</code>, 它继承了<code>Service</code>并且它是一个抽象类, 因此需要创建子类才能使用. <code>IntentService</code>可以用于执行后台耗时任务, 当任务执行后会自动停止, 同时由于本质是服务的原因, 这导致了它的优先级比单纯的线程要高很多, 所以<code>IntentService</code>比较适合执行一些高优先级的后台任务.</p>
+<p><code>IntentService</code>封装了<code>Handler</code>和<code>HandlerThread</code>. 这是在<code>onCreate()</code>来实现的.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+   <span class="c1">// TODO: It would be nice to have an option to hold a partial wakelock
+</span><span class="c1"></span>   <span class="c1">// during processing, and to have a static startService(Context, Intent)
+</span><span class="c1"></span>   <span class="c1">// method that would launch the service &amp; hand off a wakelock.
+</span><span class="c1"></span>
+   <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">();</span>
+   <span class="n">HandlerThread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HandlerThread</span><span class="o">(</span><span class="s">&#34;IntentService[&#34;</span> <span class="o">+</span> <span class="n">mName</span> <span class="o">+</span> <span class="s">&#34;]&#34;</span><span class="o">);</span>
+   <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+   <span class="n">mServiceLooper</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="na">getLooper</span><span class="o">();</span>
+   <span class="n">mServiceHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServiceHandler</span><span class="o">(</span><span class="n">mServiceLooper</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>当第一次启动的时候, <code>onCreate()</code>就会被调用, 内部就会创建一个<code>HandlerThread</code>, 然后使用它的<code>Looper</code>来构造一个<code>Handler</code>对象mServiceHandler. 这样通过 mServiceHandler发送的消息最终都会在<code>HandlerThread</code>中执行,  从这个角度看<code>IntentService</code>也可以用于执行后台任务.</p>
+<p>每次启动<code>IntentService</code>的时候, 它的<code>onStartCommand()</code>方法就会被调用一次, <code>IntentService</code>在<code>onStartCommand()</code>中处理每个后台任务的Intent. 看看源码是如何处理外界的Intent的.</p>
+<p>首先<code>onStartCommand()</code>调用了<code>onStart()</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onStart</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">Message</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">mServiceHandler</span><span class="o">.</span><span class="na">obtainMessage</span><span class="o">();</span>
+   <span class="n">msg</span><span class="o">.</span><span class="na">arg1</span> <span class="o">=</span> <span class="n">startId</span><span class="o">;</span>
+   <span class="n">msg</span><span class="o">.</span><span class="na">obj</span> <span class="o">=</span> <span class="n">intent</span><span class="o">;</span>
+   <span class="n">mServiceHandler</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>这个方法只是通过<code>mServiceHandler</code>发送了一个消息, 所以这个消息会在<code>HandlerThread</code>中被处理. 消息收到后, 会将Intent对象传递给<code>onHandlerIntent()</code>方法去处理. 注意这个<code>Intent</code>对象和外界<code>startService()</code>参数传递内容是一样的. 通过Intent的参数就可以区分具体的后台任务, 这样在<code>onHandlerIntent()</code>方法中就可以对不同的后台任务做处理了.</p>
+<p>当<code>onHandlerIntent()</code>方法执行完毕后, <code>IntentService</code>会通过<code>stopSelf()</code>方法来停止服务. 这里使用的方法是有参数的, 不使用无参数的<code>stopSelf()</code>是因为无参函数会立刻停止服务, 可能会导致还有没执行完的任务失效.</p>
+<p>有参的<code>stopSelf(int startId)</code>在尝试 停止服务之前会判断最近启动的服务次数是否和startId这个参数值相等, 如果相等就立刻停止服务, 否则反之. 这个策略可以从<code>AMS#stopServiceToken()</code>方法的实现中找到依据.</p>
+<hr>
+<p><code>IntentService#onHandleIntent()</code>方法是一个抽象方法, 他需要我们在子类中实现, 它的作用是从Intent参数中区分具体的任务并执行这些任务. 如果目前只存在一个后台任务, 那么<code>onHandleIntent()</code>方法执行完成后, <code>stopSelf(int startId)</code>会立即停止服务; 如果目前存在多个后台任务, 那么当<code>onHandleIntent()</code>方法执行完最后一个任务时, <code>stopSelf(int startId)</code>才会停止任务.  另外由于每次执行一个后台任务都必须启动一次<code>IntentService</code>, 而其内部则通过消息的方式向<code>HandlerThread</code>请求执行任务, <code>Handler中的Looper</code>是顺序处理消息的,  这就意味着<code>IntentService</code>也是顺序执行后台任务的, 当有多个后台任务同时存在时, 这些后台任务会按照外界发起的顺序排队执行.</p>
+<p>用代码来演示一遍:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 派生一个IntentService 的子类
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">LocalIntentService</span> <span class="kd">extends</span> <span class="n">IntentService</span> <span class="o">{</span>
+
+   <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">LocalIntentService</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">();</span>
+
+   <span class="kd">public</span> <span class="nf">LocalIntentService</span><span class="o">()</span> <span class="o">{</span>
+       <span class="kd">super</span><span class="o">(</span><span class="n">TAG</span><span class="o">);</span>
+   <span class="o">}</span>
+
+   <span class="nd">@Override</span>
+   <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onHandleIntent</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">String</span> <span class="n">task</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="s">&#34;task&#34;</span><span class="o">);</span>
+       <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;receiver task :&#34;</span><span class="o">+</span><span class="n">task</span><span class="o">);</span>
+       <span class="n">SystemClock</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">2000</span><span class="o">);</span>
+   <span class="o">}</span>
+
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">Log</span><span class="o">.</span><span class="na">w</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onDestroy: 准备关闭&#34;</span> <span class="o">);</span>
+       <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 开启3个服务
+</span><span class="c1"></span><span class="n">Intent</span> <span class="n">service</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">LocalIntentService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">service</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&#34;task&#34;</span><span class="o">,</span> <span class="s">&#34;hi, 我是数据1&#34;</span><span class="o">);</span>
+<span class="n">startService</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
+
+<span class="n">service</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&#34;task&#34;</span><span class="o">,</span> <span class="s">&#34;hi, 我是数据2&#34;</span><span class="o">);</span>
+<span class="n">startService</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
+
+<span class="n">service</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&#34;task&#34;</span><span class="o">,</span> <span class="s">&#34;hi, 我是数据3&#34;</span><span class="o">);</span>
+<span class="n">startService</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
+</code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="IntentServiceTest.png"
+        data-srcset="IntentServiceTest.png, IntentServiceTest.png 1.5x, IntentServiceTest.png 2x"
+        data-sizes="auto"
+        alt="IntentServiceTest.png"
+        title="IntentServiceTest.png" /></p>
+<p>可以看出, 三个后台任务是串行执行的, 他们的执行顺序就是发起请求的顺序. 当任务3完成了之后. <code>LocalIntentService</code>才真正的停止, 因为这是时候执行了<code>onDestroy()</code>.</p>
+<h2 id="android中的线程池">Android中的线程池</h2>
+<p>概括一下线程池的优点:</p>
+<ol>
+<li>重用线程池中的线程, 避免因为线程的创建和销毁所带来的性能开销.</li>
+<li>能有效控制线程的最大并大数, 避免大量的线程之间因互相抢占系统资源而导致的阻塞现象.</li>
+<li>能够对线程进行简单的管理, 并提供定时执行以及指定间隔循环执行等能力.</li>
+</ol>
+<p>Android中的线程池的概念来源于Java中的<code>Executor</code>, <code>Executor</code>是一个接口, 真正的线程池的实现为<code>ThreadPoolExecutor</code>. <code>ThreadPoolExecutor</code>提供了一系列参数来配制线程池, 通过不同的参数可以创建不同的线程池. 而从功能的特性来分的话可以分成四类. 下面说明.</p>
+<h3 id="threadpoolexecutor">ThreadPoolExecutor</h3>
+<p><code>ThreadPoolExecutor</code>是线程池的真正实现, 它的构造方法提供了一系列参数来配置线程池, 下面对构造方法中参数进行一下说明, 这些参数将会直接影响到线程池的功能特性.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">ThreadPoolExecutor</span><span class="o">(</span><span class="kt">int</span> <span class="n">corePoolSize</span><span class="o">,</span>
+                         <span class="kt">int</span> <span class="n">maximumPoolSize</span><span class="o">,</span>
+                         <span class="kt">long</span> <span class="n">keepAliveTime</span><span class="o">,</span>
+                         <span class="n">TimeUnit</span> <span class="n">unit</span><span class="o">,</span>
+                         <span class="n">BlockingQueue</span><span class="o">&lt;</span><span class="n">Runnable</span><span class="o">&gt;</span> <span class="n">workQueue</span><span class="o">)</span> <span class="o">{</span>
+   <span class="k">this</span><span class="o">(</span><span class="n">corePoolSize</span><span class="o">,</span> <span class="n">maximumPoolSize</span><span class="o">,</span> <span class="n">keepAliveTime</span><span class="o">,</span> <span class="n">unit</span><span class="o">,</span> <span class="n">workQueue</span><span class="o">,</span>
+        <span class="n">Executors</span><span class="o">.</span><span class="na">defaultThreadFactory</span><span class="o">(),</span> <span class="n">defaultHandler</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><ul>
+<li><code>corePoolSize</code>: 线程池的核心线程数, 默认情况下, 核心线程会在线程池中一直存活, 即使都处于闲置状态. 如果将<code>ThreadPoolExecutor#allowCoreThreadTimeOut</code>属性设置为<code>true</code>, 那么闲置的核心线程在等待新任务到来时会有超时的策略, 这个时间间隔由<code>keepAliveTime</code>属性来决定. 当等待时间超过了<code>keepAliveTime</code>设定的值那么核心线程将会终止.</li>
+<li><code>maximumPoolSize</code>: 线程池所能容纳的最大线程数, 当活动线程数达到这个数值之后, 后续的任务将会被阻塞.</li>
+<li><code>keepAliveTime</code>: 非核心线程闲置的超时时长, 超过这个时长, 非核心线程就会被回收. <code>allowCoreThreadTimeOut</code>这个属性为true的时候, 这个属性同样会作用于核心线程.</li>
+<li><code>unit</code>: 用于指定<code>keepAliveTime</code>参数的时间单位, 这是一个枚举, 常用的有<code>TimeUtil.MILLISECONDS(毫秒)</code>,  <code>TimeUtil.SECONDS(秒)</code>以及<code>TimeUtil.MINUTES(分)</code></li>
+<li><code>workQueue</code>: 线程池中的任务队列, 通过线程池的<code>execute</code>方法提交的<code>Runnable</code>对象会存储在这个参数中.</li>
+<li><code>threadFactory</code>: 线程工厂, 为线程池提供创建新线程的功能. <code>ThreadFactory</code>是一个接口.</li>
+</ul>
+<p><strong>线程池执行任务时大致遵循如下规则:</strong></p>
+<ol>
+<li>如果线程池中的线程数量未达到核心线程的数量, 那么会直接启动一个核心线程来执行任务.</li>
+<li>如果线程池中的线程数量已经达到或者超过核心线程的数量, 那么任务会被插入到任务队列中排队等待执行.</li>
+<li>如果在步骤2中无法将任务插入到任务队列中, 这通常是因为任务队列已满, 这个时候如果线程数量未达到线程池的规定的最大值, 那么会立刻启动一个非核心线程来执行任务.</li>
+<li>如果步骤3中的线程数量已经达到最大值的时候, 那么会拒绝执行此任务, <code>ThreadPoolExecutor</code>会调用<code>RejectedExecution</code>方法来通知调用者.</li>
+</ol>
+<hr>
+<p><code>ThreadPoolExecutor</code>的参数配置在<code>AsyncTask</code>中有明显的体现, 下面是其配置情况</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">CPU_COUNT</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">availableProcessors</span><span class="o">();</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">CORE_POOL_SIZE</span> <span class="o">=</span> <span class="n">CPU_COUNT</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">MAXIMUM_POOL_SIZE</span> <span class="o">=</span> <span class="n">CPU_COUNT</span> <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">KEEP_ALIVE</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">ThreadFactory</span> <span class="n">sThreadFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThreadFactory</span><span class="o">()</span> <span class="o">{</span>
+   <span class="kd">private</span> <span class="kd">final</span> <span class="n">AtomicInteger</span> <span class="n">mCount</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicInteger</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+
+   <span class="kd">public</span> <span class="n">Thread</span> <span class="nf">newThread</span><span class="o">(</span><span class="n">Runnable</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">r</span><span class="o">,</span> <span class="s">&#34;AsyncTask #&#34;</span> <span class="o">+</span> <span class="n">mCount</span><span class="o">.</span><span class="na">getAndIncrement</span><span class="o">());</span>
+   <span class="o">}</span>
+<span class="o">};</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">BlockingQueue</span><span class="o">&lt;</span><span class="n">Runnable</span><span class="o">&gt;</span> <span class="n">sPoolWorkQueue</span> <span class="o">=</span>
+       <span class="k">new</span> <span class="n">LinkedBlockingQueue</span><span class="o">&lt;</span><span class="n">Runnable</span><span class="o">&gt;(</span><span class="n">128</span><span class="o">);</span>
+
+<span class="cm">/**
+</span><span class="cm">* An {@link Executor} that can be used to execute tasks in parallel.
+</span><span class="cm">*/</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Executor</span> <span class="n">THREAD_POOL_EXECUTOR</span>
+       <span class="o">=</span> <span class="k">new</span> <span class="n">ThreadPoolExecutor</span><span class="o">(</span><span class="n">CORE_POOL_SIZE</span><span class="o">,</span> <span class="n">MAXIMUM_POOL_SIZE</span><span class="o">,</span> <span class="n">KEEP_ALIVE</span><span class="o">,</span>
+               <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">,</span> <span class="n">sPoolWorkQueue</span><span class="o">,</span> <span class="n">sThreadFactory</span><span class="o">);</span>
+</code></pre></div><p>这个配置后的规格是这样的</p>
+<ul>
+<li>核心线程数等于CPU核心数 + 1;</li>
+<li>线程池的最大线程数为CPU核心数的2倍 + 1;</li>
+<li>核心线程无超时机制, 非核心线程在闲置时有超时机制,超时时间为1秒.</li>
+<li>任务队列的容量为128</li>
+</ul>
+<h3 id="线程池的分类">线程池的分类</h3>
+<p><strong>1. FixedThreadPool</strong></p>
+<p><strong>通过<code>Executors#newFixedThreadPool()</code>方法来创建.</strong> 它是一种线程数量固定的线程池, 当线程处于空闲状态时, 它们并不会被回收, 除非线程池关闭了. 当所有的线程都处于活动状态时, 新任务都会处于等待状态, 直到有线程空闲出来. 由于<code>FixedThreadPool</code>只有核心线程并且这些核心线程不会被回收, <strong>这意味着它能够更加快速地响应外界的请求.</strong></p>
+<hr>
+<p><strong>2. CachedThreadPool</strong>
+<strong>通过<code>Executors#newCachedThreadPool()</code>方法来创建.</strong> 它是一种线程数量不定的线程池, 它只有非核心线程, 并且其最大值线程数为<code>Integer.MAX_VALUE</code>. 这就可以认为这个最大线程数为任意大了. 当线程池中的线程都处于活动的时候, 线程池会创建新的线程来处理新任务, 否则就会利用空闲的线程来处理新任务. 线程池中的空闲线程都有超时机制, 这个超时时长为60S, 超过这个时间那么空闲线程就会被回收.</p>
+<p>和<code>FixedThreadPool</code>不同的是, <code>CachedThreadPool</code>的任务队列其实相当于一个空集合, 这将导致任何任务都会立即被执行, 因为在这种场景下<code>SynchronousQueue</code>是无法插入任务的. <code>SynchronousQueue</code>是一个非常特殊的队列, 在很多情况下可以把它简单理解为一个无法存储元素的队列. <strong>在实际使用中很少使用.这类线程比较适合执行大量的耗时较少的任务</strong></p>
+<hr>
+<p><strong>3. ScheduledThreadPool</strong></p>
+<p><strong>通过<code>Executors#newScheduledThreadPool()</code>方法来创建.</strong>  它的核心线程数量是固定的, 而非核心线程数是没有限制的, 并且当非核心线程闲置时会立刻被回收掉. <strong>这类线程池用于执行定时任务和具有固定周期的重复任务</strong></p>
+<hr>
+<p><strong>4. SingleThreadExecutor</strong></p>
+<p><strong>通过<code>Executors#newSingleThreadPool()</code>方法来创建.</strong> 这类线程池内部只有一个核心线程, 它确保所有的任务都在同一个线程中按顺序执行. <strong>这类线程池意义在于统一所有的外界任务到一个线程中, 这使得在这些任务之间不需要处理线程同步的问题</strong></p>
+<blockquote>
+<p>第12章: Bitmap的加载和Cache</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-08-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" data-title="《Android 开发艺术探索》 11-Android的线程和线程池" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" data-title="《Android 开发艺术探索》 11-Android的线程和线程池" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" data-title="《Android 开发艺术探索》 11-Android的线程和线程池"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" data-title="《Android 开发艺术探索》 11-Android的线程和线程池" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" data-title="《Android 开发艺术探索》 11-Android的线程和线程池" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" data-title="《Android 开发艺术探索》 11-Android的线程和线程池" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-11-android%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" data-title="《Android 开发艺术探索》 11-Android的线程和线程池"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-10-android%E7%9A%84%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/" class="prev" rel="prev" title="《Android 开发艺术探索》 10-Android的消息机制"><i class="fas fa-angle-left fa-fw"></i>《Android 开发艺术探索》 10-Android的消息机制</a>
+            <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-12-bitmap%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8Ccache/" class="next" rel="next" title="《Android 开发艺术探索》 12-Bitmap的加载和Cache">《Android 开发艺术探索》 12-Bitmap的加载和Cache<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

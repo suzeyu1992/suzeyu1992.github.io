@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android 开发艺术探索》 05-理解RemoteViews - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android 开发艺术探索》 05-理解RemoteViews" />
+<meta property="og:description" content="第五章:桌面小部件和使用RemoteViews跨进程更新界面 blog相关代码 RemoteView的应用 **简介:**在开发中, 通知栏都知道是" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-05-%E7%90%86%E8%A7%A3remoteviews/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-08-11T14:34:17+00:00" />
+<meta property="article:modified_time" content="2016-08-11T14:34:17+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android 开发艺术探索》 05-理解RemoteViews"/>
+<meta name="twitter:description" content="第五章:桌面小部件和使用RemoteViews跨进程更新界面 blog相关代码 RemoteView的应用 **简介:**在开发中, 通知栏都知道是"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-05-%E7%90%86%E8%A7%A3remoteviews/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A204-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-06-android%E7%9A%84drawable/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android 开发艺术探索》 05-理解RemoteViews",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-05-%E7%90%86%E8%A7%A3remoteviews\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  7002 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-05-%E7%90%86%E8%A7%A3remoteviews\/","datePublished": "2016-08-11T14:34:17+00:00","dateModified": "2016-08-11T14:34:17+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android 开发艺术探索》 05-理解RemoteViews</h1><h2 class="single-subtitle">抄书系列</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-08-11">2016-08-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7002 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 14 分钟&nbsp;<span id="/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-05-%E7%90%86%E8%A7%A3remoteviews/" class="leancloud_visitors" data-flag-title="《Android 开发艺术探索》 05-理解RemoteViews">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#remoteview的应用">RemoteView的应用</a>
+      <ul>
+        <li><a href="#remoteviews通知栏的应用">RemoteViews通知栏的应用</a></li>
+        <li><a href="#remoteview在桌面小部件上的应用">RemoteView在桌面小部件上的应用</a></li>
+        <li><a href="#pendingintent概述">PendingIntent概述</a></li>
+      </ul>
+    </li>
+    <li><a href="#remoteviews的内部机制">RemoteViews的内部机制</a></li>
+    <li><a href="#remoteviews的意义">RemoteViews的意义</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>第五章:桌面小部件和使用RemoteViews跨进程更新界面</p>
+</blockquote>
+<p><a href="https://github.com/suzeyu1992/Notes_AndroidDevSeek" target="_blank" rel="noopener noreffer">blog相关代码</a></p>
+<h2 id="remoteview的应用">RemoteView的应用</h2>
+<p>**简介:**在开发中, 通知栏都知道是通过<code>NotificationManager</code>的<code>notify</code>方法实现. 桌面小部件则是通过<code>AppWidgetProvider</code>实现. 后者本质上是一个广播.更新他们无法像以前那样.这是因为不是一个进程,小部件是<code>SystemServer</code>进程. 为了跨进程更新界面,RemoteViews提供了一系列的set方法&hellip;</p>
+<h3 id="remoteviews通知栏的应用">RemoteViews通知栏的应用</h3>
+<p>先使用系统默认的样式.</p>
+<p>&ndash;! 先不记录<code>notification</code>了. 发现书上的方法在编译环境23版本以上无效. 23以下是没有问题的.
+<code>notification.setLatestEventInfo()</code>此方法已经被删除了.</p>
+<p>贴出自定义布局通知栏代码利用remoteViews</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="cm">/**
+</span><span class="cm">     * 打开自定义布局的通知栏
+</span><span class="cm">     */</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">displayRemoteViews</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Notification</span> <span class="n">notification</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Notification</span><span class="o">();</span>
+        <span class="n">notification</span><span class="o">.</span><span class="na">icon</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">ic_launcher</span><span class="o">;</span>
+        <span class="n">notification</span><span class="o">.</span><span class="na">tickerText</span> <span class="o">=</span> <span class="s">&#34;我是小部件&#34;</span><span class="o">;</span>
+        <span class="n">notification</span><span class="o">.</span><span class="na">when</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+        <span class="n">notification</span><span class="o">.</span><span class="na">flags</span> <span class="o">=</span> <span class="n">Notification</span><span class="o">.</span><span class="na">FLAG_AUTO_CANCEL</span><span class="o">;</span>
+        <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">(),</span> <span class="n">MainActivity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">PendingIntent</span> <span class="n">pedingIntent</span> <span class="o">=</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getActivity</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">(),</span> <span class="n">0</span><span class="o">,</span> <span class="n">intent</span><span class="o">,</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">FLAG_UPDATE_CURRENT</span><span class="o">);</span>
+
+        <span class="n">RemoteViews</span> <span class="n">remoteViews</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RemoteViews</span><span class="o">(</span><span class="n">getPackageName</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">layout_notification</span><span class="o">);</span>
+        <span class="n">remoteViews</span><span class="o">.</span><span class="na">setTextViewText</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tv_msg</span><span class="o">,</span> <span class="s">&#34;我是文字信息&#34;</span><span class="o">);</span>
+        <span class="n">remoteViews</span><span class="o">.</span><span class="na">setImageViewResource</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">iv_icon</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">favicon</span><span class="o">);</span>
+
+        <span class="n">notification</span><span class="o">.</span><span class="na">contentView</span> <span class="o">=</span> <span class="n">remoteViews</span><span class="o">;</span>
+        <span class="n">notification</span><span class="o">.</span><span class="na">contentIntent</span> <span class="o">=</span> <span class="n">pedingIntent</span><span class="o">;</span>
+
+        <span class="n">PendingIntent</span> <span class="n">openActivity2PendingIntent</span> <span class="o">=</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getActivity</span><span class="o">(</span><span class="k">this</span><span class="o">,</span>
+                <span class="n">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">OpenActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">FLAG_UPDATE_CURRENT</span><span class="o">);</span>
+        <span class="n">remoteViews</span><span class="o">.</span><span class="na">setOnClickPendingIntent</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tv_open</span><span class="o">,</span> <span class="n">openActivity2PendingIntent</span><span class="o">);</span>
+
+
+        <span class="n">NotificationManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="o">(</span><span class="n">NotificationManager</span><span class="o">)</span> <span class="n">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">NOTIFICATION_SERVICE</span><span class="o">);</span>
+        <span class="n">manager</span><span class="o">.</span><span class="na">notify</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">notification</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><p>传入了一个自定义布局里面有一个<code>imageView</code>两个<code>textView</code>. 如下图:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="notify01.png"
+        data-srcset="notify01.png, notify01.png 1.5x, notify01.png 2x"
+        data-sizes="auto"
+        alt="notify01.png"
+        title="notify01.png" /></p>
+<h3 id="remoteview在桌面小部件上的应用">RemoteView在桌面小部件上的应用</h3>
+<p><code>AppWidgetProvider</code>是系统提供的用于实现桌面小部件的类, 继承<code>BroadcaseReceiver</code>.可以当成广播理解.</p>
+<p><strong>桌面小部件的开发步骤</strong></p>
+<p><strong>1.定义小部件界面</strong></p>
+<p>在创建一个布局xml当做这个小部件要展示的样子</p>
+<p><strong>2.定义小部件配置信息</strong></p>
+<p>在<code>res/xml</code>文件夹下新建一个xxx_info.xml的文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+<span class="nt">&lt;appwidget-provider</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+    <span class="na">android:initialLayout=</span><span class="s">&#34;@layout/layout_widget&#34;</span>
+    <span class="na">android:minHeight=</span><span class="s">&#34;100dp&#34;</span>
+    <span class="na">android:minWidth=</span><span class="s">&#34;100dp&#34;</span>
+    <span class="na">android:updatePeriodMillis=</span><span class="s">&#34;60000&#34;</span>
+    <span class="nt">&gt;</span>
+<span class="nt">&lt;/appwidget-provider&gt;</span>
+</code></pre></div><ul>
+<li><code>initiaLayout</code>: 小工具所要使用的初始化布局</li>
+<li><code>minHeight``minWidth</code>: 指定小工具的尺寸</li>
+<li><code>updatePeriodMillis</code>: 自动刷新的时间, 单位毫秒</li>
+</ul>
+<p><strong>3.定义小部件的实现类</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm"> * Created by suzeyu on 16/8/11.
+</span><span class="cm"> * 定义小部件的实现类
+</span><span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyAppWidgetProvider</span> <span class="kd">extends</span> <span class="n">AppWidgetProvider</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">MyAppWidgetProvider</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CLICK_ACTION</span> <span class="o">=</span> <span class="s">&#34;com.szysky.note.androiddevseek_05.action.CLICK&#34;</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="kd">final</span> <span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onReceive</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">intent</span><span class="o">);</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onReceive: 接收到广播--&gt;&#34;</span><span class="o">+</span><span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">());</span>
+
+        <span class="c1">//是触发的自己点击时发送的action那么就让小部件旋转
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">CLICK_ACTION</span><span class="o">)){</span>
+            <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="s">&#34;准备旋转&#34;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+
+            <span class="n">AsyncTask</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+                <span class="nd">@Override</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                    <span class="n">Bitmap</span> <span class="n">srcBmp</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeResource</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getResources</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">favicon</span><span class="o">);</span>
+                    <span class="n">AppWidgetManager</span> <span class="n">widgetManager</span> <span class="o">=</span> <span class="n">AppWidgetManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+
+                    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">37</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                        <span class="kt">float</span> <span class="n">degree</span> <span class="o">=</span> <span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">10</span><span class="o">)</span> <span class="o">%</span> <span class="n">360</span><span class="o">;</span>
+                        <span class="n">RemoteViews</span> <span class="n">remoteViews</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RemoteViews</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getPackageName</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">layout_widget</span><span class="o">);</span>
+                        <span class="n">remoteViews</span><span class="o">.</span><span class="na">setImageViewBitmap</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">iv_main</span><span class="o">,</span> <span class="n">rotateBmp</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">srcBmp</span><span class="o">,</span> <span class="n">degree</span><span class="o">));</span>
+
+                        <span class="k">if</span> <span class="o">(</span><span class="n">i</span><span class="o">==</span><span class="n">36</span><span class="o">){</span>
+                            <span class="n">Intent</span> <span class="n">intentClick</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">();</span>
+                            <span class="n">intentClick</span><span class="o">.</span><span class="na">setAction</span><span class="o">(</span><span class="n">CLICK_ACTION</span><span class="o">);</span>
+                            <span class="n">PendingIntent</span> <span class="n">peddingIntent</span> <span class="o">=</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getBroadcast</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">intentClick</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+                            <span class="n">remoteViews</span><span class="o">.</span><span class="na">setOnClickPendingIntent</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">iv_main</span><span class="o">,</span> <span class="n">peddingIntent</span><span class="o">);</span>
+                        <span class="o">}</span>
+
+
+                        <span class="n">widgetManager</span><span class="o">.</span><span class="na">updateAppWidget</span><span class="o">(</span><span class="k">new</span> <span class="n">ComponentName</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">MyAppWidgetProvider</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">remoteViews</span><span class="o">);</span>
+                        <span class="n">SystemClock</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">50</span><span class="o">);</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">});</span>
+
+
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+
+
+    <span class="cm">/**
+</span><span class="cm">     * 旋转一个bitmap
+</span><span class="cm">     */</span>
+    <span class="kd">private</span> <span class="n">Bitmap</span> <span class="nf">rotateBmp</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">srcBmp</span><span class="o">,</span> <span class="kt">float</span> <span class="n">degree</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Matrix</span> <span class="n">matrix</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Matrix</span><span class="o">();</span>
+        <span class="n">matrix</span><span class="o">.</span><span class="na">reset</span><span class="o">();</span>
+        <span class="n">matrix</span><span class="o">.</span><span class="na">setRotate</span><span class="o">(</span><span class="n">degree</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">Bitmap</span><span class="o">.</span><span class="na">createBitmap</span><span class="o">(</span><span class="n">srcBmp</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">srcBmp</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(),</span> <span class="n">srcBmp</span><span class="o">.</span><span class="na">getHeight</span><span class="o">(),</span> <span class="n">matrix</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 当自定义的小桌面被添加 这个方法只有在本实例中只有被添加的时候才调用
+</span><span class="cm">     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onUpdate</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AppWidgetManager</span> <span class="n">appWidgetManager</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">appWidgetIds</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onUpdate</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">appWidgetManager</span><span class="o">,</span> <span class="n">appWidgetIds</span><span class="o">);</span>
+
+        <span class="kd">final</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="n">appWidgetIds</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;小桌面更新了   counter=&#34;</span><span class="o">+</span><span class="n">counter</span><span class="o">);</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">counter</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">appWidgetID</span> <span class="o">=</span> <span class="n">appWidgetIds</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="n">onWidgetUpdate</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">appWidgetManager</span><span class="o">,</span> <span class="n">appWidgetID</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 桌面小部件更新  这个方法只有在本实例中只有被添加的时候才调用
+</span><span class="cm">     */</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">onWidgetUpdate</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AppWidgetManager</span> <span class="n">appWidgetManager</span><span class="o">,</span> <span class="kt">int</span> <span class="n">appWidgetID</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onWidgetUpdate: id==&#34;</span><span class="o">+</span><span class="n">appWidgetID</span><span class="o">);</span>
+
+        <span class="n">RemoteViews</span> <span class="n">remoteViews</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RemoteViews</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getPackageName</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">layout_widget</span><span class="o">);</span>
+        <span class="n">remoteViews</span><span class="o">.</span><span class="na">setImageViewBitmap</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">iv_main</span><span class="o">,</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeResource</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getResources</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">favicon</span><span class="o">));</span>
+
+
+        <span class="n">Intent</span> <span class="n">intentClick</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">();</span>
+        <span class="n">intentClick</span><span class="o">.</span><span class="na">setAction</span><span class="o">(</span><span class="n">CLICK_ACTION</span><span class="o">);</span>
+        <span class="n">PendingIntent</span> <span class="n">pendingIntent</span> <span class="o">=</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getBroadcast</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">intentClick</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+        <span class="n">remoteViews</span><span class="o">.</span><span class="na">setOnClickPendingIntent</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">iv_main</span><span class="o">,</span> <span class="n">pendingIntent</span><span class="o">);</span>
+        <span class="n">appWidgetManager</span><span class="o">.</span><span class="na">updateAppWidget</span><span class="o">(</span><span class="n">appWidgetID</span><span class="o">,</span> <span class="n">remoteViews</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p>直接说用途把, 小部件被添加到桌面的时候, 会先走<code>onUpdate()</code>回调,这个时候执行方法通过<code>RemoteViews()</code>构建一个布局,并更新桌面上新的布局和设置了点击事件,然后走<code>onReceive()</code> .</p>
+<p>如果当我们点击的小部件的时候, 会触发广播中的<code>onReceive()</code>然后进行图片的旋转.这就是上述代码的大体流程.</p>
+<p><strong>4.最后要在清单文件中声明小部件</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;receiver</span> <span class="na">android:name=</span><span class="s">&#34;.MyAppWidgetProvider&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;meta-data</span> <span class="na">android:name=</span><span class="s">&#34;android.appwidget.provider&#34;</span>
+                        <span class="na">android:resource=</span><span class="s">&#34;@xml/widget_provider_info&#34;</span><span class="nt">/&gt;</span>
+
+            <span class="nt">&lt;intent-filter&gt;</span>
+                <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.appwidget.action.APPWIDGET_UPDATE&#34;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;com.szysky.note.androiddevseek_05.action.CLICK&#34;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/intent-filter&gt;</span>
+            
+<span class="nt">&lt;/receiver&gt;</span>
+</code></pre></div><p>第一个action则是作为小部件的表示而必须存在的. 第二个action就是要识别设定的单击行为.</p>
+<p><strong>然后就可以在主屏幕上长按添加小部件查看效果了</strong></p>
+<p><a href="https://github.com/suzeyu1992/Notes_AndroidDevSeek" target="_blank" rel="noopener noreffer">嫌麻烦就直接扣代码,这是链接</a></p>
+<p><code>AppWidgetProvider</code>这个类还有其他生命周期的回调, 其实就是当广播到来之后, <code>AppWidgetProvider</code>会自动根据广播的Action通过<code>onReceive()</code>来自动进行分发广播.</p>
+<ul>
+<li><code>onEnable()</code>: 当该窗口小部件第一次添加到桌面时调用该方法, 可添加多次但只在第一次调用.</li>
+<li><code>onUpdate()</code>: 小部件被添加时或者每次小部件更新时都会调用一次该方法, 小部件的更新时机由<code>updatePeriodMillis</code>来指定, 每个周期小部件都会自动更新一次.</li>
+<li><code>onDeleted()</code>: 每删除一次小部件就会调用一次.</li>
+<li><code>onReceive()</code>: 这是广播的内置方法, 用于分发具体的事件给其他方法.</li>
+</ul>
+<hr>
+<blockquote>
+<p>下面就是分析了</p>
+</blockquote>
+<h3 id="pendingintent概述">PendingIntent概述</h3>
+<p>PendingIntent和Intent的区别:</p>
+<ul>
+<li><code>PendingIntent</code>: 等待意图, 有一个Intent将在某个待定的时刻发生.</li>
+<li><code>Intent</code>: 是立刻发生.</li>
+</ul>
+<p><strong>使用场景</strong> 最典型的就是给<code>RemoteViews</code>添加单击事件, 因为<code>RemoteViews</code>运行在远程进程中, 因此<code>RemoteViews</code>不同于普通的View, 所以无法直接向View那样通过<code>setOnClickListener()</code>方法那样设置单击事件. 要想给<code>RemoteViews</code>设置单击事件, 就必须使用<code>PendingIntent</code>, PendingIntent通过<code>send()</code>和<code>cancel()</code>来发送和取消特定的待定Intent.</p>
+<p><code>PendingIntent</code>支持三种待定意图: 启动Activity, 启动Service, 和发送广播</p>
+<p>对应着<code>PendingIntent</code>三个静态方法</p>
+<p><code>getActivity()</code>,<code>getService()</code>, <code>getBroadCast()</code>. 当这三种方法返回的<code>PendingIntent</code>待定意图发生时候, 对应的效果就是我们日常开启这三大组件的情形.</p>
+<p>上述三个方法都需要四个参数. 需要说一下第二个参数<code>requestCode</code>和第四个参数<code>flags</code>. 其中<code>requestCode</code>表示PendingIntent发送方的请求码, 多数情况下设为0即可, 另外<code>requestCode</code>会影响到<code>flags</code>的效果.</p>
+<p>flags: 常用的类型有: <code>FLAG_ONE_SHOT</code>,   <code>FLAG_UPDATE_CURRENT</code>, <code>FLAG_NO_CREATE</code>, <code>FLAG_CANCEL_CURRENT</code>.  在此之前首先要明确一个概念, <code>PendingIntent</code>的匹配规则, 在什么情况下两个<code>PendingIntent</code>是相同的.</p>
+<p><strong>PendingIntent匹配规则</strong>: 如果两个<code>PendingIntent</code>的内部Intent相同并且requestCode也相同那么这两个<code>PendingIntent</code>就是想同的. <code>requestCode</code>是int值不需要解释.</p>
+<p>而<code>Intent</code>匹配规则是: 如果两个Intent的<code>ComponentName</code>和<code>intent-filter</code>都相同, 那么这两个Intent就是相同的. <code>Extras</code>是不参与Intent的匹配规则.</p>
+<ul>
+<li><strong>FLAG_ONE_SHOT</strong>: 当前描述的<code>PendingIntent</code>只能被使用一次, 然后它就会被自动cancle, 如果后续还有相同的<code>PendingIntent</code>, 那么它们的send方法就会调用失败. 对于通知栏消息来说, 如果采用此标记, 那么同类的通知只能使用一次, 后续的通知单击后将无法打开.</li>
+<li><strong>FLAG_NO_CREATE</strong>: 当前描述的<code>PendingIntent</code>不会主动创建, 如果当前<code>PendingIntent</code>之前不存在, 那么getActivity, getService, getBroadcast方法会直接返回null, 即获取<code>PendingIntent</code>失败. 这个标记很少见, 它无法单独使用,因此日常中没有太多意义.</li>
+<li><strong>FLAG_CANCEL_CURRENT</strong>: 当前描述的<code>PendingIntent</code>如果已经存在, 那么他们都会被cancel, 然后系统会创建一个新的<code>PendingIntent</code>. 对于通知栏消息来说, 那些被cancel的消息单击后将无法打开.</li>
+<li><strong>FLAG_UPDATE_CURRENT</strong>: 当前描述的<code>PendingIntent</code>如果已经存在, 那么他们都会自动被更新, 即它们的Intent中的Extra会被换成新的.</li>
+</ul>
+<p>规则说了接下来结合实际使用说明:</p>
+<p>如果<code>manager.notify(1, notification)</code>,如果参数1的id是<strong>常量</strong>,那么多次调用<code>notify()</code>只能弹出一个通知, 后续的通知会把前面的通知全部替代, 如果每次id都是不一样的, 那么多次调用<code>notify()</code>就会弹出多个通知.</p>
+<p>所以如果<code>notify()</code>是常量, 那么不管<code>PendingIntent</code>是否匹配, 后面的通知都会直接替换前面的通知.</p>
+<p>如果<code>notify()</code>每次不同, 那么当<code>pendingIntent</code>不匹配时(这里指的匹配就是上面介绍的Intent和requestCode是否同时相同), 不管采用何种标记, 这些通知之间都不会互相干扰. <strong>但是如果PendingIntent匹配时就要用到去按照之前说的标记区别来划分</strong></p>
+<ul>
+<li><strong>FLAG_ONE_SHOT</strong>&ndash;&gt; 那么后续通知中的<code>PendingIntent</code>会和第一条通知保持一致, 包括<code>Extras</code>, 单击任何一条通知后, 剩下的通知均无法再打开, 当所有的通知都被清除后, 会再次重复这个过程.</li>
+<li><strong>FLAG_CANCEL_CURRENT</strong>&ndash;&gt; 那么只有最新的通知可以打开, 之前弹出的所有通知均无法打开</li>
+<li><strong>FLAG_UPDATE_CURRENT</strong>&ndash;&gt; 那么之前弹出的通知中的<code>PendingIntent</code>会被更新, 最终他们和最新的一条通知保持完全的一致, 包括其中的<code>Extras</code>,并且这些通知都是可以打开的.</li>
+</ul>
+<h2 id="remoteviews的内部机制">RemoteViews的内部机制</h2>
+<p><code>RemoteViews</code>的作用是在其他进程中显示并更新View界面.</p>
+<p>最常用的构造函数就是<code>public RemoteViews(String packageName, int layoutId)</code>, 注意<code>RemoteViews</code>目前并不能支持所有的View类型, 目前支持如下(不包括其子类):</p>
+<p><strong>Layout</strong></p>
+<p><code>FrameLayout</code>, <code>LinearLayout</code>, <code>RelativeLayout</code>, <code>GridLayout</code></p>
+<p><strong>View</strong></p>
+<p><code>TextView</code>, <code>ImageView</code>, <code>ImageButton</code>, <code>Button</code>, <code>AnalogClock</code>, <code>Chronometer</code>, <code>ProgressBar</code>, <code>ViewFlipper</code>, <code>ListView</code>, <code>GridView</code>, <code>StackView</code>, <code>AdapterViewFlipper</code>, <code>ViewStub</code></p>
+<p><code>RemoteViews</code>没有提供<code>findviewById()</code>方法, 只有一系列的<code>set()</code>方法.</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>setTextViewText()</code></td>
+<td>设置TextView的文本</td>
+</tr>
+<tr>
+<td><code>setTextViewSize()</code></td>
+<td>设置TextView的字体大小</td>
+</tr>
+<tr>
+<td><code>setTextColor()</code></td>
+<td>设置TextView的字体颜色</td>
+</tr>
+<tr>
+<td><code>setImageViewResource()</code></td>
+<td>设置imageView的图片资源</td>
+</tr>
+<tr>
+<td><code>setImageViewBitmap()</code></td>
+<td>设置imageView的图片</td>
+</tr>
+<tr>
+<td><code>setInt()</code></td>
+<td>反射调用View对象的参数类型为int的方法</td>
+</tr>
+<tr>
+<td><code>setLong()</code></td>
+<td>反射调用View对象的参数类型为long的方法</td>
+</tr>
+<tr>
+<td><code>setBoolean()</code></td>
+<td>反射调用View对象的参数类型为boolean的方法</td>
+</tr>
+<tr>
+<td><code>setOnClickPendingIntent()</code></td>
+<td>为View添加单击事件, 事件类型只能PendingIntent</td>
+</tr>
+</tbody>
+</table>
+<p><strong>RemoteViews的工作流程</strong></p>
+<p>通知栏和桌面小部件分别由<code>NotificationManager</code>和<code>AppWidgetManager</code>管理, 而这两个管理者都是通过<code>Binder</code>分别和<code>SystemServer</code>进程中的<code>NotificationManagerService</code>以及<code>AppWidgetService</code>进行通信. 由此可见,通知栏和桌面小部件中的布局文件实际上是在<code>NotificationManagerService</code>以及<code>AppWidgetService</code>中被加载的, 而他们运行在系统的<code>SystemServer</code>中, 这就和我们的进程构成了进程间通信.</p>
+<p>最开始<code>RemoteViews</code>会通过<code>Binder</code>传递到<code>SystemServer</code>进程, <code>RemoteViews</code>实现了<code>Parcelable</code>接口. 系统根据<code>RemoteViews</code>中的包名等信息去得到该应用的资源, 然后通过<code>LayoutInflate</code>去加载<code>RemoteViews</code>中的布局文件. 在<code>SystemServer</code>进程中加载后的布局文件是一个普通的View, 只不过相对于我们的进程他是一个<code>RemoteViews</code>而已. 接着系统会对View执行一系列界面更新任务, 这些任务就是之前的设置的<code>set()</code>. set方法对View所做的更新不是立即执行, 在<code>RemoteViews</code>内部会记录所有的更新操作, 具体的执行时机要等到<code>RemoteViews</code>被加载以后才能执行, 这样<code>RemoteViews</code>就可以在<code>SystemServer</code>进程中显示, 这就是我们看到的通知栏或者桌面小部件. 当需要更新<code>RemoteViews</code>时, 我们需要调用<code>set</code>方法并通过<code>NotificationManager</code>和<code>AppWidgetManager</code>来提交更新任务, 具体的更新操作也是在<code>SystemServer</code>进程中完成的.</p>
+<p><strong>为什么不支持所有的View和其操作?</strong> 因为代价太大, View的方法太多, 另外就是大量的IPC操作会影响效率. 为了解决这个问题, 系统并没有通过Binder直接支持View的跨进程访问, 而是提供了一个<code>Action</code>的概念, <code>Action</code>代表一个View操作, <code>Action</code>同样实现了<code>Parcelable</code>接口. 系统首先将View操作封装到<code>Action</code>对象并将这些对象跨进程传输到远程进程, 接着在远程进程中执行<code>Action</code>对象中的具体操作. 在我们的应用中每调用一次<code>set()</code>, <code>RemoteViews</code>中就会添加一个对应的<code>Action</code>对象, 当我们通过<code>NotificationManager</code>和<code>AppWidgetManager</code>来提交我们的更新时, 这些Action对象就会传输到远程进程并在远程进程中一次执行. 如图</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="remoteview.png"
+        data-srcset="remoteview.png, remoteview.png 1.5x, remoteview.png 2x"
+        data-sizes="auto"
+        alt="remoteview.png"
+        title="remoteview.png" /></p>
+<p>远程进程通过<code>RemoteViews</code>的apply方法来进行View的更新操作, <code>RemoteViews</code>的apply方法内部则会去遍历所有的<code>Action</code>对象并调用他们的<code>apply</code>方法, 具体的View更新操作是由Action对象的apply方法来完成的. 上述做法的好处是显而易见的, 首先不需要定义大量的<code>Binder</code>接口, 其次通过远程进程中批量执行<code>RemoteViews</code>的修改操作从而避免了大量的IPC操作, 这就提高了程序的性能.</p>
+<p>接下来从源码角度分析.</p>
+<p>首先最长用到的<code>setTextViewText()</code>,源码如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTextViewText</span><span class="o">(</span><span class="kt">int</span> <span class="n">viewId</span><span class="o">,</span> <span class="n">CharSequence</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">setCharSequence</span><span class="o">(</span><span class="n">viewId</span><span class="o">,</span> <span class="s">&#34;setText&#34;</span><span class="o">,</span> <span class="n">text</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>接收的参数比较简单,继续跟进<code>setCharSequence()</code>方法.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCharSequence</span><span class="o">(</span><span class="kt">int</span> <span class="n">viewId</span><span class="o">,</span> <span class="n">String</span> <span class="n">methodName</span><span class="o">,</span> <span class="n">CharSequence</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">addAction</span><span class="o">(</span><span class="k">new</span> <span class="n">ReflectionAction</span><span class="o">(</span><span class="n">viewId</span><span class="o">,</span> <span class="n">methodName</span><span class="o">,</span> <span class="n">ReflectionAction</span><span class="o">.</span><span class="na">CHAR_SEQUENCE</span><span class="o">,</span> <span class="n">value</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div><p>从这里实现看到, 内部并没有对View进程直接的操作, 而是添加一个<code>ReflectionAction()</code>一个看名字类似反射类型的对象. 接下看<code>addAction()</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">addAction</span><span class="o">(</span><span class="n">Action</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//省略部分代码...
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">mActions</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mActions</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Action</span><span class="o">&gt;();</span>
+        <span class="o">}</span>
+        <span class="n">mActions</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+
+        <span class="c1">// update the memory usage stats
+</span><span class="c1"></span>        <span class="n">a</span><span class="o">.</span><span class="na">updateMemoryUsageEstimate</span><span class="o">(</span><span class="n">mMemoryUsageCounter</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><p>这里看到, 在<code>RemoteViews</code>内部有一个<code>mActions</code>成员, 它是一个ArrayList, 外界每调用一次<code>set()</code>, <code>RemoteViews</code>就会为其创建一个<code>Action</code>对象并加入到这个集合中, 这里仅仅将<code>Action</code>对象保存了起来, 并未对View进行实际的操作, 这一点在上面的理论分析中已经提到过.</p>
+<p>接下来再看<code>ReflectionAction</code>的实现之前, 先看一下<code>RemoteViews</code>的<code>apply()</code>方法以及Action类的实现.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">View</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">parent</span><span class="o">,</span> <span class="n">OnClickHandler</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">RemoteViews</span> <span class="n">rvToApply</span> <span class="o">=</span> <span class="n">getRemoteViewsToApply</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+
+        <span class="n">View</span> <span class="n">result</span><span class="o">;</span>
+        
+        <span class="kd">final</span> <span class="n">Context</span> <span class="n">contextForResources</span> <span class="o">=</span> <span class="n">getContextForResources</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+        <span class="n">Context</span> <span class="n">inflationContext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ContextWrapper</span><span class="o">(</span><span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">Resources</span> <span class="nf">getResources</span><span class="o">()</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">contextForResources</span><span class="o">.</span><span class="na">getResources</span><span class="o">();</span>
+            <span class="o">}</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">Resources</span><span class="o">.</span><span class="na">Theme</span> <span class="nf">getTheme</span><span class="o">()</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">contextForResources</span><span class="o">.</span><span class="na">getTheme</span><span class="o">();</span>
+            <span class="o">}</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">String</span> <span class="nf">getPackageName</span><span class="o">()</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">contextForResources</span><span class="o">.</span><span class="na">getPackageName</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">};</span>
+
+        <span class="n">LayoutInflater</span> <span class="n">inflater</span> <span class="o">=</span> <span class="o">(</span><span class="n">LayoutInflater</span><span class="o">)</span>
+                <span class="n">context</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">LAYOUT_INFLATER_SERVICE</span><span class="o">);</span>
+
+        <span class="c1">// Clone inflater so we load resources from correct context and
+</span><span class="c1"></span>        <span class="c1">// we don&#39;t add a filter to the static version returned by getSystemService.
+</span><span class="c1"></span>        <span class="n">inflater</span> <span class="o">=</span> <span class="n">inflater</span><span class="o">.</span><span class="na">cloneInContext</span><span class="o">(</span><span class="n">inflationContext</span><span class="o">);</span>
+        <span class="n">inflater</span><span class="o">.</span><span class="na">setFilter</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">rvToApply</span><span class="o">.</span><span class="na">getLayoutId</span><span class="o">(),</span> <span class="n">parent</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+
+        <span class="n">rvToApply</span><span class="o">.</span><span class="na">performApply</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">parent</span><span class="o">,</span> <span class="n">handler</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>这段代码首先通过<code>LayoutInflate</code>去加载<code>RemoteViews</code>中的布局文件, <code>RemoteViews</code>中的布局文件可以通过<code>getLayoutId()</code>这个方法获得, 加载完布局文件后会通过<code>performApply()</code>去执行一些更新操作,如下:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"> <span class="kd">private</span> <span class="kt">void</span> <span class="nf">performApply</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">parent</span><span class="o">,</span> <span class="n">OnClickHandler</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mActions</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="n">handler</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">DEFAULT_ON_CLICK_HANDLER</span> <span class="o">:</span> <span class="n">handler</span><span class="o">;</span>
+            <span class="kd">final</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">mActions</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">count</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">Action</span> <span class="n">a</span> <span class="o">=</span> <span class="n">mActions</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+                <span class="n">a</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">v</span><span class="o">,</span> <span class="n">parent</span><span class="o">,</span> <span class="n">handler</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div><p>这个实现就是遍历<code>mActions</code>并执行每个<code>Action</code>对象的<code>apply()</code>方法, 这里猜想Action对象的apply方法就是真正操作View的地方.</p>
+<p><code>RemoteViews</code>在通知栏和桌面小部件中的工作过程和上面描述的过程是一致的. 当调用了<code>RemoteViews</code>的set方法时, 并不会立刻更新他们的界面, 而必须要通过<code>NotificationManager</code>的<code>notify</code>方法以及<code>AppWidgetManager</code>的<code>updateAppWidget</code>才能更新他们的界面. 实际上在<code>AppWidgetManager</code>的<code>updateAppWidget</code>内部实现中, 他们就是通过<code>RemoteViews</code>的<code>apply</code>以及<code>reapply</code>方法来加载或者更新布局的. <code>apply</code>和<code>reApply</code>的区别在于:前者会加载布局并更新界面, 而后者只会更新界面. 通知栏和桌面小部件在初始化界面的时候回调用<code>apply()</code>方法, 而在后续的更新界面时则会调用<code>reapply()</code>方法.</p>
+<p>了解了<code>apply()</code>以及<code>reapply()</code>的作用后, 接着看<code>Action</code>的子类具体实现, 先看<code>ReflectionAction</code>的具体实现.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ReflectionAction</span> <span class="kd">extends</span> <span class="n">Action</span> <span class="o">{</span>
+   <span class="c1">//省略部分代码    ...
+</span><span class="c1"></span>  
+
+   <span class="n">String</span> <span class="n">methodName</span><span class="o">;</span>
+   <span class="kt">int</span> <span class="n">type</span><span class="o">;</span>
+   <span class="n">Object</span> <span class="n">value</span><span class="o">;</span>
+
+   <span class="n">ReflectionAction</span><span class="o">(</span><span class="kt">int</span> <span class="n">viewId</span><span class="o">,</span> <span class="n">String</span> <span class="n">methodName</span><span class="o">,</span> <span class="kt">int</span> <span class="n">type</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">viewId</span> <span class="o">=</span> <span class="n">viewId</span><span class="o">;</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">methodName</span> <span class="o">=</span> <span class="n">methodName</span><span class="o">;</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">type</span> <span class="o">=</span> <span class="n">type</span><span class="o">;</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+   <span class="o">}</span>
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">apply</span><span class="o">(</span><span class="n">View</span> <span class="n">root</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">rootParent</span><span class="o">,</span> <span class="n">OnClickHandler</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+       <span class="kd">final</span> <span class="n">View</span> <span class="n">view</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">viewId</span><span class="o">);</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">view</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+
+       <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">param</span> <span class="o">=</span> <span class="n">getParameterType</span><span class="o">();</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">param</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">throw</span> <span class="k">new</span> <span class="n">ActionException</span><span class="o">(</span><span class="s">&#34;bad type: &#34;</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">type</span><span class="o">);</span>
+       <span class="o">}</span>
+
+       <span class="k">try</span> <span class="o">{</span>
+           <span class="n">getMethod</span><span class="o">(</span><span class="n">view</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">methodName</span><span class="o">,</span> <span class="n">param</span><span class="o">).</span><span class="na">invoke</span><span class="o">(</span><span class="n">view</span><span class="o">,</span> <span class="n">wrapArg</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">value</span><span class="o">));</span>
+       <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ActionException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">throw</span> <span class="n">e</span><span class="o">;</span>
+       <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">throw</span> <span class="k">new</span> <span class="n">ActionException</span><span class="o">(</span><span class="n">ex</span><span class="o">);</span>
+       <span class="o">}</span>
+   <span class="o">}</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p><code>ReflectionAction</code>表示的是一个反射动作, 通过它对View的操作会以反射的方式来调用, 其中<code>getMethod</code>就是根据方法名来得到反射所需要的<code>Method对象</code>. 除了<code>ReflectionAction</code>, 还有其他的<code>Action</code>. 例如: <code>TextViewSizeAction</code>, <code>ViewPaddingAction</code>, <code>SetOnClickPendingIntent</code>等.  看一下<code>TextViewSizeAction</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">class</span> <span class="nc">TextViewSizeAction</span> <span class="kd">extends</span> <span class="n">Action</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="nf">TextViewSizeAction</span><span class="o">(</span><span class="kt">int</span> <span class="n">viewId</span><span class="o">,</span> <span class="kt">int</span> <span class="n">units</span><span class="o">,</span> <span class="kt">float</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">viewId</span> <span class="o">=</span> <span class="n">viewId</span><span class="o">;</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">units</span> <span class="o">=</span> <span class="n">units</span><span class="o">;</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">size</span> <span class="o">=</span> <span class="n">size</span><span class="o">;</span>
+   <span class="o">}</span>
+   
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">apply</span><span class="o">(</span><span class="n">View</span> <span class="n">root</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">rootParent</span><span class="o">,</span> <span class="n">OnClickHandler</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+       <span class="kd">final</span> <span class="n">TextView</span> <span class="n">target</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">root</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">viewId</span><span class="o">);</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">target</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+       <span class="n">target</span><span class="o">.</span><span class="na">setTextSize</span><span class="o">(</span><span class="n">units</span><span class="o">,</span> <span class="n">size</span><span class="o">);</span>
+   <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">getActionName</span><span class="o">()</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="s">&#34;TextViewSizeAction&#34;</span><span class="o">;</span>
+   <span class="o">}</span>
+
+   <span class="kt">int</span> <span class="n">units</span><span class="o">;</span>
+   <span class="kt">float</span> <span class="n">size</span><span class="o">;</span>
+
+   <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">13</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>这个类没有使用反射, 因为setTextSize的方法有两个参数,因此无法复用<code>ReflectionAction</code>, 因为这个反射调用只能有一个参数.</p>
+<p>关于单击事件, <code>RemoteViews</code>只支持发起<code>PendingIntent</code>,不支持<code>onClickListener()</code>这种模式.</p>
+<p><code>setOnClickPendingIntent</code>,<code>setPendingIntentTemplate</code>,<code>setOnClickFillIntent</code>这三个的区别.</p>
+<p><code>setOnClickPendingIntent</code>: 只支持普通View设置点击事件, 不能给集合(<code>ListView</code>,<code>StackView</code>)中的View设置点击事件,如item. 因为开销比较大, 系统禁止了这种方式. 如果要给集合中的item添加点击事件,则必须使用后两种组合使用才可以.</p>
+<h2 id="remoteviews的意义">RemoteViews的意义</h2>
+<p>可以模拟一个通知栏效果并实现跨进程的UI更新.</p>
+<p>恩, 详情去看书吧, 不写了在书的<em>239页</em></p>
+<blockquote>
+<p>下一章: Android中的 Drawable</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-08-11</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-05-%E7%90%86%E8%A7%A3remoteviews/" data-title="《Android 开发艺术探索》 05-理解RemoteViews" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-05-%E7%90%86%E8%A7%A3remoteviews/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-05-%E7%90%86%E8%A7%A3remoteviews/" data-title="《Android 开发艺术探索》 05-理解RemoteViews" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-05-%E7%90%86%E8%A7%A3remoteviews/" data-title="《Android 开发艺术探索》 05-理解RemoteViews"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-05-%E7%90%86%E8%A7%A3remoteviews/" data-title="《Android 开发艺术探索》 05-理解RemoteViews" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-05-%E7%90%86%E8%A7%A3remoteviews/" data-title="《Android 开发艺术探索》 05-理解RemoteViews" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-05-%E7%90%86%E8%A7%A3remoteviews/" data-title="《Android 开发艺术探索》 05-理解RemoteViews" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-05-%E7%90%86%E8%A7%A3remoteviews/" data-title="《Android 开发艺术探索》 05-理解RemoteViews"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A204-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="prev" rel="prev" title="《Android 开发艺术探索》 04-View的工作原理"><i class="fas fa-angle-left fa-fw"></i>《Android 开发艺术探索》 04-View的工作原理</a>
+            <a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-06-android%E7%9A%84drawable/" class="next" rel="next" title="《Android 开发艺术探索》 06-Android的Drawable">《Android 开发艺术探索》 06-Android的Drawable<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

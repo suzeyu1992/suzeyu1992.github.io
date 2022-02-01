@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>shell - 标签 - Blog</title>
+        <link>http://suzeyu.cc:20003/tags/shell/</link>
+        <description>shell - 标签 - Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Mon, 26 Dec 2016 15:33:50 &#43;0000</lastBuildDate><atom:link href="http://suzeyu.cc:20003/tags/shell/" rel="self" type="application/rss+xml" /><item>
+    <title>shell常用小手册</title>
+    <link>http://suzeyu.cc:20003/posts/shell%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%89%8B%E5%86%8C/</link>
+    <pubDate>Mon, 26 Dec 2016 15:33:50 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.cc:20003/posts/shell%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%89%8B%E5%86%8C/</guid>
+    <description><![CDATA[文件系统 遍历目录 格式: cd destination # 绝对文件路径 $ cd /usr/bin # 相对文件路径 进入当前目录下的doc文件夹 $ cd doc # 进入当前文件夹的同级目录pics $ cd ../pics 查看当]]></description>
+</item></channel>
+</rss>

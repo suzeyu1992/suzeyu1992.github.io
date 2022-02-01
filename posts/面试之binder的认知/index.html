@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>面试之Binder的认知 - Blog</title><meta name="Description" content=""><meta property="og:title" content="面试之Binder的认知" />
+<meta property="og:description" content="说一说你对Binder的理解&hellip; Binder为何存在 在日常代码编写中. 我们总是会理所应当的对函数进行调用, 对变量进行访问. 之所以" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2017-02-08T17:04:50+00:00" />
+<meta property="article:modified_time" content="2017-02-08T17:04:50+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="面试之Binder的认知"/>
+<meta name="twitter:description" content="说一说你对Binder的理解&hellip; Binder为何存在 在日常代码编写中. 我们总是会理所应当的对函数进行调用, 对变量进行访问. 之所以"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "面试之Binder的认知",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5\/"
+        },"genre": "posts","keywords": "android","wordcount":  7620 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5\/","datePublished": "2017-02-08T17:04:50+00:00","dateModified": "2017-02-08T17:04:50+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">面试之Binder的认知</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-02-08">2017-02-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7620 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 16 分钟&nbsp;<span id="/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/" class="leancloud_visitors" data-flag-title="面试之Binder的认知">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#binder为何存在">Binder为何存在</a></li>
+    <li><a href="#binder体系结构">Binder体系结构</a></li>
+    <li><a href="#组成元素之binder驱动">组成元素之Binder驱动</a></li>
+    <li><a href="#组成元素之servicemanager">组成元素之ServiceManager</a>
+      <ul>
+        <li><a href="#service-manager的启动">Service Manager的启动</a></li>
+        <li><a href="#service-manager的构建">Service Manager的构建</a></li>
+        <li><a href="#service-manger的获取">Service Manger的获取</a></li>
+        <li><a href="#ibinder和bpbinder">IBinder和BpBinder</a></li>
+        <li><a href="#processstate和ipcthreadstate">ProcessState和IPCThreadState</a></li>
+        <li><a href="#重点元素的简要整理">重点元素的简要整理</a></li>
+      </ul>
+    </li>
+    <li><a href="#组成元素之binder-client">组成元素之Binder Client</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>说一说你对Binder的理解&hellip;</p>
+</blockquote>
+<h2 id="binder为何存在">Binder为何存在</h2>
+<p>在日常代码编写中. 我们总是会理所应当的对函数进行调用, 对变量进行访问. 之所以能顺利访问时因为所有的<strong>函数</strong>和<strong>变量</strong>都在同一个<code>进程</code>之中.  也就是说因为在一个<code>内存空间</code>中. 虚拟地址的映射规则完全一致.  而如果想访问的是其他进程的函数或者变量, 是不可能直接通过<strong>内存地址</strong>来直接进行访问的.</p>
+<p>既然进程之间不能访问, 那么如果通过<code>间接</code>的方法建立一条通道应该就可以解决了问题. 而<code>Binder</code>就是这样一个东西.</p>
+<p><code>Binder</code>是<code>Android</code>中使用最广泛的<code>IPC(Inter Process Communication)</code>进程间通信机制.</p>
+<p>例如. 比如<code>访问手机短信,联系人</code>, <code>startActivity()编写项目时我们新建一个界面</code>, <code>服务,广播,内容提供者</code>. <code>WMS窗口管理所有View的显示删除</code>等等. 几乎可以说<code>Binder</code>相当于人体的心脏可以让血液传输到各个地方提供声明的持续的保障.</p>
+<h2 id="binder体系结构">Binder体系结构</h2>
+<p>由于<code>Google</code>对<code>Binder</code>封装的很好. 以至于我们都不容易发现它的存在. 并且因为<code>Binder</code>机制涉及的东西即多又杂,往往会走错路.</p>
+<p>那么通过一个大体的执行流程, 和场景对比. 可以加深对整体的认知.</p>
+<p><code>Binder体系</code>有四个组成元素. 和网络中<code>TCP/IP</code>很相似,如下对应关系</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Binder体系</th>
+<th style="text-align:center">TCP/IP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Binder驱动</td>
+<td style="text-align:center">路由器</td>
+</tr>
+<tr>
+<td style="text-align:center">Service Manager</td>
+<td style="text-align:center">DNS</td>
+</tr>
+<tr>
+<td style="text-align:center">Binder Client</td>
+<td style="text-align:center">客户端</td>
+</tr>
+<tr>
+<td style="text-align:center">Binder Server</td>
+<td style="text-align:center">服务器</td>
+</tr>
+</tbody>
+</table>
+<p>比如我们需要访问<code>www.baidu.com</code>.那么四个角色的大体流程是这样的.</p>
+<ol>
+<li><code>客户端</code>输入网址告诉<code>路由器</code>我要查询<code>域名www.baidu.com</code>.</li>
+<li><code>路由器</code>此时不知道<code>域名对应的ip地址</code>所以需要到<code>DNS</code>去查询对应的<code>IP</code>并告知<code>路由器</code></li>
+<li><code>路由器</code>在接收到<code>返回的IP</code>地址时会相应的返回给<code>客户端</code></li>
+<li><code>客户端</code>拿到<code>IP</code>地址再对<code>路由器</code>进行<code>IP</code>连接的发送请求.</li>
+<li><code>路由器</code>会连接到对应的<code>服务器</code>并建立连接返回给<code>客户端</code></li>
+</ol>
+<p>这里需要注意<code>DNS</code>其实本质上也是一个<code>服务器</code>, 只不过这个<code>服务器</code>比较特殊. 它可以提供<code>域名与IP</code>的对应关系, 并且其本身的<code>IP</code>地址提前就已经预设好的(客户端是知道DNS的IP).</p>
+<p><code>Binder</code>的原型结构如下图:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="binder_structure.png"
+        data-srcset="binder_structure.png, binder_structure.png 1.5x, binder_structure.png 2x"
+        data-sizes="auto"
+        alt="binder_structure.png"
+        title="binder_structure.png" /></p>
+<p>总结上图那么就是: <code>进程1(Client)</code>需要访问<code>进程2(Server)</code>, 需要借助<code>Binder驱动</code>来把请求传递到<code>进程2</code>中. 而参与通信的进程们需要持有<code>Binder</code>分配的<code>唯一标识</code>, 而这个<code>唯一标识</code>被保存到<code>SM(Servier Manager,后面简称SM)中</code>. 所以如果<code>进程1</code>想通过<code>Binder Driver</code>进行访问要知道<code>进程2</code>的<code>binder标识</code>所以需要先对<code>SM</code>进行查询相当于<code>网络中DNS</code>查询. 通过查询到<code>标识</code>来进行最终的请求.</p>
+<p>之前说过<code>DNS</code>也相当于<code>服务器</code>, 只不过比较特殊, 因为对于<code>Client</code>是预先知道其<code>IP</code>地址的.  那么<code>SM</code>作为功能相同的<code>DNS</code>, 其对应的<code>Binder标识</code>. 对于其他<code>Client进程</code>来说同样是预先知道的. 因为<code>Service Manger</code>在<code>Binder</code>通信过程中的<code>Binder标识</code>永远是<code>0</code>.</p>
+<h2 id="组成元素之binder驱动">组成元素之Binder驱动</h2>
+<p>关于<code>Binder驱动</code>稍微了解即可.</p>
+<p>由于<code>Android</code>系统是基于<code>Linux</code>内核的, 所以<code>Binder驱动</code>也必须是一个标准的<code>Linux</code>驱动. 也就是<code>Binder Driver</code>会将自己注册成一个<code>misc device</code>并向上层提供一个<code>/dev/binder</code>节点. (注意: <code>Binder</code>节点并不对应真实的硬件设备, <code>Binder驱动</code>运行于内核态)</p>
+<hr>
+<p>那么为什么把<code>Binder</code>注册成一个<code>misc device</code>类型的驱动?</p>
+<p><code>Linux</code>中的字符设备通常要经过<code>alloc_chrdev_region()</code>,<code>cdev_init()</code>等一系列操作才能在内核中注册完成. 而<code>misc</code>类型驱动则比较简单, 只需要调用<code>misc_register()</code>既可以完成.</p>
+<hr>
+<p>例如上图<code>进程1</code>要访问<code>Binder Driver</code>时,通常要做如下操作:</p>
+<ol>
+<li>打开<code>Binder</code>驱动. 通过<code>Binder.c#binder_open()</code>打开</li>
+<li>与<code>Binder驱动</code>建立连接. 通过<code>binder_mmap()</code>. <code>mmap()</code>可以把设备指定的内存块直接映射到应用程序的内存空间. (应用程序通过<code>mmap()</code>获得的虚拟内存地址和<code>Binder中指针</code>指向的虚拟内存地址经过转换其实都指向一个<code>物理地址</code>, 这也是<code>Binder驱动</code>只用了<strong>一次</strong>复制就可以实现进程间的数据共享的原因)</li>
+<li>建立连接之后当然就是操作驱动. <code>Binder</code>并没提供常规文件操作如<code>read()</code>,<code>write()</code>等.  而是用了一个更强大的接口函数<code>binder_ioctl()</code>.</li>
+</ol>
+<h2 id="组成元素之servicemanager">组成元素之ServiceManager</h2>
+<p>首先要知道<code>SM</code>的重要性. 当手机开机的时候会注册许多的系统服务来撑起整个手机的运行. 如<code>ActivityManagerService</code>, <code>InputManagerService</code>,<code>WindowManagerService</code>等等. 在之后我们开发的<code>app</code>启动的显示界面, 播放声音, 打开界面等等都是需要先获取系统服务才可以进行后续的操作.  而这些所有的操作都必须要经过<code>SM</code>才可以获取到.  <code>SM</code>是一个完成的映射表有了这个表我们可以去找任何一个手机里面的任何一个服务.</p>
+<hr>
+<p>既然把<code>SM</code>比作<code>DNS</code>并且<code>SM</code>本身也是一个<code>Binder Server服务端</code>, 只不过这个<code>Binder标识为0(相当于IP地址)</code>. 我们在任何地方都可以通过<code>binder id = 0</code>来向<code>Binder驱动</code>获取到<code>SM</code>, 通过<code>SM</code>查询各种系统的服务来得到对应的<code>binder标识(IP)</code>来进行具体的系统服务互动.</p>
+<h3 id="service-manager的启动">Service Manager的启动</h3>
+<p>由于<code>SM</code>的重要性,以及前提性. 我们可以大概猜出其应该尽可能在系统启动的最开始就进行加载. 那么<code>Android系统</code>的启动首先加载的就是<code>init.rc</code>.</p>
+<p>从这个文件可以得到的信息是:  一旦当<code>SM</code>系统发生异常之后重启, 那么其他的系统服务如<code>zygote</code>,<code>media</code>,<code>surfaceflinger</code>等也会重启.</p>
+<p><code>SM</code>用的<code>C/C++</code>编写, 和其他系统服务用<code>Java</code>编写略有不同.</p>
+<h3 id="service-manager的构建">Service Manager的构建</h3>
+<p>当<code>SM</code>启动了之后, 首先做了如下的事情:</p>
+<ol>
+<li>打开<code>Binder</code>设备, 进行初始化</li>
+<li>通过<code>ioctl()命令</code>注册flag为<code>BINDER_SET_CONTEXT_MGR</code>来让自己成为系统的管理者. 并生成了在<code>Binder驱动</code>中对应的<code>Binder Id = 0</code></li>
+<li>然后通过循环开始等待<code>客户端</code>的请求.</li>
+</ol>
+<hr>
+<h3 id="service-manger的获取">Service Manger的获取</h3>
+<p>既然这个<code>SM</code>这个<strong>服务管家</strong>已经构建完毕并且等待着被其他客户端使用. 那么就以<code>SM</code>为<code>服务端</code>. 走一遍<code>client客户端</code>去访问<code>server服务端</code>的流程.</p>
+<blockquote>
+<p>虽然<code>SM</code>是基于<code>native</code>实现的, 但是由于<code>Binder Client</code>和<code>Binder Server</code>都是围绕着<code>Binder驱动</code>展开的, 因而只要能正确使用<code>Binder驱动</code>. 何种语言并不是固定的.</p>
+</blockquote>
+<p>想要访问<code>SM</code>其实主要流程就是如下三步</p>
+<ol>
+<li>打开<code>Binder</code>设备, 执行<code>mmap</code></li>
+<li>通过<code>Binder驱动</code>向<code>SM</code>发送请求. (SM的binder handler = 0)</li>
+<li>获取最终结果</li>
+</ol>
+<p>如果你看过<code>Binder</code>类你可能看到很多的比较别扭的术语<code>asBinder</code>,<code>asInterface</code>, <code>BpBinder</code>, <code>transaction</code>,<code>IBinder</code>等.  不需要死记这些东西, 因为这些都是都是从<code>如何提供Binder Server服务</code>这个问题而衍生的解决方案. 顺着主干线即一点点理解即可.</p>
+<hr>
+<p>试想一下如果我们需要设计<code>Client客户端</code>应该怎么做?</p>
+<p><strong>ProcessState和IPCThreadState</strong></p>
+<p>我们需要一个类来专门管理每个应用进程中的<code>Binder</code>操作, 而且关于<code>Binder驱动</code>的一系列命令对上层用户应该是<code>透明的</code>, 这个类对应的就是<code>ProcessState</code>.</p>
+<p>并且进程中的每一个线程都应该有与<code>Binder驱动</code>自由沟通的能力, 并且由于<code>Binder的IPC</code>通信是<strong>阻塞</strong>的, 所以可以保证个别线程在做进程间的通信的时候不会卡死整个应用程序.  所以<code>IPCThreadState</code>就是与<code>Binder驱动</code>进行实际命令的通信的类.</p>
+<hr>
+<p><strong>proxy</strong></p>
+<p>虽然通过<code>ProcessState</code>和<code>IPCThreadState</code>就可以让<code>Client</code>与<code>Binder驱动</code>进行通信了, 但是更好的方法是进行进一步的封装. 代理的出现可以让操作<code>SM</code>更加的简单, 封装成<code>ServiceManagerProxy</code>自后. 就可以提高模块与其他模块的无关性和便利性.</p>
+<p>还记得这样的代码片段么</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">getService</span><span class="o">(</span><span class="s">&#34;window&#34;</span><span class="o">);</span>
+</code></pre></div><p>这样对于上层来说, 只需要接收要获取的<code>服务端字符串名称</code>即可.</p>
+<p>既然是代理, 那么<code>ServiceManagerProxy(用户进程)</code>和<code>ServiceManager</code>应该具有相同的功能, 所以就可以向上提取出<code>IServiceManager</code>接口添加接口函数<code>getService()</code>,<code>addService()</code>等共同的函数.</p>
+<p>那么<code>IServiceManager</code>接口的实现就需要完成</p>
+<ol>
+<li>与<code>Binder</code>建立关系, 由于进程中存在<code>ProcessState</code>和<code>IPCThreadState</code>专门负责与<code>Binder驱动</code>通信(<code>Native层</code>), 而<code>Java层</code>基于上面两个类的实现称为<code>BpBinder</code>.</li>
+<li>向<code>Binder</code>发送命令, 获取SM提供的服务</li>
+</ol>
+<p>整理成一张图就是如下.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="binder_proxy.png"
+        data-srcset="binder_proxy.png, binder_proxy.png 1.5x, binder_proxy.png 2x"
+        data-sizes="auto"
+        alt="binder_proxy.png"
+        title="binder_proxy.png" /></p>
+<p>该图描绘了<code>Binder模型中</code>的<strong>上层建筑</strong>.</p>
+<hr>
+<p>但是我们在获取服务的时候是使用的<code>ServiceManager.java</code>这个类, 这个类其实是<code>ServiceManagerProxy</code>的进一步封装.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">getSystemService</span><span class="o">(</span><span class="n">WINDOW_SERVICE</span><span class="o">);</span>
+</code></pre></div><p>当在代码中获取服务的时候. 内部首先查询缓存, 是否存在记录, 如果没有则会发送一条查询请求. 在请求过程中如果是第一次使用<code>SM</code>. 那么会调用<code>ServiceManagerNative.asInterface(BinderInternal.getContextObject())</code>获取一个<code>IServiceManger</code>.  <code>asInterface</code>函数会将一个<code>Binder</code>对象转换成<code>IServiceManager</code></p>
+<p>整理成两步就是:</p>
+<ol>
+<li>查询进程本地是否已经有了<code>IServiceManager</code></li>
+<li>如果没有 那么就新建一个<code>ServiceManagerProxy</code></li>
+</ol>
+<hr>
+<p>既然最后转到了<code>ServiceManagerProxy</code>的<code>getService(String name)</code>. 那么内部实现也就很明确了.</p>
+<ol>
+<li>通过<code>Parcel</code>打包数据.</li>
+<li>利用<code>IBinder#transact()</code>将请求发送出去,  内部就是使用封装好的<code>native层</code>的<code>ProcessState</code>和<code>IPCThreadState</code>来进行与驱动的通信.</li>
+<li><code>transact()</code>函数之后, 就可以获取到结果. 同<code>socket</code>相似, 这是一种阻塞的函数调用. 因为涉及进程间通信, 结果并不是马上就能获取到. 所以<code>Binder</code>驱动会先将调用者的线程<code>挂起</code>, 直到有了结果才会把它唤醒.</li>
+</ol>
+<h3 id="ibinder和bpbinder">IBinder和BpBinder</h3>
+<p>当进程第一次使用<code>SM</code>时, 会创建<code>ServiceManagerProxy</code>并传入了一个<code>IBinder</code>对象. 通过其<code>transact()</code>函数就可以与<code>binder驱动</code>通信.</p>
+<p>那么<code>IBinder</code>的内部实现和功能就是也很简单.</p>
+<ul>
+<li>接收<code>Native层的ProcessState中创建的Binder对象</code>并转化中<code>Java层的IBinder对象</code>.</li>
+<li><code>IBinder</code>只是一个接口类, <code>native层</code>对应实现类是<code>BpBinder.cpp</code>, <code>Java层</code>则是<code>Binder.java的内部类BinderProxy</code>.</li>
+</ul>
+<h3 id="processstate和ipcthreadstate">ProcessState和IPCThreadState</h3>
+<p><strong>ProcessState</strong></p>
+<p>主要功能:</p>
+<ul>
+<li>保证同一个进程中只有一个<code>ProcessState</code>实例存在, 并且只有在<code>ProcessState</code>对象创建时才打开<code>Binder设备</code>以及做内存映射.</li>
+<li>向上层提供<code>IPC服务</code></li>
+<li>与<code>IPCThreadState</code>分工合作, 各司其职.</li>
+</ul>
+<hr>
+<p><strong>IPCThreadState</strong></p>
+<p>当需要时才会创建. 并且是<code>线程中</code>单实例.</p>
+<p><code>IPCThreadState</code>负责与<code>Binder驱动</code>进行具体的命令交互. 主要集中在<code>transact()</code>中.</p>
+<p>先整理一下到目前为止的调用流程:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">ServiceManagerProxy</span><span class="err">#</span><span class="n">getService</span><span class="o">()</span>  <span class="o">--&gt;</span>
+<span class="n">BinderProxy</span><span class="err">#</span><span class="n">transact</span><span class="o">()</span>            <span class="o">--&gt;</span>
+<span class="n">BpBinder</span><span class="err">#</span><span class="n">transact</span><span class="o">()</span>               <span class="o">--&gt;</span>
+<span class="n">IPCThreadState</span><span class="err">#</span><span class="n">transact</span><span class="o">()</span>
+</code></pre></div><p>由于内部很多操作底层并且c代码. 有兴趣的可以查看<code>&lt;深入理解Android内核设计思想中的6.4.5节&gt;</code>. 这里做一个简短流程.</p>
+<p>接着上面进入到了<code>IPCThreadState类的transact()</code>函数中.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">通过调用</span>
+<span class="n">IPCThreadState</span><span class="err">#</span><span class="n">waitForResponse</span><span class="o">()</span> <span class="o">--&gt;</span>
+<span class="n">IPCThreadState</span><span class="err">#</span><span class="n">talkWithDriver</span><span class="o">()</span>  <span class="o">--&gt;</span>
+<span class="n">Binder</span><span class="o">.</span><span class="na">c</span><span class="err">#</span><span class="n">binder_ioctl</span><span class="o">()</span>          <span class="o">--&gt;</span>
+<span class="n">Binder</span><span class="o">.</span><span class="na">c</span><span class="err">#</span><span class="n">binder_thread_read</span><span class="o">()</span>
+</code></pre></div><p>此时调用者也就是<code>client</code>线程就会进入睡眠等待. 直到它发起的服务请求已经回复, 才会<strong>被唤醒</strong>并接收结果.</p>
+<h3 id="重点元素的简要整理">重点元素的简要整理</h3>
+<p><strong>ServiceManagerProxy</strong></p>
+<p>当某个<code>Binder Service</code>启动时, 会把自己的名称<code>name</code>和对应的<code>Binder句柄(唯一标识)</code>保存在<code>SM</code>中. 调用者通常只知道<code>Binder Service</code>的名称, 所以必须先向<code>SM</code>发起查询请求.</p>
+<p>而<code>SM</code>同样是一个<code>Binder Service</code>不同的是其<code>Binder句柄==0</code>. 所以任何的<code>Binder Client</code>都可以通过<code>Binder=0</code>创建一个<code>BpBinder</code>, 再通过<code>Binder驱动</code>来获取<code>SM</code>的服务.</p>
+<p>由于同时支持<code>Android</code>和<code>C/C++</code>的Binder机制, 所以很多对象都具备了双重的身份,</p>
+<hr>
+<p><strong>ProcessState和IPCThreadState</strong></p>
+<p>大多数程序都<code>IPC</code>的需要, 而进程间通信本身又是非常繁琐的, 因为<code>Android</code>系统特别为程序进程使用<code>Binder机制</code>封装了两个实现类.  一个负责驱动的打开并做<code>mmap()</code>映射. 另一个就是负责具体的驱动交互.</p>
+<hr>
+<p><strong>binder驱动</strong></p>
+<p><code>Binder驱动</code>通过巧妙的机制让数据传递更加的高效. 只需要一次复制就可以把数据从一个进程复制到另一个进程. <code>Binder</code>中还保存着大量的全局以及进程相关的变量, 用于管理每个进程/线程的状态,内存申请和代办事项等数据信息. 通过这些变量的有效协作, 整个<code>Binder</code>通信得以流动起来.</p>
+<hr>
+<p><strong>Service Manager</strong></p>
+<p><code>SM</code>在<code>Android</code>系统启动之后就运行起来了, 并通过<code>BINDER_SET_CONTEXT_MGR</code>把自己注册成<code>Binder</code>的管理者. 在其进行完初始化之后, 会进入<strong>睡眠等待</strong>, 直到有<code>Binder Client</code>发起服务请求而被<code>Binder驱动</code>唤醒.</p>
+<p><code>SM</code>唤醒后, 程序分为两条主线索.</p>
+<ul>
+<li><code>SM</code>端将把调用者的具体请求读取出来并解析数据. 在根据实际情况填写<code>transaction</code>信息, 最后把结果通过<code>BR_REPLY</code>命令返回给<code>Binder驱动</code></li>
+<li>发起<code>getService()</code>请求的<code>Client</code>在等待<code>SM</code>回复的过程会进入休眠, 直到被<code>Binder</code>驱动唤醒. 当被唤醒的时候得到的就是<code>SM</code>的处理结果. 底层把结果填充到<code>reply</code>这个<code>Parcel</code>中, 然后向上层传递最终返回到<code>ServiceManagerProxy</code>, 再利用<code>Parcel.readStrongBinder</code>生成了一个<code>BpBinder</code>, 在经过类型转化为<code>IBinder</code>提供给应用层.</li>
+</ul>
+<p>得到了<code>IBinder</code>对于开发层我们就比较熟悉了. <code>IBinder</code>经过<code>asInterface</code>做一次包装. 例如<code>ServiceManger</code>的<code>BpBinder</code>就被包装成了<code>IServiceManager(实际就是ServiceManagerProxy)</code>, 这么做是为了让应用程序更好的使用<code>Service Manager</code>提供的服务. 其余的<code>Binder Service</code>也是类似.</p>
+<h2 id="组成元素之binder-client">组成元素之Binder Client</h2>
+<p><code>Binder</code>的最大消费者是<code>Java层</code>的应用程序. 但是从开发人员的角度来看, 似乎并不需要过多的关心就可以安全方便的使用<code>binderService</code>, <code>startActivity</code>, <code>sendBroadcast</code>等一系列接口方法来实现与其他进程的交互.</p>
+<p>比如:</p>
+<ul>
+<li><code>Activity</code> 通过<code>startActivity</code>可以启动目标进程</li>
+<li><code>Service</code> 任何应用程序都可以通过<code>startService</code>或<code>bindService</code>来启动特定的服务, 而无论后者是否属于跨进程.</li>
+<li><code>Broadcast</code> 任何应用程序都可以通过<code>sendBroadcast</code>来发送一个广播, 且无论广播处理者是不是在同一个进程中</li>
+<li>&hellip;</li>
+</ul>
+<p>这里以<code>bindService</code>为例, 来揭示出这些常用方法背后的<code>Binder</code>内部大体流程.</p>
+<p>那么绑定一个<code>service</code>成功有哪几个关键点?</p>
+<ol>
+<li>应用程序填写<code>Intent</code>. 调用<code>bindService</code>发出请求</li>
+<li>收到请求<code>bindService</code>*(还在应用程序空间中)*将于<code>ActivityManagerService(AMS)</code>取得联系. 为了获得<code>AMS</code>的<code>Binder句柄</code>还要先调用<code>ServiceManager.getService()</code>来进行查询获取. 这个时候就已经涉及了进程间通信. 得到了<code>AMS</code>的句柄值后, 程序才能真正的向它发起请求.</li>
+<li><code>AMS</code>基于特定的<strong>最优匹配策略</strong>, 从其内部存储的系统所有服务组件集合中找到与<code>Intent</code>最匹配的一个, 然后向它发送<code>Service</code>绑定请求*(同样进程间通信)*. 如果目标不存在那么<code>AMS</code>会将其先启动起来.</li>
+<li>被绑定的服务进程需要响应绑定, 执行具体操作, 并在成功完成后通知<code>AMS</code>然后由后者再回调发起者请求的应用程序*(回调接口ServiceConnection)*</li>
+</ol>
+<p>ok从<code>bindService()</code>函数作为切入点. <code>Activity</code>的祖先类是<code>Context</code>. 而<code>bindService()</code>是从祖先类继承而来. 而<code>Context</code>本身是一个抽象类. 具体的功能实现是<code>ContextImpl</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 跟踪bindService()函数会发现如下, 出现了ActivityManager
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">ActivityManagerNative</span><span class="o">.</span><span class="na">getDefault</span><span class="o">().</span><span class="na">bindService</span><span class="o">(</span>
+                <span class="n">mMainThread</span><span class="o">.</span><span class="na">getApplicationThread</span><span class="o">(),</span> <span class="n">getActivityToken</span><span class="o">(),</span> <span class="n">service</span><span class="o">,</span>
+                <span class="n">service</span><span class="o">.</span><span class="na">resolveTypeIfNeeded</span><span class="o">(</span><span class="n">getContentResolver</span><span class="o">()),</span>
+                <span class="n">sd</span><span class="o">,</span> <span class="n">flags</span><span class="o">,</span> <span class="n">getOpPackageName</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getIdentifier</span><span class="o">());</span>
+                
+<span class="c1">// 继续查看getDefault()是什么
+</span><span class="c1"></span><span class="kd">static</span> <span class="kd">public</span> <span class="n">IActivityManager</span> <span class="nf">getDefault</span><span class="o">()</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="n">gDefault</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Singleton</span><span class="o">&lt;</span><span class="n">IActivityManager</span><span class="o">&gt;</span> <span class="n">gDefault</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Singleton</span><span class="o">&lt;</span><span class="n">IActivityManager</span><span class="o">&gt;()</span> <span class="o">{</span>
+   <span class="kd">protected</span> <span class="n">IActivityManager</span> <span class="nf">create</span><span class="o">()</span> <span class="o">{</span>
+       <span class="c1">// 通过SM获取ActivityManagerService的IBinder对象
+</span><span class="c1"></span>       <span class="n">IBinder</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ServiceManager</span><span class="o">.</span><span class="na">getService</span><span class="o">(</span><span class="s">&#34;activity&#34;</span><span class="o">);</span>
+       <span class="c1">// 利用IInterface继承特性, 创建一个可用的ActivityManagerProxy,
+</span><span class="c1"></span>       <span class="n">IActivityManager</span> <span class="n">am</span> <span class="o">=</span> <span class="n">asInterface</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+       <span class="k">return</span> <span class="n">am</span><span class="o">;</span>
+   <span class="o">}</span>
+<span class="o">};</span>
+</code></pre></div><p>是否感觉和之前说的很相似?  <code>ActivityManagerNative</code>的作用之一就是帮助调用者方便快速地取得一个<code>ActivityManagerProxy</code>. 这个<code>ServiceManagerProxy</code>和<code>ServiceManagerNative</code>作用基本一致.  而其另一个作用就是为<code>AMS</code>的实现提供了便利例如其中的<code>onTransact()</code>函数.  这样只要在<code>AMS</code>中继承<code>ActivityManagerNative</code>就可以将用户业务请求码和自己的内部函数连接起来.</p>
+<p>所以可以总结出, <code>ActivityManagerNative(其他服务的Native也是一样)</code>既是面向调用者的, 也是面向服务实现本身的, 只不多<code>Native</code>这个名称比较容易让人迷惑.</p>
+<hr>
+<p>其实不管是调用何种服务何种形式. 整个<code>IPC</code>通信都是基于<code>Binder</code>驱动展开的. 以<code>Binder驱动</code>为中心. 可以有一个全局方向看的更加清楚.</p>
+<p>当应用程序需要通过<code>ServiceManager</code>来查询某个<code>Binder Server</code>时, 调用的是<code>getService()</code>. 几个关键点是: 之间面向程序的是<code>ServiceManager.java</code>, 它提供了很多静态函数来获取<code>SM</code>提供的服务. 这些静态函数内部通过<code>getIServiceManager</code>来得到<code>ServiceManagerProxy</code>对象. 后者作为<code>SM</code>的本地代理, 将利用<code>IBinder</code>来穿越<code>JNI层</code>调用到对应的<code>BpBinder</code>, 进而使用<code>ProccessState</code>和<code>IPCThreadState</code>的相关接口. 最终经由<code>Binder</code>驱动完成与<code>SM</code>的通信.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2017-02-08</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/" data-title="面试之Binder的认知" data-via="xxxx" data-hashtags="android"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/" data-title="面试之Binder的认知" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/" data-title="面试之Binder的认知"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/" data-title="面试之Binder的认知" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/" data-title="面试之Binder的认知" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/" data-title="面试之Binder的认知" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/" data-title="面试之Binder的认知"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/" class="prev" rel="prev" title="栈与队列"><i class="fas fa-angle-left fa-fw"></i>栈与队列</a>
+            <a href="/posts/android%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" class="next" rel="next" title="Android系统的启动流程">Android系统的启动流程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

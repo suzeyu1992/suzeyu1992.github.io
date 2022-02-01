@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android 编程实战》06-重识 BroadcastReceiver - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android 编程实战》06-重识 BroadcastReceiver" />
+<meta property="og:description" content="阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第8章 BroadcastReceiver Android中发送广播事件最常用的方式是通过Content.sendBroa" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-09-29T11:16:56+00:00" />
+<meta property="article:modified_time" content="2016-09-29T11:16:56+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android 编程实战》06-重识 BroadcastReceiver"/>
+<meta name="twitter:description" content="阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第8章 BroadcastReceiver Android中发送广播事件最常用的方式是通过Content.sendBroa"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9807-%E5%BA%8F%E5%88%97%E5%8C%96%E8%AF%B4%E6%98%8E/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android 编程实战》06-重识 BroadcastReceiver",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  5311 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver\/","datePublished": "2016-09-29T11:16:56+00:00","dateModified": "2016-09-29T11:16:56+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android 编程实战》06-重识 BroadcastReceiver</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-09-29">2016-09-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5311 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;<span id="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/" class="leancloud_visitors" data-flag-title="《Android 编程实战》06-重识 BroadcastReceiver">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#broadcastreceiver">BroadcastReceiver</a>
+      <ul>
+        <li><a href="#本地broadcastreceiver">本地BroadcastReceiver</a></li>
+        <li><a href="#普通广播和粘性广播">普通广播和粘性广播</a></li>
+        <li><a href="#粘性广播">粘性广播</a></li>
+        <li><a href="#定向广播">定向广播</a></li>
+        <li><a href="#启动和禁用广播接收器">启动和禁用广播接收器</a></li>
+        <li><a href="#系统广播intent">系统广播Intent</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>阅读《Android 编程实战》一书的抄书笔记  &ndash;&gt; 对应书籍第8章</p>
+</blockquote>
+<h2 id="broadcastreceiver">BroadcastReceiver</h2>
+<p><code>Android</code>中发送广播事件最常用的方式是通过<code>Content.sendBroadcast()</code>方法给<code>BroadcastReceiver</code>发送<code>Intent</code>对象. 许多标准系统事件都被定义成操作字符串, 并可以在<code>Intent</code>类的API文档中查看. 例如, 如果需要在用户连接或者断开充电器的时候收到通知, 可以使用<code>Intent</code>中定义的两个广播操作: <code>ACTION_POWER_DISCONNECTED</code>和<code>ACTION_POWER_CONNECTED</code>.</p>
+<hr>
+<p><strong>举例: 例如监听手机充电状态改变的广播</strong></p>
+<p>首先派生出一个<code>BroadcastReceiver</code>的子类.复写<code>onReceiver()</code>方法. 如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ChargerConnectedReceiver</span> <span class="kd">extends</span> <span class="n">BroadcastReceiver</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">ChargerConnectedReceiver</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">();</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_POWER_CONNECTED</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">action</span><span class="o">)){</span>
+            <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="s">&#34;手机充电啦&#34;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_POWER_DISCONNECTED</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">action</span><span class="o">)){</span>
+            <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="s">&#34;手机不充电了&#34;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>然后需要注册广播, 告诉系统在当哪一个<code>action</code>动作发生的时候需要回调我们自定的接收者的<code>onReceive()</code>方法. 这里有两种方法, <code>静态注册</code>和<code>动态注册</code>.</p>
+<p><strong>静态注册</strong></p>
+<p>在清单文件中声明这个广播组件, 并设置<code>intent-filter</code>即可</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;receiver</span> <span class="na">android:name=</span><span class="s">&#34;broadcast.ChargerConnectedReceiver&#34;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;intent-filter&gt;</span>
+      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.action.ACTION_POWER_CONNECTED&#34;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.action.ACTION_POWER_DISCONNECTED&#34;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/intent-filter&gt;</span>
+<span class="nt">&lt;/receiver&gt;</span>
+</code></pre></div><p><strong>动态注册</strong></p>
+<p>一般情况动态注册都是在<code>Activity</code>中的<code>onCreate()</code>和<code>onResume()</code>同时出现的. 例如:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ChargerConnectedActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">ChargerConnectedReceiver</span> <span class="n">chargerConnectedReceiver</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onResume</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onResume</span><span class="o">();</span>
+        <span class="c1">// 生成对于广播的 intent过滤条件
+</span><span class="c1"></span>        <span class="n">IntentFilter</span> <span class="n">intentFilter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntentFilter</span><span class="o">();</span>
+        <span class="n">intentFilter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_POWER_CONNECTED</span><span class="o">);</span>
+        <span class="n">intentFilter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_POWER_DISCONNECTED</span><span class="o">);</span>
+        <span class="n">chargerConnectedReceiver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ChargerConnectedReceiver</span><span class="o">();</span>
+        <span class="n">registerReceiver</span><span class="o">(</span><span class="n">chargerConnectedReceiver</span><span class="o">,</span> <span class="n">intentFilter</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPause</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onPause</span><span class="o">();</span>
+        <span class="n">unregisterReceiver</span><span class="o">(</span><span class="n">chargerConnectedReceiver</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>如果只在应用程序处于运行或活动状态时才关心广播事件时, 可以选择在代码中注册广播. 这样可以让应用程序消耗更少的资源; 如果在清单文件中声明, 则每当有事件发生时, 广播接收器都会启动, 因此会消耗更多资源.</p>
+<h3 id="本地broadcastreceiver">本地BroadcastReceiver</h3>
+<p>如果只是在应用程序进程内发送和接收广播, 那么可以使用<code>LocalBroadcastManager</code>而不是更常用的<code>Context.sendBroadcast()</code>方法. 这种方法更高效, 因为不需要跨进程管理操作, 也不需要考虑广播通常涉及的安全问题. 标准IPA中没有包含<code>LocalBroadcastManager</code>类, 但是可以在支持包(support_V4)中找到. 下面演示如何使用:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">LOCAL_BROADCAST_ACTION</span> <span class="o">=</span> <span class="s">&#34;localBroadcast&#34;</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">BroadcastReceiver</span> <span class="n">mLocalReceiver</span><span class="o">;</span>
+
+<span class="c1">// 注册本地广播
+</span><span class="c1"></span><span class="kd">private</span> <span class="kt">void</span> <span class="nf">initLocalBroadcast</span><span class="o">()</span> <span class="o">{</span>
+   <span class="n">LocalBroadcastManager</span> <span class="n">instance</span> <span class="o">=</span> <span class="n">LocalBroadcastManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">());</span>
+   <span class="n">IntentFilter</span> <span class="n">intentFilter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntentFilter</span><span class="o">(</span><span class="n">LOCAL_BROADCAST_ACTION</span><span class="o">);</span>
+
+   <span class="n">mLocalReceiver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BroadcastReceiver</span><span class="o">()</span> <span class="o">{</span>
+       <span class="nd">@Override</span>
+       <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">(),</span> <span class="s">&#34;本地广播接收到&#34;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+       <span class="o">}</span>
+   <span class="o">};</span>
+
+   <span class="n">instance</span><span class="o">.</span><span class="na">registerReceiver</span><span class="o">(</span><span class="n">mLocalReceiver</span><span class="o">,</span> <span class="n">intentFilter</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="c1">// 发送本地广播
+</span><span class="c1"></span><span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btn_send</span><span class="o">).</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">LocalBroadcastManager</span> <span class="n">instance</span> <span class="o">=</span> <span class="n">LocalBroadcastManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">());</span>
+      <span class="c1">// 上面定义的通电状态action
+</span><span class="c1"></span>      <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">LOCAL_BROADCAST_ACTION</span><span class="o">);</span>
+      <span class="n">instance</span><span class="o">.</span><span class="na">sendBroadcast</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">});</span>
+
+</code></pre></div><p>在应用程序内部使用本地广播来广播消息和状态也非常方便. 本地广播比标准的全局广播更高效和安全, 因为它不会把数据泄露给其他应用程序. 切记要和正常的接收器一样, 在对应的方法中要移除注册, 否则可能会有内存泄漏.</p>
+<h3 id="普通广播和粘性广播">普通广播和粘性广播</h3>
+<p>广播分为两种类型: <strong>普通广播</strong>和<strong>有序广播</strong>.</p>
+<ul>
+<li><strong>普通广播</strong>会以异步方式发送给所有的接收者, 并且没有指定的接收顺序. 该方式更加高效, 但是缺少有序广播额一些高级功能, 比如不能发送结果反馈.</li>
+<li><strong>有序广播</strong>按照特定的顺序分发, 每次只发给一个接收者, 开发者可以在清单文件中设置接收者的<code>intent-filter</code>标签的<code>android:priority</code>属性来控制广播的接收顺序. 有序广播还有另外一个特性: 通过使用<code>abortBroadcast()</code>, <code>setResultCode()</code>和<code>setResultData()</code>方法, 接收者可以把结果回传给广播, 或者终止广播的分发, 这样<code>Intent</code>就不会传递给下一个广播接收者.</li>
+</ul>
+<p>有序广播由<code>Context.sendOrderedBroadcast()</code>发起, 在接收者的<code>onReceive()</code>回调中, 通过<code>isOrderedBroadcast()</code>来判断该广播是否是有序广播. 如果是, 可以通过上面<code>setXxxx()</code>方法设置要传递下去的数据.</p>
+<p>日常开发很少需要在自己的应用程序发送有序广播, 但如果要跟其他应用程序通信(比如插件), 有序广播就有用途. 在Android系统中, 有序广播最常见的场景就是监听传入的短信(隐藏API)的一部分. 后面篇幅会说.</p>
+<h3 id="粘性广播">粘性广播</h3>
+<p><code>粘性广播(sticky broadcast)</code> 是一个普通广播的变体, 它和普通广播有细微的区别. 粘性广播在使用<code>Context.sendStickyBroadcast()</code>发送<code>Intent</code>之后, 该<code>Intent</code>还会&quot;继续保留&quot;, 允许之后匹配由该<code>Intent</code>新注册的广播接收者, 并发送<code>Intent</code>.(<a href="https://github.com/suzeyu1992/AndroidProgrammingPushingTheLimits/commit/ec42e2e44877f5b4b3c5363600646c4e808929e3" target="_blank" rel="noopener noreffer">查看验证代码</a>)</p>
+<p>粘性广播的一个例子是<code>Intent.ACTION_BATTERY_CHANGED</code>, 它用来指示设备中电池电量的变化. 另一个列子是<code>Intent.ACTION_DOCK_EVENT</code>, 用来只是设备是否放在了底座. 更多的粘性广播请参考google文档. 下面的代码展示如何</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">myRegisterBattery</span><span class="o">(){</span>
+   <span class="c1">// 构建广播接收者要接收的action
+</span><span class="c1"></span>   <span class="n">IntentFilter</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntentFilter</span><span class="o">();</span>
+   <span class="n">intent</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_BATTERY_CHANGED</span><span class="o">);</span>
+   <span class="n">intent</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_BATTERY_OKAY</span><span class="o">);</span>
+   <span class="n">intent</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_BATTERY_LOW</span><span class="o">);</span>
+   
+   <span class="c1">// 创建监听
+</span><span class="c1"></span>   <span class="n">BroadcastReceiver</span> <span class="n">broadcastReceiver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BroadcastReceiver</span><span class="o">()</span> <span class="o">{</span>
+       <span class="nd">@Override</span>
+       <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">if</span> <span class="o">(</span><span class="n">isInitialStickyBroadcast</span><span class="o">())</span> <span class="o">{</span>
+               <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">&#34;sususu&#34;</span><span class="o">,</span> <span class="s">&#34;这是一个粘性广播&#34;</span><span class="o">);</span>
+           <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+               <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">&#34;sususu&#34;</span><span class="o">,</span> <span class="s">&#34;这是不是粘性广播&#34;</span><span class="o">);</span>
+           <span class="o">}</span>
+       <span class="o">}</span>
+   <span class="o">};</span>
+   <span class="c1">// 注册接收者
+</span><span class="c1"></span>   <span class="n">registerReceiver</span><span class="o">(</span><span class="n">broadcastReceiver</span><span class="o">,</span> <span class="n">intent</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>该方法在广播全系统的状态时特别有用, 如果你需要发送粘性广播, 那么<strong>请添加权限</strong>在清单文件中<code>&lt;uses-permission android:name=&quot;android.permission.BROADCAST_STICKY&quot;/&gt;</code>权限, 并使用<code>Context.sendStickyBroadcast()</code>发送粘性广播.</p>
+<blockquote>
+<p>对于粘性广播一定要慎用, 因为它比普通广播更消耗资源.</p>
+</blockquote>
+<h3 id="定向广播">定向广播</h3>
+<p>普通广播的另一个变体是<code>定向广播(directed broadcast)</code>. 定向广播使用过了<code>intent-filter</code>的一个特性, 通过在<code>Intent</code>设置<code>ComponentName</code>来显示指定接收者. 它把注册接收者的类名和包名结合在了一起. 如下:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">();</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">setComponent</span><span class="o">(</span><span class="k">new</span> <span class="n">Component</span><span class="o">(</span><span class="n">packName</span><span class="o">,</span> <span class="n">className</span><span class="o">));</span>
+<span class="n">sendBroadcast</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+</code></pre></div><p>这个例子只会指定的class类的广播接收者才可以收到广播, 即便其他接收器也注册了相同的<code>Intent</code>操作. <strong>注意:使用定向广播需要同时知道接收者的包名和类名.</strong>.  使用场景很少.</p>
+<h3 id="启动和禁用广播接收器">启动和禁用广播接收器</h3>
+<p>如果广播接收者在清单文件中注册的, 还有另外一种减少对系统负载的影响的方法. 通过<code>PackageManager</code>, 开发者可以启动和禁用应用程序的组件, 这在用户比如在应用设置更改后使用此方法即可. 代码如下:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm">* 设置组件
+</span><span class="cm">* @param setClass 要设置改变的组件
+</span><span class="cm">* @param isEnable true为启用, false为禁用
+</span><span class="cm">*/</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setComponentEnable</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">isEnable</span><span class="o">,</span> <span class="n">Class</span> <span class="n">setClass</span><span class="o">){</span>
+   <span class="n">PackageManager</span> <span class="n">pm</span> <span class="o">=</span> <span class="n">getPackageManager</span><span class="o">();</span>
+   <span class="c1">// 构建要改变组件的Component
+</span><span class="c1"></span>   <span class="n">ComponentName</span> <span class="n">componentName</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ComponentName</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">(),</span> <span class="n">setClass</span><span class="o">);</span>
+   <span class="n">pm</span><span class="o">.</span><span class="na">setComponentEnabledSetting</span><span class="o">(</span><span class="n">componentName</span><span class="o">,</span>
+           <span class="n">isEnable</span> <span class="o">?</span> <span class="n">PackageManager</span><span class="o">.</span><span class="na">COMPONENT_ENABLED_STATE_ENABLED</span> <span class="o">:</span> <span class="n">PackageManager</span><span class="o">.</span><span class="na">COMPONENT_ENABLED_STATE_DISABLED</span><span class="o">,</span>
+           <span class="n">PackageManager</span><span class="o">.</span><span class="na">DONT_KILL_APP</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p><code>记住, 这里仅适用静态注册就是清单文件上注册, 不支持动态注册的会抛出异常, 并且这里接收的class同样适用于Activity, Service, ContentProvider</code>. 其本质就是改变在清单文件中组件标签的<code>&lt;android:enable='true/false'&gt;</code>.</p>
+<p>关于<code>setComponentEnabledSetting()</code>方法的最后一个参数<code>PackageManager.DONT_KILL_APP</code>的使用. 这回防止平台杀死应用, 如果不设置该值平台默认会杀死应用.</p>
+<blockquote>
+<p>可以用在应用程序启动图标的切换, 比如,开发者可以在安装应用程序后只显示设置Activity界面, 在设置完成之后使用该方法把启动图标隐藏</p>
+</blockquote>
+<h3 id="系统广播intent">系统广播Intent</h3>
+<p><code>Android API</code>定义了许多不同的系统广播事件. 例如电池电量变化, 是否连接了设备电源. 并且还有一些可能会用到的广播, 但是action并没有在API中公开, 所以后面的篇幅也会对一些隐藏的API进行一定记录.这里说一下常用的系统事件</p>
+<hr>
+<p><strong>自动启动应用程序</strong></p>
+<p>关于自启动这个问题在国内比较蛋疼, 由于各种厂商对<code>ROM</code>的修改, 各式各样. 目前为我自己的实验是只有<code>Google Nexus4</code>可以直接声明<code>BOOT_complete</code>重启的广播, <code>魅族4</code>,<code>三星S6</code>都无法做到重启可以监听到重启广播.  需要对应用通过手机提供的应用管理, 把<code>自启动开启才可以达到预期的效果</code>. 这里尝试的做法是<code>注册监听重启广播的接收</code>, <code>添加权限&lt;uses-permission android:name=&quot;android.permission.RECEIVE_BOOT_COMPLETED&quot;/&gt;</code>, <code>添加&lt;manifest&gt;标签的内属性android:installLocation=&quot;internalOnly&quot;</code>确保应用正确安装到内存储位置.</p>
+<p>广播的监听的对应action:<code>android.intent.action.BOOT_COMPLETED</code></p>
+<p>还有一个应用程序包替换的时候的广播, 例如升级<code>android.intent.action.MY_PACKAGE_REPLACED</code></p>
+<hr>
+<p><strong>用户状态和屏幕状态</strong></p>
+<p>虽然当按下关机键和锁屏键会触发屏幕熄灭, <code>Activity</code>会调用对应的焦点失去或者获取的回调. 但是如果服务<code>Service</code>需要注意此动作的时候, 我们通过屏幕的状态广播来监听这是很方便的.</p>
+<p>相关广播<code>action</code></p>
+<ul>
+<li><code>action.intent.action.SCREEN_OFF</code></li>
+<li><code>action.intent.action.SCREEN_ON</code></li>
+<li><code>action.intent.action.SCREEN_PRESENT</code></li>
+</ul>
+<p>开启和关闭设备屏幕时, 系统会分别发送<code>Intent.ACTION_SCREEN_ON</code>和<code>Intent.ACTION_OFF</code>广播事件. 当用户解锁屏幕时系统会发送<code>Intent.ACTION_USER_PRESENT</code>广播事件.</p>
+<hr>
+<p><strong>网络和连接变化</strong></p>
+<p>大多数<code>Android</code>设备都支持两种类型的网络: <strong>蜂窝网络</strong>和<strong>Wi-Fi网络</strong>. 如果应用程序过度依赖网络操作, 开发者可能要在蜂窝网络中推迟数据的传输, 知道设备连接到<code>Wi-Fi网络</code>; 否则, 如果使用<code>3G</code>, <code>LTE</code>之类的移动网络传输可能会产生相当可观的流量.</p>
+<p>连接的相关广播和网络相关的广播分别由不同的API负责. 每当有通用的网络连接变化发生时, 比如从<code>Wi-Fi</code>切换到移动数据, 系统就会发送<code>ConnectivityManager.CONNECTIVITY_ACTION</code>广播, 接下来可以使用<code>Context.getService()</code>方法来检索<code>ConnectivityManager</code>服务, 它允许开发者获取当前网络的更多信息.</p>
+<p>然而, 要获取当前网络更细粒度的信息, 开发者还需要监听来自<code>TelephonyManager</code>和<code>WifiManager</code>的广播事件. <code>TelephonyManager</code>允许查询移动数据连接的类型, <code>WiFiManager</code>允许检索<code>WiFi</code>连接状态并访问和<code>WiFi</code>相关的不同<code>ID(SSID是wifi名称和BSSID对应mac地址)</code></p>
+<p>以下代码会检测设备是否连接到了预先设置的某一个<code>WiFi</code>. 使用此方法可以有效地和服务器或者只是支持特定的<code>Wi-Fi</code>的媒体进行通信.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- 检查wifi广播--&gt;</span>
+<span class="nt">&lt;receiver</span>
+  <span class="na">android:name=</span><span class="s">&#34;broadcast.CheckForHomeWifi&#34;</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;intent-filter&gt;</span>
+      <span class="c">&lt;!--监听wifi的连接状态是否连接上一个有效无线路由--&gt;</span>
+      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.net.wifi.WIFI_STATE_CHANGED&#34;</span> <span class="nt">/&gt;</span>
+      <span class="c">&lt;!--监听wifi的打开和关闭, 和wifi具体的连接不关心--&gt;</span>
+      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.net.wifi.STATE_CHANGE&#34;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/intent-filter&gt;</span>
+
+<span class="nt">&lt;/receiver&gt;</span>
+</code></pre></div><p>如果只需要关心wifi的开启, 和wifi连接到某一个路由, 那么这两个广播监听足够了.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+
+   <span class="c1">// 需要判断的路由名字 对应ssid 
+</span><span class="c1"></span>   <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#34;\&#34;ziroom502\&#34;&#34;</span><span class="o">;</span>
+
+   <span class="c1">// 1.首先判断wifi是否开启, 并连接
+</span><span class="c1"></span>   <span class="n">NetworkInfo</span> <span class="n">networkInfo</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getParcelableExtra</span><span class="o">(</span><span class="n">WifiManager</span><span class="o">.</span><span class="na">EXTRA_NETWORK_INFO</span><span class="o">);</span>
+   <span class="k">if</span> <span class="o">(</span><span class="n">networkInfo</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">networkInfo</span><span class="o">.</span><span class="na">getState</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">NetworkInfo</span><span class="o">.</span><span class="na">State</span><span class="o">.</span><span class="na">CONNECTED</span><span class="o">))</span> <span class="o">{</span>
+
+       <span class="c1">// 2.再判断连接的wifi的具体信息
+</span><span class="c1"></span>       <span class="n">WifiInfo</span> <span class="n">WifiInfo</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getParcelableExtra</span><span class="o">(</span><span class="n">WifiManager</span><span class="o">.</span><span class="na">EXTRA_WIFI_INFO</span><span class="o">);</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">WifiInfo</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">name</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">WifiInfo</span><span class="o">.</span><span class="na">getSSID</span><span class="o">()))</span> <span class="o">{</span>
+           <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&#34;sususu&#34;</span><span class="o">,</span> <span class="s">&#34;连接到指定wifi&#34;</span><span class="o">);</span>
+       <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+           <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&#34;sususu&#34;</span><span class="o">,</span> <span class="s">&#34;连接到其他wifi&#34;</span><span class="o">);</span>
+       <span class="o">}</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>这是一个简单的初步判断, 如果需要结合手机连接判断, 结合下面的另一个监听, 整合起来就差不多了.</p>
+<hr>
+<p>这个监听来自<code>ConnectivityManager</code>的变化, 并确定当前连接的是否为移动数据网络. 如果收到移动数据, 接下来在使用<code>TelephonyManager</code>检查是否在使用<code>3G</code>或者<code>LTE</code>网络.</p>
+<p>监听广播的清单文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"> <span class="c">&lt;!--判断手机连接--&gt;</span>
+<span class="nt">&lt;receiver</span>
+  <span class="na">android:name=</span><span class="s">&#34;broadcast.WhenOn3GorLTE&#34;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;intent-filter&gt;</span>
+      <span class="c">&lt;!--此广播监听, 网络连接的设置包括wifi和数据的打开和关闭--&gt;</span>
+      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.net.conn.CONNECTIVITY_CHANGE&#34;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/intent-filter&gt;</span>
+<span class="nt">&lt;/receiver&gt;</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WhenOn3GorLTE</span> <span class="kd">extends</span> <span class="n">BroadcastReceiver</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">WhenOn3GorLTE</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">ConnectivityManager</span><span class="o">.</span><span class="na">CONNECTIVITY_ACTION</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">action</span><span class="o">)){</span>
+            <span class="kt">boolean</span> <span class="n">noConnectivity</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getBooleanExtra</span><span class="o">(</span><span class="n">ConnectivityManager</span><span class="o">.</span><span class="na">EXTRA_NO_CONNECTIVITY</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+            
+            <span class="k">if</span> <span class="o">(</span><span class="n">noConnectivity</span><span class="o">){</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;没有连接&#34;</span> <span class="o">);</span>
+            <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+                <span class="kt">int</span> <span class="n">networkType</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getIntExtra</span><span class="o">(</span><span class="n">ConnectivityManager</span><span class="o">.</span><span class="na">EXTRA_NETWORK_TYPE</span><span class="o">,</span> <span class="n">ConnectivityManager</span><span class="o">.</span><span class="na">TYPE_DUMMY</span><span class="o">);</span>
+                
+                <span class="k">if</span> <span class="o">(</span><span class="n">networkType</span> <span class="o">==</span> <span class="n">ConnectivityManager</span><span class="o">.</span><span class="na">TYPE_MOBILE</span><span class="o">){</span>
+                    <span class="n">checkfor3GorLte</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+                <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;不是移动连接&#34;</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+
+    <span class="cm">/**
+</span><span class="cm">     *  当前如果移动数据开启, 那么显示出移动数据的连接类型
+</span><span class="cm">     */</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">checkfor3GorLte</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">){</span>
+
+        <span class="n">TelephonyManager</span> <span class="n">telephonyManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">TelephonyManager</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">TELEPHONY_SERVICE</span><span class="o">);</span>
+
+        <span class="k">switch</span> <span class="o">(</span><span class="n">telephonyManager</span><span class="o">.</span><span class="na">getNetworkType</span><span class="o">()){</span>
+            <span class="k">case</span> <span class="n">TelephonyManager</span><span class="o">.</span><span class="na">NETWORK_TYPE_HSDPA</span><span class="o">:</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;连接类型: NETWORK_TYPE_HSDPA&#34;</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+
+            <span class="k">case</span> <span class="n">TelephonyManager</span><span class="o">.</span><span class="na">NETWORK_TYPE_HSPA</span><span class="o">:</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;连接类型: NETWORK_TYPE_HSPA&#34;</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+
+            <span class="k">case</span> <span class="n">TelephonyManager</span><span class="o">.</span><span class="na">NETWORK_TYPE_HSPAP</span><span class="o">:</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;连接类型: NETWORK_TYPE_HSPAP&#34;</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+
+            <span class="k">case</span> <span class="n">TelephonyManager</span><span class="o">.</span><span class="na">NETWORK_TYPE_HSUPA</span><span class="o">:</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;连接类型: NETWORK_TYPE_HSUPA&#34;</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+
+            <span class="k">case</span> <span class="n">TelephonyManager</span><span class="o">.</span><span class="na">NETWORK_TYPE_LTE</span><span class="o">:</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;连接类型: NETWORK_TYPE_LTE&#34;</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+<span class="nl">
+</span><span class="nl">            default:</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;连接类型: 未知类型, 可能传输速度会慢&#34;</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>此广播稍微有2秒左右延迟, 当wifi开关,和移动数据开关变化的时候不会立即响应</strong></p>
+<p>一下记录一下测试的结果广播接收情况,以上判断条件是获取的<code>intent中的ConnectivityManager.EXTRA_NO_CONNECTIVITY</code>(测试手机三星S6), 可能会因为不同的条件产生不同的结果. 这里只说明代码中的条件说明:</p>
+<ul>
+<li><code>当wifi连接开启</code>: 这时打开或者关闭移动数据, 不会发送广播.</li>
+<li><code>当移动数据开启</code>: 这时操作wifi开关会接收到两个广播.</li>
+<li>
+<ul>
+<li>如果从<code>wifi关闭</code>-&gt;<code>wifi开启</code>那么首先会发送一个<code>移动数据的状态info广播</code>,紧接着会发送一个<code>wifi连接</code>相关的广播(总共两个有效连接)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>如果<code>wifi开启</code> -&gt; <code>wifi关闭</code>那么首先会收到一个<code>无连接</code>的广播, 然后会接收到一个<code>移动数据</code>连接类型的广播.</li>
+</ul>
+</li>
+<li><code>如果当都关闭的时候</code>: 开启任意一个只能接收到一个广播.</li>
+</ul>
+<p>这种方式也可以获取<code>wifi</code>连接的信息, 但是<strong>延迟性</strong>是这个方式的特点.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-09-29</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/" data-title="《Android 编程实战》06-重识 BroadcastReceiver" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/" data-title="《Android 编程实战》06-重识 BroadcastReceiver" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/" data-title="《Android 编程实战》06-重识 BroadcastReceiver"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/" data-title="《Android 编程实战》06-重识 BroadcastReceiver" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/" data-title="《Android 编程实战》06-重识 BroadcastReceiver" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/" data-title="《Android 编程实战》06-重识 BroadcastReceiver" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9806-%E9%87%8D%E8%AF%86-broadcastreceiver/" data-title="《Android 编程实战》06-重识 BroadcastReceiver"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" class="prev" rel="prev" title="《Android 编程实战》05-重识 IPC"><i class="fas fa-angle-left fa-fw"></i>《Android 编程实战》05-重识 IPC</a>
+            <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9807-%E5%BA%8F%E5%88%97%E5%8C%96%E8%AF%B4%E6%98%8E/" class="next" rel="next" title="《Android 编程实战》07-序列化说明">《Android 编程实战》07-序列化说明<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>CSS语法格式 - Blog</title><meta name="Description" content=" "><meta property="og:title" content="CSS语法格式" />
+<meta property="og:description" content=" " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-04-03T16:42:23+00:00" />
+<meta property="article:modified_time" content="2016-04-03T16:42:23+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CSS语法格式"/>
+<meta name="twitter:description" content=" "/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/markdown-%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" /><link rel="next" href="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CSS语法格式",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F\/"
+        },"genre": "posts","keywords": "css, 入门","wordcount":  4636 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F\/","datePublished": "2016-04-03T16:42:23+00:00","dateModified": "2016-04-03T16:42:23+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": " "
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">CSS语法格式</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/css/"><i class="far fa-folder fa-fw"></i>css</a>&nbsp;<a href="/categories/%E5%85%A5%E9%97%A8/"><i class="far fa-folder fa-fw"></i>入门</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-04-03">2016-04-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4636 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;<span id="/posts/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F/" class="leancloud_visitors" data-flag-title="CSS语法格式">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#css语法格式">CSS语法格式</a></li>
+        <li><a href="#css选择器">CSS选择器</a></li>
+        <li><a href="#常用标签属性">常用标签属性</a></li>
+        <li><a href="#css浮动和清除">CSS浮动和清除</a></li>
+        <li><a href="#css-定位">CSS 定位</a></li>
+        <li><a href="#html引入css的方法">HTML引入CSS的方法</a></li>
+        <li><a href="#盒子模型">盒子模型</a></li>
+        <li><a href="#浏览器兼容性简介">浏览器兼容性简介</a></li>
+        <li><a href="#全局css设置">全局CSS设置</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>自学小笔记</p>
+<h3 id="css语法格式">CSS语法格式</h3>
+<pre><code>h1 {color:red; font-size:14px}
+选择器          声明属性    值
+</code></pre>
+<p>一个css由<em>选择器</em>和<em>格式声明语句</em>构成。</p>
+<p>选择器:就是选择HTML标记，换句话说:就是给哪个HTML标记加样式。</p>
+<p>格式声明语句: 由<code>{}</code>构成。内部由 <code>属性名:属性值</code> 构成，并以<code>分号</code>结束。</p>
+<p>属性名就是CSS中的各种属性，这些属性都是固定的。</p>
+<p>属性值可以区分不同的值，不需要引号。</p>
+<p>CSS中的数字单位都是<code>px</code>，<code>px</code>不能省略。</p>
+<h3 id="css选择器">CSS选择器</h3>
+<p><strong>1.基本选择器</strong></p>
+<p>*选择器 又叫通配符</p>
+<ul>
+<li>描述:将匹配所有的<code>HTML</code>标签。所有的标记都会改变。</li>
+<li>语法:<code>*{color:red}</code> 将所有的HTML标记的颜色都会变为红色。</li>
+</ul>
+<p>标签选择器</p>
+<ul>
+<li>描述:将匹配指定的HTML标签。</li>
+<li>语法:<code>h1{color:red}</code> 将指定的标记改变其状态。</li>
+</ul>
+<p><code>class</code>选择器</p>
+<ul>
+<li>描述:给一类<code>HTML</code>标签加样式，这里所指的每个<code>HTML</code>标记都应该有一个<code>class</code>属性。<code>class</code>属性是公共的属性。</li>
+<li>语法:<code>.className{color:red}</code>	类选择器必须以<code>.</code>开头，后面跟<code>HTML</code>的<code>class</code>的属性。(类选择器如果有多个相同可以用class所在的标签名称加前缀来区分)。</li>
+</ul>
+<p>id选择器</p>
+<ul>
+<li>描述: 给指定<code>id</code>的元素添加样式。(注意:网页中<code>HTML</code>标记的<code>id</code>属性值，必须是唯一的)。每一个HTML标记都有一个公共属性<code>id</code>。</li>
+<li>语法: <code>#classId{color:red;}</code>。 <code>id</code>属性一般是给<code>js</code>使用的，尽量不要加<code>css</code>的样式。而<code>class</code>属性只能给<code>css</code>用，不能给<code>js</code>用。<code>id</code>选择器必须<code>#</code>开头。</li>
+</ul>
+<p><strong>2.组合选择器</strong></p>
+<p>多元选择器</p>
+<ul>
+<li>描述: 给多个元素加同一个样式，每个选择器之间用逗号‘,’分开。</li>
+<li>举例: <code>h1,p,div,body{color:red;}</code></li>
+</ul>
+<p>后代选择器</p>
+<ul>
+<li>描述: 给某一个标签的后代元素加样式。选择器之间用空格分开。</li>
+<li>举例: <code>div h1.title{background-color:yellow;}</code></li>
+</ul>
+<p>子元素选择器</p>
+<ul>
+<li>描述: 给某个元素的子元素加样式</li>
+<li>举例: <code>.box &gt; .title{color:red;}</code></li>
+</ul>
+<p>CSS优先级</p>
+<p>1 单个选择器的优先级:</p>
+<p><code>行内样式 &gt; id选择器 &gt; class选择器 &gt; 标签选择器</code></p>
+<p>2 多个选择器的优先级</p>
+<p>多个选择器的优先级，指向越明确，优先级越高。特殊情况下，我们需要假设一些值：</p>
+<p>标签选择器    优先级为1</p>
+<p>类选择器      优先级为10</p>
+<p>id选择器      优先级为100</p>
+<p>行内选择		  优先级为1000</p>
+<p><strong>3.css注释</strong></p>
+<p>css注释内容:<code>/* css 注释内容 */</code>
+html注释:	<code>&lt;!--  注释内容 --&gt;</code></p>
+<p><strong>4.css尺寸属性</strong></p>
+<ul>
+<li><code>width</code>:元素宽度，一定要加<code>px</code>单位。</li>
+<li><code>height</code>:元素高度</li>
+</ul>
+<p>注意: <code>span</code>行内元素没有储存属性。<code>div</code>只有块元素才有尺寸属性。而<code>input</code>比较特殊是行内元素，但也可以指定宽高。</p>
+<p><strong>5.css字体属性</strong></p>
+<ul>
+<li><code>font-size</code>: 文字大小，如: <code>font-size:14px</code></li>
+<li><code>font-family</code>: 字体。如: <code>font-family:温软雅黑</code></li>
+<li><code>font-style</code>:斜体，取值<code>italic</code>。	如: <code>font-style:italic</code></li>
+<li><code>font-weight</code>: 粗体，取值<code>bold</code>。	如: <code>font-weight:bold</code>;</li>
+</ul>
+<p><strong>6.css文本颜色</strong></p>
+<ul>
+<li><code>color</code>: 文本颜色。</li>
+<li><code>text-decoration</code>: 文本修饰线，取值:<code>none</code>(无)，<code>underline</code>(下划线)，<code>overline</code>(上划线)，<code>line-through</code>(删除线).</li>
+<li><code>line-height</code>: 行高，可以用固定值，也可以用百分比。如:<code>line-height:20px ; line-height:150%; </code>* <code>text-indent</code>: 首行缩进，如 <code>text-indent:28px;</code></li>
+<li><code>letter-spacing</code>: 字间距。</li>
+</ul>
+<p><strong>display 属性</strong></p>
+<p>功能：规则网页元素如何显示的问题。</p>
+<p>取值：</p>
+<ul>
+<li><code>none</code>(隐藏)、</li>
+<li><code>block</code>(已块元素显示)、</li>
+<li><code>inline</code>(以行内元素显示)</li>
+<li><code>block</code>: 可以实现将行内元素转成块元素。</li>
+<li><code>inline</code>: 可以实现将块元素转成行内元素。</li>
+</ul>
+<p><strong>overflow</strong></p>
+<p>功能： 当内容溢出的时候，该如何显示。</p>
+<p><code>overflow</code>: 当内容溢出时，溢出的内容该如何显示。</p>
+<p>取值：</p>
+<ul>
+<li><code>visity</code>(显示)，</li>
+<li><code>auto</code>(多余部分可通过滚动条查看)，</li>
+<li><code>hidden</code>（截取掉多余的部分）</li>
+</ul>
+<p><strong>cursor光标类型</strong></p>
+<p>功能：网页中光标的类型</p>
+<p>取值: <code>help</code>、<code>wait</code>、<code>pointer</code>(手形光标)等。</p>
+<h3 id="常用标签属性">常用标签属性</h3>
+<p><strong>css伪类选择器 超链接加样式</strong></p>
+<p>一个超链接有四个状态:</p>
+<ol>
+<li>正常状态(<code>:link</code>): 鼠标放上之前连接的样式。</li>
+<li>放上状态(<code>:hover</code>): 鼠标放到链接上时的样式。</li>
+<li>激活状态(<code>:active</code>): 按住鼠标左键不松开的样式，这个状态特殊短暂。</li>
+<li>访问过的状态(<code>:visited</code>): 按下鼠标左键，并弹起之后。</li>
+</ol>
+<p>在开发中，会使用一下写法，来给链接加上不同的效果:</p>
+<pre><code>a:link,a:visited,{color:#666;text-decoration:none} //默认和已访问时
+a:hover{color:#999;text-decoration:underline;}
+</code></pre>
+<p><strong>css列表属性</strong></p>
+<ul>
+<li><code>list-style</code>: 列表样式，取值：<code>none</code>去掉项目符号或编号前面的各种符号 。<code>ul</code> ,<code>li</code></li>
+</ul>
+<p><strong>css 表格属性</strong></p>
+<ul>
+<li><code>border-collapse</code>: 表格边框线合并,取值: <code>collapse</code>.</li>
+</ul>
+<p><strong>css边框属性:每个元素都可以加边框线</strong></p>
+<p>格式: <code>border-left</code>: 粗细 线性 线的颜色</p>
+<p><code>border-left: 1px solid red</code></p>
+<p>线性: <code>none</code>(无线),<code>solid</code>（实线）,<code>dashed</code>(虚线),<code>dotte</code>(点状线)</p>
+<ul>
+<li><code>border-left</code>: 左边框线</li>
+<li><code>border-right</code>: 右边框线</li>
+<li><code>border-bottom</code>: 下边框线</li>
+<li><code>border-top</code>:	上边框线</li>
+<li><code>border</code>: 同时给四个边加边框。</li>
+</ul>
+<p><strong>CSS 外边距: 边框线往外的距离</strong></p>
+<ul>
+<li><code>margin-left</code>: 左边线往外的距离。</li>
+<li><code>margin-right</code>: 右边线往外的距离。</li>
+<li><code>margin-top</code>: 上边线往外的距离。</li>
+<li><code>margin-bottom</code>: 下边线往外的距离。</li>
+</ul>
+<p>简写式:</p>
+<pre><code>margin: 10px //四个外边距分别为10px
+margin: 10px 20px	//上下外边距为10px。左右外边距为20px
+margin: 5px 10px 15px;	//上外边距5px,左右外边距10px,下外边距15px。
+margin: 5px 10px 15px 20px //顺序一定是&quot;上右下左&quot;
+</code></pre>
+<p><strong>css 背景属性</strong></p>
+<ul>
+<li><code>background-color</code>: 背景颜色。</li>
+<li><code>background-image</code>: 背景图片地址。如：<code>background-image:url(images/bg.gif)</code></li>
+<li><code>background-repeat</code>: 背景平铺方式，取值: <code>no-repeat</code>(不平铺) <code>repeat-x</code>(水平方向) <code>repeat-y</code>(垂直方向)</li>
+<li><code>background-position</code>: 背景定位</li>
+</ul>
+<p>中文: <code>background-position: 水平方向定位 垂直方向定位</code></p>
+<p>英文: <code>background-position: left|center|right top|center|bottom</code></p>
+<p>固定值: <code>background-position: 50px 50px</code></p>
+<p>百分比: <code>background-position: 50% 50% //水平居中，垂直居中</code></p>
+<p>混合定位: <code>background-position: left 10px; //背景靠左边齐，距离容器顶端10px </code>
+简写方式</p>
+<p><code>background: 背景色 背景图 平铺方式 定位方式；</code></p>
+<h3 id="css浮动和清除">CSS浮动和清除</h3>
+<ul>
+<li><code>float</code>: 让元素浮动,取值: <code>left</code>(左浮动)、 <code>right</code>(右浮动)</li>
+<li><code>clear</code>: 清除浮动, 取值: <code>left</code>(清除左浮动)、 <code>right</code>(清除右浮动)、</li>
+<li><code>both</code>(同时清除上面的左右浮动)</li>
+</ul>
+<p><strong>1 css浮动</strong></p>
+<p>浮动的元素，将向左或向右浮动，浮动到包围元素的边上，或上一个浮动元素的边上为止。</p>
+<p>浮动的元素，不在占空间了，并且，浮动元素的层级要高于普通元素。</p>
+<p>浮动的元素，一定是块元素。不管他原来是什么元素。</p>
+<p>如果浮动的元素没有指定宽高的话，浮动后它将尽可能的变窄。因此，浮动元素一般要定宽和高。</p>
+<p>一行中的多个元素要浮动一起浮动！</p>
+<p>浮动的功能：可以实现将多个块元素并且列版。</p>
+<p>？如何让包围元素，包住包围元素？
+在浮动元素的下边，使用清除浮动操作。
+<code>clear:both;</code></p>
+<p><strong>2 CSS清除浮动</strong></p>
+<p><code>css</code>清除浮动的功能有两个</p>
+<ol>
+<li>可以包围元素从视觉上包住浮动元素</li>
+<li>清除之下的其他元素将恢复默认排版。</li>
+</ol>
+<p>有浮动就必须要与清除。</p>
+<p>如果包围元素指定了高度了。那么可以不适用清除功能。</p>
+<p><strong>CSS属性继承：外层元素的样式，会被内层元素进行继承。多个外层元素的样式，最终会&quot;叠加&quot;到内层元素上。</strong></p>
+<p>什么样的css属性能被继承？？</p>
+<p>css文本属性都会被继承：</p>
+<p><code>color、font-size、font-family.font-style、font-weight、text-align、text-decoration、text-indent、letter-spacing、line-height</code></p>
+<p>提示<code>&lt;body&gt;</code>中的<code>css</code>属性。会被所有元素继承。</p>
+<h3 id="css-定位">CSS 定位</h3>
+<p>默认为文档流&mdash;从上而下。</p>
+<p>定位方式：<code>position</code>   <br>
+取值：<code>static</code>、<code>fixed</code>、<code>relative</code>、<code>absolute</code></p>
+<ul>
+<li><code>static</code>：静态定位(默认状态，不定位)</li>
+<li><code>Fixed</code>：固定定位</li>
+<li><code>relative</code>：相对定位</li>
+<li><code>absolute</code>：绝对定位</li>
+</ul>
+<p>定位方式，要与定位属性配合使用</p>
+<p>定位坐标: 指定定位的元素,偏移目标元素多远的距离。</p>
+<ul>
+<li><code>Left</code>: 定位元素，距离目标元素左边的距离</li>
+<li><code>Top</code>: 定位元素，距离目标元素上边的距离</li>
+<li><code>Right</code>: 定位元素，距离目标元素右边的距离</li>
+<li><code>Bottom</code>: 定位元素，距离目标元素下边的距离</li>
+</ul>
+<p><strong>1 固定定位	<code>position:fixed</code></strong></p>
+<ul>
+<li>固定定位，是相对于浏览器窗口来进行的定位。</li>
+<li>固定定位，不占空间，层级要高于普通元素。他不会随着网页的滚动而滚动。</li>
+<li>如果不指定定位坐标的话，固定元素的位置在原地不动。</li>
+<li>固定定位元素，一定是&quot;块元素&quot;</li>
+</ul>
+<p><strong>2 相对定位	<code>position:relative</code></strong></p>
+<ul>
+<li>相对定位, 是相对于&quot;原来的自己&quot;进行定位</li>
+<li>相对定位, 依然占空间,层级高于普通元素。</li>
+<li>如果不指定定位坐标的话，相对定位元素的位置在原地不动。</li>
+<li>相对定位原来是块元素还是块元素，如果原来是行内元素还是行内元素。</li>
+</ul>
+<p>提示 相对定位和绝对定位，一般情况下是配合使用的。</p>
+<p><strong>3 绝对定位	<code>position:absolute</code></strong></p>
+<ul>
+<li>相对于祖先定位元素(相对定位，决定定位)，来进行的定位</li>
+<li>如果他的父元素没有进行任何定位的话，再往上找定位元素</li>
+<li>如果一直找到<code>&lt;body&gt;</code>都没有找到定位元素的话,那就相对于<code>&lt;body&gt;</code>来进行定位。网页定位</li>
+<li>绝对定位元素,不占空间,层级要高于普通元素。</li>
+<li>如果不指定定位坐标的话,绝对定位元素的位置在原地不动。</li>
+<li>绝对定位，转换为块元素</li>
+</ul>
+<p><strong>定位可以设置层叠之间顺序</strong></p>
+<p><code>z-index</code>:  //值越大越靠近前排</p>
+<h3 id="html引入css的方法">HTML引入CSS的方法</h3>
+<p>1 嵌入式</p>
+<ul>
+<li>通过<code>&lt;style&gt;</code>标记，来引入<code>css</code>样式。</li>
+<li>语法格式: <code>&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;</code></li>
+<li>提示: <code>&lt;style&gt;</code>中CSS样式，只能给当前网页来使用。同一个网页中,<code>&lt;style&gt;</code>标记可以出现出现。</li>
+</ul>
+<p>2 外联式</p>
+<ul>
+<li>通多<code>&lt;link&gt;</code>标记，来如因一个外部的CSS文件(<code>.css</code>)，这样的话，可以实现公共的CSS代码被多个页面共享。</li>
+<li><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/public.css&quot;/&gt;</code></li>
+<li><code>&lt;link&gt;</code>标记的常用属性</li>
+<li><code>rel</code>: 也就是引入的是什么类型的文件。取值:stylesheet</li>
+<li><code>type</code>: 内容类型。</li>
+<li><code>href</code>: 引入的CSS文件地址。</li>
+<li>提示:<code>&lt;link&gt;</code>标记放在<code>&lt;head&gt;</code>标记中。</li>
+<li>同一个网页，可以使用多个<code>&lt;link&gt;</code>来链入多个外部样式文件。</li>
+</ul>
+<p>3 行内式(主要用于JS控制元素的样式)</p>
+<ul>
+<li>每一个<code>HTML</code>标记,都有一些公共的属性: <code>class</code>、<code>id</code>、<code>title</code>、<code>style</code>。</li>
+<li><code>HTML</code>标记中<code>style</code>属性的值，与<code>CSS</code>中样式一模一样。</li>
+</ul>
+<h3 id="盒子模型">盒子模型</h3>
+<p>我们可以把每一个HTML标记，都看成一个盒子</p>
+<p>盒子都有哪些特征：内容的高度，内容的宽度，边框线，内填充，外边距。</p>
+<p>上下外边距合并问题：上下两个块元素,如果每一个都指定了四个外边距，  那么上下外边距合并后会取较大的外边距。</p>
+<p>同一个<code>class</code>属性, 可以指定多个类名样式,多个类样式之间用空格隔开。</p>
+<p>场景: 当两个块元素具有相同的特性，但是还有部分不一样的时候使分开处理。</p>
+<h3 id="浏览器兼容性简介">浏览器兼容性简介</h3>
+<p>一个网页在不同的浏览器下， 显示的效果可能不一致, 这所谓&quot;不兼容&quot;</p>
+<p>兼容性调试, 主要调试IE8，IE7，IE6，firefox。</p>
+<p>IE6 浏览器的调试工具: IETESTer</p>
+<p>兼容性从以下撒个方面来讲解</p>
+<ul>
+<li>全局CSS设置</li>
+<li>常用兼容性技巧</li>
+<li>CSS HACK</li>
+</ul>
+<p>常用的兼容性调试技巧</p>
+<p>1 实现所有浏览器主页居中</p>
+<p>Firefox 下主页居中代码： <code>.box{margin: 0px auto}</code></p>
+<p>IE5.5 下主页居中代码: <code>body{text-align:center}</code></p>
+<p>2 单行文本上下居中</p>
+<p><code>h1{ height: 30px; line-height:30px}</code></p>
+<p>3 左右<code>margin</code>会加倍(IE6)</p>
+<p>解决的方案: 使用 <code>display:inline;</code> //将其转为行内元素，避免此问题</p>
+<p>注意: 排版的时候能使用<code>padding</code>解决的，坚决不用<code>margin</code>。如果实在想用的话，就使用其中一边。</p>
+<h3 id="全局css设置">全局CSS设置</h3>
+<p>1 清除所有标记的内外边距</p>
+<pre><code>body、ul、li、a、img、p、input{margin:0; padding:0}
+</code></pre>
+<p>2 去除项目符号或编号前面的符号</p>
+<pre><code>ul、ol、li{list-style: none;}
+</code></pre>
+<p>3 全局连接效果</p>
+<pre><code>a:link,a:visited{color:#444; text-decoration:none}
+a:hover{color:red}
+</code></pre>
+<p>4 网页中所有的文字大小颜色</p>
+<pre><code>body{font-size: 12px; font-family:宋体; color:#ccc;}
+</code></pre>
+<p>5 去除图片的连接边框线</p>
+<pre><code>img{border:0}
+</code></pre>
+<p>6 全局的类样式</p>
+<pre><code>.floatL{float:left;}
+.floatR{float:right;}
+.clear{clear:both;}
+.blank10{ height:10px; clear:both;}
+.red{ color:red}
+.blue{color:red}
+</code></pre>
+<p>CSS HACK</p>
+<p>针对不同浏览器，书写不同的CSS代码的过程，成为&quot;<code>CSS HACK</code>&quot;</p>
+<p>也就是说: 写一个CSS代码，让IE6识别，其他浏览器不识别。</p>
+<p>以下这些符号实在CSS属性的前面加的。用于分辨不同的浏览器版本。</p>
+<pre><code>	 		&quot;*&quot;IE6和IE7都识别。		如: .box{*background-color:red;}
+	 		&quot;-&quot; 只有IE6识别。如 .box{_background-color:green;}
+</code></pre>
+<p><code>CSS HACK</code> 不是W3C的标准，因此,尽量少用。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-04-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F/" data-title="CSS语法格式" data-via="xxxx" data-hashtags="css,入门"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F/" data-hashtag="css"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F/" data-title="CSS语法格式" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F/" data-title="CSS语法格式"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F/" data-title="CSS语法格式" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F/" data-title="CSS语法格式" data-description=" "><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F/" data-title="CSS语法格式" data-description=" "><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F/" data-title="CSS语法格式"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/css/">css</a>,&nbsp;<a href="/tags/%E5%85%A5%E9%97%A8/">入门</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/markdown-%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="prev" rel="prev" title="markdown 简单使用"><i class="fas fa-angle-left fa-fw"></i>markdown 简单使用</a>
+            <a href="/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" class="next" rel="next" title="基础篇(一)-JS简单介绍">基础篇(一)-JS简单介绍<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

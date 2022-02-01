@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android-编程实战》10-隐藏的Android API - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android-编程实战》10-隐藏的Android API" />
+<meta property="og:description" content="阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第15章 官方API和隐藏API SDK文档中的所有类, 接口, 方法以及常量都属于官方API" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-10-04T18:15:27+00:00" />
+<meta property="article:modified_time" content="2016-10-04T18:15:27+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android-编程实战》10-隐藏的Android API"/>
+<meta name="twitter:description" content="阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第15章 官方API和隐藏API SDK文档中的所有类, 接口, 方法以及常量都属于官方API"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9811-%E7%BD%91%E7%BB%9C-web%E6%9C%8D%E5%8A%A1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android-编程实战》10-隐藏的Android API",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  2905 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api\/","datePublished": "2016-10-04T18:15:27+00:00","dateModified": "2016-10-04T18:15:27+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android-编程实战》10-隐藏的Android API</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-10-04">2016-10-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2905 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/" class="leancloud_visitors" data-flag-title="《Android-编程实战》10-隐藏的Android API">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#官方api和隐藏api">官方API和隐藏API</a></li>
+    <li><a href="#发现隐藏api">发现隐藏API</a></li>
+    <li><a href="#安全地调用隐藏api">安全地调用隐藏API</a>
+      <ul>
+        <li><a href="#从设备中提取隐藏api">从设备中提取隐藏API</a></li>
+        <li><a href="#使用反射调用隐藏api">使用反射调用隐藏API</a></li>
+      </ul>
+    </li>
+    <li><a href="#隐藏api的使用">隐藏API的使用</a>
+      <ul>
+        <li><a href="#接收和阅读sms">接收和阅读SMS</a></li>
+        <li><a href="#隐藏设置">隐藏设置</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>阅读《Android 编程实战》一书的抄书笔记  &ndash;&gt; 对应书籍第15章</p>
+</blockquote>
+<h2 id="官方api和隐藏api">官方API和隐藏API</h2>
+<p>SDK文档中的所有类, 接口, 方法以及常量都属于官方API. 虽然这些API通常能满足大多数应用的需求, 但开发者有时候需要访问更多的东西, 但却不知道如何在官方API中找到它们.</p>
+<p><code>Android SDK</code>中包含了一个<code>JAR</code>文件(android.jar), 在编译代码的时候会引用它, 该文件位于<code>&lt;sdk root&gt;/platforms/android-&lt;API Level&gt;/目录</code>.  不过这里面全是空类, 方法中所有的代码都被移除了, 只声明了<code>public</code>和<code>protected</code>的类. 构建Android平台时, SDK会包含该JAR文件.</p>
+<p>通过检查每一个源文件, 并移除所有被<code>@hide</code>注解的域(常量), 方法和类, 在构建SDK时会生成方法体为空的<code>android.jar</code>文件. 这意味着仍然可以在运行的设备上方法这些符号, 但是在编译时却找不到.</p>
+<p>Android会自动隐藏某些API, 而不需要使用<code>@hide</code>注解. 这些API位于<code>com.android.internal</code>包中, 不属于<code>android.jar</code>文件, 但却包含大量供android平台使用的内部代码. android系统应用还包含一些其他隐藏API, 这些API通常提供没有包含在官方SDK中的系统<code>ContentProvider</code>信息.</p>
+<h2 id="发现隐藏api">发现隐藏API</h2>
+<p>寻找API最简单的方法是在<code>Android</code>源码中搜索他们. 但是<code>Android</code>源码非常多, 还好有几个在线网站已经对这些代码进行了索引, 并提供了搜索功能. <a href="http://androidxref.com/" target="_blank" rel="noopener noreffer">AndroidXRef</a>就是其中的一个.</p>
+<p>大部分隐藏的API都位于<code>frameworks</code>项目, 所有<code>android</code>包中的API都可以在frameworks项目中找到, 该项目还包含大部分<code>com.android.internal</code>包中的API.</p>
+<h2 id="安全地调用隐藏api">安全地调用隐藏API</h2>
+<p>对于需要编译时链接的API, 也就是接口, 类, 或者方法, 开发者有两个选择. 第一种修改SDK的JAR文件, 使之包含所有需要的类和接口, 并使用该SDK来编译应用程序. 另一种解决方案是使用<code>Java</code>反射API来动态查找要调用的类和方法. 两种方法都可以利弊.</p>
+<h3 id="从设备中提取隐藏api">从设备中提取隐藏API</h3>
+<p>要做到编译时链接隐藏API, 开发者首先要提取和处理设备中的库文件. 即可以从模拟器提取库文件, 也可以从设备中提取这些文件, 因为它们只是用来编译代码. 由于这个过程需要提取出大量文件, 建议单独创建一个空的工作目录. 另外可能要提取多个版本的库文件, 所以开发者还应为每个API级别创建一个工作目录.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="devicespull.png"
+        data-srcset="devicespull.png, devicespull.png 1.5x, devicespull.png 2x"
+        data-sizes="auto"
+        alt="devicespull.png"
+        title="devicespull.png" /></p>
+<p>这里会把设备的<code>/system/framework</code>目录全部拉取出来, 这些文件都是Android设备上基于Java的系统库, 他们是由<code>Dalvik</code>虚拟机加载的Dex优化文件. 下一步决定哪些文件包含隐藏API, 以便把它们转成可以在编译时使用的Java类文件. 大部分隐藏API都位于<code>framework.odex</code>文件, <code>bouncycastle.odex</code>文件包含了加密的库.</p>
+<blockquote>
+<p>从Android 4.2开始, 原来位于<code>framework.odex</code>的几个隐藏API都放在了其他文件中. 例如<code>Telephony</code>类现在是可选的了(因为并不是所有的Android设备都支持电话), 可以在<code>telephony-common.odex</code>文件中找到它.</p>
+</blockquote>
+<p>一旦知道需要转换的文件, 就可以下载<code>Smali</code>工具, 它能把优化后的Dex文件(.odex)转换为中间格式(.smali). 接下来使用<code>dex2Jar</code>工具再把这种中间格式转换回Java类文件.</p>
+<hr>
+<p><strong>修改SDK的错误处理</strong></p>
+<p>当使用前面介绍的隐藏API方法时, 很难确定抽取类的方法签名是否和用户设备中相应的方法签名匹配. 虽然修改后的SDK可能在开发用的设备上正常工作, 但是用户的设备制造商可能修改了这些隐藏API. 当这种情况发生时, 应用程序会抛出<code>NoSuchMethodException</code>或者<code>ClassNotFoundException</code>异常.</p>
+<p>有几种方法可以处理种种情况.  可以结合使用反射来检测是否存在隐藏API. 推荐使用这种方式, 因为它结合了两种方法的优点. 另一种方法是简单地捕获异常, 防止应用程序崩溃.</p>
+<p>不管使用哪一种方法, 都是要确保调用隐藏API的时候发生错误的处理. 最起码可以确保应用程序在测试过的设备上能正常工作.</p>
+<h3 id="使用反射调用隐藏api">使用反射调用隐藏API</h3>
+<p>使用Java中的反射API比修改<code>Android SDK</code>更安全, 因为它可以在调用<code>隐藏API</code>前检测它们是否存在. 但是, 由于所有隐藏API的绑定和调用都发生在运行时, 反射会比前面介绍的方法更慢.</p>
+<p>使用反射调用隐藏API需要两步.  首先, 需要查找要调用的类和方法, 并把他们的引用存到<code>Method</code>对象中. 当持有了引用后, 接下来就可以调用对象的方法.</p>
+<p>后面会演示了查找Wi-Fi网络共享的例子.</p>
+<h2 id="隐藏api的使用">隐藏API的使用</h2>
+<h3 id="接收和阅读sms">接收和阅读SMS</h3>
+<p><code>Android</code>中使用隐藏API最常见的例子是接收和阅读<code>SMS</code>, 虽然官方API包含了<code>RECEIVE_SMS</code>和<code>READ_SMS</code>这两个权限, 但实际执行的API却是隐藏的.</p>
+<p>应用程序要想接收<code>SMS</code>必须声明使用<code>RECEIVE_SMS</code>权限, 并且实现<code>BroadcastReceiver</code>, 已处理收到的短信.</p>
+<p>如下:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">// 清单文件
+<span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&#34;android.permission.RECEIVE_SMS&#34;</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;receiver</span> <span class="na">android:name=</span><span class="s">&#34;.hideapi.SmsReceiver&#34;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;intent-filter&gt;</span>
+      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.provider.Telephony.SMS_RECEIVED&#34;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/intent-filter&gt;</span>
+<span class="nt">&lt;/receiver&gt;</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SmsReceiver</span> <span class="kd">extends</span> <span class="n">BroadcastReceiver</span> <span class="o">{</span>
+    <span class="c1">// Telephony.java 中隐藏的常量
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">SMS_RECEIVED_ACTION</span>
+            <span class="o">=</span> <span class="s">&#34;android.provider.Telephony.SMS_RECEIVED&#34;</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">MESSAGE_SERVICE_NUMBER</span> <span class="o">=</span> <span class="s">&#34;+461234567890&#34;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">MESSAGE_SERVICE_PREFIX</span> <span class="o">=</span> <span class="s">&#34;MYSERVICE&#34;</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">SMS_RECEIVED_ACTION</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">action</span><span class="o">))</span> <span class="o">{</span>
+            <span class="c1">// 通过 pdus 获取SMS数据的隐藏键
+</span><span class="c1"></span>            <span class="n">Object</span><span class="o">[]</span> <span class="n">messages</span> <span class="o">=</span>
+                    <span class="o">(</span><span class="n">Object</span><span class="o">[])</span> <span class="n">intent</span><span class="o">.</span><span class="na">getSerializableExtra</span><span class="o">(</span><span class="s">&#34;pdus&#34;</span><span class="o">);</span>
+            <span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">message</span> <span class="o">:</span> <span class="n">messages</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">byte</span><span class="o">[]</span> <span class="n">messageData</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">[])</span> <span class="n">message</span><span class="o">;</span>
+                <span class="n">SmsMessage</span> <span class="n">smsMessage</span> <span class="o">=</span>
+                        <span class="n">SmsMessage</span><span class="o">.</span><span class="na">createFromPdu</span><span class="o">(</span><span class="n">messageData</span><span class="o">);</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">&#34;haha&#34;</span><span class="o">,</span> <span class="s">&#34;收到消息来自: &#34;</span><span class="o">+</span><span class="n">smsMessage</span><span class="o">.</span><span class="na">getOriginatingAddress</span><span class="o">()+</span> <span class="s">&#34;   内容:&#34;</span><span class="o">+</span><span class="n">smsMessage</span><span class="o">.</span><span class="na">getMessageBody</span><span class="o">());</span>
+
+                <span class="n">processSms</span><span class="o">(</span><span class="n">smsMessage</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 只关心指定的电话号码
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">processSms</span><span class="o">(</span><span class="n">SmsMessage</span> <span class="n">smsMessage</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">from</span> <span class="o">=</span> <span class="n">smsMessage</span><span class="o">.</span><span class="na">getOriginatingAddress</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">MESSAGE_SERVICE_NUMBER</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">from</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">messageBody</span> <span class="o">=</span> <span class="n">smsMessage</span><span class="o">.</span><span class="na">getMessageBody</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">messageBody</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="n">MESSAGE_SERVICE_PREFIX</span><span class="o">))</span> <span class="o">{</span>
+                <span class="c1">// TODO: 数据验证通过开始处理
+</span><span class="c1"></span>                <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">&#34;haha&#34;</span><span class="o">,</span> <span class="s">&#34;processSms: &#34;</span><span class="o">+</span><span class="n">messageBody</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>上面利用广播监听<code>Intent</code>操作<code>android.provider.Telephony.SMS_RECEIVED</code>. 这个例子中唯一隐藏的部分就是<code>Intent</code>的action. 以及用来从<code>Intent(&quot;pdus&quot;)</code>检索SMS数据的字符串.</p>
+<p>要读取已经收到的<code>SMS</code>, 需要查询一个隐藏的<code>ContentProvider</code>, 并声明使用<code>READ_SMS</code>权限. <code>android.provider</code>包中的<code>Telephony</code>类提供了所有需要的信息. 使用该类最佳的方式是把它复制到自己的项目中, 并修改类的包结构. 由于<code>Telephony</code>类还包含其他隐藏类和方法的调用, 所以还必须删除或者重构这些调用, 以便能够编译代码. 取决于使用<code>隐藏API</code>的数量, 有时候简单复制一些常量声明而不是整个类就足够了.</p>
+<p>阅读的部分就省略了, 除了某些特定方向的应用, 基本上应用是不会去读入用户的短信.</p>
+<h3 id="隐藏设置">隐藏设置</h3>
+<p><code>Android</code>设备有数百种不同的设置, 都可以通过<code>Settings</code>类访问, 除了为每个设置提供访问的值, <code>Android</code>还提供给了一些类<code>Intent</code>操作, 使他们可以打开特定的设置UI. 例如, 要启动飞行模式设置, 在创建Intent时可以使用<code>Settings.ACTION_AIRPLANE_MODE_SETTINGS</code></p>
+<p><code>Settings</code>类包含了一些隐藏的设置键和Intent操作, 当应用程序需要弄清楚设备的细节或者呈现一个特定系统设置的快捷方式时, 启动的一些常量值是非常方便的.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-10-04</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/" data-title="《Android-编程实战》10-隐藏的Android API" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/" data-title="《Android-编程实战》10-隐藏的Android API" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/" data-title="《Android-编程实战》10-隐藏的Android API"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/" data-title="《Android-编程实战》10-隐藏的Android API" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/" data-title="《Android-编程实战》10-隐藏的Android API" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/" data-title="《Android-编程实战》10-隐藏的Android API" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/" data-title="《Android-编程实战》10-隐藏的Android API"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" class="prev" rel="prev" title="《Android-编程实战》09-Android应用安全问题"><i class="fas fa-angle-left fa-fw"></i>《Android-编程实战》09-Android应用安全问题</a>
+            <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9811-%E7%BD%91%E7%BB%9C-web%E6%9C%8D%E5%8A%A1/" class="next" rel="next" title="《Android-编程实战》11-网络 Web服务">《Android-编程实战》11-网络 Web服务<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

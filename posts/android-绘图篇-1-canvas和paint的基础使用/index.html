@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Android绘图篇-01 Canvas和Paint的基础使用 - Blog</title><meta name="Description" content=" "><meta property="og:title" content="Android绘图篇-01 Canvas和Paint的基础使用" />
+<meta property="og:description" content=" " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-07-05T10:27:09+00:00" />
+<meta property="article:modified_time" content="2016-07-05T10:27:09+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Android绘图篇-01 Canvas和Paint的基础使用"/>
+<meta name="twitter:description" content=" "/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/1/" /><link rel="next" href="http://suzeyu.cc:20003/posts/mac%E7%B3%BB%E7%BB%9Fandroid%E7%BC%96%E8%AF%91%E6%BA%90%E7%A0%81/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Android绘图篇-01 Canvas和Paint的基础使用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8\/"
+        },"genre": "posts","keywords": "android","wordcount":  5221 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8\/","datePublished": "2016-07-05T10:27:09+00:00","dateModified": "2016-07-05T10:27:09+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": " "
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Android绘图篇-01 Canvas和Paint的基础使用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android/"><i class="far fa-folder fa-fw"></i>android</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-07-05">2016-07-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5221 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;<span id="/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" class="leancloud_visitors" data-flag-title="Android绘图篇-01 Canvas和Paint的基础使用">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一paint和canvas">一.Paint和Canvas</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#二path和drawtetx练习">二.Path和DrawTetx练习</a>
+      <ul>
+        <li></li>
+        <li><a href="#path圆角矩形">Path圆角矩形</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>了解Cavans和Paint的具体用处,才可以更好的发挥他们的用户,方便我们应对不同的样式&hellip;</p>
+<p>首先感谢<!-- raw HTML omitted -->启航blog,讲解的非常详细<!-- raw HTML omitted -->本文为整理笔记,让自己的认识加深.</p>
+<p>首先贴上这篇我要记录的知识点的效果图</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>看到效果还是很基础的东西.下面开始整理实现方法</p>
+<p><!-- raw HTML omitted -->源码下载: 查找SuGraphicsBaseCanvasPaintActivity类, 手机查看效果一级界面进入选择graphics模块<!-- raw HTML omitted --></p>
+<h2 id="一paint和canvas">一.Paint和Canvas</h2>
+<p>自定义过View的对这两个属性应该不陌生. Paint画笔, Canvas画布. 有了这两个条件我们就可以做很多的事情.</p>
+<p>如果你想直接画某一个图形那么就是用Canvas,如果你想设置一些属性如文字粗细,大小,颜色那么就使用Paint.</p>
+<p>当我们要自定义View的使用,要养成在<code>构造函数</code>中创建出了Paint画笔对象,而不是在<code>onDraw()</code>,因为onDraw可能会在后续中频繁的刷新,如果在这其中设置了一些初始化的操作,那么就毫无意义并且浪费资源.</p>
+<p>我们看一个Paint的基本属性设置:</p>
+<p><strong>注意本文或者后续文章中<code>mDensity</code>变量为当前屏幕密度比值,代码中使用是为了适配所有尺寸的手机都可以同比例的显示出来.如(720*1080(比值为2), 1080*1920(比值为3), 1440*2560(比值为4))</strong></p>
+<pre><code>```
+//开始设置画笔的基本信息
+mPaint.setAntiAlias(true);                              //设置画笔的抗锯齿
+mPaint.setColor(Color.WHITE);                           //设置画笔的颜色
+mPaint.setStyle(Paint.Style.FILL);                      //设置画出的图形填充的类型,fill为内部填充,stroke为只有边框,内容不填充
+mPaint.setStrokeWidth(mDensity * 2);                    //设置边框的宽度. 如矩形的边宽, 文字的宽度. 接收实参为像素单位
+mPaint.setTextSize(mDensity * 20);                      //设置当绘制文字的时候的字体大小
+```
+</code></pre>
+<h4 id="paint设置填充样式">Paint设置填充样式</h4>
+<p><strong>setStyle (Paint.Style style)</strong></p>
+<ul>
+<li>Paint.Style.FILL					填充内部</li>
+<li>Paint.Style.FILL_AND_STROKE		填充并描边</li>
+<li>Paint.Style.STROKE				仅描边不填充</li>
+</ul>
+<p>看一下效果: 因为fill和fill_and_stroke相似不贴出效果</p>
+<!-- raw HTML omitted -->
+<h4 id="文字添加阴影">文字添加阴影</h4>
+<p><strong>setShadowLayer (float radius, float dx, float dy, int color)</strong></p>
+<p>参数说明:</p>
+<ul>
+<li>radius: 值越大越模糊. 本质每一个像素点模糊的半径.</li>
+<li>dx: 生层的阴影水平方向移动偏移量</li>
+<li>dy: 生层的阴影垂直方向移动偏移量</li>
+<li>color: 生成阴影的颜色</li>
+</ul>
+<p>代码实例</p>
+<pre tabindex="0"><code> mPaint.setShadowLayer(mDensity*5, mDensity*15, mDensity*10, Color.RED );      
+ canvas.drawText(&quot;阴影文字演示&quot;, 0, 25*mDensity, mPaint);    
+</code></pre><h4 id="给canvas设置背景色">给Canvas设置背景色</h4>
+<p>如果要给当前画布设置背景颜色,其实就是给画布添加一个颜色图层,最后合并的效果.有两个方法:</p>
+<ul>
+<li>canvas.drawColor(Color.BLUE);</li>
+<li>canvas.drawRGB(255, 255, 0);   //这两个功能一样，都是用来设置背景颜色的。</li>
+</ul>
+<h4 id="画直线">画直线</h4>
+<p><strong>drawLine (float startX, float startY, float stopX, float stopY, Paint paint)</strong></p>
+<p>参数说明:</p>
+<ul>
+<li>startX:开始点X坐标</li>
+<li>startY:开始点Y坐标</li>
+<li>stopX:结束点X坐标</li>
+<li>stopY:结束点Y坐标</li>
+</ul>
+<p>代码示例:</p>
+<pre><code>```
+//方法1 单条直线
+canvas.drawLine(mDensity*5, 0, mDensity*60, mDensity*20, mPaint);          
+
+//方法2 多条直线
+//定义一个数量为4的倍数的float类型的数组
+float[] pts = {mDensity * 95,mDensity*10,  
+            mDensity*140,mDensity*10,  
+            mDensity*145,mDensity*10,
+            mDensity*190,mDensity*10};
+canvas.drawLines(pts,mPaint);
+
+```
+</code></pre>
+<p>效果演示:</p>
+<!-- raw HTML omitted -->
+<p>方法2: 是根据一个点集合数组来画出线,可以是多条线.  最好定义为4的倍数的为数组的大小. 因为数组的每两个值分别对应点的xy点. 而两个点才能确定一个直线. 所以一条直线的前提是4个值.</p>
+<h4 id="画点">画点</h4>
+<p>单个点</p>
+<p><strong>drawPoint (float x, float y, Paint paint)</strong></p>
+<p>多个点</p>
+<p><strong>drawPoints (float[] pts, Paint paint)</strong></p>
+<p><strong>drawPoints (float[] pts, int offset, int count, Paint paint)</strong></p>
+<p>代码示例:</p>
+<pre><code>```
+canvas.drawPoint(100, 100, paint); 
+
+float []pts={10,10,100,100,200,200,400,400};  
+canvas.drawPoints(pts, 2, 4, paint); 
+
+```
+</code></pre>
+<h4 id="画矩形">画矩形</h4>
+<p>这里要用到<code>Rect</code>或者<code>RectF</code>. 这两个都是矩形的辅助类,基本一样. 根据四个点左上, 右下来确定一个矩形.</p>
+<p>最常用的创建方式例如<code>Rect rect = new Rect(10, 10, 50, 30);</code></p>
+<p><strong>drawRect (float left, float top, float right, float bottom, Paint paint)</strong></p>
+<p><strong>drawRect (RectF rect, Paint paint)</strong></p>
+<p><strong>drawRect (Rect rect, Paint paint)</strong></p>
+<p>参数没有什么好说的了,要不在画矩形的时候明确出左上,右下. 要不就传入一个矩形辅助类对象.</p>
+<p>代码示例:</p>
+<pre><code>```
+//画矩形 实心
+canvas.drawRect(0,0,mDensity*80, mDensity*20,mPaint);           //参数12为矩形左上角的点, 参数34为矩形右下角的点
+//矩形 空心
+mPaint.setStyle(Paint.Style.STROKE);
+canvas.drawRect(new RectF(mDensity*100,0, mDensity*180,mDensity*20),mPaint);
+
+```
+</code></pre>
+<p>代码效果:</p>
+<!-- raw HTML omitted -->
+<h4 id="圆角矩形">圆角矩形</h4>
+<p><strong>drawRoundRect (RectF rect, float rx, float ry, Paint paint)</strong></p>
+<ul>
+<li>rx: 生成圆角椭圆的X轴的半径</li>
+<li>ry: 生成圆角椭圆的Y轴的半径</li>
+</ul>
+<p>和矩形相比只需要多指定四个角需要显示的圆角属性即可.</p>
+<p>代码示例:</p>
+<pre><code>```
+//圆角矩形 实心
+canvas.drawRoundRect(new RectF(0,0,mDensity*80, mDensity*20), mDensity*5, mDensity*5 ,mPaint);      //参数2,3 为圆角的xy的弧度半径
+//圆角矩形 空心
+mPaint.setStyle(Paint.Style.STROKE);
+canvas.drawRoundRect(new RectF(mDensity*100,0,mDensity*180, mDensity*20), mDensity*5, mDensity*5 ,mPaint);
+
+```
+</code></pre>
+<p>代码效果:</p>
+<!-- raw HTML omitted -->
+<h4 id="圆形">圆形</h4>
+<p><strong>drawCircle (float cx, float cy, float radius, Paint paint)</strong></p>
+<p>参数说明:</p>
+<ul>
+<li>cx: 圆心x点坐标</li>
+<li>cy: 圆心y点坐标</li>
+<li>radius: 圆的半径</li>
+</ul>
+<h4 id="椭圆">椭圆</h4>
+<p><strong>drawOval (RectF oval, Paint paint)</strong></p>
+<p>椭圆是根据矩形生成的，以矩形的长为椭圆的X轴，矩形的宽为椭圆的Y轴，建立的椭圆图形</p>
+<p>所以只需要传入个RectF即可, 这里不演示了.</p>
+<h4 id="弧">弧</h4>
+<p>弧是椭圆的一部分，而椭圆是根据矩形来生成的，所以弧当然也是根据矩形来生成的.</p>
+<p><strong>drawArc (RectF oval, float startAngle, float sweepAngle, boolean useCenter, Paint paint)</strong></p>
+<p>参数说明:</p>
+<ul>
+<li>startAngle:	起始点,默认为坐标系x轴的正方向为0, 正值为顺时针旋转,负值反之</li>
+<li>sweepAngle:	从起始点开始需要显示的多少角度到结束点. 此角度正值为顺时针旋转.</li>
+<li>useCenter:   是一个boolean,如果为true那么开始到圆心,和结束点到圆心都有连线.反之没有.</li>
+</ul>
+<p>在画弧中利用方法中的boolean,配合画笔的填充属性可以生成不同的图形.</p>
+<p>例如:</p>
+<!-- raw HTML omitted -->
+<p>代码示例:</p>
+<pre><code>```
+	//弧  有两边 fill实心 扇形实心
+RectF rectF_ArcStart1 = new RectF(-mDensity * 20, 0, mDensity * 60, mDensity * 40);
+canvas.drawArc(rectF_ArcStart1,0,120,true, mPaint);      //arg2:为开始角度,从x坐标系的正方向为0度起始点. arg3是选装多少角度,为顺时针旋转
+//弧  无两边 实心  圆的一部分
+RectF rectF_ArcStart2 = new RectF(mDensity*50,0,mDensity*130, mDensity*40);
+canvas.drawArc(rectF_ArcStart2,0,120,false, mPaint);
+//弧  无两边 空心 弧边
+mPaint.setStyle(Paint.Style.STROKE);
+RectF rectF_ArcEnd1 = new RectF(mDensity*120,0,mDensity*200, mDensity*40);
+canvas.drawArc(rectF_ArcEnd1,0,120,false, mPaint);
+//弧  有两边 空心 扇形边框
+mPaint.setStyle(Paint.Style.STROKE);
+RectF rectF_ArcEnd2 = new RectF(mDensity*190,0,mDensity*260, mDensity*40);
+canvas.drawArc(rectF_ArcEnd2,0,120,true, mPaint);
+```
+</code></pre>
+<h2 id="二path和drawtetx练习">二.Path和DrawTetx练习</h2>
+<p>canvas对象不光可以直接画出指定的矩形,还可以通过自定义的Path路径绘制出图形. 比如手势绘画,不规则轨迹等等.</p>
+<p><code>canvas.drawPath(Path path, Paint paint)</code></p>
+<h4 id="path直线">Path直线</h4>
+<p>绘制直线路径,只需要找到一个起始点,然后不停的话直线的就可以, 每次画直线的起始点都是上一次的结束点.</p>
+<p>常用的函数:</p>
+<ul>
+<li>moveTo(float x, float y): 直接把下一次的起始点移动到某一个位置</li>
+<li>lineTo(float x, float y): 从上一次的起始点到指定的点画出连接点, 可以一直调用</li>
+<li>close: 如果最后Path的路径的最终点没有和起始点重合,那么调用close()就可以连接起点和终点,形成闭合</li>
+</ul>
+<p>代码示例:</p>
+<pre><code>```
+Path path = new Path();
+path.moveTo(10*mDensity, 10*mDensity);                        //设定起始点
+path.lineTo(10*mDensity, 100*mDensity);                       //第一条直线的终点，也是第二条直线的起点
+path.lineTo(200*mDensity,100*mDensity);                       //画第二条直线
+path.close();//闭环
+canvas.drawPath(path, mPaint);
+```
+</code></pre>
+<p>代码图示:</p>
+<!-- raw HTML omitted -->
+<p>可以看到我们可以规划任意一条路径,然后调用drawPath一次性画出. 上面我们只调用了两次lineTo()方法,意思为两条线,但是效果有三条线,这就是close()闭合的意思,收尾相连.</p>
+<h4 id="path矩形">Path矩形</h4>
+<p>当利用Path路径要画出一个图形的时候, 这里会有多出一个顺序的概念,如顺时针开始,或者逆时针开始.</p>
+<p><strong>addRect (float left, float top, float right, float bottom, Path.Direction dir)</strong></p>
+<p><strong>addRect (RectF rect, Path.Direction dir)</strong></p>
+<p>这里给Path添加路径和直接利用canvas.drawRect()差不多,不过这里有一个Path.Direction参数,表示构建的矩形以什么顺序画出</p>
+<ul>
+<li>Path.Direction.CCW：是counter-clockwise缩写，指创建逆时针方向的矩形路径</li>
+<li>Path.Direction.CW：是clockwise的缩写，指创建顺时针方向的矩形路径</li>
+</ul>
+<p>这样直接画出可能不好理解, 我们可以结合文字根据路径画出来查看效果</p>
+<p>先看一下结果:</p>
+<!-- raw HTML omitted -->
+<p>这样就很明显的看出区别了,下面贴出实现代码</p>
+<pre><code>```
+	//逆向生成矩形
+    Path CCWRectpath = new Path();
+    RectF rect1 =  new RectF(30*mDensity, 10*mDensity, 110*mDensity, 60*mDensity);
+    CCWRectpath.addRect(rect1, Path.Direction.CCW);
+    
+    //顺向生成生成
+    Path CWRectpath = new Path();
+    RectF rect2 =  new RectF(130*mDensity, 10*mDensity, 210*mDensity, 60*mDensity);
+    CWRectpath.addRect(rect2, Path.Direction.CW);
+    
+    //先画出这两个路径
+    canvas.drawPath(CCWRectpath, mPaint);
+    canvas.drawPath(CWRectpath, mPaint);
+
+    mPaint.setStyle(Paint.Style.FILL);
+    mPaint.setTextSize(10*mDensity);
+    //根据路径顺序画出文字,  参数2为路径, 参数3:每一边的头文字从原点的偏移量,相对于文字的左边开始为整数. 参数4: 每一行文字与所在路径的y轴偏移量,可以理解为值越大越远.
+    canvas.drawTextOnPath(&quot;啥时候能涨工资呢,好无聊啊好无聊&quot;,CCWRectpath,0,10*mDensity,mPaint);
+    canvas.drawTextOnPath(&quot;啥时候能涨工资呢,好无聊啊好无聊&quot;,CWRectpath,0,0*mDensity,mPaint);
+```
+</code></pre>
+<p>可以看到前半部分根据路径绘制了矩形,但是这样我们不能看出任何效果,  所以使用了<code>canvas.drawTextOnPath()</code>函数,与之前用的<code>drawText()</code>其实差不多,参数2就是根据传入的path对象的path路径来以此绘制文字, 参数3,4,其实是偏移量.  参数3代表与路径的起始点多少距离开始,我们可以想想每个段落是不是都有空格.就是这个意思.   参数4是与路径的距离(上下偏移),比如高考作文都是画好了横线让我们在上面写字.当传入0的时候就压着线写,传入10,就是往上移动10,距离线10的位置.</p>
+<h3 id="path圆角矩形">Path圆角矩形</h3>
+<p>还记得canvas也可以直接drawRoundRect(), 其实canvas那几个在path都有,并且还增加了贝塞尔曲线等.</p>
+<p>Path圆角矩形可以更灵活, 利用canvas画出的四个圆角是相等的,当时我们利用path添加圆角矩形却可以分别制定圆角的范围.</p>
+<p><strong>addRoundRect(RectF rect, float rx, float ry, Direction dir)</strong></p>
+<p><strong>addRoundRect(RectF rect, float[] radii, Direction dir)</strong></p>
+<p>直接看图:</p>
+<!-- raw HTML omitted -->
+<p>看到后面那个图片,每个角都不一样.</p>
+<p>代码实现:</p>
+<pre><code>```
+    Path pathRoundRect = new Path();
+    RectF rectRoundCCW =  new RectF(20*mDensity, 25*mDensity, 120*mDensity, 80*mDensity);
+    pathRoundRect.addRoundRect(rectRoundCCW, 5*mDensity, 15*mDensity , Path.Direction.CCW);        //arg2,3: 为生成椭圆的横轴和竖轴半径
+    
+    RectF rectRoundCW =  new RectF(140*mDensity,25*mDensity, 240*mDensity, 80*mDensity);
+    float radii[] ={2*mDensity,3*mDensity,
+                    10*mDensity,10*mDensity,
+                    2*mDensity,3*mDensity,
+                    25*mDensity,25*mDensity};           //必须为8个值, 对应四个角, 俩俩一堆为xy.
+    pathRoundRect.addRoundRect(rectRoundCW, radii, Path.Direction.CCW);
+    canvas.drawPath(pathRoundRect, mPaint);
+
+```
+</code></pre>
+<p>我们可以直接调用制定四个形参的函数直接规定四个圆角都相等的方法.  也可以调用三个参数的函数,这个函数中第二个接收一个数组, 这个数组必须为8个,少于8个就会出现角标越界异常. 因为这个函数是需要制定四个圆角. 每个角包含两个点, 所以最起码需要8个才可能满足此函数.</p>
+<h4 id="其他path图形">其他Path图形</h4>
+<p>其实和canvas对应的<code>drawXXX</code>差不多, 就不一一说明</p>
+<ul>
+<li>圆形:	addCircle (float x, float y, float radius, Path.Direction dir)</li>
+<li>椭圆:	addOval (RectF oval, Path.Direction dir)</li>
+<li>弧形:	addArc (RectF oval, float startAngle, float sweepAngle)</li>
+<li>赛贝尔: quadTo (float x1, float y1, float x2, float y2)   后面会详细讲解</li>
+</ul>
+<h4 id="paint关于文字属性的设置">Paint关于文字属性的设置</h4>
+<p>我们经常用的画笔属性写字可以认为<strong>基础属性</strong>,然后还有一些加粗下划线倾斜认为<strong>样式属性</strong></p>
+<p>普通属性</p>
+<ul>
+<li>setStrokeWidth(10)	//画笔宽度</li>
+<li>setAntiAlias(true)	//是否开启抗锯齿</li>
+<li>setTextSize(20)		//设置文字大小</li>
+<li>setStyle(Paint.Style.FILL)				//设置填充样式</li>
+<li>setTextAlign(Align.CENTER)				//设置文字对齐方式 默认为Left对齐起始</li>
+</ul>
+<p>样式属性</p>
+<ul>
+<li>setFakeBoldText(true)			//设置为粗体</li>
+<li>setUnderlineText(true)		//设置下划线</li>
+<li>setTextSkewX(0.5f)			//设置倾斜率 负值为向右,正值向左</li>
+<li>setStrikeThruText(true)		//设置删除线</li>
+<li>setTextScaleX(2)				//水平拉伸</li>
+</ul>
+<p>直接贴上效果</p>
+<!-- raw HTML omitted -->
+<h4 id="文字对应canvas绘制方式">文字对应canvas绘制方式</h4>
+<p><strong>1.普通绘制</strong></p>
+<ul>
+<li>drawText (String text, float x, float y, Paint paint)</li>
+<li>drawText (CharSequence text, int start, int end, float x, float y, Paint paint)</li>
+<li>drawText (String text, int start, int end, float x, float y, Paint paint)</li>
+<li>drawText (char[] text, int index, int count, float x, float y, Paint paint)</li>
+</ul>
+<p>我们常用的就是第一个, 3 4个为截取某一部分显示,不常用.</p>
+<p>而第二个接收CharSequence,这个对象比较强大因为它不仅可以写字符还能添加bitmap.但是在canvas中貌似不支持charSequence. 所以此函数也就失去了意义.</p>
+<p><strong>2.指定位置绘制</strong></p>
+<ul>
+<li>drawPosText (char[] text, int index, int count, float[] pos, Paint paint)</li>
+<li>drawPosText (String text, float[] pos, Paint paint)</li>
+</ul>
+<p>我们直接以第二个构造函数说明. 这个函数是根据你指定的数组float的点,来以此绘制出文字. 所以到这我们使用时候要注意要绘制的字符串长度要和设定的数组长度为1:2的比例.否则可能会出错.</p>
+<p>代码示例:</p>
+<pre><code>```
+float []pos=new float[]{20*mDensity,25*mDensity,
+                            20*mDensity,50*mDensity,
+                            20*mDensity,75*mDensity,
+                            20*mDensity,100*mDensity};    //注意这里的数组,俩俩一对, 对数要等于drawPostText的字符串长度,否则会出现越界异常
+canvas.drawPosText(&quot;八荣八耻&quot;, pos, mPaint);//两个构造函数
+```
+</code></pre>
+<p>图片示例:</p>
+<!-- raw HTML omitted -->
+<p><strong>3.根据路径绘制文字</strong></p>
+<p>在上面绘制的时候已经说过了,这里再用圆来演示一遍</p>
+<p>关键代码:</p>
+<pre><code>```
+canvas.drawTextOnPath(&quot;只要想努力,永远都不会晚.&quot;, circlePath, 45*mDensity, 0, mPaint);
+//第二个路径，改变hoffset、voffset参数值 ,参数3偏移路径起始点的距离, 参数4效果向外扩张的效果
+canvas.drawTextOnPath(&quot;只要想努力,永远都不会晚.&quot;, circlePath2, 20*mDensity, 8*mDensity, mPaint);
+```
+</code></pre>
+<p>代码图示:</p>
+<!-- raw HTML omitted -->
+<h4 id="字体的typeface">字体的TypeFace</h4>
+<p>Typeface是专门用来设置字体样式的，通过paint.setTypeface()来指定。可以指定系统中的字体样式，也可以指定自定义的样式文件中获取。要构建Typeface时，可以指定所用样式的正常体、斜体、粗体等，如果指定样式中，没有相关文字的样式就会用系统默认的样式来显示，一般默认是宋体。</p>
+<p>typeface的构建方法</p>
+<ul>
+<li>create(String familyName, int style) //直接通过指定字体名来加载系统中自带的文字样式</li>
+<li>create(Typeface family, int style)     //通过其它Typeface变量来构建文字样式</li>
+<li>createFromAsset(AssetManager mgr, String path) //通过从Asset中获取外部字体来显示字体样式</li>
+<li>createFromFile(String path)//直接从路径创建</li>
+<li>createFromFile(File path)//从外部路径来创建字体样式</li>
+<li>defaultFromStyle(int style)//创建默认字体</li>
+</ul>
+<p>我们如果想快速创建一个TypeFace对象那么就使用默认方法<code>defaultFromStyle()</code>其中的style有四个属性:</p>
+<ul>
+<li>Typeface.NORMAL  //正常体</li>
+<li>Typeface.BOLD	 //粗体</li>
+<li>Typeface.ITALIC	 //斜体</li>
+<li>Typeface.BOLD_ITALIC //粗斜体</li>
+</ul>
+<p>设置字体传入familyName字符串无论是宋体,还是楷体.都无效果&hellip;. = =|||</p>
+<p><strong>自定义字体</strong></p>
+<p>把ttf的后缀的字体包放入到项目的<code>.../app/src/main/assets/Fonts</code>下, 如果没有Fonts文件夹手动创建.</p>
+<p>然后代码如下:</p>
+<pre><code>```
+//设置自定义的字体
+    Typeface myTypeFace = Typeface.createFromAsset(getContext().getAssets(), &quot;Fonts/jian_luobo.ttf&quot;);
+    mPaint.setTypeface(myTypeFace);
+    canvas.drawText(&quot;你妹我看你好不好使!!!&quot;,10,50*mDensity, mPaint);
+```
+</code></pre>
+<p>代码图例:</p>
+<!-- raw HTML omitted -->
+<p><!-- raw HTML omitted -->源码下载: 查找SuGraphicsBaseCanvasPaintActivity类, 手机查看效果一级界面进入选择graphics模块<!-- raw HTML omitted --></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-07-05</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" data-title="Android绘图篇-01 Canvas和Paint的基础使用" data-via="xxxx" data-hashtags="android"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" data-title="Android绘图篇-01 Canvas和Paint的基础使用" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" data-title="Android绘图篇-01 Canvas和Paint的基础使用"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" data-title="Android绘图篇-01 Canvas和Paint的基础使用" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" data-title="Android绘图篇-01 Canvas和Paint的基础使用" data-description=" "><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" data-title="Android绘图篇-01 Canvas和Paint的基础使用" data-description=" "><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" data-title="Android绘图篇-01 Canvas和Paint的基础使用"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/1/" class="prev" rel="prev" title="善用继承实现,避免不必要的错误"><i class="fas fa-angle-left fa-fw"></i>善用继承实现,避免不必要的错误</a>
+            <a href="/posts/mac%E7%B3%BB%E7%BB%9Fandroid%E7%BC%96%E8%AF%91%E6%BA%90%E7%A0%81/" class="next" rel="next" title="mac系统android编译源码">mac系统android编译源码<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

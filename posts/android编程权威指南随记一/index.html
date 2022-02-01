@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android编程权威指南》随记一 零散知识整理 - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android编程权威指南》随记一 零散知识整理" />
+<meta property="og:description" content="这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-09-07T14:05:44+00:00" />
+<meta property="article:modified_time" content="2016-09-07T14:05:44+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android编程权威指南》随记一 零散知识整理"/>
+<meta name="twitter:description" content="这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%BA%8C-fragment%E7%9A%84%E6%A6%82%E6%8B%AC/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android编程权威指南》随记一 零散知识整理",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  9780 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80\/","datePublished": "2016-09-07T14:05:44+00:00","dateModified": "2016-09-07T14:05:44+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android编程权威指南》随记一 零散知识整理</h1><h2 class="single-subtitle">抄书笔记</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-09-07">2016-09-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9780 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 20 分钟&nbsp;<span id="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/" class="leancloud_visitors" data-flag-title="《Android编程权威指南》随记一 零散知识整理">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#activity的生命周期">Activity的生命周期</a></li>
+    <li><a href="#配置文件改变导致activity重建如屏幕旋转">配置文件改变导致Activity重建,如屏幕旋转</a></li>
+    <li><a href="#异常重建时activity的数据保存">异常重建时Activity的数据保存</a></li>
+    <li><a href="#sdk版本小解和兼容处理">SDK版本小解和兼容处理</a></li>
+    <li><a href="#xml布局属性">XML布局属性</a></li>
+    <li><a href="#viewpager简单介绍">ViewPager简单介绍</a></li>
+    <li><a href="#资源文件的配置与匹配">资源文件的配置与匹配</a></li>
+    <li><a href="#操作栏">操作栏</a></li>
+    <li><a href="#android的文件系统与java-io">Android的文件系统与Java I/O</a></li>
+    <li><a href="#系统的多选模式">系统的多选模式</a></li>
+    <li><a href="#设备屏幕尺寸的确定">设备屏幕尺寸的确定</a></li>
+    <li><a href="#以命令行的方式运行activity">以命令行的方式运行activity</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原理东西本书偏少. 不过可以学习本书中的代码的编写风格, 书中代码都是采用<strong>MVC</strong>模型来编写的. 就写这么多, 下面开始整理一些小知识点.</p>
+</blockquote>
+<h2 id="activity的生命周期">Activity的生命周期</h2>
+<p>有7种分别为: 除去<code>onRestart()</code>比较特殊一点的生命周期. 可以把<code>activity</code>认为分别在<strong>3种状态</strong>切换, 分别是<code>运行, 暂停, 停止</code>.</p>
+<h2 id="配置文件改变导致activity重建如屏幕旋转">配置文件改变导致Activity重建,如屏幕旋转</h2>
+<p><strong>设备配置(device configuration)<strong>是用来描述设备当前状态的一系列特征. 这些特征包括</strong>屏幕的方向, 手机语言, 屏幕的密度, 屏幕的尺寸, 键盘类型, 底座模式等</strong></p>
+<p>在开发中有时候需要为了匹配不同的设备配置, 我们会提供多套副本文件. 比如说:</p>
+<ul>
+<li>图片放在不同的<code>dpi</code>密度的文件夹下;</li>
+<li>适应手机的横竖屏创建不同的文件夹并编写不同展示风格的xml布局放入.</li>
+<li>创建不同语言的<code>strings</code>文件. 来实现语言国际化</li>
+<li>&hellip;..</li>
+</ul>
+<p>这里列举一下创建<strong>水平模式下加载另一个布局文件</strong>, 在<code>res/</code>资源文件夹下创建一个<code>layout-land</code>目录, 创建一个与<code>layout</code>文件夹中布局文件<code>名称相同</code>的xml. 然后编写想在横屏时候需要显示的布局.</p>
+<p>其实当手机处于<strong>横屏的时候</strong>需要加载资源文件. 这个时候系统首先查找开发者是否创建对应横屏的文件夹就是<code>layout-land</code>,如果有. 那么继续查找资源ID所对应的文件是否存在. 如果存在那么就加载这个文件. 如果没有就从<code>layout</code>文件夹中加载默认的文件(layout文件夹优先级基本上是最低的)</p>
+<h2 id="异常重建时activity的数据保存">异常重建时Activity的数据保存</h2>
+<p>由于本地手机的配置文件的改变, 如屏幕旋转造成了<code>Activity</code>的重建. 这个时候就会导致已经实例对象或者属性赋值全部丢失.</p>
+<p>利用<code>onSaveInstanceState(Bundle)</code>一般会在<code>onPause()</code>之后被调用. 把要存储的数据添加到<code>onSaveInstanceState()</code>的参数类型为<code>Bundle</code>的参数中. 然后当销毁后的重建时, 会在<code>onCreate()</code>方法中会传回一个<code>Bundle</code>类型的对象. 可以取出. 如果不是异常销毁重建那么默认情况下<code>onCreate()</code>回调方法带回的<code>Bundle</code>类型的参数是为<code>null</code>的.</p>
+<h2 id="sdk版本小解和兼容处理">SDK版本小解和兼容处理</h2>
+<ul>
+<li><strong>SDK最低版本:</strong> 当应用安装的时候, 手机会检测如果本身系统等级如果低于应用指定的最低版本那么应用无法安装.</li>
+<li><strong>SDK目标版本</strong> 应用是设计给哪个API级别去运行的. 大多数情况下, 目标版本即最新发步的Android版本.</li>
+<li><strong>SDK编译版本</strong> <code>Compile</code>. 前两个是通知手机设备的. 而这个属性是告知<code>Android Studio</code>编译器使用哪一个SDK版本进行代码编译.</li>
+</ul>
+<hr>
+<p>有时候我们可能会使用高版本的API. 但是有可能手机的版本会低于这个API的出现版本. 这个时候就需要在代码中进行逻辑判断分支.</p>
+<ul>
+<li><code>Build.VERSION.SDK_INT: </code>代表了当前运行的Android手机的版本号.</li>
+</ul>
+<p>通过判断当前手机的版本号, 这样就可以针对不同的场景进行分支处理.</p>
+<h2 id="xml布局属性">XML布局属性</h2>
+<p><strong>样式,主题, 主题属性</strong></p>
+<p>**样式(style)**是xml资源文件, 含有用来描述组件行为和外观的属性定义的集合. 例如在<code>res/valus/styles.xml</code>中声明如下样式.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">&#34;BigTextStyle&#34;</span> <span class="nt">&gt;</span>
+   <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&#34;android:textSize&#34;</span><span class="nt">&gt;</span>20sp<span class="nt">&lt;/item&gt;</span>
+   <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&#34;android:layout_margin&#34;</span><span class="nt">&gt;</span>5dp<span class="nt">&lt;/item&gt;</span>
+<span class="nt">&lt;/style&gt;</span>
+</code></pre></div><p>在以后的所有大的文字控件<code>textView</code>,<code>button</code>.都可以直接引入一个<code>style</code>属性. 当重复的属性越多, 使用的控件也越多, 这种好处是不言而喻的.</p>
+<hr>
+<p><strong>主题(theme)</strong></p>
+<p>Android自带了一些供应使用的预定义平台主题. 例如:<code>  android:theme=&quot;@style/Theme.AppCompat.Light&quot;</code>.</p>
+<p>引用主题属性:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;TextView</span>
+  <span class="na">android:layout_width=</span><span class="s">&#34;match_parent&#34;</span>
+  <span class="na">android:layout_height=</span><span class="s">&#34;wrap_content&#34;</span>
+  <span class="na">style=</span><span class="s">&#34;?android:listSeparatorTextViewStyle&#34;</span><span class="nt">/&gt;</span>
+</code></pre></div><p>例如这样后, 你会发现<code>textView</code>会带有<strong>margin</strong>,<strong>字体颜色</strong>,<strong>加粗</strong>等一些属性. 这就在一些场合很方便的设置了一些属性. 并且也能达到我们看着不那么丑的需求.</p>
+<hr>
+<p><strong>dp, sp</strong></p>
+<ul>
+<li><code>dp (density-independent): </code>一般用于设置控件宽高和<code>margin</code>,<code>padding</code>. dp值代表的实际长度与手机的<strong>屏幕分辨率</strong>和<strong>屏幕尺寸</strong>没有直接关系,但是有间接关系. 是这样. 根据<strong>屏幕的分辨率</strong>和<strong>屏幕尺寸</strong>会得到一个<strong>屏幕的像素密度</strong>. 根据这个屏幕像素密度来决定1dp在当前设备代表着几个像素点.</li>
+<li><code>sp (scale-independent pixel): </code>. 主要用于字体. 和dp相似会根据手机的密度来动态的选择对应的大小. 但是有一点不同. 这种像素会受<strong>手机字体的偏好设置而改变</strong></li>
+</ul>
+<hr>
+<p><strong>布局参数</strong></p>
+<p>对于资源文件xml中标签的属性<code>android:layout_width</code>,<code>android:layout_margin</code>,<code>android:text</code>等等, 为什么有的属性前面有<strong>layout</strong>开头, 而有的没有呢.</p>
+<p>其实名称<strong>以layout_<strong>来头的属性是作用于组件的</strong>父组件</strong>. 我们将这些属性统称为<strong>布局参数</strong>. 它们会告知父布局如何在内部安排自己的子元素.</p>
+<p>而<strong>不以layout_开头</strong>的属性是作用于组件的. 组件生成时, 会调用某个方法按照属性即属性值进行自我配置.</p>
+<hr>
+<p><strong>外边距于内边距</strong></p>
+<p>根据上面的结论, 应该就可以看出<code>layout_margin</code>,<code>padding</code>这两个属性. 一个是作用父布局一个是作用在自己身上的.  所以在自定义<strong>ViewGroup</strong>的时候不仅要获取子孩子的宽高还要获取<code>margin</code>这样才能正确的布局. 而在自定义<code>View</code>的时候我们往往要兼顾到padding这个属性. 不然设置<code>padding</code>的属性就会无效果.</p>
+<h2 id="viewpager简单介绍">ViewPager简单介绍</h2>
+<p><code>ViewPager</code>在某种程度上有点类似于<code>AdapterView(ListView的超类)</code>. <code>AdapterView</code>需借助于Adapter才能提供视图. 所以同样的<code>ViewPager</code>也需要<code>PagerAdapter</code>的支持.</p>
+<p><code>ViewPager</code>可能开发中用的很多. 在使用<code>ViewPager</code>作为一个<code>fragment</code>容器的时候. <code>FragmentManager</code>要求其容器视图必须<strong>具备id属性</strong>. 所以如果是代码中动态的创建ViewPager.那么别忘了设置id属性, 如下:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="c1">//  动态创建ViewPager并设置到setContent
+</span><span class="c1"></span>        <span class="n">mViewPager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ViewPager</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">());</span>
+        <span class="c1">// 如果需要对Fragment进行托管, 那么要求其容器视图必须具备资源ID
+</span><span class="c1"></span>        <span class="n">mViewPager</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">vp_main</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">mViewPager</span><span class="o">);</span>
+
+<span class="o">}</span>
+
+<span class="c1">// 在res/values/ids.xml 没有可以新建一个,为了创建独立资源id
+</span><span class="c1"></span><span class="o">&lt;?</span><span class="n">xml</span> <span class="n">version</span><span class="o">=</span><span class="s">&#34;1.0&#34;</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span><span class="o">?&gt;</span>
+<span class="o">&lt;</span><span class="n">resources</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">item</span> <span class="n">name</span><span class="o">=</span><span class="s">&#34;vp_main&#34;</span> <span class="n">type</span><span class="o">=</span><span class="s">&#34;id&#34;</span><span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">resources</span><span class="o">&gt;</span>
+</code></pre></div><p>这样就可以实现动态添加<code>ViewPager</code>并作为<code>Fragment</code>的容器了.</p>
+<hr>
+<p>由于直接通过<code>PagerAdapter</code>派生出子类有很多场景步骤过于复杂. 我们可以根据具体作用场景来选择其子类来作为ViewPager的适配器.比如说<code>FragmentStatePagerAdapter</code></p>
+<p>实现很简单如下: 复写两个方法就可以</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 在fragment中的onCreate()中直接设置就可以
+</span><span class="c1">// 利用ViewPager的子类 FragmentStatesPagerAdapter可以简单的处理并是实现
+</span><span class="c1">// 当使用fragment 还有一个选择FragmentPagerAdapter 两者的区别是在卸载不再需要的fragment的时候有所不同
+</span><span class="c1">// FragmentPagerAdapter创建的fragment只是有销毁视图的动作, 没有将其从FragmentManager里面删除
+</span><span class="c1"></span><span class="n">FragmentManager</span> <span class="n">fm</span> <span class="o">=</span> <span class="n">getSupportFragmentManager</span><span class="o">();</span>
+<span class="n">mViewPager</span><span class="o">.</span><span class="na">setAdapter</span><span class="o">(</span><span class="k">new</span> <span class="n">FragmentStatePagerAdapter</span><span class="o">(</span><span class="n">fm</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">Fragment</span> <span class="nf">getItem</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">//...相当于每个pager要展示的fragment.
+</span><span class="c1"></span>
+                <span class="k">return</span> <span class="n">crimeFragment</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCount</span><span class="o">()</span> <span class="o">{</span>
+                <span class="c1">// 返回Pager页的大小
+</span><span class="c1"></span>                <span class="k">return</span> <span class="n">mCrimes</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+</code></pre></div><p>可以看到当创建了<code>FragmentStatePagerAdapter(..)</code>传入了一个<code>FragmentManager</code>给其构造方法. 因为实际上<code>FragmentStatePagerAdapter</code>是我们的代理, 负责管理与<code>ViewPager</code>的对话并协同工作.代理需首先将<code>getItem()</code>方法返回的<code>Fragment</code>添加到<code>Activity</code>. 然后才能使用fragment完成自己的工作. 这也是需要传递<code>fm</code>的原因.</p>
+<p><strong>如果需要监听ViewPager的滑动事件</strong></p>
+<p>给ViewPager设置<code>setOnPageChangeListener()</code>注册一个回调监听, 里面有三个状态回调:</p>
+<ol>
+<li><code>onPageScrollStateChange</code>: 告知当前页面所处的行为是什么.</li>
+<li><code>onPageScrolled</code>: 告知当前显示的页面是哪个, 并且现在已经滑动导致的偏移距离是多少.</li>
+<li><code>onPageSelected</code>: 告知页面滑向了哪里.可以得知是在数据集合中的第几个Pager被显示出来了</li>
+</ol>
+<p><strong>关于FragmentStatePagerAdapter与FragmentPagerAdapter</strong></p>
+<p>主要区别就是: <strong>二者在卸载不再需要的fragment时,所采用的处理方式有所不同</strong></p>
+<ul>
+<li><code>FragmentStatePagerAdapter</code>: 会销毁不需要的<code>fragment</code>. 事务提交后, 可将<code>fragment</code>从<code>activity#FragmentManager</code>中彻底移除. 而类名中的<code>state</code>表明: 在销毁<code>Fragment</code>时, 他会将其<code>onSaveInstanceState()</code>方法中的<code>bundle</code>信息保存下来. 当用户切换回来的时候, 保存实例状态可用于恢复生成新的<code>fragment</code></li>
+<li><code>FragmentPagerAdapter</code>: 对于不再需要的<code>fragment</code>, 其对应的<code>FragmentManager</code>则选择调用事务的<code>detach(Fragment)</code>方法. 而非<code>remove(Fragment)</code>方法. 也就是说,<code>FragmentPagerAdapter</code>只是销毁了fragment的视图, 但仍将<code>fragment</code>实例保留在<code>FragmentManager</code>中</li>
+</ul>
+<p>而如何取决需要按场景来使用: <code>FragmentStatePagerAdapter</code>更节省内存. 如果需要展示的数据很多,如果使用<code>FragmentPageAdapter</code>那么会保存大量的信息, 并且占用很多空间就不是很合适.</p>
+<p>所以如果用户界面只需要<strong>少量固定</strong>的fragment. 那么使用<code>FragmentPagerAdapter</code>比较合适. 否则就反之使用<code>FragmentStatePagerAdapter</code>.</p>
+<h2 id="资源文件的配置与匹配">资源文件的配置与匹配</h2>
+<p>先看一下以下项目结构目录截图:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="local_1.png"
+        data-srcset="local_1.png, local_1.png 1.5x, local_1.png 2x"
+        data-sizes="auto"
+        alt="local_1.png"
+        title="local_1.png" /></p>
+<p>有三个<code>value</code>文件夹, 第一个为我们的默认加载的<code>value</code>, 第二个为使用了<strong>横屏修饰符修饰声明</strong>, 第三个使用了<strong>指定语言修饰符声明</strong>. 里面都有一个<code>strings</code>文件夹看一下内容. 这里只拿<code>app_name</code>属性来说明测试, 三个文件都有此属性.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="local_2.png"
+        data-srcset="local_2.png, local_2.png 1.5x, local_2.png 2x"
+        data-sizes="auto"
+        alt="local_2.png"
+        title="local_2.png" /></p>
+<p>具有不同的修饰符的<strong>同种功能的文件夹是具有不同优先级的</strong>.  还是以上面的图片为例子. 如果说在首页<code>Activity</code>引用了<code>app_name</code>这个字符串. 那么根据不同的场景会去加载不同的资源文件.</p>
+<ul>
+<li><strong>如果本地语言指定了中文:</strong> 那么就会加载<code>values-zh</code>文件中的资源(此文件夹的配置修饰符优先级在上面的三种场景最高).</li>
+<li><strong>如果本地语言非中文, 并且是横屏状态下:</strong> 那么会加载<code>values-land</code>文件中的资源</li>
+<li><strong>如果即没有指定为中文,也不是横屏状态下, 那么就加载默认的资源文件</strong> <code>values</code>文件夹</li>
+</ul>
+<p>可以看出来app加载资源文件的时候是按照一定优先级去加载的, 首先会先排除掉不兼容当前设备配置的资源目录. 如果有多个文件匹配那么高优先级的文件夹首先会检查当前手机环境对应的配置是否匹配(比如是否横屏,是否设置某种本地语言). 匹配成功之后就会加载对应的文件夹下的内容. 而低优先级的对应功能的文件夹不会再去加载. 但是如果发现匹配不成功或者成功之后没有找到对应的属性那么还会继续往低优先级的查找. 直到找到为止.</p>
+<p>所以可以看出一个属性值,最少要保证在资源文件中存在一份. 否则会出现加载错误, 并且需要处理好场景之间无值可选的问题.</p>
+<p>下面列出大部分具有配置修饰符的设备特征. 他们的优先级从高到低排列的</p>
+<table>
+<thead>
+<tr>
+<th>优先级(数值越低越高)</th>
+<th>特征说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>移动国家码, 通常附有移动网络码</td>
+</tr>
+<tr>
+<td>2</td>
+<td>语言代码, 通常附有地区代码</td>
+</tr>
+<tr>
+<td>3</td>
+<td>布局方向</td>
+</tr>
+<tr>
+<td>4</td>
+<td>最小宽度</td>
+</tr>
+<tr>
+<td>5</td>
+<td>可用宽度</td>
+</tr>
+<tr>
+<td>6</td>
+<td>可用高度</td>
+</tr>
+<tr>
+<td>7</td>
+<td>屏幕尺寸</td>
+</tr>
+<tr>
+<td>8</td>
+<td>屏幕纵横比</td>
+</tr>
+<tr>
+<td>9</td>
+<td>屏幕方位</td>
+</tr>
+<tr>
+<td>10</td>
+<td>UI模式</td>
+</tr>
+<tr>
+<td>11</td>
+<td>夜间模式</td>
+</tr>
+<tr>
+<td>12</td>
+<td>屏幕显示密度</td>
+</tr>
+<tr>
+<td>13</td>
+<td>触摸屏类型</td>
+</tr>
+<tr>
+<td>14</td>
+<td>键盘可用性</td>
+</tr>
+<tr>
+<td>15</td>
+<td>首选输入法</td>
+</tr>
+<tr>
+<td>16</td>
+<td>导航键可用性</td>
+</tr>
+<tr>
+<td>17</td>
+<td>非文本导航方法</td>
+</tr>
+<tr>
+<td>18</td>
+<td>API级别</td>
+</tr>
+</tbody>
+</table>
+<p>资源文件夹也可以使用<strong>多重配置修饰符</strong>, 例如<code>values-zh-land</code>, 各修饰符必须按照优先级高低排序.否则无效. 例如<code>values-land-zh</code>就是无效的目录. 这里就不细说. 可在官网<strong>guide/topics/resources/providing-resources</strong>查看.</p>
+<hr>
+<p><strong>资源命名</strong></p>
+<p>资源的文件只能有小写字母组成并且不能包含空格.</p>
+<p>无论是在XML中还是在代码中引入资源, 引用都不包括文件的扩展名. 所以<strong>在同级目录下不能以文件的扩展名作为依据来区分命名相同的文件. 也不允许同级下名称相同扩展名不同的文件存在,在编译时候会报错</strong></p>
+<p><strong>布局文件命名</strong></p>
+<p>最好按文件名排序的声明文件名. 通常以其定义的视图类型名为前缀. 如<code>activity_</code>,<code>dialog_</code>,<code>list_item_</code>.这样查找分类就容易多了.</p>
+<p><strong>资源目录结构</strong></p>
+<p>所有的资源都应该保存在<code>res/</code>目录的子目录下, 常见的子目录有<code>drawable/</code>,<code>mipmap/</code>,<code>layout/</code>,<code>values/</code>,<code>raw/</code>, <code>menu/</code>等.</p>
+<p><code>Android</code>会无视<code>res/</code>目录下的其他子目录.</p>
+<h2 id="操作栏">操作栏</h2>
+<p>也可以认为是title bar. 说法很多. 如下</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="titlebar.png"
+        data-srcset="titlebar.png, titlebar.png 1.5x, titlebar.png 2x"
+        data-sizes="auto"
+        alt="titlebar.png"
+        title="titlebar.png" /></p>
+<p>可显示在操作栏上的菜单被称作<strong>选项菜单</strong>, 选项菜单类似于<code>popupWind</code>.可以作为用户的扩展操作.</p>
+<p><strong>1.首先在XML文件中定义选项菜单</strong></p>
+<p><code>res/menu/</code>目录下创建一个xml. 根标签为<code>&lt;menu&gt;</code>如下</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="menu_1.png"
+        data-srcset="menu_1.png, menu_1.png 1.5x, menu_1.png 2x"
+        data-sizes="auto"
+        alt="menu_1.png"
+        title="menu_1.png" /></p>
+<p>或者你可以这样</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="menu_2.png"
+        data-srcset="menu_2.png, menu_2.png 1.5x, menu_2.png 2x"
+        data-sizes="auto"
+        alt="menu_2.png"
+        title="menu_2.png" /></p>
+<ul>
+<li><code>showAsAction</code>属性用于指定菜单选项是显示在操作栏上, 还是隐藏到<strong>溢出菜单</strong>中. 比如上图中的<code>app:showAsAction=&quot;ifRoom|withText&quot;</code>是一个组合属性. 代表着只要操作栏可用的控件足够,菜单项图标和文字描述都会显示在操作栏中. 这个属性值不设定的情况下默认是<strong>溢出菜单</strong>模式显示的. 如果空间仅够显示图片那么文字不会显示, 如果剩余空间即不够显示文字也不够显示图标, 那么菜单项会被转移隐藏到菜单中.</li>
+<li>上面这个属性值还有两个可设置项<code>always</code>和<code>never</code>. 不推荐使用<code>always</code>, 应尽量使用更方便的<code>ifRoom</code>属性值, 让操作系统系统决定如何显示菜单项. 对于那些很少用到的菜单项, 使用<code>never</code>是个不错的选择.</li>
+<li><code>icon:</code>   属性使用了系统的图标资源. 这个资源只存在于设备上.</li>
+</ul>
+<p><strong>2. 菜单文件创建完之后,就该代码设置了</strong></p>
+<p>首先<code>Activity</code>提供了管理选项菜单的回调函数. 在需要选项菜单的时候, <code>Android</code>会调用其<code>onCreateOptionsMenu()</code>方法.</p>
+<p>如果你使用的是<code>Fragment</code>那么也没关系因为<code>Fragment</code>也有同名的函数为你使用. 接下来以在<code>Fragment</code>为例说明.</p>
+<p>复写<code>onCreateOptionsMenu()</code>函数. 通过<code>inflate</code>进行填充布局到<code>menu</code>对象中. 如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreateContextMenu</span><span class="o">(</span><span class="n">ContextMenu</span> <span class="n">menu</span><span class="o">,</span> <span class="n">View</span> <span class="n">v</span><span class="o">,</span> <span class="n">ContextMenu</span><span class="o">.</span><span class="na">ContextMenuInfo</span> <span class="n">menuInfo</span><span class="o">)</span> <span class="o">{</span>
+   <span class="c1">// 为操作栏创建浮动的上下文菜单
+</span><span class="c1"></span>   <span class="n">mActivity</span><span class="o">.</span><span class="na">getMenuInflater</span><span class="o">().</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">crime_list_item_context</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>然后在<code>Fragment#onCreate()</code>方法中添加一段代码 <code>setHasOptionsMenu(true);</code></p>
+<p><strong>说明:</strong> <code>Fragment#onCreateOptionsMenu()</code>方法是由<code>FragmentManager</code>负责调用的. 因此当<code>activity</code>接收到来自操作系统的<code>onCreateOptionsMenu()</code>方法回调请求时, 我们需要明确的告诉<code>FragmentManager</code>需接收选项菜单的方法回调.就是<code>setHasOptionsMenu()</code>.</p>
+<p>现在我们的选项菜单就已经可以显示出来.</p>
+<p><strong>3. 响应菜单选项选择的事件</strong></p>
+<p>既然添加了扩展功能的选项, 那么必定需要实现某些点击事件. 通过复写<code>onOptionsItemSelected()</code>来进行处理.  有于我们可能在<code>menu.xml</code>中声明了多个item. 为了区分点击的是哪一个. 可以通过id来识别不同的点击触发. 如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">()){</span>
+            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_item_new_crime</span><span class="o">:</span>
+                <span class="c1">// 做一些想做的事情
+</span><span class="c1"></span>                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+
+            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_item_show_subtitle</span><span class="o">:</span>
+                <span class="c1">//  设置操作栏的子标题
+</span><span class="c1"></span>                <span class="n">ActionBar</span> <span class="n">supportActionBar</span> <span class="o">=</span> <span class="o">((</span><span class="n">AppCompatActivity</span><span class="o">)</span> <span class="n">getActivity</span><span class="o">()).</span><span class="na">getSupportActionBar</span><span class="o">();</span>
+
+                <span class="k">if</span> <span class="o">(</span><span class="n">supportActionBar</span><span class="o">.</span><span class="na">getSubtitle</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+                    <span class="n">supportActionBar</span><span class="o">.</span><span class="na">setSubtitle</span><span class="o">(</span><span class="n">sub_description</span><span class="o">);</span>
+                    <span class="n">item</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">hide_subtitle</span><span class="o">);</span>
+                <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+                    <span class="n">supportActionBar</span><span class="o">.</span><span class="na">setSubtitle</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+                    <span class="n">item</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">show_subtitle</span><span class="o">);</span>
+                <span class="o">}</span>
+
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="nl">
+</span><span class="nl">            default:</span>
+                <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div><p>你可能看到上面有一行注释写的设置<strong>操作栏的子标题</strong>这个的效果如下图.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="subtitle.png"
+        data-srcset="subtitle.png, subtitle.png 1.5x, subtitle.png 2x"
+        data-sizes="auto"
+        alt="subtitle.png"
+        title="subtitle.png" /></p>
+<p><strong>4. 层级式导航,向左后退箭头</strong></p>
+<p>虽然大多数都是自定义的<code>titlebar</code>, 但是对于系统的默认后退也应该了解.</p>
+<p>通过<code>Activity#getSupportActionBar().setDisplayHomeAsUpEnable()</code>. <strong>(通过测试发现当在二级界面的时候默认都会出现向左的后退箭头但是默认的是没有处理的, 需要在<code>onOptionsItemSelected()</code>做对应的处理,我这里测试的环境为sdk为24,使用的<code>AppCompatActivity</code>派生的子类)</strong></p>
+<p>所以如果是<code>fragment</code>开发为基础, 那么别忘了<code>setHasOptionsMenu(true)</code>, 允许<code>FragmentManager</code>对自己的<code>fragment</code>队列进行菜单选项的事件分发回调. 如下:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+   <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">()){</span>
+       <span class="c1">// android.R.id.home 就是默认的向左箭头组件的id
+</span><span class="c1"></span>       <span class="k">case</span> <span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">home</span><span class="o">:</span>
+           <span class="n">getActivity</span><span class="o">().</span><span class="na">finish</span><span class="o">();</span>
+           <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="nl">
+</span><span class="nl">       default:</span>
+           <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>还有一个问题!</strong></p>
+<p>Android编程, 有时候你以为已经丝入扣, 天衣无缝, 可以高枕无忧的时候上线, 总是会被人提醒到好像还有一个问题!</p>
+<p>上面的二级标题是否还记得. 有这么一个场景如果二级标题显示了, 但是发生了设备旋转! ok 那么重建后你会发现二级标题不存在了. 这时就可以使用<code>setRetaionInstance(true)</code>来保存成员属性. 并利用一个布尔值来控制在创建菜单选项的时候二级标题是否需要显示.</p>
+<h2 id="android的文件系统与java-io">Android的文件系统与Java I/O</h2>
+<p>在操作系统级别, <code>Android</code>运行在<code>Linux</code>内核之中, 因此,它的文件系统类似于其他一些Linux或Unix系统. 目录名称已正斜杠<code>/</code>分隔. 文件名可由各类字符组成, 且区分大小写. 受益于<code>Linux</code>的安全模式, 应用都是以特定的用户ID运行的.</p>
+<p><code>Android</code>利用应用的java包名, 来决定应用在文件系统中的存放位置. 用于发布与安装, 应用本身被打包成APK文件格式. 被放置在<code>/data/app</code>目录. 当然这是需要进行<code>root</code>权限才可以的.</p>
+<p><strong>访问文件和目录</strong></p>
+<p>应用访问文件和目录最便捷的方式是使用<code>Content</code>类提供的方法. <code>Content</code>类是所有关键应用组件的超类.</p>
+<p>下面是Content提供的基本文件或目录的便捷方法</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>使用目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File getFilesDir()</td>
+<td>获取<code>data/data/&lt;packname&gt;/files</code>目录</td>
+</tr>
+<tr>
+<td>FileInputStream openFileInput(String name)</td>
+<td>打开<code>data/data/&lt;packname&gt;/files/</code>目录下的name文件名的文件获得输入流</td>
+</tr>
+<tr>
+<td>FileOutputStream openFileOutput(String name, int mode)</td>
+<td>同上, 这个是获得输出流, 不同之处如果没有这个文件那就会自动创建</td>
+</tr>
+<tr>
+<td>File getDir(String name, int mode)</td>
+<td>获取<code>data/data/&lt;packname&gt;/name名称的文件夹</code>目录(没有就会先创建)</td>
+</tr>
+<tr>
+<td>String[] fileList()</td>
+<td>获取<code>data/data/&lt;packname&gt;/files</code>目录下的所有文件名称列表.</td>
+</tr>
+<tr>
+<td>File getCacheDir()</td>
+<td>获取<code>data/data/&lt;packname&gt;/cache</code>目录</td>
+</tr>
+</tbody>
+</table>
+<h2 id="系统的多选模式">系统的多选模式</h2>
+<p>如下效果:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="multidex.gif"
+        data-srcset="multidex.gif, multidex.gif 1.5x, multidex.gif 2x"
+        data-sizes="auto"
+        alt="multidex.gif"
+        title="multidex.gif" /></p>
+<p>开始实现步骤:</p>
+<p><strong>1. 首先定义多选菜单的资源文件</strong></p>
+<p>例如上面的垃圾桶图标需要手动去设置, 在<code>res/menu/</code>目录下创建一个xml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;?</span><span class="n">xml</span> <span class="n">version</span><span class="o">=</span><span class="s">&#34;1.0&#34;</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span><span class="o">?&gt;</span>
+<span class="o">&lt;</span><span class="n">menu</span> <span class="n">xmlns</span><span class="o">:</span><span class="n">android</span><span class="o">=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">item</span>
+        <span class="n">android</span><span class="o">:</span><span class="n">id</span><span class="o">=</span><span class="s">&#34;@+id/menu_item_delete_crime&#34;</span>
+        <span class="n">android</span><span class="o">:</span><span class="n">icon</span><span class="o">=</span><span class="s">&#34;@android:drawable/ic_menu_delete&#34;</span>
+        <span class="n">android</span><span class="o">:</span><span class="n">title</span><span class="o">=</span><span class="s">&#34;@string/delete_crime&#34;</span><span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">menu</span><span class="o">&gt;</span>
+</code></pre></div><p>同样使用系统的资源图片, 就是右上角的垃圾桶.</p>
+<p><strong>2. 实现Content菜单(进入编辑模式)</strong></p>
+<p><strong>这里面有两种,在旧版本11之前上编辑模式是单项操作模式, 后续版本是多选模式, 下面简单说一下旧版本的模式然后在回到上面图中的多选模式, 可以直接跳过直接看多选模式, 毕竟11版本已经很旧了</strong></p>
+<p>于之前的<code>操作栏里面的步骤大致相同</code>. 这里复写的方法是有两个(fragment类中)</p>
+<ul>
+<li><code>onCreateContextMenu(...)</code>:   实例化一个Content多选菜单</li>
+<li><code>onContextItemSelected(...)</code>: 响应菜单选择按钮</li>
+</ul>
+<p>这里还是以在<code>fragment</code>中的代码举例.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreateContextMenu</span><span class="o">(</span><span class="n">ContextMenu</span> <span class="n">menu</span><span class="o">,</span> <span class="n">View</span> <span class="n">v</span><span class="o">,</span> <span class="n">ContextMenu</span><span class="o">.</span><span class="na">ContextMenuInfo</span> <span class="n">menuInfo</span><span class="o">)</span> <span class="o">{</span>
+   <span class="c1">// 为操作栏创建浮动的上下文菜单
+</span><span class="c1"></span>   <span class="n">mActivity</span><span class="o">.</span><span class="na">getMenuInflater</span><span class="o">().</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">crime_list_item_context</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+<span class="o">}</span>
+    
+   <span class="c1">// 浮动上下文的点击监听回调
+</span><span class="c1"></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onContextItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+   <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">()){</span>
+       <span class="c1">//  显示删除的浮动上下文
+</span><span class="c1"></span>       <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_item_delete_crime</span><span class="o">:</span>
+           <span class="c1">// 获得点击的具体listview的item位置, 并得到对象
+</span><span class="c1"></span>           <span class="n">AdapterView</span><span class="o">.</span><span class="na">AdapterContextMenuInfo</span> <span class="n">menuInfo</span> <span class="o">=</span> <span class="o">(</span><span class="n">AdapterView</span><span class="o">.</span><span class="na">AdapterContextMenuInfo</span><span class="o">)</span> <span class="n">item</span><span class="o">.</span><span class="na">getMenuInfo</span><span class="o">();</span>
+           <span class="c1">// 获得点击的item信息得到posion
+</span><span class="c1"></span>           <span class="kt">int</span> <span class="n">position</span> <span class="o">=</span> <span class="n">menuInfo</span><span class="o">.</span><span class="na">position</span><span class="o">;</span>
+           <span class="n">CrimeBean</span> <span class="n">clickItemBean</span> <span class="o">=</span> <span class="o">((</span><span class="n">MyCrimeAdapter</span><span class="o">)</span> <span class="n">getListAdapter</span><span class="o">()).</span><span class="na">getItem</span><span class="o">(</span><span class="n">position</span><span class="o">);</span>
+
+           <span class="c1">//
+</span><span class="c1"></span>           <span class="n">mCrimes</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">clickItemBean</span><span class="o">);</span>
+           <span class="o">((</span><span class="n">MyCrimeAdapter</span><span class="o">)</span> <span class="n">getListAdapter</span><span class="o">()).</span><span class="na">notifyDataSetChanged</span><span class="o">();</span>
+           <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+       <span class="k">default</span><span class="o">:</span>
+           <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onContextItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>最后一步为<code>ContextMenu</code>登记一个<code>ListView</code>如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 在低版本使用浮动上下文菜单
+</span><span class="c1"></span><span class="n">registerForContextMenu</span><span class="o">(</span><span class="n">lv_main</span><span class="o">);</span>
+</code></pre></div><hr>
+<p><strong>回到多选模式, 还是多选好</strong></p>
+<p>接着第二大步开始. 如果要想实现多选模式的<code>ContextMenu</code>. 那么需要设置列表视图的选择模式为<code>ListView.CHOICE_MODE_MULTIPLE_MODAL</code>, 然后并添加个监听响应即可,其实很简单.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">lv_main</span><span class="o">.</span><span class="na">setChoiceMode</span><span class="o">(</span><span class="n">ListView</span><span class="o">.</span><span class="na">CHOICE_MODE_MULTIPLE_MODAL</span><span class="o">);</span>
+<span class="c1">//  设置列表视图操作模式回调
+</span><span class="c1"></span><span class="n">lv_main</span><span class="o">.</span><span class="na">setMultiChoiceModeListener</span><span class="o">(</span><span class="k">new</span> <span class="n">AbsListView</span><span class="o">.</span><span class="na">MultiChoiceModeListener</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// 视图中的选项在选中或者撤销的时候会触发
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemCheckedStateChanged</span><span class="o">(</span><span class="n">ActionMode</span> <span class="n">mode</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">checked</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 在ActionMode对象创建后调用, 也是实例化上下文菜单资源, 并显示在上下文操作栏上的任务完成的地方        
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateActionMode</span><span class="o">(</span><span class="n">ActionMode</span> <span class="n">mode</span><span class="o">,</span> <span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">MenuInflater</span> <span class="n">menuInflater</span> <span class="o">=</span> <span class="n">mode</span><span class="o">.</span><span class="na">getMenuInflater</span><span class="o">();</span>
+    <span class="n">menuInflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">crime_list_item_context</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 在onCreateActionMode()回调之后调用, 以及当前上下文操作栏需要刷新显示新数据时调用
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onPrepareActionMode</span><span class="o">(</span><span class="n">ActionMode</span> <span class="n">mode</span><span class="o">,</span> <span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 在用户选中某个菜单项操作时调用(这里就是垃圾桶图标按钮). 是相应上下文菜单项操作的地方
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onActionItemClicked</span><span class="o">(</span><span class="n">ActionMode</span> <span class="n">mode</span><span class="o">,</span> <span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">()){</span>
+        <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_item_delete_crime</span><span class="o">:</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">myCrimeAdapter</span><span class="o">.</span><span class="na">getCount</span><span class="o">()-</span><span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">getListView</span><span class="o">().</span><span class="na">isItemChecked</span><span class="o">(</span><span class="n">i</span><span class="o">)){</span>
+                    <span class="n">mCrimes</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">myCrimeAdapter</span><span class="o">.</span><span class="na">getItem</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="n">mode</span><span class="o">.</span><span class="na">finish</span><span class="o">();</span>
+            <span class="n">myCrimeAdapter</span><span class="o">.</span><span class="na">notifyDataSetChanged</span><span class="o">();</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 在用户退出上下文操作模式或所选菜单项操作已被响应, 从而导致ActionMode对象将要销毁时调用.
+</span><span class="c1"></span>    <span class="c1">// 默认的实现会导致已选视图被反选, 也可以完成上下文操作模式下, 响应菜单项操作而引起的响应fragment刷新
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDestroyActionMode</span><span class="o">(</span><span class="n">ActionMode</span> <span class="n">mode</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</code></pre></div><p><strong>3. 最后一步</strong></p>
+<p>这个最后一步是针对<strong>多选模式下的</strong>, 上面两步已经在逻辑功能上完成了之前的需求, 但是有一点, 当进入多选的时候点击或不点击发现没有区别, 我们无法得知哪一个<strong>item</strong>是否已经被点击激活状态, 哪一个没有没点击激活. <strong>所有我们需要给Item添加一个背景, 设置一下item的激活或者非激活的背景色</strong>, 代码如下:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">// 在drawable/文件夹下创建一个文件
+<span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+<span class="nt">&lt;selector</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!--当引用控件处于激活状态时, 则使用指定的资源文件, 反之不采取任何操作--&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:state_activated=</span><span class="s">&#34;true&#34;</span>
+        <span class="na">android:drawable=</span><span class="s">&#34;@android:color/darker_gray&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/selector&gt;</span>
+
+</code></pre></div><p>把这个<code>StateListDrawable</code>状态<code>drawable</code>设置到<code>ListView的item背景属性上</code>.</p>
+<p>ok 关于多选的<code>ContentMenu</code>操作就实现完成.</p>
+<p><strong>扩展一下:</strong></p>
+<p>这里实现的方法可以完全作用在<code>ListView</code>和<code>GridView</code>中(GridView和ListView都是AdapterView的子类). 但是如果不是这两个类型的控件应该如何实现这种多选方式.</p>
+<ol>
+<li>首先给一个控件实现<strong>长按监听</strong></li>
+<li>在长按回调中调用<code>Activity.startActivityMode(..)</code>并创建一个<code>ActionMode.Callback</code>的接口作为参数传入. 这个接口里面的回调很熟悉就是上面<code>ListView</code>设置了<code>setMultiChoiceModeListener</code>里面创建的匿名类里面对应的回调.</li>
+</ol>
+<h2 id="设备屏幕尺寸的确定">设备屏幕尺寸的确定</h2>
+<p>你可能会发现你的项目目录中存在如下这个文件, 但具体什么意思却不是很清楚</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="screen_1.png"
+        data-srcset="screen_1.png, screen_1.png 1.5x, screen_1.png 2x"
+        data-sizes="auto"
+        alt="screen_1.png"
+        title="screen_1.png" /></p>
+<p>这是在<code>Android 3.2之后引入的新修饰符</code>, 在3.2之前是使用<code>small, normal, large, xlarge</code>来讲设备分为不同的屏幕大小类别.</p>
+<p>现在新引入的屏幕尺寸修饰符如下表:</p>
+<table>
+<thead>
+<tr>
+<th>修饰符格式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wXXXdp</td>
+<td>有效宽度: 宽度大于或等于 XXX dp</td>
+</tr>
+<tr>
+<td>hXXXdp</td>
+<td>有效高度: 高度大于或等于 XXX dp</td>
+</tr>
+<tr>
+<td>swXXXdp</td>
+<td>最小宽度: 宽度或者高度(两者中最小的那个) 大于或等于 xxx dp</td>
+</tr>
+</tbody>
+</table>
+<p>如果要指定某一个布局仅适用于屏幕宽度至少<strong>300dp</strong>的设备, 这种情况下, 可以使用宽度修饰符, 并将布局文件放入<code>res/layout-w300dp</code>目录下, (w代表宽度width). 同样道理如果是高度那么使用<code>hxxxdp</code></p>
+<p>有时候设备方向变换, 也会导致设备的宽高发生变化. 为了确定某个具体的屏幕尺寸可是使用<code>sw</code>, 如果不管是横屏<code>1280*720</code>还是竖屏的<code>720*1280</code>, 其对应的sw的值都是800.</p>
+<h2 id="以命令行的方式运行activity">以命令行的方式运行activity</h2>
+<p>要用<code>adb</code>命令启动首先需要满足<code>activity</code>组件可以被外部启动. 需要在清单文件中配置要被启动的<code>activity</code>的属性如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">&#34;.activity.CrimeCameraActivity&#34;</span>
+            <span class="na">android:exported=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+</code></pre></div><p>设置<code>exported</code>属性. 这个属性默认是<strong>false</strong>. 表示只能从自己的应用中启动. <strong>如果将intent过滤器添加到activity的声明中, 那么该activity的<code>exported</code>将被自动设置为true</strong></p>
+<p>然后使用<code>adb</code>命令, 如果你没有设置全局环境那么就到<code>Android SDK</code>安装目录<code>platform-tools</code>子目录下执行adb命令.</p>
+<p><code>adb shell am start -n 应用包名/.activity类名</code></p>
+<p>/ 后面接的和清单文件中<code>activity</code>的name属性对应的是一样的. 如果你如上代码在多层包中. 那么实际上是这样的. 我的包名<code>com.szysky.note.criminal</code></p>
+<p>演示代码:</p>
+<p><code>adb shell am start -n com.szysky.note.criminal/.activity.CrimeCameraActivity</code></p>
+<p><code>am(Activity Manager)</code>是一个在设备上运行的命令行程序. 它支持启动和停止Android组件(component)并从命令行发送intent. 可以运行adb shell am指令. 查看am工具能够完成的所有任务.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-09-07</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/" data-title="《Android编程权威指南》随记一 零散知识整理" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/" data-title="《Android编程权威指南》随记一 零散知识整理" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/" data-title="《Android编程权威指南》随记一 零散知识整理"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/" data-title="《Android编程权威指南》随记一 零散知识整理" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/" data-title="《Android编程权威指南》随记一 零散知识整理" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/" data-title="《Android编程权威指南》随记一 零散知识整理" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/" data-title="《Android编程权威指南》随记一 零散知识整理"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="prev" rel="prev" title="《Android 开发艺术探索》 15-Android性能优化"><i class="fas fa-angle-left fa-fw"></i>《Android 开发艺术探索》 15-Android性能优化</a>
+            <a href="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%BA%8C-fragment%E7%9A%84%E6%A6%82%E6%8B%AC/" class="next" rel="next" title="《Android编程权威指南》随记二 Fragment的概括">《Android编程权威指南》随记二 Fragment的概括<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

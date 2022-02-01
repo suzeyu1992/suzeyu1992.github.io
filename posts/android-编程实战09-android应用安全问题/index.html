@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android-编程实战》09-Android应用安全问题 - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android-编程实战》09-Android应用安全问题" />
+<meta property="og:description" content="阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第14章 Android安全的概念 Android具备一个先进的安全模型来保护应用数据和服" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-10-04T13:56:06+00:00" />
+<meta property="article:modified_time" content="2016-10-04T13:56:06+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android-编程实战》09-Android应用安全问题"/>
+<meta name="twitter:description" content="阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第14章 Android安全的概念 Android具备一个先进的安全模型来保护应用数据和服"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9808-%E9%AB%98%E7%BA%A7%E9%9F%B3%E9%A2%91-%E8%A7%86%E9%A2%91%E5%8F%8A%E7%9B%B8%E6%9C%BA%E5%BA%94%E7%94%A8/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android-编程实战》09-Android应用安全问题",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  2231 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98\/","datePublished": "2016-10-04T13:56:06+00:00","dateModified": "2016-10-04T13:56:06+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android-编程实战》09-Android应用安全问题</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-10-04">2016-10-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2231 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" class="leancloud_visitors" data-flag-title="《Android-编程实战》09-Android应用安全问题">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#android安全的概念">Android安全的概念</a>
+      <ul>
+        <li><a href="#签名和密钥">签名和密钥</a></li>
+        <li><a href="#android权限">Android权限</a></li>
+        <li><a href="#保护用户数据">保护用户数据</a></li>
+      </ul>
+    </li>
+    <li><a href="#客户端数据加密">客户端数据加密</a>
+      <ul>
+        <li><a href="#android的加密api">Android的加密API</a></li>
+        <li><a href="#生成密钥">生成密钥</a></li>
+        <li><a href="#加密数据">加密数据</a></li>
+        <li><a href="#解密数据">解密数据</a></li>
+      </ul>
+    </li>
+    <li><a href="#设备管理api">设备管理API</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>阅读《Android 编程实战》一书的抄书笔记  &ndash;&gt; 对应书籍第14章</p>
+</blockquote>
+<h2 id="android安全的概念">Android安全的概念</h2>
+<p><code>Android</code>具备一个先进的安全模型来保护应用数据和服务不被其他应用访问.  每个应用都有自己的唯一<code>ID</code>来提供最基本的保护. 每个应用都经过它唯一的密钥签名, 这种机制是<code>Android</code>框架中的安全模型基础. 此外只有当其他应用在清单文件中显式声明了正确权限后, <code>Android</code>的权限系统才会和他们共享特定的组件. 应用也可以定义权限, 比如只有使用同一个密钥签名的应用才能使用它们. 最后<code>Android</code>的API提供了各种方法来验证签名, 验证调用进程的用户ID和使用强加密方案.</p>
+<h3 id="签名和密钥">签名和密钥</h3>
+<p><code>Android</code>系统中运行的所有应用都要用密钥来签名, 包括<code>Android</code>系统本身.</p>
+<p>可以用同一个密钥来对发布的所有应用进行签名, 但建议为各个应用单独创建一个密钥. 多个应用共享一个密钥通常是因为这些应用要直接访问彼此的数据, 或者设定权限时将保护等级改为<code>signature</code></p>
+<p>下面是一种为应用生成密钥的一个方式, 有一种比较好的方式是使用应用的包名作为别名传给<code>-alias</code>.</p>
+<p><code>$ keytool -genkey -v -keystore &lt;keystore filename&gt; -alias &lt;alias for key&gt; keyalg RSA -keysize 2048 -validity 10000</code></p>
+<p>在生成新密钥时, <code>keytool</code>会让你输入一个密码.</p>
+<h3 id="android权限">Android权限</h3>
+<p>要在<code>Android</code>中使用特殊权限功能,  只要在清单文件中加入一个<code>uses-permission</code>标记即可. 它会告诉系统你的应用需要该项权限, 并在安装时通知用户这项需求.</p>
+<p><code>Android</code>中定义了五个保护等级: <code>常规normal</code>, <code>危险dangerous</code>, <code>同一签名signature</code>, <code>同一签名或系统signatureOrSystem</code>, <code>系统system</code>. 除非特殊指定, 默认等级一般为常规. 用来告知系统有应用要用到这个权限的函数. 只有将权限设为危险时, 它才会在用户安装(通常是通过Google Play Store)前提醒用户.</p>
+<ul>
+<li><code>同一签名</code>保护等级要求应用使用跟定义该权限的应用相同的同一证书来签名. 这对设备制造商来说非常有用, 因为他们可以定义只有跟系统使用同一证书签名的应用才能使用的权限. 这样, 设备制造商就可以像他们使用受保护的系统服务的设备发布新应用.</li>
+<li><code>同一签名或系统 以及 系统</code>这两个等级会告诉<code>Android</code>系统, 应用必须驻存在设备的系统分区上, 这样才能使用该权限. 这个功能最常见的例子是预装在系统分区上的Google应用. 这些应用可以使用许多常规应用无法企及的权限, 即使他们用的是Google的签名而不是设备制造商的.</li>
+</ul>
+<blockquote>
+<p>也可以添加属性<code>android:permissionFlags=&quot;costsMoney&quot; </code>它会告诉用户使用此权限的应用会产生费用, 例如要用到发短信的功能的应用. 只要应用提供了可能会给用户带来费用的API, 那就应该用带有此标记的权限来保护该API.</p>
+</blockquote>
+<h3 id="保护用户数据">保护用户数据</h3>
+<p>如果要创建安全的数据文件, 不被其他应用访问, 可以在应用数据目录中存储文件. 而不是外部存储中.</p>
+<p>如下:演示在应用的数据目录中对一个文件进行数据追加</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">appendStringToPrivateFile</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">data</span><span class="o">,</span> <span class="n">String</span> <span class="n">fileName</span><span class="o">){</span>
+    <span class="n">FileOutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">openFileOutput</span><span class="o">(</span><span class="n">fileName</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_APPEND</span> <span class="o">|</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
+    <span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">));</span>
+    <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>这里使用了两个标志位:</p>
+<ul>
+<li><code>MODE_APPEND</code> 要写入的数据都被追加到文件的末尾,</li>
+<li><code>MODE_PRIVATE</code> 该文件只允许你的应用访问, 这个标识位也是默认标志位.</li>
+</ul>
+<p>当然这只是一种比较安全的方式, 但是如果存储非常敏感的信息, 最好再对文件进行一些加密处理.</p>
+<h2 id="客户端数据加密">客户端数据加密</h2>
+<h3 id="android的加密api">Android的加密API</h3>
+<p><code>Android</code>中的数据加密和解密API是基于Java SE的<code>javax.crypto</code>包中的API开始的. 实际的实现基于开源的<code>Bouncy Castle</code>加密API. 因此, 在开发<code>Android</code>应用时, 大多是使用Java SE的<code>javax.crypto</code>API就可以.</p>
+<h3 id="生成密钥">生成密钥</h3>
+<p>使用加密和解密函数时, 需要生成一个可根据用户输入(密码或其他安全方法)重新生成的安全且唯一的密钥.</p>
+<p>下面的代码演示了如何为<code>AES算法</code>生成一个<code>SecretKey</code> <code>salt</code>是用于生成密钥的输入部分, 你需要记录下来.  在密码学中, <code>盐salt</code>是用做加密算法中单向函数输入的一段随机数据.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">SecretKey</span> <span class="nf">generateKey</span><span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">password</span> <span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">salt</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">NoSuchAlgorithmException</span><span class="o">,</span> <span class="n">InvalidKeySpecException</span> <span class="o">{</span>
+   <span class="kt">int</span> <span class="n">iterations</span> <span class="o">=</span> <span class="n">1000</span><span class="o">;</span>
+   <span class="kt">int</span> <span class="n">outputKeyLength</span> <span class="o">=</span> <span class="n">128</span><span class="o">;</span>
+
+   <span class="n">SecretKeyFactory</span> <span class="n">secretKeyFactory</span> <span class="o">=</span> <span class="n">SecretKeyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">&#34;PBKDF2WithHmacSHA1&#34;</span><span class="o">);</span>
+
+   <span class="n">PBEKeySpec</span> <span class="n">pbeKeySpec</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PBEKeySpec</span><span class="o">(</span><span class="n">password</span><span class="o">,</span> <span class="n">salt</span><span class="o">,</span> <span class="n">iterations</span><span class="o">,</span> <span class="n">outputKeyLength</span><span class="o">);</span>
+
+   <span class="kt">byte</span><span class="o">[]</span> <span class="n">keyBytes</span> <span class="o">=</span> <span class="n">secretKeyFactory</span><span class="o">.</span><span class="na">generateSecret</span><span class="o">(</span><span class="n">pbeKeySpec</span><span class="o">).</span><span class="na">getEncoded</span><span class="o">();</span>
+   <span class="k">return</span> <span class="k">new</span> <span class="n">SecretKeySpec</span><span class="o">(</span><span class="n">keyBytes</span><span class="o">,</span> <span class="s">&#34;AES&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>这个密钥在后面会使用</p>
+<h3 id="加密数据">加密数据</h3>
+<p>要加密数据, 必须先生成用于加密的作为<code>Cipher</code>输入的盐和初始化向量. 下面的代码会通过<code>SecureRandom</code>类生成一个长度为8字节的盐. 注意: 不需要人工给<code>SecureRandom</code>喂种子, 系统会自动帮你处理. 创建一个初始化向量, 初始化<code>Cipher</code>, 然后将明文加密成字节队列. 有了密文数据之后, 可以使用<code>Base64</code>工具类从这些字节生成一个普通的String对象. 并把初始化向量和盐用同样的方式追加上去, 并通过一个<code>非Base64</code>字符来分开.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">encryptClearText</span><span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">password</span><span class="o">,</span> <span class="n">String</span> <span class="n">plainText</span><span class="o">)</span>
+       <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+   <span class="n">SecureRandom</span> <span class="n">secureRandom</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SecureRandom</span><span class="o">();</span>
+   <span class="kt">int</span> <span class="n">saltLength</span> <span class="o">=</span> <span class="n">8</span><span class="o">;</span>
+   <span class="kt">byte</span><span class="o">[]</span> <span class="n">salt</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">saltLength</span><span class="o">];</span>
+   <span class="n">secureRandom</span><span class="o">.</span><span class="na">nextBytes</span><span class="o">(</span><span class="n">salt</span><span class="o">);</span>
+   <span class="n">SecretKey</span> <span class="n">secretKey</span> <span class="o">=</span> <span class="n">generateKey</span><span class="o">(</span><span class="n">password</span><span class="o">,</span> <span class="n">salt</span><span class="o">);</span>
+
+   <span class="n">Cipher</span> <span class="n">cipher</span> <span class="o">=</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">&#34;AES/CBC/PKCS5Padding&#34;</span><span class="o">);</span>
+   <span class="kt">byte</span><span class="o">[]</span> <span class="n">initVector</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">cipher</span><span class="o">.</span><span class="na">getBlockSize</span><span class="o">()];</span>
+   <span class="n">secureRandom</span><span class="o">.</span><span class="na">nextBytes</span><span class="o">(</span><span class="n">initVector</span><span class="o">);</span>
+   <span class="n">IvParameterSpec</span> <span class="n">ivParameterSpec</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IvParameterSpec</span><span class="o">(</span><span class="n">initVector</span><span class="o">);</span>
+   <span class="n">cipher</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">Cipher</span><span class="o">.</span><span class="na">ENCRYPT_MODE</span><span class="o">,</span> <span class="n">secretKey</span><span class="o">,</span> <span class="n">ivParameterSpec</span><span class="o">);</span>
+   <span class="kt">byte</span><span class="o">[]</span> <span class="n">cipherData</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="na">doFinal</span><span class="o">(</span><span class="n">plainText</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">));</span>
+   <span class="k">return</span> <span class="n">Base64</span><span class="o">.</span><span class="na">encodeToString</span><span class="o">(</span><span class="n">cipherData</span><span class="o">,</span>
+           <span class="n">Base64</span><span class="o">.</span><span class="na">NO_WRAP</span> <span class="o">|</span> <span class="n">Base64</span><span class="o">.</span><span class="na">NO_PADDING</span><span class="o">)</span>
+           <span class="o">+</span> <span class="s">&#34;]&#34;</span> <span class="o">+</span> <span class="n">Base64</span><span class="o">.</span><span class="na">encodeToString</span><span class="o">(</span><span class="n">initVector</span><span class="o">,</span>
+           <span class="n">Base64</span><span class="o">.</span><span class="na">NO_WRAP</span> <span class="o">|</span> <span class="n">Base64</span><span class="o">.</span><span class="na">NO_PADDING</span><span class="o">)</span>
+           <span class="o">+</span> <span class="s">&#34;]&#34;</span> <span class="o">+</span> <span class="n">Base64</span><span class="o">.</span><span class="na">encodeToString</span><span class="o">(</span><span class="n">salt</span><span class="o">,</span>
+           <span class="n">Base64</span><span class="o">.</span><span class="na">NO_WRAP</span> <span class="o">|</span> <span class="n">Base64</span><span class="o">.</span><span class="na">NO_PADDING</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>方法返回的结果就是加密后的密文字符串. 解密的时候使用同样的规则解密即可</p>
+<h3 id="解密数据">解密数据</h3>
+<p>和加密基本相似, 取出加密的的数据部分. 代码如下:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">decryptData</span><span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">password</span><span class="o">,</span> <span class="n">String</span> <span class="n">encodedData</span><span class="o">)</span>
+       <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+   <span class="n">String</span><span class="o">[]</span> <span class="n">parts</span> <span class="o">=</span> <span class="n">encodedData</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&#34;]&#34;</span><span class="o">);</span>
+   <span class="kt">byte</span><span class="o">[]</span> <span class="n">cipherData</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">decode</span><span class="o">(</span><span class="n">parts</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">Base64</span><span class="o">.</span><span class="na">DEFAULT</span><span class="o">);</span>
+   <span class="kt">byte</span><span class="o">[]</span> <span class="n">initVector</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">decode</span><span class="o">(</span><span class="n">parts</span><span class="o">[</span><span class="n">1</span><span class="o">],</span> <span class="n">Base64</span><span class="o">.</span><span class="na">DEFAULT</span><span class="o">);</span>
+   <span class="kt">byte</span><span class="o">[]</span> <span class="n">salt</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">decode</span><span class="o">(</span><span class="n">parts</span><span class="o">[</span><span class="n">2</span><span class="o">],</span> <span class="n">Base64</span><span class="o">.</span><span class="na">DEFAULT</span><span class="o">);</span>
+
+   <span class="n">Cipher</span> <span class="n">cipher</span> <span class="o">=</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">&#34;AES/CBC/PKCS5Padding&#34;</span><span class="o">);</span>
+   <span class="n">IvParameterSpec</span> <span class="n">ivParams</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IvParameterSpec</span><span class="o">(</span><span class="n">initVector</span><span class="o">);</span>
+   <span class="n">SecretKey</span> <span class="n">secretKey</span> <span class="o">=</span> <span class="n">generateKey</span><span class="o">(</span><span class="n">password</span><span class="o">,</span> <span class="n">salt</span><span class="o">);</span>
+   <span class="n">cipher</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">Cipher</span><span class="o">.</span><span class="na">DECRYPT_MODE</span><span class="o">,</span> <span class="n">secretKey</span><span class="o">,</span> <span class="n">ivParams</span><span class="o">);</span>
+   <span class="k">return</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">cipher</span><span class="o">.</span><span class="na">doFinal</span><span class="o">(</span><span class="n">cipherData</span><span class="o">),</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>从上面方法可以了解到<code>Cipher</code>,<code>初始化向量</code>,<code>SecretKey</code>是如何通过输入的字符串重新生成的. 只要密码匹配, 就能够对数据进行解码和编码.</p>
+<h2 id="设备管理api">设备管理API</h2>
+<p>关于这部分, 更多偏向于系统级别的开发. 例如对远程安全加固功能, 当丢失设备通过短信,锁定设备等. 所以此处不做记录. 如果有兴趣可以查看API文档<a href="https://developer.android.com/guide/topics/admin/device-admin.html" target="_blank" rel="noopener noreffer">Device Administration API</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-10-04</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" data-title="《Android-编程实战》09-Android应用安全问题" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" data-title="《Android-编程实战》09-Android应用安全问题" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" data-title="《Android-编程实战》09-Android应用安全问题"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" data-title="《Android-编程实战》09-Android应用安全问题" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" data-title="《Android-编程实战》09-Android应用安全问题" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" data-title="《Android-编程实战》09-Android应用安全问题" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9809-android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" data-title="《Android-编程实战》09-Android应用安全问题"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9808-%E9%AB%98%E7%BA%A7%E9%9F%B3%E9%A2%91-%E8%A7%86%E9%A2%91%E5%8F%8A%E7%9B%B8%E6%9C%BA%E5%BA%94%E7%94%A8/" class="prev" rel="prev" title="《Android 编程实战》08-高级音频,视频及相机应用"><i class="fas fa-angle-left fa-fw"></i>《Android 编程实战》08-高级音频,视频及相机应用</a>
+            <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9810-%E9%9A%90%E8%97%8F%E7%9A%84android-api/" class="next" rel="next" title="《Android-编程实战》10-隐藏的Android API">《Android-编程实战》10-隐藏的Android API<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android 编程实战》02-Android上编写高效Java - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android 编程实战》02-Android上编写高效Java" />
+<meta property="og:description" content="阅读《Android 编程实战》一书的随记笔记 &ndash;&gt; 第二章 Dalvik Java和Java SE 在Android设备上运行的VM成为Dalvik. 适用于CPU和内" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-09-21T11:12:38+00:00" />
+<meta property="article:modified_time" content="2016-09-21T11:12:38+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android 编程实战》02-Android上编写高效Java"/>
+<meta name="twitter:description" content="阅读《Android 编程实战》一书的随记笔记 &ndash;&gt; 第二章 Dalvik Java和Java SE 在Android设备上运行的VM成为Dalvik. 适用于CPU和内"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E5%AE%8C%E5%96%84%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%92%8C%E4%BC%98%E5%8C%96/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android 编程实战》02-Android上编写高效Java",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  3212 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java\/","datePublished": "2016-09-21T11:12:38+00:00","dateModified": "2016-09-21T11:12:38+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android 编程实战》02-Android上编写高效Java</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-09-21">2016-09-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3212 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/" class="leancloud_visitors" data-flag-title="《Android 编程实战》02-Android上编写高效Java">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#dalvik-java和java-se">Dalvik Java和Java SE</a></li>
+    <li><a href="#优化android上的java代码">优化Android上的Java代码</a></li>
+    <li><a href="#管理和分配内存">管理和分配内存</a></li>
+    <li><a href="#android中的多线程">Android中的多线程</a>
+      <ul>
+        <li><a href="#thread">Thread</a></li>
+        <li><a href="#asynctask">AsyncTask</a></li>
+        <li><a href="#handler">Handler</a></li>
+        <li><a href="#选择合适的线程">选择合适的线程</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>阅读《Android 编程实战》一书的随记笔记  &ndash;&gt; 第二章</p>
+</blockquote>
+<h2 id="dalvik-java和java-se">Dalvik Java和Java SE</h2>
+<p>在<code>Android</code>设备上运行的<code>VM</code>成为<code>Dalvik</code>. 适用于CPU和内存受限的移动设备. <code>Java SE</code>和<code>Dalvik Java</code>存在一些差异, 这些差异主要体现在虚拟机上.</p>
+<ul>
+<li><code>Java SE</code>: 使用了栈机设计</li>
+<li><code>Dalvik </code>: 使用了基于寄存器的机器的设计</li>
+</ul>
+<p><code>Android SDK</code>中个有一个<code>dx</code>工具, 它会把<code>Java SE</code>栈机器的字节码转换成基于寄存器的<code>Dalvik</code>机器字节码, 这个步骤平时是由<code>AS</code>自动完成的.</p>
+<p>虽然基于寄存器的虚拟机最多可以比基于栈的虚拟机快32%, 但这只限于执行解释代码的虚拟机. 在<code>Android 2.2</code>之前, <code>Dalvik</code>虚拟机都是纯解释性的. 之后才引入了<code>JIT</code>编译器.</p>
+<p><strong>JIT编译</strong></p>
+<p>也称<code>即时编译或者动态编译</code>. 它在执行前把字节码翻译成本地代码, 这样的两个好处:</p>
+<ul>
+<li>消除了那些纯解释性虚拟机的开销</li>
+<li>它能对本机代码执行优化, 这通常是静态编译代码无法做到的.</li>
+</ul>
+<p>另一个区别是: <code>Dalvik</code>在开机时会启动一个<code>zygote</code>的进程, 该进程会创建第一个<code>Dalvik</code>实例, 由这个实例创建所有其他的实例. 当应用程序启动的时候, <code>zygote</code>进行会收到一个创建新虚拟机实例的请求, 并给该应用程序创建一个新进程.</p>
+<hr>
+<p>对于两个方向的API也不是一模一样, 比方说<code>Android</code>移除了<code>Java SE</code>中<code>Swing/AWT</code>包. 因为<code>Android</code>有自己的UI框架. 还有一些例如<code>RMI</code>, <code>CORBA</code>,<code>JMX</code>等.</p>
+<h2 id="优化android上的java代码">优化Android上的Java代码</h2>
+<p><strong>1.更安全的队列</strong></p>
+<p>例如如果需要实现一个<strong>生产者/消费者</strong>模式, 关于所使用的管理存储的集合可能需要选择队列(<code>LinkedList</code>)并且具体的存取操作要套上<code>synchronize</code>防止并发问题. 但是如果通过<code>LinkedBlockingQueue</code>就可以实现上面的手动编写的步骤. 对于做同样的事情但是更快的实现方法,我们没有例如不去使用</p>
+<p>其实在<code>JDK1.5</code>之后, 提供了<code>java.util.concurrent</code>包, 这个包不仅有相关的类, 此外还包含信号量, 锁, 以及对单个变量进行原子操作的类.</p>
+<hr>
+<p><strong>2.更好的锁</strong></p>
+<p>对于Java提供的<code>synchronize</code>关键字允许创建线程安全的代码块和方法. <code>synchronize</code>关键字虽然便于使用, 但也很容易滥用, 对性能造成损耗. 当需要区分读数据和写数据时, <code>synchronize</code>也不是最有效的.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReadWriteLockDemo</span> <span class="o">{</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 控制读写操作并发的锁
+</span><span class="cm">     */</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ReentrantReadWriteLock</span> <span class="n">mLock</span> <span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">mName</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ReadWriteLockDemo</span><span class="o">(){</span>
+        <span class="n">mLock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantReadWriteLock</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPersonData</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="c1">// 获取写操作的锁
+</span><span class="c1"></span>        <span class="n">ReentrantReadWriteLock</span><span class="o">.</span><span class="na">WriteLock</span> <span class="n">writeLock</span> <span class="o">=</span> <span class="n">mLock</span><span class="o">.</span><span class="na">writeLock</span><span class="o">();</span>
+        
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">//  获取 写锁使用权, 其余线程需要操作只有在写锁被关闭才可以
+</span><span class="c1"></span>            <span class="n">writeLock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+            <span class="n">mName</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>    
+        <span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
+            <span class="c1">//  释放 写锁使用权 
+</span><span class="c1"></span>            <span class="n">writeLock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">(){</span>
+        <span class="n">ReentrantReadWriteLock</span><span class="o">.</span><span class="na">ReadLock</span> <span class="n">readLock</span> <span class="o">=</span> <span class="n">mLock</span><span class="o">.</span><span class="na">readLock</span><span class="o">();</span>
+        
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">readLock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+            <span class="k">return</span> <span class="n">mName</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
+            <span class="n">readLock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="c1">// 省略其余实现
+</span><span class="c1"></span><span class="o">}</span>
+
+</code></pre></div><p>上面代码允许多个并发线程对数据进行只读方法, 并确保同一时间只有一个线程写入数据.</p>
+<h2 id="管理和分配内存">管理和分配内存</h2>
+<p>Java的自动内存管理有效消除了开发过程中的许多问题. 不再需要记住为每个创建的对象进行手动释放对象内存. 当时同时也需要付出一定的性能代价. <strong>自动垃圾收集器会和程序并行运行. 垃圾回收器会一直运行, 并检查是否有可以回收的内存. 这种行为意味着应用程序进程会和垃圾收集器竞争<code>CPU</code>时间,即使垃圾回收器不会运行太长时间,但是也是一种性能损失. 虽然我们不能抛弃这中垃圾收集方式, 但是可以有效的控制, 例如:</strong></p>
+<p><strong>减少对象分配</strong></p>
+<p>如果可以不要在循环内部创建对象, 在循环的外部创建对象, 并复用此对象. 减少对象的生成造成的空间开辟, 和无用对象的回收.</p>
+<h2 id="android中的多线程">Android中的多线程</h2>
+<p>确保不再<code>UI线程</code>做耗时操作, 这基本已经印在<code>Android</code>开发的脑袋里了. 那么如何知道一个方法是否在主线程执行? <code>Android</code>文档指出, <strong>默认情况下, 应用的所有组件都运行在同一个进程和线程中(主线程)</strong>. 更确切点的说三个组件(<code>Activity</code>, <code>Service</code>, <code>Broadcast</code>, <code>Application</code>)的所有回调基本上所有的<code>onXXXX()</code>这种命名的方法都是运行在主线程的.</p>
+<hr>
+<p><strong>那么什么样的代码在主线程执行才是安全的?</strong></p>
+<p>只有那些必须在主线程执行的方法才能放在主线程中. 其他一切操作都应该放在另一个单独的线程中执行. 实际情况下, 那些不会耗时的操作也可以放在主线程中. 如何能确保在另一个单独的线程中执行文件, 数据库或者网络操作, 通常主线程会是安全的. 当然也要确保同一时间不会运行太多线程, 原因是<code>CPU</code>切换线程也会造成性能损失.</p>
+<h3 id="thread">Thread</h3>
+<p><code>Thread</code>类是<code>Android</code>中所有线程的基类, <code>Java SE</code>中也包含它. 如果要在线程中执行代码, 即可以创建一个继承, 也可以把实现<code>Runnable</code>接口的类对象传给<code>Thread</code>的构造函数.</p>
+<p>对于这个基础的类, 尽量能不用就不用. 除非配合缓冲池, 不然频繁的创建新的线程开销很大.</p>
+<h3 id="asynctask">AsyncTask</h3>
+<p>这是<code>Android</code>中比较流行的一种, 因为使用简单,并且允许定义一个运行在单独线程中的任务, 并且提供了不同阶段的回调, 如<code>doInBackground()</code>会被回调在单独的线程. 而其余的三个回调都是被回调在主线程. 这都是为了让开发者可以把代码编写的重点放在实现的功能上, 而不是考虑是否应该避免系统级的问题发生.</p>
+<p>使用<code>AsyncTask</code>创建的实例只能使用一次, 这也就意味着每次执行操作都新建一个实例对象. 虽然是个轻量级的类(实际的线程是由<code>ExecutorService</code>管理的), <strong>但是不适合那些频繁的操作</strong>, 因为这会快速聚集需要垃圾回收的对象, 并最终导致应用程序的卡顿.</p>
+<p>并且, <code>AsyncTask</code>不能对操作设置执行时间, 也无法间隔一段时间去执行操作. 它适合文件下载, 以及不会频繁发生或通过用户交互等类似情况的操作. 但是使用简单嘛.</p>
+<h3 id="handler">Handler</h3>
+<p>当需要更细粒度地控制一个单独的线程中执行操作的时候, <code>Handler</code>类会是一个很有用的工具. 该类允许准确地控制操作的执行时间. 还可以重复多次的使用. 执行操作的线程会一直运行, 直到被显示地终止. <code>Loop</code>会处理幕后的事情, 但是作为开发人员却很少和其打交道.</p>
+<p>使用<code>Handler</code>类最常见的方式是发送<code>Message</code>. 当向后台线程传递数据和参数时, 这些消息对象简单,易于创建, 并且可以重用. <code>Message</code>对象通常是由它的共有整型成员变量<code>what</code>定义的. 还有两个名为<code>arg1和arg2</code>的整型成员变量, 他们用于创建低开销的的参数, 以及<code>obj</code>成员变量(可以存储任意单个对象的引用). 如果你需要存储更复杂的数据那么通过<code>setData(Bundle)</code>方法设置更复杂的数据.</p>
+<hr>
+<p><strong>发送消息</strong></p>
+<p>既可以使用<code>Message#sendToTarget()</code>也可以使用<code>Handler#sendXXX()</code>等方法. 如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 创建一个带有data参数的Message, 然后立刻把它发送到handler执行
+</span><span class="c1"></span><span class="n">Message</span><span class="o">.</span><span class="na">obtain</span><span class="o">(</span><span class="n">mHandler</span><span class="o">,</span> <span class="n">FLAG_SYNC_DATA</span><span class="o">,</span> <span class="n">data</span><span class="o">).</span><span class="na">sendToTarget</span><span class="o">();</span>
+
+<span class="c1">// 立刻给handler发送一个空消息
+</span><span class="c1"></span><span class="n">mHandler</span><span class="o">.</span><span class="na">sendEmptyMessage</span><span class="o">(</span><span class="n">FLAG_SYNC_DATA</span><span class="o">);</span>
+
+<span class="c1">// 给handler发送一个空消息, 在30秒后执行
+</span><span class="c1"></span><span class="n">mHandler</span><span class="o">.</span><span class="na">sendEmptyMessageAtTime</span><span class="o">(</span><span class="n">FLAG_SYNC_DATA</span><span class="o">,</span> <span class="n">30</span> <span class="o">*</span> <span class="n">1000</span><span class="o">);</span>
+
+<span class="c1">// 给handler发送带有arguments和obj参数的消息, 并在10秒后执行
+</span><span class="c1"></span><span class="n">Message</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">mHandler</span><span class="o">.</span><span class="na">obtainMessage</span><span class="o">(</span><span class="n">FLAG_SYNC_DATA</span><span class="o">,</span> <span class="n">参数1</span><span class="o">,</span> <span class="n">参数2</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+<span class="n">mHandler</span><span class="o">.</span><span class="na">sendMessageDelayed</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="n">10</span> <span class="o">*</span> <span class="n">1000</span><span class="o">);</span>
+
+</code></pre></div><hr>
+<p>在创建<code>Handler</code>的时候构造函数传入<code>Looper</code>对象可以为<code>Handler</code>分配线程, 所以可以创建一个主线程消息的<code>Handler</code>, 避免使用<code>runOnUiThread()</code>这种丑陋缩进的代码并且还低效.</p>
+<p>只要确保把消息发送给正确的<code>handler</code>即可.</p>
+<h3 id="选择合适的线程">选择合适的线程</h3>
+<p>之前说过了三种在<code>Android</code>上创建和使用线程的方式, <code>API</code>中和线程相关的类还有<code>ExecutorService</code>和<code>Loader</code>.</p>
+<ul>
+<li><code>ExecutorService</code>适合处理并行运行的多个任务, 这个非常适合编写相应多客户端的服务器应用. <code>AsyncTask</code>内部同样使用了<code>ExecutorService</code>处理多线程</li>
+</ul>
+<p>三种中尽量少的直接使用<code>Thread</code>类, 大多数情况下推荐使用<code>AsyncTask</code>和<code>Handler</code>类, 具体使用哪一个取决于具体的需求. 如果不是很频繁地执行操作, 比如超过每分钟一次, 那么<code>AsyncTask</code>是个选择的对象. 如果需要安排操作时间或者需要快速间隔地执行操作, <code>Handler</code>是个更好的选择. 从长远的角度来看, <code>Handler</code>生成的代码较少, 而<code>AsyncTask</code>更容易使用.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-09-21</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/" data-title="《Android 编程实战》02-Android上编写高效Java" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/" data-title="《Android 编程实战》02-Android上编写高效Java" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/" data-title="《Android 编程实战》02-Android上编写高效Java"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/" data-title="《Android 编程实战》02-Android上编写高效Java" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/" data-title="《Android 编程实战》02-Android上编写高效Java" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/" data-title="《Android 编程实战》02-Android上编写高效Java" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/" data-title="《Android 编程实战》02-Android上编写高效Java"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E5%AE%8C%E5%96%84%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%92%8C%E4%BC%98%E5%8C%96/" class="prev" rel="prev" title="《Android 编程实战》01-完善开发环境和优化"><i class="fas fa-angle-left fa-fw"></i>《Android 编程实战》01-完善开发环境和优化</a>
+            <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" class="next" rel="next" title="《Android 编程实战》04-手势操作进阶, 重识Service">《Android 编程实战》04-手势操作进阶, 重识Service<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

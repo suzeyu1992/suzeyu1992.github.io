@@ -1,0 +1,80 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Blog</title>
+        <link>http://suzeyu.cc:20003/</link>
+        <description>Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Sat, 08 May 2021 21:51:34 &#43;0000</lastBuildDate>
+            <atom:link href="http://suzeyu.cc:20003/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>黑苹果 华硕M12E USB定制</title>
+    <link>http://suzeyu.cc:20003/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C-%E5%8D%8E%E7%A1%95m12e-usb%E5%AE%9A%E5%88%B6/</link>
+    <pubDate>Sat, 08 May 2021 21:51:34 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.cc:20003/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C-%E5%8D%8E%E7%A1%95m12e-usb%E5%AE%9A%E5%88%B6/</guid>
+    <description><![CDATA[定制原因: 黑苹果升级系统 -&gt; BigSur 11.3.1 背部USB部分失效. 使用环境 主板 华硕 M12E 系统版本 macOS Big Sur 11.3.1 (20E241) 必要工具 OpenCore Configurator(下文简称OCC) Hackintool]]></description>
+</item><item>
+    <title>Android之蓝牙4.0BLE开发资料整理</title>
+    <link>http://suzeyu.cc:20003/posts/android%E4%B9%8Bble%E5%BC%80%E5%8F%91%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/</link>
+    <pubDate>Tue, 14 Feb 2017 20:43:53 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.cc:20003/posts/android%E4%B9%8Bble%E5%BC%80%E5%8F%91%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/</guid>
+    <description><![CDATA[使用 官方ble使用文档中文 官方ble使用文档英文 基于android 5.x系统新api的ble连接 问题 BluetoothGatt status 133的解决方案 深入 android的]]></description>
+</item><item>
+    <title>Android系统的启动流程</title>
+    <link>http://suzeyu.cc:20003/posts/android%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</link>
+    <pubDate>Thu, 09 Feb 2017 19:30:09 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.cc:20003/posts/android%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</guid>
+    <description><![CDATA[第一个系统进程init Android设备的启动需要经过Boot Loader, Linux Kernel和Android系统服务三个核心阶段. 默认情况都有其对应的启动]]></description>
+</item><item>
+    <title>面试之Binder的认知</title>
+    <link>http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/</link>
+    <pubDate>Wed, 08 Feb 2017 17:04:50 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/</guid>
+    <description><![CDATA[说一说你对Binder的理解&hellip; Binder为何存在 在日常代码编写中. 我们总是会理所应当的对函数进行调用, 对变量进行访问. 之所以]]></description>
+</item><item>
+    <title>栈与队列</title>
+    <link>http://suzeyu.cc:20003/posts/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/</link>
+    <pubDate>Fri, 06 Jan 2017 20:13:46 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.cc:20003/posts/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/</guid>
+    <description><![CDATA[栈的定义 栈(stack)是限定仅在表尾进行插入和删除操作的线性表 通常把插入和删除的一端称作为栈顶(top). 另一端就是栈底(bottom),]]></description>
+</item><item>
+    <title>线性表</title>
+    <link>http://suzeyu.cc:20003/posts/%E7%BA%BF%E6%80%A7%E8%A1%A8/</link>
+    <pubDate>Wed, 04 Jan 2017 17:58:35 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.cc:20003/posts/%E7%BA%BF%E6%80%A7%E8%A1%A8/</guid>
+    <description><![CDATA[首先看一下线性表都包括哪些结构: 线性表的定义 零个或多个数据元素的有限序列. 序列: 说明了元素之间是由顺序的. 有限: 泛指元素的个数为有限. 因为计]]></description>
+</item><item>
+    <title>算法的了解</title>
+    <link>http://suzeyu.cc:20003/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/</link>
+    <pubDate>Sun, 01 Jan 2017 21:18:23 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.cc:20003/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/</guid>
+    <description><![CDATA[算法定义 算法是解决特定问题求解步骤的描述, 在计算机中表现为指令的有限序列, 并且每条指令表示一个或多个操作. 算法是针对一种或者是一类问题的解决]]></description>
+</item><item>
+    <title>操作系统简介</title>
+    <link>http://suzeyu.cc:20003/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/</link>
+    <pubDate>Fri, 30 Dec 2016 17:43:46 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.cc:20003/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/</guid>
+    <description><![CDATA[硬件是软件的基石. 所有的软件功能最终都是由硬件来实现的. 计算机体系结构作为一门学科, 是软件和硬件的抽象体, 也是所有开发者都应该了解的. 计算机]]></description>
+</item><item>
+    <title>vim常用笔记</title>
+    <link>http://suzeyu.cc:20003/posts/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/</link>
+    <pubDate>Tue, 27 Dec 2016 14:11:35 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.cc:20003/posts/vim%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/</guid>
+    <description><![CDATA[介绍 vi编辑器是Unix系统最初的编辑器. 它使用控制台图形模式来模拟文本编辑窗口, 允许查看文件中的行, 在文件中移动, 插入, 编辑和替换文本. 尽]]></description>
+</item><item>
+    <title>shell常用小手册</title>
+    <link>http://suzeyu.cc:20003/posts/shell%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%89%8B%E5%86%8C/</link>
+    <pubDate>Mon, 26 Dec 2016 15:33:50 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.cc:20003/posts/shell%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%89%8B%E5%86%8C/</guid>
+    <description><![CDATA[文件系统 遍历目录 格式: cd destination # 绝对文件路径 $ cd /usr/bin # 相对文件路径 进入当前目录下的doc文件夹 $ cd doc # 进入当前文件夹的同级目录pics $ cd ../pics 查看当]]></description>
+</item></channel>
+</rss>

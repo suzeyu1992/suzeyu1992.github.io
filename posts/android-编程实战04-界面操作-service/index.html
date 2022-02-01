@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android 编程实战》04-手势操作进阶, 重识Service - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android 编程实战》04-手势操作进阶, 重识Service" />
+<meta property="og:description" content="阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第五,六章 设计自定义视图 View的声明周期 View也有自己的声明周期. 该生命周期并不直" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-09-26T12:10:42+00:00" />
+<meta property="article:modified_time" content="2016-09-26T12:10:42+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android 编程实战》04-手势操作进阶, 重识Service"/>
+<meta name="twitter:description" content="阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第五,六章 设计自定义视图 View的声明周期 View也有自己的声明周期. 该生命周期并不直"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android 编程实战》04-手势操作进阶, 重识Service",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  7328 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service\/","datePublished": "2016-09-26T12:10:42+00:00","dateModified": "2016-09-26T12:10:42+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android 编程实战》04-手势操作进阶, 重识Service</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-09-26">2016-09-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7328 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 15 分钟&nbsp;<span id="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" class="leancloud_visitors" data-flag-title="《Android 编程实战》04-手势操作进阶, 重识Service">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#设计自定义视图">设计自定义视图</a>
+      <ul>
+        <li><a href="#view的声明周期">View的声明周期</a></li>
+        <li><a href="#多点触控">多点触控</a></li>
+        <li><a href="#pointercoordinates">PointerCoordinates</a></li>
+        <li><a href="#旋转手势">旋转手势</a></li>
+        <li><a href="#opengl-es">OpenGL ES</a></li>
+      </ul>
+    </li>
+    <li><a href="#重识service">重识Service</a>
+      <ul>
+        <li><a href="#何时并如何使用service">何时并如何使用Service</a></li>
+        <li><a href="#service类型">Service类型</a></li>
+        <li><a href="#service的创建和销毁">Service的创建和销毁</a></li>
+        <li><a href="#启动service">启动Service</a></li>
+        <li><a href="#绑定service">绑定Service</a></li>
+        <li><a href="#保持活跃">保持活跃</a></li>
+        <li><a href="#停止服务service">停止服务Service</a></li>
+        <li><a href="#后台运行的intentservice">后台运行的IntentService</a></li>
+        <li><a href="#对service的通信">对Service的通信</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>阅读《Android 编程实战》一书的抄书笔记  &ndash;&gt; 对应书籍第五,六章</p>
+</blockquote>
+<h2 id="设计自定义视图">设计自定义视图</h2>
+<h3 id="view的声明周期">View的声明周期</h3>
+<p><code>View</code>也有自己的声明周期. 该生命周期并不直接和展示它的<code>Fragment</code>或者<code>Activity</code>相连, 相反<strong>它和显示它的窗口状态以及渲染循环相关</strong></p>
+<p>当视图被添加到View层级结构中时, 第一个被回调的函数是<code>View.onAttachedToWindow()</code>, 这标志着它现在可以加载所需的资源了. 构建自定义视图时, 开发者应该重载该方法, 并在该方法中加载所有资源并初始化视图所需的依赖. 基本上所有的耗时的初始化都应该放在这个方法内.</p>
+<p>还要一个匹配的回调名为<code>View.onDetachedFromWindow()</code>, 从View层次结构中移除视图时调用这个方法. 在这里需要关注的是需要显示清理的操作, 比如所有被加载的资源, 启动的<code>Service</code>, 或者其他依赖.</p>
+<p>视图被添加到<code>View</code>层次结构中之后, 它会经过一个循环, 该循环首先计算动画, 接下来会一次回调<code>View.onMeasure()</code>, <code>View.onLayout()</code>, <code>View.onDraw()</code>等方法.</p>
+<h3 id="多点触控">多点触控</h3>
+<p>先看下图效果:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="multi1.gif"
+        data-srcset="multi1.gif, multi1.gif 1.5x, multi1.gif 2x"
+        data-sizes="auto"
+        alt="multi1.gif"
+        title="multi1.gif" /></p>
+<p>贴一下实现的主要代码:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDraw</span><span class="o">(</span><span class="kd">final</span> <span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+   <span class="kd">super</span><span class="o">.</span><span class="na">onDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+
+   <span class="c1">// 绘制已经完成过的手势事件的所有path路径
+</span><span class="c1"></span>   <span class="c1">// 如果不循环绘制, 那么当一个触控点到达了up事件之后, 那么这个触控点从down到up的事件的轨迹将会消失.
+</span><span class="c1"></span>   <span class="k">for</span> <span class="o">(</span><span class="n">Path</span> <span class="n">completedPath</span> <span class="o">:</span> <span class="n">mCompletedPaths</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">completedPath</span><span class="o">,</span> <span class="n">mFingerPaint</span><span class="o">);</span>
+   <span class="o">}</span>
+
+   <span class="c1">// 绘制当前触摸屏上的触摸事件正在进行的轨迹 (down ~ up)
+</span><span class="c1"></span>   <span class="k">for</span> <span class="o">(</span><span class="n">Path</span> <span class="n">fingerPath</span> <span class="o">:</span> <span class="n">mFingerPaths</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">fingerPath</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+           <span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">fingerPath</span><span class="o">,</span> <span class="n">mFingerPaint</span><span class="o">);</span>
+       <span class="o">}</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+   <span class="c1">// 获得当前触摸屏上的触摸个数
+</span><span class="c1"></span>   <span class="kt">int</span> <span class="n">pointerCount</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getPointerCount</span><span class="o">();</span>
+   <span class="kt">int</span> <span class="n">cappedPointerCount</span> <span class="o">=</span> <span class="n">pointerCount</span> <span class="o">&gt;</span> <span class="n">MAX_FINGERS</span> <span class="o">?</span> <span class="n">MAX_FINGERS</span> <span class="o">:</span> <span class="n">pointerCount</span><span class="o">;</span>
+
+   <span class="c1">// 获得当前触摸事件对象所在系统保存队列中的位置
+</span><span class="c1"></span>   <span class="kt">int</span> <span class="n">actionIndex</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getActionIndex</span><span class="o">();</span>
+   <span class="c1">// 获得当前触摸事件的动作类型,  这里包括 MotionEvent.ACTION_POINTER_DOWN, MotionEvent.ACTION_POINTER_UP 多点触控按下和多点触控抬起(对应数值5, 6)
+</span><span class="c1"></span>   <span class="kt">int</span> <span class="n">action</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getActionMasked</span><span class="o">();</span>
+   <span class="c1">// 此值返回此触摸事件存在时刻的唯一标识id.
+</span><span class="c1"></span>   <span class="kt">int</span> <span class="n">pointerId</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getPointerId</span><span class="o">(</span><span class="n">actionIndex</span><span class="o">);</span>
+
+
+   <span class="c1">// 检查是否收到按下或者抬起的动作
+</span><span class="c1"></span>   <span class="k">if</span> <span class="o">((</span><span class="n">action</span> <span class="o">==</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span> <span class="o">||</span> <span class="n">action</span> <span class="o">==</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_POINTER_DOWN</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">pointerId</span> <span class="o">&lt;</span> <span class="n">MAX_FINGERS</span> <span class="o">){</span>
+  
+       <span class="c1">// 当有新的触摸事件开始的时候, 就使用这个事件的标识id来当下标创建一个Path对象存储起来
+</span><span class="c1"></span>       <span class="n">mFingerPaths</span><span class="o">[</span><span class="n">pointerId</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">();</span>
+       <span class="c1">// 注意虽然在down事件中, actionIndex和pointerId会保持一致, 但最好使用触摸事件所在的队列位置来获取坐标
+</span><span class="c1"></span>       <span class="n">mFingerPaths</span><span class="o">[</span><span class="n">pointerId</span><span class="o">].</span><span class="na">moveTo</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getX</span><span class="o">(</span><span class="n">actionIndex</span><span class="o">),</span> <span class="n">event</span><span class="o">.</span><span class="na">getY</span><span class="o">(</span><span class="n">actionIndex</span><span class="o">));</span>
+  
+
+   <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">((</span><span class="n">action</span> <span class="o">==</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_UP</span> <span class="o">||</span> <span class="n">action</span> <span class="o">==</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_POINTER_UP</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">pointerId</span> <span class="o">&lt;</span> <span class="n">MAX_FINGERS</span><span class="o">){</span>
+       <span class="c1">// 这里的pointerId和actionIndex不一定保持一致!! 所以一定要正确使用这个两个来获取
+</span><span class="c1"></span>       <span class="n">mFingerPaths</span><span class="o">[</span><span class="n">pointerId</span><span class="o">].</span><span class="na">setLastPoint</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getX</span><span class="o">(</span><span class="n">actionIndex</span><span class="o">),</span> <span class="n">event</span><span class="o">.</span><span class="na">getY</span><span class="o">(</span><span class="n">actionIndex</span><span class="o">));</span>
+       <span class="n">mCompletedPaths</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">mFingerPaths</span><span class="o">[</span><span class="n">pointerId</span><span class="o">]);</span>
+
+       <span class="n">mFingerPaths</span><span class="o">[</span><span class="n">pointerId</span><span class="o">].</span><span class="na">computeBounds</span><span class="o">(</span><span class="n">mPathBounds</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+       <span class="n">invalidate</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span> <span class="n">mPathBounds</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">mPathBounds</span><span class="o">.</span><span class="na">top</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">mPathBounds</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">mPathBounds</span><span class="o">.</span><span class="na">bottom</span><span class="o">);</span>
+       <span class="n">mFingerPaths</span><span class="o">[</span><span class="n">pointerId</span><span class="o">]</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+   <span class="o">}</span>
+
+   <span class="kt">int</span> <span class="n">tempIndex</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+   <span class="c1">// 这里主要是move事件时候进行的动态绘制实现
+</span><span class="c1"></span>   <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">cappedPointerCount</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+       <span class="c1">// 保证滑动事件不丢失
+</span><span class="c1"></span>       <span class="k">while</span><span class="o">(</span><span class="n">mFingerPaths</span><span class="o">[</span><span class="n">tempIndex</span><span class="o">]</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+           <span class="n">tempIndex</span><span class="o">++;</span>
+           <span class="k">if</span> <span class="o">(</span><span class="n">tempIndex</span> <span class="o">&gt;</span> <span class="n">4</span><span class="o">){</span>
+               <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+           <span class="o">}</span>
+       <span class="o">}</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">mFingerPaths</span><span class="o">[</span><span class="n">tempIndex</span><span class="o">]</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+           <span class="c1">// 通过数组的下标也就是触摸事件的唯一标识id获得队列中的位置
+</span><span class="c1"></span>           <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">findPointerIndex</span><span class="o">(</span><span class="n">tempIndex</span><span class="o">);</span>
+           <span class="c1">// 对从down事件或者上一次移动事件的Path进行lineTo移动.
+</span><span class="c1"></span>           <span class="n">mFingerPaths</span><span class="o">[</span><span class="n">tempIndex</span><span class="o">].</span><span class="na">lineTo</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getX</span><span class="o">(</span><span class="n">index</span><span class="o">),</span> <span class="n">event</span><span class="o">.</span><span class="na">getY</span><span class="o">(</span><span class="n">index</span><span class="o">));</span>
+           <span class="n">mFingerPaths</span><span class="o">[</span><span class="n">tempIndex</span><span class="o">].</span><span class="na">computeBounds</span><span class="o">(</span><span class="n">mPathBounds</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+           <span class="n">invalidate</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span> <span class="n">mPathBounds</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">mPathBounds</span><span class="o">.</span><span class="na">top</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">mPathBounds</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">mPathBounds</span><span class="o">.</span><span class="na">bottom</span><span class="o">);</span>
+           <span class="n">tempIndex</span><span class="o">++;</span>
+       <span class="o">}</span>
+
+   <span class="o">}</span>
+<span class="o">}</span>   
+            
+
+</code></pre></div><p>以上是伪代码, 如果想需要完整类,<a href="https://github.com/suzeyu1992/AndroidProgrammingPushingTheLimits/blob/master/MultiTouch/app/src/main/java/com/szysky/note/multitouch/MultiTouchView.java" target="_blank" rel="noopener noreffer">点击此链接到github查看</a></p>
+<p>这里在进行解释说明一下:</p>
+<p>每次时间发生改变的时候<code>onTouchEvent(MotionEvent)</code>都会被回调. 并且<code>MotionEvent</code>会保存当前时间点的所有<strong>触摸点的事件</strong>.</p>
+<hr>
+<p>举例一个场景: <strong>当三个手指同时按下</strong></p>
+<p>首先系统内部有一个保存当前多点触摸事件的<strong>集合</strong>,由于跟进源码后发现方法调用的是本地方法,所以只能从出现的规律可以反推出这个集合应该是一个<strong>队列</strong>.从以下结果也可以看出.</p>
+<p>虽然三个手指同时按下, 但是会依次触发<code>onTouchEvent()</code>回调. 也就是说会走三遍此回调. 当第一个触摸事件发生<code>down</code>时. 系统会创建保存一个事件对象并给这个对象的<code>pointerID</code>赋一个<code>0</code>的值并放到队列的首部, 这时当多点触控的第二个触摸事件按下的时候. 系统会遍历队列中的触摸事件的<code>pointerID</code>,如果队列第一个对象的<code>pointerID</code>不等于0那么就插入在这个对象的头部,如果等于继续下一个元素,如果下一个对象的<code>pointerID为1(就是顺序递增的效果)</code>那就继续遍历下一个元素,如果不是那就插入到这个元素也就是第二个元素对象的首部, 依次类推.  当插入后, 插入元素的<strong>所在队列的位置</strong>当做第二个触控点事件的<code>pointerID</code>; 当第三个多点触控发生时, 还是会重复上面的插入规则, 这个时候会遍历到已经存在的两个触摸对象其<code>pointerID</code>是从0开始的递增,所以这个触摸事件放到这个队列的尾部, 也就是第三个触控事件的<code>pointerID=3</code>. <code>这也就是同一个时间段,不会存在相同的pointerID的原因</code></p>
+<p><code>为什么要这么麻烦的说这个? 因为当多点触控的时候不弄仅通过getX()或者getY()来取得最后一个坐标点,这个方法只是返回这个队列中的第一个元素的坐标点, 而处理多点的时候我们应该知道具体是队列总的哪一个事件触发并获取其值需要getActionIndex()获得触发事件对象的位置,然后通过getX(actionIndex)才能获取真正的发生变化的触摸点, 而且我们自己在本地记录的出现过得Path路径轨迹进行存储整理. 所以我们需要一个唯一标示来区分不同的触控点进行后续的操作</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="multitouch_add.png"
+        data-srcset="multitouch_add.png, multitouch_add.png 1.5x, multitouch_add.png 2x"
+        data-sizes="auto"
+        alt="multitouch_add.png"
+        title="multitouch_add.png" /></p>
+<p><strong>而获取这个触控的事件的队列虽然在插入的时候会保证返回的所在<code>队列的位置</code>和其<code>pointerID</code>一致, 但是在连续抬起事件队列删除的元素时候有序队列元素的位置会变化, 就会导致这两个值有所不同, 请看下图</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="multitouch_action_index.png"
+        data-srcset="multitouch_action_index.png, multitouch_action_index.png 1.5x, multitouch_action_index.png 2x"
+        data-sizes="auto"
+        alt="multitouch_action_index.png"
+        title="multitouch_action_index.png" /></p>
+<p>上图和实现代码中有一个<code>getActionIndex()</code>获得的<code>ActionIndex</code>的int值.<strong>这个值表示触发事件对象所在系统保存的所有还在运行的事件的队列的位置.</strong> 当我们知道是一个队列的时候规律也就不难推出<code>move事件</code>的时候, 此值不会发生改变. 但是当<code>down和up事件的时候</code>会动态变化. 因为队列前面元素的变化会导致后边的元素.</p>
+<p>这里可能我说的有点啰嗦, 如果看不懂解释可以去上面的连接地址down下代码, 观察输出日志即可.</p>
+<hr>
+<p><code>Android</code>中的<code>MotionEvent</code>类是所有<code>pointer</code>相关的操作的核心类, <code>pointer</code>意味着手指, 手写笔, 电脑鼠标或者一个外部的触摸板.</p>
+<h3 id="pointercoordinates">PointerCoordinates</h3>
+<p>这个知识点只做了解, 因为关于触摸压力值并不是真正的支持, 有的是由按下面积和或者获得的值就是恒定的.</p>
+<p><code>MotionEvent</code>对象包含<code>pointer</code>的所有信息. 不同类型的的输入设备, 手指, 鼠标等都能生成<code>pointer</code>, 所以<code>MotionEvent</code>不仅包含x,y坐标. Android API支持所有<code>Linux</code>内核定义的输入设备. 因为不同设备的输入参数可能不同, 所以<code>pointer</code>被设计成有多个坐标轴. 最常用的就是坐标轴xy. 但也有描述其他信息的坐标轴, 比如压力, 距离, 方向等.</p>
+<p>另外<code>MotionEvent</code>类不仅支持生成<code>pointer</code>坐标的输入设备, 还支持游戏控制相关的坐标轴信息以及诸如节流阀, 方向舵, 倾斜, 滚轮之类的输入来源.</p>
+<h3 id="旋转手势">旋转手势</h3>
+<p><code>Android API</code>中有两个工具类能帮助开发者检测各种手势, <code>GestureDetector</code>类和<code>ScaleGestureDetector</code>类. 第一个类支持一些简单的触控手势: 比如长按, 双击, 快速滑动. 第二个类能检测类似于地图所用的双指缩放手势, 以及图片的放大手势等.</p>
+<p>类似这样的效果:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="rotate.gif"
+        data-srcset="rotate.gif, rotate.gif 1.5x, rotate.gif 2x"
+        data-sizes="auto"
+        alt="rotate.gif"
+        title="rotate.gif" /></p>
+<p>代码就不贴了, 有兴趣<a href="" rel="">类链接地址</a></p>
+<h3 id="opengl-es">OpenGL ES</h3>
+<p>虽然可以使用SDK提供的部件, 或者使用自定义的视图来构建大部分的Android应用, 但有时需要更底层和更高性能的图形API. 主要用于游戏. <code>OpenGL ES</code>(嵌入式子系统)很适合. Android系统最高支持<code>OpenGL ES 3.0版本</code>主要取决于硬件和android版本. <code>Android 4.3</code>支持最新的3.0标准.</p>
+<p>Android已经在标准UI框架中使用<code>OpenGL ES 2.0</code>来启动硬件加速, 但是并没有对开发者开放. 而3.0完全向后兼容2.0的. 所以如果使用3.0可以放心使用.</p>
+<p>如果想要了解<code>Android上的OpenGl</code>, 可以在官网,这里跳转<a href="https://developer.android.com/guide/topics/graphics/opengl.html" target="_blank" rel="noopener noreffer">到Google介绍openGL</a></p>
+<h2 id="重识service">重识Service</h2>
+<h3 id="何时并如何使用service">何时并如何使用Service</h3>
+<p><code>Android</code>文档关于<code>Service</code>组件的描述如下:</p>
+<blockquote>
+<p>Service组件表示在不影响用户的情况下执行耗时的操作或者提供给其他应用使用的功能.</p>
+</blockquote>
+<p>即使使用<code>Service</code>还是需要把耗时的任务放到一个独立的线程中, 那为什么还有服务的出现?</p>
+<p>因为<code>Service</code>和<code>Activity</code>有着不同的生命周期, 对比起来<code>Service</code>更适合管理耗时的操作.</p>
+<p>那么耗时操作的定义, 其实建议把所有和用户界面无关的操作都放到后台线程去执行. 因为UI线程需要保持高度响应来与用户进行交互. 所以应尽可能排除掉一切可以不影响用户界面响应速度的操作.</p>
+<h3 id="service类型">Service类型</h3>
+<ol>
+<li><strong>用来执行和用户输入无关的操作</strong>. 例如音乐播放器能够在用户从前台退出应用的情况下还能继续播放音乐. 或者例如即时通讯应用, 在用户退出前它要一直保持运行并接收消息.</li>
+<li><strong>直接由用户触发</strong> 比如照片共享应用, 用户拍完照后, 应用使用<code>Intent</code>把照片发送给<code>Service</code>(更准确地说是使用指向本地的Uri). 接下来<code>Service</code>启动并解析<code>Intent</code>里的数据, 最后在后台线程中上传该照片. 当操作完成后系统会自动停止<code>Service</code>.</li>
+</ol>
+<h3 id="service的创建和销毁">Service的创建和销毁</h3>
+<p><code>service</code>有两个必定会调用的生命回调周期<code>onCreate()</code>和<code>onDestroy()</code></p>
+<ul>
+<li><code>onCreate():</code>做一些初始化例如初始化新的<code>Handler</code>对象, 获取系统服务, 注册广播, 以及执行<code>service</code>操作需要的其他初始化工作. <strong>请注意这个生命周期可是运行主线程的,如果要执行耗时操作需要使用<code>AsyncTask</code>,<code>Handler</code>等方法</strong></li>
+<li><code>onDestroy():</code>所有的清理工作都应该在<code>onDestroy()</code>方法完成, 特别的, 需要停止所有已经启动的<code>HandlerThread</code>对象, 并且注销之前注册的广播. 同样, 此回调也是运行在主线程中, 所以清理工作同样放在单独线程.</li>
+</ul>
+<h3 id="启动service">启动Service</h3>
+<p><code>Service</code>的启动方式有两种: 通过<code>Content.startService()</code>或者<code>Content.bindService()</code>.</p>
+<p>这里先说<code>startService()</code>方法:</p>
+<p>当以<strong>启动模式</strong>打开<code>Service</code>时, 参数中的<code>Intent</code>必须匹配<code>Service</code>定义的<code>intent-filter</code>. (也可以显示地使用<code>Service</code>的<code>ComponentName</code>而不再定义<code>intent-filter</code>). 该方法不提供任何对<code>Service()</code>的引用, 但它在执行基于消息的触发操作方面很有用. 该方法适合执行由用户触发并且运行时间不确定的操作, 比如上传照片或者向服务器发送状态更新. 它在为其他应用提供简单的接口方便也很有用.</p>
+<p>当时用<strong>启动模式</strong>打开服务的时候, <code>Service#onStartCommand()</code>方法会被调用, 并收到发送给<code>Service</code>的<code>Intent</code>. 该方法返回一个整型常量, 用来告诉系统如何处理<code>Service</code>的重启操作. 这是<code>Service</code>比较复杂的部分, 所以最起码要记住以下三种返回值(真正返回不止3种):</p>
+<ul>
+<li><code>START_STICKY:</code> 代表当系统由于某些原因关闭<code>Service</code>时(通常是由于内存不足). <code>Service</code>会被重新启动. 然而当系统重新启动<code>Service</code>时, <code>onStartCommand()</code>参数中的<code>Intent</code>会被置为<code>null</code>, 请注意这一点. 使用<code>START_STICKY</code>返回值的一个典型例子就是音乐播放器.</li>
+<li><code>START_NOT_STICKY:</code> 表示<code>Service</code>不会再系统关闭之后重新启动. 这在使用<code>Service</code>执行一次性操作的时候特别有用, 比如上传的东西到服务器. 如果Service在完成任务前就被系统关闭了, 它不应该再尝试重复之前的操作.</li>
+<li><code>START_REDELIVER_INTENT:</code> 它和<code>START_STICKY</code>基本一样, 不过当系统重启<code>Service</code>时, <code>onStartCommand()</code>会收到<code>Service</code>被销毁之前接收到的最后一个<code>intent</code>.</li>
+</ul>
+<hr>
+<p><strong>接着说<code>onStartCommand()</code>这个回调方法的一共有三个返回值:</strong></p>
+<ul>
+<li><code>intent:</code> 根据前面讲解返回值的时候可以看出在某些特定情况下, 该参数可能会为null.</li>
+<li><code>标志位:</code> 标识本次启动请求, 可能的值为0, <code>START_FLAG_RETRY</code>, <code>START_FLAG_REDELIVERY</code>.</li>
+<li><code>startId:</code> 如果多次调用<code>onStartCommand()</code>且需要安全地停止<code>Service</code>, 此参数会有用.</li>
+</ul>
+<h3 id="绑定service">绑定Service</h3>
+<p><strong>绑定模式</strong>这是使用<code>Content.bindService()</code>. 被绑定的<code>Service</code>会一直运行, 知道所有绑定的客户端都断开后才会停止. 在同一个应用进程中绑定<code>Service</code>只需获取<code>Service</code>对象的的引用, 并调用对象相应的方法即可. 这种方式成为<code>本地binder</code>.</p>
+<p>如下代码: 只贴出核心代码:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm"> *  实现一个bindService模式的, 简单演示方法被调用的服务类
+</span><span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LocalService</span> <span class="kd">extends</span> <span class="n">Service</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doBackgroundOperation</span><span class="o">(){</span>
+        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">(),</span> <span class="s">&#34;定义服务方法被调用&#34;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">IBinder</span> <span class="nf">onBind</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">LocalBinder</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">LocalBinder</span> <span class="kd">extends</span> <span class="n">Binder</span><span class="o">{</span>
+        <span class="kd">public</span> <span class="n">LocalService</span> <span class="nf">getService</span><span class="o">(){</span>
+            <span class="k">return</span> <span class="n">LocalService</span><span class="o">.</span><span class="na">this</span><span class="o">;</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 在Activity中进行强转即可
+</span><span class="c1"></span><span class="n">serviceConnection</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServiceConnection</span><span class="o">()</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onServiceConnected</span><span class="o">(</span><span class="n">ComponentName</span> <span class="n">name</span><span class="o">,</span> <span class="n">IBinder</span> <span class="n">service</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">mService</span> <span class="o">=</span> <span class="o">((</span><span class="n">LocalService</span><span class="o">.</span><span class="na">LocalBinder</span><span class="o">)</span><span class="n">service</span><span class="o">).</span><span class="na">getService</span><span class="o">();</span>
+      <span class="c1">//  通过mService就可以调用服务的内部方法, 注意这只是在应用内部, 不可以跨进程
+</span><span class="c1"></span>  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onServiceDisconnected</span><span class="o">(</span><span class="n">ComponentName</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">mService</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">};</span>
+</code></pre></div><h3 id="保持活跃">保持活跃</h3>
+<p>当服务已经启动, 并且应用程序在前台运行(当前正在展示应用的某个Activity), 那么该<code>Service</code>会是最后一个被杀死. 然而一旦用户离开了发起服务的应用, 那么此服务也就不再是前台应用, 有可能会被杀死. 所以如果需要在应用不处于前台活动状态下仍然保持<code>Service</code>在前台运行, 则可以调用<code>Service.startForeground()</code>. (当应用程序更新可以使用<code>Notification</code>通知配合服务来完成)</p>
+<blockquote>
+<p>系统会试图尽可能长地保持<code>Service</code>处于活动和运行状态. 只有当资源耗尽, 通常是没有足够内存(RAM), 才有可能会去停止<code>Service</code>. 当是我们应该在开发中假设这种情况会随时发生.</p>
+</blockquote>
+<h3 id="停止服务service">停止服务Service</h3>
+<p>一旦<code>Service</code>启动, 它会尽可能长时间运行. 根据启动方式的不同, 系统会在系统资源不足杀死<code>Service</code>后重启.</p>
+<blockquote>
+<p>当Service再次启动时, 可能会出现一些意想不到的结果, 所以适当的停止服务就显得很重要.</p>
+</blockquote>
+<ul>
+<li><code>绑定模式:</code> 此模式下服务会一直运行到没有客户端连接为止. 但有一种例外情况, 即最后连接的客户端调用了<code>Service.startForeground()</code>时还会保持<code>Service</code>的运行, 所以需要在适当的时候调用<code>Service.stopForeground()</code></li>
+<li><code>启动模式:</code> 只能通过<code>Service.stopSelf()</code>或者<code>Content.stopService()</code>来停止<code>Service</code>. 这标志着需要停止和移除<code>service</code>. 而重新启动<code>Service</code>的唯一方式是显示调用<code>Content.startService()</code>或者<code>Content.bindService()</code>. 注意, 当通过<code>startService()</code>启动服务时, 不管调用多少次<code>onStartCommand()</code>(即调用<code>Content.startService()</code>不会叠加), 调用<code>Service.stopSelf()</code>或者<code>Content.stopSelf()</code>一定会停止服务.</li>
+</ul>
+<h3 id="后台运行的intentservice">后台运行的IntentService</h3>
+<p>普通的服务的生命周期回调都是触发在<strong>主线程上</strong>. 如果需要处理耗时操作那么需要把耗时操作移动到一个单独的线程中.</p>
+<p><strong>IntentService</strong></p>
+<p>由于<code>Handler</code>在android中的处理消息的便利, 和<code>Service</code>分离与UI线程无关的代码. 所以google提供了一个名为<code>IntentService</code>的工具类, 它在<code>Service</code>中包装了一个处理后台线程的<code>Handler</code>. 开发者只需要继承该类, 实现<code>onHandlerIntent()</code>方法, 并添加希望<code>Service</code>能够接收的action.</p>
+<p><code>onHandlerIntent()</code>方法运行在自己线程, 并不一定是主线程. 并且每次只能处理一个<code>Intent</code>,当处理结束之后服务也就自动关闭.  可以通过不同的<code>action</code>组装成intent, 也可以给<code>intent</code>附加信息, 用以在服务中区分不同的动作请求. 当多次通过<code>startService()</code>调用服务的时候, 每次调用的<code>Intent</code>会被保存到队列中, 所以该类能确保任意时间只会有一个<code>intent</code>会被处理. 知道队列为空, 那么服务也就随之消失.</p>
+<hr>
+<p><strong>并行问题</strong></p>
+<p><code>IntentService</code>虽然方便好用, 并且能够顺序处理同一时间内的多个请求. 但是正因为是<strong>串行的处理模式</strong>, 可能我们有的时候更需要并行更快的处理完成.如果是这样, 那我们就使用线程池来处理. 可以在<code>AsyncTask</code>中使用<code>Executor</code>并行地执行操作. 但是<code>AsyncTask</code>的特点是比较适合执行运行时间至多几面的操作, 如果要执行比较耗时的操作. 可以使用<code>ExecutorService</code>使用<code>Executors.newCacheThreadPool()</code>.</p>
+<h3 id="对service的通信">对Service的通信</h3>
+<p>前面记录了何时使用, 如何执行. 那么接下来接说一下对服务的通信. 一般有两种:</p>
+<ul>
+<li><code>Content.StartService()</code>会把<code>Intent</code>分发给<code>Service.onStartCommand()</code>方法,可以在该方法中触发后台操作, 然后通过广播或者其他方式再把结果分发给调用组件.</li>
+<li><code>Content.bindService()</code>方法可以获得<code>Binder</code>对象, 使用它可以直接调用<code>Service</code>对象.</li>
+</ul>
+<hr>
+<p><strong>使用Intent进行异步消息的传递</strong></p>
+<p>如果想要知道服务中处理的结果, 只需要采用发送广播的进行通知调用者即可.</p>
+<p>总结一下这种的优缺点:</p>
+<ul>
+<li><strong>优点:</strong> Android提供了线程的机制, 而不需要开发者自己构建复杂的组件间消息处理系统. 开发者只需要声明表示异步消息的<code>action</code>. 并在响应的组件中注册这些广播. 即便<code>Service</code>属于其他应用或者运行在一个单独的进程中, 该方法同样有效.</li>
+<li><strong>缺点:</strong> 通知的结果受限于<code>Intent</code>. 此外这种方式不适合在<code>IntentService</code>和<code>Activity</code>之间进行大规模快速更新的操作, 比如更新进度条, 因为这会阻塞系统. 如果确定需要实现此功能那么可以使用<code>bindService</code>.</li>
+</ul>
+<hr>
+<p><strong>本地绑定的Service进行的交互</strong></p>
+<p>当<code>Service</code>提供的接口太过复杂, 很难用<code>Intent</code>消息机制解决, 而普通的<code>Java</code>方法又可以很好的解决这个问题; 另一个使用绑定本地<code>Service</code>的原因是可以在<code>Service</code>中给Activity提供更为复杂的回调. 因为那些耗时的操作必须放到<code>Service</code>的后台线程, 所以<code>Service</code>的大部分回调应该是异步的. 实际的调用触发后台操作立即返回, 一旦操作完成, <code>Service</code>使用回调接口来通知<code>Activity</code>响应的执行结果.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-09-26</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" data-title="《Android 编程实战》04-手势操作进阶, 重识Service" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" data-title="《Android 编程实战》04-手势操作进阶, 重识Service" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" data-title="《Android 编程实战》04-手势操作进阶, 重识Service"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" data-title="《Android 编程实战》04-手势操作进阶, 重识Service" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" data-title="《Android 编程实战》04-手势操作进阶, 重识Service" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" data-title="《Android 编程实战》04-手势操作进阶, 重识Service" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9804-%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C-service/" data-title="《Android 编程实战》04-手势操作进阶, 重识Service"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9802-android%E4%B8%8A%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88java/" class="prev" rel="prev" title="《Android 编程实战》02-Android上编写高效Java"><i class="fas fa-angle-left fa-fw"></i>《Android 编程实战》02-Android上编写高效Java</a>
+            <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9805-%E9%87%8D%E8%AF%86-ipc/" class="next" rel="next" title="《Android 编程实战》05-重识 IPC">《Android 编程实战》05-重识 IPC<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

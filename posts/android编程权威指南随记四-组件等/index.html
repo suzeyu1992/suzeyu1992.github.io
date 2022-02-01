@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android编程权威指南》随记四 组件等 - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android编程权威指南》随记四 组件等" />
+<meta property="og:description" content="这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-09-10T14:00:51+00:00" />
+<meta property="article:modified_time" content="2016-09-10T14:00:51+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android编程权威指南》随记四 组件等"/>
+<meta name="twitter:description" content="这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E5%AE%8C%E5%96%84%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%92%8C%E4%BC%98%E5%8C%96/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android编程权威指南》随记四 组件等",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  11540 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89\/","datePublished": "2016-09-10T14:00:51+00:00","dateModified": "2016-09-10T14:00:51+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android编程权威指南》随记四 组件等</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-09-10">2016-09-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 11540 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 24 分钟&nbsp;<span id="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/" class="leancloud_visitors" data-flag-title="《Android编程权威指南》随记四 组件等">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#message与message-handler">Message与Message Handler</a></li>
+    <li><a href="#启动模式于新的intent">启动模式于新的Intent</a></li>
+    <li><a href="#使用sp实现轻量级数据存储">使用SP实现轻量级数据存储</a></li>
+    <li><a href="#后台服务">后台服务</a></li>
+    <li><a href="#alarmmanager延迟运行服务">AlarmManager延迟运行服务</a></li>
+    <li><a href="#pendingintent">PendingIntent</a></li>
+    <li><a href="#通知消息-notification">通知消息 Notification</a></li>
+    <li><a href="#服务的一些说明">服务的一些说明</a></li>
+    <li><a href="#broadcast-intent">broadcast Intent</a></li>
+    <li><a href="#webview">WebView</a></li>
+    <li><a href="#locationmanager">LocationManager</a></li>
+    <li><a href="#sqlite本地数据库">SQLite本地数据库</a></li>
+    <li><a href="#loader加载异步数据">Loader加载异步数据</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>这本书属于入门, 有很多内容可以当做扩展来了解一些API, 并且有的时候可以适当的利用Google提供好的API来做一些高效开发节约时间成本. 原理东西本书偏少. 可以学习本书中的代码的编写风格, 书中代码都是采用<strong>MVC</strong>模型来编写的. 就写这么多, 下面开始整理一些小知识点.</p>
+</blockquote>
+<h2 id="message与message-handler">Message与Message Handler</h2>
+<p><strong>消息Message</strong></p>
+<p>消息是<code>Message</code>类的一个实例. 包含好几个实例变量. 其中有三个需要在实现时定义.</p>
+<ul>
+<li><code>what</code> 用户定义的int类型消息代码, 用来描述消息</li>
+<li><code>obj</code> 随消息发送的用户指定对象</li>
+<li><code>target</code> 处理消息的<code>Handler</code></li>
+</ul>
+<p>Message的目标是Handler类的一个实例. <code>Message</code>在创建时, 会自动与一个<code>Handler</code>相关联. Message在准备处理状态下, Handler是负责让消息处理行为发生的对象.</p>
+<p><strong>Handler</strong></p>
+<p>要处理消息以及消息指定的任务, 首先需要一个消息<code>Handler</code>实例. <code>Handler</code>不仅仅是处理<code>Message</code>的目标(target), 也是创建和发出<code>Message</code>的接口.</p>
+<p><code>Looper</code> 拥有<code>Message</code>对象的收件箱, 所以<code>Message</code>必须在<code>Looper</code>上发布或读取. 基于<code>Looper</code>和<code>Message</code>的这种关系, 为了与<code>Looper</code>协同工作, <code>Handler</code>总是引用着它.</p>
+<ul>
+<li>一个<code>Handler</code>仅于一个<code>Looper</code>相关联.</li>
+<li>一个<code>Message</code>也仅于一个目标<code>Handler</code>相关联</li>
+<li>多个<code>Handler</code>可能都关联一个<code>Looper</code>(这也意味着一个<code>Handler</code>的<code>Message</code>可能与另一个<code>Handler</code>的<code>Message</code>存在在同一个消息队列中)</li>
+<li><code>Looper</code>拥有整个队列</li>
+</ul>
+<p><strong>Handler的使用</strong></p>
+<p>消息的目标<code>Handler</code>通常不需要手动设置. 一个比较理想的方式是调用<code>Handler.obtainMessage()</code>方法创建消息并传入其他消息字段, 然后该方法自动完成目标<code>Handler</code>的设置.</p>
+<p>为避免创建新的<code>Message</code>对象, <code>Handler.obtainMessage()</code>方法会从公共循环池里获取消息. 因此相比重新创建, 这种复用的选择会更加高效.</p>
+<p>一旦取得了<code>Message</code>就可以调用<code>sendToTarget()</code>方法将其发送给它的<code>Handler</code>. 然后<code>Handler</code>会将<code>Message</code>放置在<code>Looper</code>消息队列的尾部.</p>
+<p><code>Looper</code>取得到消息队列中的特定消息后, 会将它发送给消息目标去处理. 消息一般是在目标的<code>Handler.handleMessage()</code>中进行处理的.</p>
+<p><strong>传递Handler</strong></p>
+<p><code>HandlerThread</code>能在主线程上完成任务的一种方式是, 让主线程将其自身的<code>Handler</code>传递给<code>HandlerThread</code>.</p>
+<p>主线程是一个拥有<code>Handler</code>和<code>Looper</code>的消息循环. 主线程上创建的<code>handler</code>会自动与它的<code>Looper</code>相关联. 可以将主线程的<code>handler</code>传递给另一个线程. 传递出去的<code>Handler</code>与创建线程的<code>Looper</code>始终保持着联系. 因此任何已传出的<code>Handler</code>负责处理的消息都将在主线程的消息队列中处理.</p>
+<p><strong>关于AsyncTask</strong></p>
+<p><code>AsyncTask</code> 主要应用于那些短暂且较少重复的任务.  并且在<code>Android 3.2</code>时其内部进行了代码的改动. 改动之后的效果是<code>AsyncTask</code>不再为每一个<code>AsyncTask</code>的实例单独创建一个线程. 相反, 它使用了<code>Executor</code>在单一的后台线程上运行所有的<code>AsyncTask</code>的后台任务. 这意味着每个<code>AsyncTask</code>都需要排队逐个运行.  (虽然可以通过特定的方法改变其内部的顺序调用, 但是或许应该想想是否有其他的更好的方式来选择)</p>
+<h2 id="启动模式于新的intent">启动模式于新的Intent</h2>
+<p>启动模式决定了<code>activity</code>在收到新的<code>intent</code>时的启动方式.</p>
+<table>
+<thead>
+<tr>
+<th>启动模式</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>standard</td>
+<td>默认行为, 针对每一个收到的新Intent, 都会启动新的activity</td>
+</tr>
+<tr>
+<td>singleTop</td>
+<td>如果activity实例已经处在回退栈的顶部, 则不重新创建新的activity, 而直接路由新的intent给现有的activity</td>
+</tr>
+<tr>
+<td>singleTask</td>
+<td>在自身task中启动activity, 如果task中activity已经存在, 则清除回退站中该activity上的任何activity, 然后路由新的intent给现有的activity</td>
+</tr>
+<tr>
+<td>singleInstance</td>
+<td>在自身task中启动activity, 该activity是task中唯一的activity, 如果任何其他activity从该task中启动, 他们都将启动到自己的task中. 如果task中的activity已经存在. 那么就路由新的intent给现有的activity</td>
+</tr>
+</tbody>
+</table>
+<p>上面说到路由新的<code>intent</code>给现有的<code>activity</code>. 这个新的<code>intent</code>通过复写<code>activity#onNewIntent()</code>可以获得.</p>
+<h2 id="使用sp实现轻量级数据存储">使用SP实现轻量级数据存储</h2>
+<p>对于存储可以采用序列化对象并保存至外部存储设备的方式, 实现持久化存储. 然后对于<strong>轻量级数据的持久化</strong>可以使用<code>shared preferences</code>会更加简单高效.</p>
+<p><code>shared preferences</code>本质上就是文件系统中的文件. 可使用<code>SharedPreferences</code>类对其进行读写. <code>SharedPreferences</code>实例使用起来更像一个键值对仓库如<code>Bundle</code>, 但它可以通过持久化存储保存数据. 键值对中的键为<strong>字符串</strong>. 而值是<strong>原子数据类型</strong>. 其本质上就是一种简单的XML文件. 但<code>SharedPreferences</code>类已屏蔽了读写文件的实现细节.</p>
+<p><strong>关于使用:</strong>   可以使用<code>Context.getSharePreferences(String, int)</code>方法. 然而在实际开发中, 由于<code>sharedpreferences</code>共享整个应用. 并不太关心获取的特定实例是什么. 这种情况下, 可以使用<code>PreferenceManager.getDefaultSharedPreferences(Context)</code>, 该方法会返回具有私有权限与默认名称的实例.</p>
+<p>而对于添加数据, 通过SP对象的<code>edit()</code>方法可以获得一个<code>Editor</code>实例, 通过这个实例, 就可将一组数据操作放入一个事务中, 添加之后. 通过<code>Editor.commit()</code>最终写入数据.</p>
+<h2 id="后台服务">后台服务</h2>
+<p><strong>IntentService</strong></p>
+<p><code>IntentService</code>并不是<code>Android</code>提供唯一服务, 但却是最常用的. <code>IntentService</code>也是一个<code>Content</code>. 并能够响应intent.  服务的<code>intent</code>又称作<strong>命令</strong>. 每一条命令都要求服务完成某项具体的任务.</p>
+<p><code>IntentService</code>逐个执行命令队列的命令. 接收到首个命令时, <code>IntentService</code>即完成启动, 并触发一个后台线程, 然后将命令放入队列.</p>
+<p>随后<code>IntentService</code>继续按顺序执行每一条命令, 并同时为每一条命令在后台线程上调用<code>onHandlerIntent()</code>方法. 新进命令总是放置在队列尾部. 最后, 执行完队列中全部命令后, 服务也随即停止并被销毁.</p>
+<h2 id="alarmmanager延迟运行服务">AlarmManager延迟运行服务</h2>
+<p>有时为了保证服务在后台的可用, 当没有<code>activity</code>在运行时, 需通过某种方式在后台执行一些任务. 比如说, 设置一个5分钟间隔的定时器.</p>
+<p>一种实现方式是调用<code>Handler</code>的<code>sendMessageDelayed()</code>或者<code>postDelayed()</code>方法. 但如果用户离开了当前应用. 进程就会停止, <code>Handler</code>消息也会随之消亡, 因此该解决方案并不算可靠.</p>
+<p>这样可以尝试使用<code>AlarmManager</code>. <code>AlarmManager</code>是可以发送<code>Intent</code>的<strong>系统服务</strong>. 那么如何告诉<code>AlarmManager</code>发送<code>Intent</code>呢? 使用<code>PendingIntent</code>. 利用<code>PendingIntent</code>打包<code>Intent</code>, 然后将其发送给系统中的其他部件, 如<code>AlarmManager</code>. 如下代码:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setServiceAlarm</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">isOpen</span><span class="o">){</span>
+   <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">要打开服务的类名</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+   <span class="n">PendingIntent</span> <span class="n">pi</span> <span class="o">=</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getService</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">intent</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+
+   <span class="n">AlarmManager</span> <span class="n">alarmManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">AlarmManager</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">ALARM_SERVICE</span><span class="o">);</span>
+   
+   <span class="k">if</span> <span class="o">(</span><span class="n">isOpen</span><span class="o">){</span>
+       <span class="c1">// 设置定时器
+</span><span class="c1"></span>       <span class="n">alarmManager</span><span class="o">.</span><span class="na">setRepeating</span><span class="o">(</span><span class="n">AlarmManager</span><span class="o">.</span><span class="na">RTC</span><span class="o">,</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">(),</span> <span class="n">1000</span> <span class="o">*</span> <span class="n">15</span> <span class="o">,</span> <span class="n">pi</span><span class="o">);</span>
+   <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+       <span class="n">alarmManager</span><span class="o">.</span><span class="na">cancel</span><span class="o">(</span><span class="n">pi</span><span class="o">);</span>
+       <span class="n">pi</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
+   <span class="o">}</span>
+   
+<span class="o">}</span>
+</code></pre></div><p>如上代码中只要替换创建<code>Intent</code>指定的服务类名. 那么当调用了<code>setServiceAlarm</code>传递<code>true</code>那么. 会发现每隔15秒就会启动一次<code>IntentService</code>. 即使进程停止, <code>AlarmManager</code>依然会不断发送<code>intent</code>. 以反复启动服务.</p>
+<h2 id="pendingintent">PendingIntent</h2>
+<p><code>PendingIntent</code>是一种<strong>token</strong>对象. 调用<code>PendingIntentn.getService()</code>方法获取<code>PendingIntent</code>时, 我们告诉操作系统: 要使用<code>startService()</code>方法发送这个<code>intent</code>. 随后调用<code>PendingIntent</code>对象的<code>send()</code>方法时, 操作系统会按照我们的要求发送原来封装的<code>Intent</code>.</p>
+<p><code>PendingIntent</code>真正精妙之处在于, 将<code>PendingIntent</code>交给其他应用使用时, 它是代表当前应用发送<code>token</code>对象的. 另外<code>PendingIntent</code>本身存在于操作系统而不是<code>token</code>里, 因此实际上是我们在控制着它. 如果不顾及别人的感受, 也可以在交给别人一个<code>PendingIntent</code>对象后, 立即撤销它, 让send()方法什么也不做.</p>
+<p>如果使用同一个<code>intent</code>请求<code>PendingIntent</code>两次, 得到的<code>PendingIntent</code>仍会是同一个, 我们可借此测试某个<code>PendingIntent</code>是否已存在, 或撤销已发出的<code>PendingIntent</code></p>
+<p><strong>使用<code>PendingIntent</code>管理定时器</strong></p>
+<p>一个<code>PendingIntent</code>只能登记一个定时器, 可以通过<code>AlarmManager.cancel(PendingIntent)</code>方法来撤销<code>PendingIntent</code>的定时器, 然后撤销<code>PendingIntent</code>.</p>
+<p>还有一种方式可以判断定时器激活与否, 既然撤销定时器也随即撤销了<code>PendingIntent</code>, 可通过检查<code>PendingIntent</code>是否存在, 来确认定时器是否激活. 具体实现, 传入<code>PendingIntent.FLAG_NO_CREATE</code>标记给<code>PendingIntent.getService()</code>方法即可, 该标记表示如果<code>PendingIntent</code>不存在则返回null.</p>
+<h2 id="通知消息-notification">通知消息 Notification</h2>
+<p>如果服务需要与用户进行信息沟通, **通知消息(notification)**是一个不错的选择, 通知消息是指显示在通知抽屉上的消息条目, 用户可向下滑动屏幕读取.</p>
+<p>发送通知消息, 首先需要创建一个<code>Notification</code>对象. <code>notification</code>需要使用构造对象完成创建.</p>
+<p>一个比较完成的<code>Notification</code>应该具备如下:</p>
+<ul>
+<li>首次显示通知消息时, 在状态栏上显示的ticker text.</li>
+<li>ticker text消失后, 在状态栏上显示的图标</li>
+<li>代表通知信息自身, 在通知抽屉中显示的视图</li>
+<li>用户点击抽屉中的通知信息, 触发<code>PendingIntent</code></li>
+</ul>
+<p>完成<code>Notification</code>对象的创建后, 可调用<code>Notification</code>系统服务的<code>notify(int,Notification)</code>方法发送它.</p>
+<h2 id="服务的一些说明">服务的一些说明</h2>
+<p><strong>non-sticky服务</strong></p>
+<p><code>IntentService</code>是一种<code>non-sticky</code>服务. <code>non-sticky</code>服务在完成所有已有任务时停止. 为获得<code>non-sticky</code>服务, 应返回<code>START_NOT_STICKY</code>或者<code>START_REDELIVER_INTENT</code>.</p>
+<p>通过调用<code>stopSelf()</code>或<code>stopSelf(int)</code>方法, 我们告诉Android任务已经完成. <code>stopSelf()</code>是一个无条件方法. 不管<code>onStartCommand()</code>方法调用多少次, 该方法总是会成功停止服务.</p>
+<p><code>IntentService</code>使用的是<code>stopSelf(int)</code>方法. 该方法需要来自<code>onStartCommand()</code>方法的启动ID. 只要在接收到最新的启动ID后, 该方法才会停止服务.</p>
+<p>返回的<code>START_NOT_STICKY</code>和<code>START_REDELIVER_INTENT</code>的具体不同是, 如果系统需要在服务完成任务之前关闭它, 则服务的具体表现会有所不同. <code>START_NOT_STICKY</code>型服务会被关闭. 而<code>START_REDELIVER_INTENT</code>型服务, 则会在可用资源不再吃紧时, 尝试再次启动服务.  所以根据操作与应用的重要程度, 进行选择. <code>start_not_sticky</code>是<code>IntentService</code>的默认行为. 通过<code>setIntentRedelivery(true)</code>来切换模式.</p>
+<p><strong>sticky服务</strong></p>
+<p><code>sticky</code>服务会持续运行, 直到外部组件调用<code>Content.stopService(Intent)</code>方法让其停止为止. 为启动<code>sticky</code>服务, 应返回<code>START_STICKY</code>.</p>
+<p><code>sticky</code>服务启动后会持续运行, 直到某个组件调用<code>Content.stopService(Intent)</code>方法为止. 如因某种原因需终止服务, 可传入一个null intent给<code>onStartCommand()</code>方法实现服务的重启.</p>
+<p><code>sticky</code>服务适用于长时间运行的服务, 如音乐播放器这种启动后一直保持运行状态, 直到用户主动停止服务.</p>
+<h2 id="broadcast-intent">broadcast Intent</h2>
+<p>Android设备中, 各种事件一直频繁的发生着. WIFI型号时有时无, 各种软件包获得安装, 电话的呼入呼出, 短信接收等.</p>
+<p>许多的系统组件需要知道某些事件的发生. 为满足这样的需求, android提供了<code>broadcast intent</code>组件.</p>
+<hr>
+<p><strong>设备重启而重启的定时器</strong></p>
+<p>设备重启后, 那些持续运行的应用通常也需要重启. 通过监听具有<code>BOOT_COMPLETED</code>操作的broadcast intent, 可得知设备是否已完成启动.</p>
+<p>如果要实现这个功能, 首先定义一个广播, 继承<code>BroadcastReceiver</code>. 并在清单文件中声明<code>&lt;receiver&gt;</code>并添加intent过滤器设置一个<code>action</code>. 因为要监听系统开机所以需要添加一个使用权限<code>&lt;uses-permission android:name=&quot;android.permission.RECEIVE_BOOT_COMPLETED&quot;&gt;</code></p>
+<p>于<code>activity</code>和服务不同, 在配置文件中声明的<code>broadcast receiver</code>几乎总是需要声明<code>intent-filter</code>. <code>broadcast intent</code>就是为发送信息给多个监听者而生. 但显示的intent只有一个<code>receiver</code>. 因此显示的<code>broadcast intent</code>很少见.</p>
+<hr>
+<p><strong>如何使用receiver</strong></p>
+<p><code>broadcast receiver</code>的存在很短暂, 因此它的作用也就受到限制, 例如无法使用任何异步API或登记任何的监听器, 因为<code>onReceiver()</code>回调一旦运行完, <code>receiver</code>也就不存在了. 而因为<code>onReceiver()</code>同样运行在主线程, 因此不可以执行耗时操作.</p>
+<p>但是存在既有道理, 对于轻型任务代码的运行而言, <code>receiver</code>非常有用. 系统重启后, 定时运行的定时器也需要重置. 显示, 使用<code>broadcast receiver</code>处理这种小型任务再合适不过了(这里只是列举一个例子).</p>
+<hr>
+<p><strong>使用私有权限</strong></p>
+<p>使用动态广播接收存在一个问题, 即系统中的任何应用均可监听并触发我们的<code>receiver</code>. 对于这种情况应该避免. 有两种方案可以选择. 如果<code>receiver</code>声明在<code>manifest</code>配置文件里, 且仅限应用内部使用, 则可在<code>receiver</code>标签上添加<code>android:exported=&quot;false&quot;</code>属性. 这样系统中的其他应用就再也无法接触到该<code>receiver</code>. 另外也可以创建自己的使用权限. 通过在清单文件中添加一个<code>&lt;permission&gt;</code>标签来完成. 例如</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;permission</span> <span class="na">android:name=</span><span class="s">&#34;com.suzeyu.android.TEST_PERMISSION&#34;</span>
+    <span class="na">android:protectionLevel=</span><span class="s">&#34;signature&#34;</span><span class="nt">&gt;</span>
+</code></pre></div><p>这段代码使用了<code>protection level</code>签名, 定义了自己的定制权限. 权限本身只是一行字符串. 即使是自定义的权限, 也必须要在使用前获取它, 这是规则.</p>
+<p>如果给定义的广播设置了权限, 那么在发送广播时(sendBroadcast), 和注册广播时. 和应用清单添加使用权限的声明. 3处需要注意.</p>
+<hr>
+<p><strong>深入了解protection level</strong></p>
+<p>自定义权限必须指定<code>android:protectionLevel</code>属性值, Android根据<code>protectionLevel</code>属性值确定自定义权限的使用方式. 权限的所选值有四种. 对于仅限应用内部使用的权限, 通常会选择<code>signature</code>安全级别.</p>
+<p>关于四种可选值的特征如下:</p>
+<table>
+<thead>
+<tr>
+<th>可选值</th>
+<th>用法描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>normal</td>
+<td>用于阻止应用执行危险操作, 如访问个人隐私数据,联网传送数据等. 应用安装前, 用户可看到相应的安全级别, 但无需他们主动授权. <code>android.permission.RECEIVE_BOOT_COMPLETED</code>使用该安全级别. 同样, 手机振动也使用该安全级别. 虽然这些安全级别没有危险, 但最好让用户知晓可能带来的影响</td>
+</tr>
+<tr>
+<td>dangerous</td>
+<td>normal安全级别控制以外的任何危险操作, 如访问个人隐私数据, 通过网络接口收发数据, 使用可监视用户的硬件功能等. 总之, 包括一切可能为用户带来麻烦的行为. 网络使用权限, 相机使用权限以及联系人信息使用权限都属于危险操作. 需要<code>dangerous</code>权限级别时, Android会明确要求用户授权</td>
+</tr>
+<tr>
+<td>signature</td>
+<td>如果应用签署了于声明应用一致的权限证书, 则该权限由系统授予. 否则, 系统则作相应的拒绝. 权限授予时, 系统不会通知用户. 它通常适应于应用内部. 只要拥有证书, 则只有签署了同样证书的应用才能拥有该权限, 因此可自由控制权限的使用. 这里我们使用它阻止其他应用监听到应用发出的<code>broadcast</code>. 不过如有需要, 可定制开发能够监听他们的专有应用</td>
+</tr>
+<tr>
+<td>signatureOrSystem</td>
+<td>类似于<code>signature</code>授权界别. 但该授权级别针对Android系统镜像中的所有包权限. 该授权级别用于系统镜像内应用间的通信, 因此用户通常无需关心</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><strong>使用ordered broadcast接收结果</strong></p>
+<p>常规的<code>Broadcast</code>可同时被其他应用所接收. 而如果希望他们按照某种顺序依次运行, 或知道他们什么时候全部结束运行是无法做到的. 所以为了解决这种情况, 可使用<strong>有序broadcast intent</strong>实现双向通信. 有序广播允许多个广播接收者依序处理<code>broadcast intent</code>. 另外 通过传入一个名为<code>result receiver</code>的特别<code>broadcast receiver</code>, 有序广播还可以实现让<strong>广播的发送者</strong>接收到<strong>广播接收者</strong>发送的返回结果.</p>
+<p>通过<code>sendOrderedBroadcast(...)</code>发送有序广播. 和常规的广播相比有序广播的参数还多出五个. 一次为: 一个result receiver; 一个支持result receiver运行的Handler; 结果代码初始值; 结果数据; 有序broadcast的结果附加内容</p>
+<p><code>result receiver</code>比较特殊, 只有在所有有序广播接收者结束运行后, 它才可以运行.</p>
+<p>有序发送顺序是通过<code>receiver</code>的优先级作为依据.</p>
+<p>关于优先级数值越高优先级越高. 如果要设置最后接收的接收者可以设定其优先级为**-999**(-1000及以下的值为系统保留值)</p>
+<hr>
+<p><strong>receiver长时运行任务</strong></p>
+<p>如果不想受限于主线程的时间限制, 并希望<code>broadcast intent</code>可触发一个长时运行任务,有两种方式可以选择:</p>
+<ul>
+<li>将任务交给服务去处理, 然后再通过<code>broadcast receiver</code>启动服务. 服务可以运行很久, 直到完成需要处理的任务. 同时服务可将请求放在队列中, 然后依次进行处理, 或按其自认为合适的方式管理全部任务请求.</li>
+<li>使用<code>BroadcastReceiver.goAsync()</code>方法. 该方法返回一个<code>BroadcastReceiver.PendingResult</code>对象, 随后, 可使用该对象提供结果. 因此, 可将<code>PendingResult</code>交给<code>AsyncTask</code>去执行长时运行任务, 然后再调用<code>PendingResult</code>的方法相应<code>broadcast</code></li>
+</ul>
+<p><code>goAsync()</code>方法两个弊端: 不支持旧设备; 其次它不够灵活: 仍需快速响应broadcast.</p>
+<h2 id="webview">WebView</h2>
+<p>首先在xml布局中添加<code>WebView</code>控件, 没什么好说的. 接下来. 开始代码设置. 应该先完成三件事情.</p>
+<ul>
+<li>指定<code>WebView</code>要打开的URL</li>
+<li>启动<code>JavaScript</code>, <code>JavaScript</code>默认是禁用的. 最好启动以免不必要的错误.</li>
+<li>覆盖<code>WebViewClient</code>类的<code>shouldOverrideUrlLoading(WebView, String)</code>方法. 并返回false.</li>
+</ul>
+<p>例如:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">mWebView</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setJavaScriptEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+   
+<span class="n">mWebView</span><span class="o">.</span><span class="na">setWebViewClient</span><span class="o">(</span><span class="k">new</span> <span class="n">WebViewClient</span><span class="o">(){</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">shouldOverrideUrlLoading</span><span class="o">(</span><span class="n">WebView</span> <span class="n">view</span><span class="o">,</span> <span class="n">String</span> <span class="n">url</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">});</span>
+   
+<span class="n">mWebView</span><span class="o">.</span><span class="na">loadUrl</span><span class="o">(</span><span class="n">要加载的网址</span><span class="o">);</span>
+</code></pre></div><p>加载Url必须等到<code>WebView</code>配置完成之后. <code>WebSetting</code>是修改<code>WebView</code>配置的三种途径之一. 他还有一些其他可设置属性, 如用户代理字符串和显示文字大小.</p>
+<p>配置<code>WebViewClient</code>. <code>WebViewClient</code>是一个事件接口, 通过提供自己实现的<code>WebViewClient</code>, 可响应各种渲染事件. 例如可检测渲染器何时开始从特定URL加载图片, 或决定是否需要向服务器重新提交POST请求.
+<code>WebViewClient</code>有多个方法可供覆盖, 其中大多数用不到. 然而必须覆盖其<code>shouldOverrideUrlLoading()</code>的默认方法. 当有新的URL加载到<code>WebView</code>时(如点击了某个链接),如果返回true那么有系统浏览器处理. 如果为false那么就是<code>webview</code>去加载.</p>
+<p><strong>使用WebChromeClient优化WebView的显示</strong></p>
+<p>如果说<code>WebViewClient</code>是响应渲染事件的接口, 那么<code>WebChromeClient</code>就是一个响应改变浏览器中装饰元素的事件接口, 包括<code>JavaScript</code>警告信息, 网页图标, 状态条架子啊,以及当前网页标题的刷新.</p>
+<p>进度条和标题栏的更新都有各自的回调方法, 即<code>onProgressChange()</code>和<code>onReceivedTitle()</code> 方法.</p>
+<hr>
+<p><strong>处理WebView的设备旋转问题</strong></p>
+<p>由于<code>WebView</code>包含了太多的数据, 以至无法再<code>onSaveInstanceState()</code>方法保存所有数据. 对于一些类似的类如<code>VideoView</code>. Android文档推荐让<code>activity</code>自己处理设备配置的变更. 也就是说, 不销毁重建. 那么就要让<code>activity</code>不会因设备配置变更而发生重建动作,而是自己去处理配置更改后的问题. 那么就需要在清单文件中声明属性.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">android:configChanges=&#34;keyboardHidden|orientation|screenSize&#34;
+</code></pre></div><p>这个属性加在<code>activity</code>标签内部表明, 如果因键盘开关, 屏幕方向改变, 屏幕大小改变而发生的设配配置更改, 那么<code>activity</code>应自己处理配置更改,</p>
+<h2 id="locationmanager">LocationManager</h2>
+<p>Android系统中的地理位置数据是由<code>LocationManager</code>系统服务提供的. 该系统服务向所有需要地理位置数据的应用提供数据更新. 更新数据的传送通常采用两种方式.</p>
+<ul>
+<li>使用<code>LocationListener</code>接口</li>
+<li>使用<code>PendingIntent</code>获取地理位置更新</li>
+</ul>
+<p><code>LocationListener</code>接口可能是最直接的一种方式. 通过<code>onLocationChanged()</code>方法, 该接口提供的信息有:地理位置数据更新, 状态更新, 以及定位服务提供者启停状态的通知消息. 如只需将地理位置数据发送给应用中的单个组件, 使用<code>LocationListener</code>接口会很方便. 通过实现<code>LocationManager</code>类的<code>requestLocationUpdates()</code>或者<code>requestSingleUpdate()</code>方法即可.</p>
+<p>使用<code>PendingIntent</code>来获取地理位置数据更新, 实际是要求<code>LocationManager</code>在将来某个时点帮忙发送某种类型的<code>Intent</code>. 这样即使应用组件甚至整个应用进程都销毁了, <code>LocationManager</code>仍会一直发送<code>intent</code>, 直到要求它停止并按需启动新组件响应他们. 利用这种优势, 即使持续进行设备定位, 也可以避免应用消耗过多资源.</p>
+<p><code>LocationManager</code>是通过<code>Context.getSystemService(Context.LOCATION_SERVICE)</code>来获得的.
+通过调用其<code>requestLocationUpdates(String, long, float, PendingIntent)</code>数值参数为: 最小等待时间(ms);  最短移动距离(m);</p>
+<p>之后定义接收定位数据的广播接收者, 为了保证无论前台还是后台都可以接收更新数据, 最好使用清单文件进行注册. 在<code>onReceive()</code>实现方法中. <code>LocationManager</code>打包了附加额外信息的intent. <code>LocationManager.KEY_LOCATION_CHANGED</code>键值可指定一个表示最新更新的Location实例. 通过这个实例可以获取到服务提供者名字以及相应的经纬度数据. <strong>别忘了添加使用地理位置的权限</strong>. <code>&lt;uses-permission android:name=&quot;android.permission.ACCESS_FINE_LOCATION&quot;&gt;</code></p>
+<p>也可以通过<code>LocationManag#getLastKnownLocation()</code>获取最近地理位置信息. 如下:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">provider</span> <span class="o">=</span> <span class="n">LocationManager</span><span class="o">.</span><span class="na">GPS_PROVIDER</span><span class="o">;</span>
+<span class="n">Location</span> <span class="n">lastKnown</span> <span class="o">=</span> <span class="n">mLocationManager</span><span class="o">.</span><span class="na">getLastKnownLocation</span><span class="o">(</span><span class="n">provider</span><span class="o">);</span>
+</code></pre></div><h2 id="sqlite本地数据库">SQLite本地数据库</h2>
+<p>Android内置了操作SQLite的Java前端, 该前端的<code>SQLiteDatabase</code>类负责提供<code>Cursor</code>实例形式的结果集.</p>
+<p>Android提供了一个帮助类, <code>SQLiteOpenHelper</code>类封装了一些存储应用数据的常用数据库操作, 如创建打开以及更新数据库等.</p>
+<p>继承<code>SQLiteOpenHelper</code>通常要覆盖两个方法:</p>
+<ul>
+<li><code>onCreate()</code>: 为新建数据库创建表结构</li>
+<li><code>onUpgrade()</code>: 可执行迁移代码, 实现不同版本间的数据库结构升级或转换.</li>
+</ul>
+<p>通常还需要实现一个父类的构造函数. 为父类提供必要的初始化参数, 数据库文件名, 可选<code>CursorFactory</code>参数的null值, 以及数据库版本号.</p>
+<p><code>SQLiteOpenHelper</code>类有两个访问<code>SQLiteDatabase</code>实例的方法:</p>
+<ul>
+<li><code>getReadableDatabase()</code>   需要只读时使用</li>
+<li><code>getWritableDatabase()</code>   需要可写数据库时使用</li>
+</ul>
+<p>这两种方法基本没有太大区别, 但在某种特定情况下, 如磁盘空间满了, 则可能无法获取可写数据库, 而只能获取到可读数据库.</p>
+<p>查询<code>SQLiteDatabase</code>可返回描述结果的<code>Cursor</code>实例. <code>Cursor</code>将结果集看做是一系列的数据行和数据列, 但仅支持String以及原始数据类型的值 .(可使用CursorWrapper封装当前Cursor对象.下面说明)</p>
+<hr>
+<p><strong>使用CursorAdapter</strong></p>
+<p><code>CursorAdapter</code>类的构造方法需要一个Context, 一个Cursor, 一个整型flag. 为了提倡使用<code>Loader</code>, 大多数flag已经被废弃或存在一些问题. 因此可直接传入0.</p>
+<p>需要实现两个方法:</p>
+<ul>
+<li><code>newView(...)</code>: 会返回一个代表cursor中当前数据行的View. 在这里需要创建一个View并返回供item视图显示做准备</li>
+<li><code>bindView(...)</code>: 进行绑定数据</li>
+</ul>
+<p><strong>关于查询数据操作</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//  通过where子句. 限制查询只能返回一条记录, 然后封装到RunCursor中并返回
+</span><span class="c1"></span><span class="n">Cursor</span> <span class="n">wrapped</span> <span class="o">=</span> <span class="n">getReadableDatabase</span><span class="o">().</span><span class="na">query</span><span class="o">(</span><span class="n">TABLE_RUN</span><span class="o">,</span>
+      <span class="kc">null</span><span class="o">,</span>   <span class="c1">// All columns
+</span><span class="c1"></span>      <span class="n">COLUMN_RUN_ID</span> <span class="o">+</span> <span class="s">&#34; = ?&#34;</span><span class="o">,</span>           <span class="c1">// look for a run ID
+</span><span class="c1"></span>      <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">id</span><span class="o">)},</span> <span class="c1">// with the value
+</span><span class="c1"></span>      <span class="kc">null</span><span class="o">,</span>   <span class="c1">// group by
+</span><span class="c1"></span>      <span class="kc">null</span><span class="o">,</span>   <span class="c1">// having
+</span><span class="c1"></span>      <span class="kc">null</span><span class="o">,</span>   <span class="c1">// order by
+</span><span class="c1"></span>      <span class="s">&#34;1&#34;</span>     <span class="c1">//  limit 1 row
+</span><span class="c1"></span><span class="o">);</span>
+</code></pre></div><p>就给一个简单的例子. 了解一下查询方法的参数.</p>
+<h2 id="loader加载异步数据">Loader加载异步数据</h2>
+<hr>
+<p><strong>Loader于LoaderManager</strong></p>
+<p><code>Loader</code>设计用于从数据源加载某类数据(如对象). 数据源可以是磁盘, 数据库, ContentProvider, 网络或者另一个进程. <code>loader</code>可在不阻塞主线程的情况下获取并发送结果数据给接收者.</p>
+<p><code>loader</code>有三种内置类型: <code>Loader</code>, <code>AsyncTaskLoader</code>, <code>CursorLoader</code>.</p>
+<ul>
+<li>作为基类<code>Loader</code>本身没有多大用处. 它定义了供<code>LoaderManager</code>与其他<code>loader</code>通讯时使用的API.</li>
+<li><code>AsyncTaskLoader</code>是一个抽象<code>Loader</code>. 它使用<code>AsyncTask</code>将数据加载任务转移到其他线程中处理. 几乎所有创建的有用的<code>loader</code>类都是<code>AsyncTaskLoader</code>的子类</li>
+<li><code>CursorLoader</code>. 通过继承<code>AsyncTaskLoader</code>类, 它借助<code>ContentResolver</code>从<code>ContentProvider</code>加载<code>Cursor</code></li>
+</ul>
+<p><code>LoaderManager</code>管理着于loader间的所有通讯, 并负责启动, 停止和管理与组件关联的loader的生命周期方法. 在<code>activity</code>和<code>fragment</code>可通过<code>getLoaderManager()</code>方法返回一个实例并进行交互</p>
+<p>要初始化<code>Loader</code>可使用<code>initLoader(int, Bundler, LoaderCallbacks&lt;D&gt;)</code>方法.</p>
+<p>参数说明如下:</p>
+<ul>
+<li>整数类型的loader标识符</li>
+<li>Bundler参数(值可为空)</li>
+<li>一个接口回调分别对应着创建, 完成, 重启的回调</li>
+</ul>
+<p>如果要强制重启现有的<code>loader</code>, 可使用<code>restartLoader()</code>方法. 在明确知道或怀疑数据比较陈旧时, 通常使用该方法重新加载最新数据.</p>
+<p><strong>为什么使用loader而不直接使用AsyncTask</strong></p>
+<p>有一个比较好的理由: 因设备旋转等原因发生配置更改时, LoaderManager可保证组件的loader及其数据不会丢失.</p>
+<p>如果使用<code>AsyncTask</code>加载数据, 配置发生改变时, 就必须亲自管理其生命周期并保存它所取得的数据. 虽然可以通过<code>setRetainInstance(true)</code>解决了这些麻烦的问题, 但某些场景下, 还是要亲自编写代码处理才可以.</p>
+<p><code>loader</code>的设计目的就是要解决部分这样烦恼的问题. 配置发生改变后. 我们初始化一个已经完成数据加载的<code>loader</code>, 他会立即发送取得的数据, 而不是尝试再次获取数据. 而且无论<code>fragment</code>是否已保留, 他都是如此工作. 这样一来就无需考虑<code>fragment</code>带来的生命周期问题.</p>
+<p>实现步骤 = =不想写了&hellip;.  就这样吧.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-09-10</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/" data-title="《Android编程权威指南》随记四 组件等" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/" data-title="《Android编程权威指南》随记四 组件等" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/" data-title="《Android编程权威指南》随记四 组件等"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/" data-title="《Android编程权威指南》随记四 组件等" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/" data-title="《Android编程权威指南》随记四 组件等" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/" data-title="《Android编程权威指南》随记四 组件等" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E5%9B%9B-%E7%BB%84%E4%BB%B6%E7%AD%89/" data-title="《Android编程权威指南》随记四 组件等"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%89-%E5%AA%92%E4%BD%93%E4%B8%8Eintent%E7%AD%89/" class="prev" rel="prev" title="《Android编程权威指南》随记三 媒体与Intent等"><i class="fas fa-angle-left fa-fw"></i>《Android编程权威指南》随记三 媒体与Intent等</a>
+            <a href="/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E5%AE%8C%E5%96%84%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%92%8C%E4%BC%98%E5%8C%96/" class="next" rel="next" title="《Android 编程实战》01-完善开发环境和优化">《Android 编程实战》01-完善开发环境和优化<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

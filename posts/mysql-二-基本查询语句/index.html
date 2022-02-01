@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>MySQL(二)--基本查询语句 - Blog</title><meta name="Description" content=" "><meta property="og:title" content="MySQL(二)--基本查询语句" />
+<meta property="og:description" content=" " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-05-16T16:26:27+00:00" />
+<meta property="article:modified_time" content="2016-05-16T16:26:27+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL(二)--基本查询语句"/>
+<meta name="twitter:description" content=" "/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8/" /><link rel="next" href="http://suzeyu.cc:20003/posts/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MySQL(二)--基本查询语句",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5\/"
+        },"genre": "posts","keywords": "mySql","wordcount":  3137 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5\/","datePublished": "2016-05-16T16:26:27+00:00","dateModified": "2016-05-16T16:26:27+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": " "
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">MySQL(二)--基本查询语句</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql/"><i class="far fa-folder fa-fw"></i>mySql</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-05-16">2016-05-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3137 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id="/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" class="leancloud_visitors" data-flag-title="MySQL(二)--基本查询语句">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#数据库表设计3范式">数据库表设计3范式</a></li>
+        <li><a href="#数据操作语言--dml">数据操作语言  DML</a></li>
+        <li><a href="#修改数据">修改数据</a></li>
+        <li><a href="#数据查询语言--dql">数据查询语言  DQL</a></li>
+        <li><a href="#对select语句进行简要总结">对select语句进行简要总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>自学小笔记</p>
+<h3 id="数据库表设计3范式">数据库表设计3范式</h3>
+<p><strong>第一范式(1NF)</strong></p>
+<p>要求数据达到原子性，是数据不可再分</p>
+<p><strong>第二范式(2NF)</strong></p>
+<p>使每一行数据具有唯一性，并消除数据之间的部分依赖</p>
+<ol>
+<li>每一行数据具有唯一性: 只要给表设计主键，就可以保证唯一性</li>
+<li>消除数据之间的&quot;部分依赖&quot;</li>
+</ol>
+<p>依赖的概念</p>
+<p>就是在一个表中，其中某个字段的值B可以由另一个字段的值A来决定，则此时我们就称为：字段B依赖于字段A,或者字段A决定字段B。</p>
+<p>就是根据字段A的某个值，一定可以找出一个确定的字段B的值，就是A决定B.</p>
+<p>部分依赖？</p>
+<p>如果某个字段，值依赖于部分主键字段，此时就称为部分依赖。&ndash;发生此情况的前提一定是: 主键字段有多个。</p>
+<p>完全依赖？
+某个字段，是依赖于主键的所有字段。&ndash; 如果一个表的主键只有一个字段，则此时必然是完全依赖。</p>
+<p><strong>第三范式(3NF)</strong></p>
+<p>独立性，消除传递依赖。</p>
+<p>使每个字段都独立地依赖于主键字段(独立性),而要消除其中部分非主键字段的内部依赖&ndash;这种内部依赖会构成传递依赖</p>
+<h3 id="数据操作语言--dml">数据操作语言  DML</h3>
+<p><strong>插入数据(增)</strong></p>
+<ul>
+<li>
+<p>形式1: <code>insert [into] 表名 [(字段名1，字段名2...)] values(值表达式1，值表达式2,...),(),()...;</code></p>
+</li>
+<li>
+<ul>
+<li>这是最常用的插入语句，可以一次性插入多行数据，用逗号隔开；</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>插入语句，要理解为每次插入数据都是以行为单位进行插入；</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>字段名通常不推荐省略，其后续的值列表应该字段列表一一对应</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>其中的值表达式，可以是一个直接或函数调用结果，或变量值; 其中，如果对应字段是字符或时间类型，则直接值应该使用单引号</li>
+</ul>
+</li>
+<li>
+<p>形式2: <code>replace [into] 表名 [(字段名1，字段名2...)] values(值表达式1，值表达式2,...),(),()...;</code></p>
+</li>
+<li>
+<ul>
+<li>其跟<code>insert into </code>几乎一样: 唯一区别 如果插入的数据的主键或唯一键有重复，则此时就会变成修改改行数据</li>
+</ul>
+</li>
+<li>
+<p>形式3: <code>insert [into] 表名 [(字段名1，字段名2，...)] select 字段名1，字段名2,... from 其他表名;</code></p>
+</li>
+<li>
+<p>形式4: <code>insert [into] 表名 set 字段名1=值表达式1，字段名2=值表达式2,...;</code></p>
+</li>
+</ul>
+<p><strong>load data (载入数据) 语法</strong></p>
+<p>使用于载入 结构整齐的纯文本数据。 前提也要有一个对应结构的已存在的表。</p>
+<p>简单格式: <code>LOAD DATA INFILE '文件名' INTO TABLE 表名;</code></p>
+<p><strong>删除数据</strong></p>
+<p>形式: <code>delete from 表名 [where 条件] [order by 排序] [limit 限定];</code></p>
+<p>说明:</p>
+<ol>
+<li>删除数据仍然是以行为单位进行</li>
+<li>通常删除数据都需要带<code>where</code>条件，否则就会删除所有数据。</li>
+<li><code>where</code>条件的语法跟<code>select</code>中的语法一样</li>
+<li><code>order by</code> 排序设定，用于指定这些数据的删除顺序，他通常跟<code>limit</code>配合使用才有意义</li>
+<li><code>limit</code>限定用于设定删除多少行(按<code>orderby</code> 设定顺序)</li>
+</ol>
+<h3 id="修改数据">修改数据</h3>
+<p>形式: <code>update 表名 set 字段1=值1, 字段2=值2,...[where 条件] [order by 排序字段][limit 限制行数];</code></p>
+<p>说明:</p>
+<ol>
+<li>通常，<code>update</code>语句，也都需要<code>where</code>条件，否则: 就会修改所有(这很少见);</li>
+<li><code>where</code>条件的语法跟select中语法一样;</li>
+<li><code>order by</code> 用于设定修改的顺序，<code>limit</code>用于设定修改的行数，他们通常也是结合使用(虽然很少用)</li>
+<li>实际应用中，通常很少用到<code>order by</code>和<code>limit</code>，修改的常规操作就成为: <code>update 表名 set 字段1=值1，字段2=值2,... where条件</code></li>
+</ol>
+<h3 id="数据查询语言--dql">数据查询语言  DQL</h3>
+<p><strong>基本语法形式</strong></p>
+<p><code>select [all | distinct] 字段或表达式列表 [from 子句] [where 子句] [group by 子句] [having 子句] [order by 子句] [limit 子句];</code></p>
+<p><strong>字段或表达式列表</strong></p>
+<ol>
+<li>字段，肯定来源于表，所以必然依赖于<code>from</code>语句</li>
+<li>表达式是类似这样一个内容: 8 ， 8+3， now(); //concat()函数是mysql中的系统函数，用于连接多个字符串。</li>
+<li>每个输出项(字段或表达式结果)，都可以给其设定一个别名，形式为: 字段或表达式 <code>as</code> 别名。</li>
+<li><code>all</code> 和 <code>distinct</code> 设定<code>select</code>出来的数据，是否消除重复行，可以不写，那就是默认值<code>all</code>。 <code>all</code>表示不消除，既所有都出来，默认值；<code>distinct</code>表示会消除。</li>
+<li><code>form</code>，表示<code>select</code>部分从中取得数据的数据源&mdash;就是表。</li>
+<li><code>where</code>，对数据源中的数据进行帅选的条件设定，所以<code>where</code>依赖于<code>form</code>子句。</li>
+</ol>
+<p><strong>is 运算符: 空值和布尔值的判断</strong></p>
+<p>有四种情况:</p>
+<ul>
+<li><code>xx is null</code>: 判断某个字段是null值，就是没有值</li>
+<li><code>xx is not null</code>: 判断某个字段不是null值</li>
+<li><code>xx is true</code>: 判断某个字段为真</li>
+<li><code>xx is false</code>: 判断某个字段为假，false，0，0.0，'', null</li>
+</ul>
+<p><strong>其他扩展</strong></p>
+<ul>
+<li>位类型<code>bit</code>: 使用形式: <code>bit[(M)]</code> ，其中M是1~64的数字，表示使用多少位二进制数字来存储数据。插入形式为: b&rsquo;value'  比如: b'101'</li>
+<li>序列类型<code>serial</code>: 只是BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE的一个别名(同义词)</li>
+<li>布尔类型<code>bool</code>: 其实只是<code>tinyint(1)</code>的同义词，其值为<code>0</code>就表示<code>false</code>，否则为<code>true</code></li>
+</ul>
+<p><strong>between运算符: 范围判断</strong></p>
+<p>用于判断某个字段的数据值是否在某个给定的范围之间&ndash;适用于数字类型</p>
+<p>形式: <code>xx between 值1 and 值2;</code></p>
+<p>含义: xx字段的值在给定值1和值2之间，其实相当于: xx&gt;=值1  and xx&lt;=值2</p>
+<p><strong>in运算符</strong></p>
+<p>给出确定数据的范围判断</p>
+<p>语法: <code>xx in (值1, 值2, 值3, ...);</code></p>
+<p>含义: 表示字段xx的值为所给出的这些值中的一个，就算是满足了条件；这些值，通常是零散无规律的。</p>
+<p><strong>like运算符</strong></p>
+<p>对字符串进行模糊查找</p>
+<p>语法: <code>xx like '要查找的内容'  </code></p>
+<p>含义: 实现对字符串的某种特征信息的模糊查找，它依赖于一下两个特殊的符号。</p>
+<ul>
+<li><code>%</code> :它代表任何个数的任何字符</li>
+<li><code>_</code> :它代表一个任何字符</li>
+</ul>
+<p><strong>group by   分组</strong></p>
+<p>形式: <code>group by 字段1 [desc|asc] ,字段2 [desc | asc], ....</code></p>
+<p>说明:</p>
+<ol>
+<li>分组是对前述已经找出的数据(既<code>where</code>已经筛选结束的)进行某种指定标准依据的分组。</li>
+<li>同时，该分组结果，可以同时指定其 排序方式 ：<code>desc</code>倒序 ，<code>asc</code>顺序</li>
+<li>通常，分组就是一个字段，2个以上很少</li>
+</ol>
+<p>什么叫做分组？</p>
+<p>分组: 就是讲多行数据，以某种标准(就是指定的字段)来进行分类存放。</p>
+<p>特别注意: 分组之后的结果，一定要理解为：只有一个个的组。 在部分语言此语法可能会出现不同的问题。</p>
+<p>应用中，分组之后，通常只有如下几种可用的组信息。</p>
+<ul>
+<li>分组依据本身的信息，其实就是该分组依据的字段名</li>
+<li>每一组的数量信息: 就是<code>count(*)</code>获得</li>
+<li>原来数据中的 数值类型字段的聚合信息 包括如下几个:</li>
+<li>
+<pre><code>最大值: `max(字段名)`;	最小值: `min(字段名)`; 平均值 `avg(字段名)`; 总和值: `sum(字段名)`; 上述其实是4个系统内部函数。
+</code></pre>
+</li>
+</ul>
+<p><strong>having 子句</strong></p>
+<p><code>having</code>的作用和<code>where</code>完全一样，但其只是对 分组的结果数据 进行筛选。 既<code>where</code>对原始数据进行筛选； <code>having</code>对分组之后的数据进行筛选。</p>
+<p>这里既是在<code>select</code> 后面没有写查询<code>count(*)</code> 时，在<code>having</code>设定筛选条件的时候，也可以使用，因为<code>count(\*)</code>是独立计算的结果，既对每一组进行原始数据行的统计，并用该条件进行筛选。</p>
+<p><strong>恢复(导入)数据</strong></p>
+<p>mysql登录后: <code>source &quot;备份数据文件的完整路径&quot;</code></p>
+<p><strong>order by 子句</strong></p>
+<p>用于 将前面取得的数据以设定的标准(字段)来进行排序以输出结果。</p>
+<p>形式:  <code>order by 字段1 [asc | desc], 字段2 [asc | desc], ...</code></p>
+<p><strong>limit子句</strong></p>
+<p>用于将 前述取得的数据 ，按指定的行取出来: 从第几行开始取出多少行。</p>
+<p>形式: <code>limit</code> 起始行号 , 要取出的行号</p>
+<p>说明: 行号默认从<code>0</code>开始， 行号和<code>id</code>没有关系。</p>
+<h3 id="对select语句进行简要总结">对select语句进行简要总结</h3>
+<ol>
+<li>虽然在形式上，<code>select</code>的很多子句都是可以省略的，但是他们的顺序(如果出现)，就不能打乱:必须仍然按照给出的顺序写出</li>
+<li><code>where</code>子句依赖于<code>from</code>子句: 既没有<code>from</code>，就不能有<code>where</code></li>
+<li><code>having</code>子句依赖于<code>group by</code>子句: 既没有<code>group by</code>就不能有<code>having</code></li>
+<li><code>select</code> 中的字段也是依赖于<code>from</code>子句</li>
+<li>上述子句的执行过程，基本上也是按照该顺序进行:  &ndash; 从from的数据源中获取所有的数据，然后使用<code>where</code>对这些数据进行筛选，之后再使用<code>group by</code>子句对筛选出来的数据进行分组，接下来才可以使用<code>having</code>对这些分组的数据进行筛选，然后才可以<code>order by</code> 和<code>limit</code>。</li>
+</ol></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-05-16</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" data-title="MySQL(二)--基本查询语句" data-via="xxxx" data-hashtags="mySql"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" data-hashtag="mySql"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" data-title="MySQL(二)--基本查询语句" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" data-title="MySQL(二)--基本查询语句"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" data-title="MySQL(二)--基本查询语句" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" data-title="MySQL(二)--基本查询语句" data-description=" "><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" data-title="MySQL(二)--基本查询语句" data-description=" "><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" data-title="MySQL(二)--基本查询语句"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/mysql/">mySql</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mysql-%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8/" class="prev" rel="prev" title="MySQL(一)--数据库入门"><i class="fas fa-angle-left fa-fw"></i>MySQL(一)--数据库入门</a>
+            <a href="/posts/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2/" class="next" rel="next" title="MySQL(三)--子查询">MySQL(三)--子查询<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

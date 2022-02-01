@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>framework - 标签 - Blog</title>
+        <link>http://suzeyu.cc:20003/tags/framework/</link>
+        <description>framework - 标签 - Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Mon, 28 Nov 2016 19:29:31 &#43;0000</lastBuildDate><atom:link href="http://suzeyu.cc:20003/tags/framework/" rel="self" type="application/rss+xml" /><item>
+    <title>WindowManagerService</title>
+    <link>http://suzeyu.cc:20003/posts/windowmanagerservice/</link>
+    <pubDate>Mon, 28 Nov 2016 19:29:31 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.cc:20003/posts/windowmanagerservice/</guid>
+    <description><![CDATA[前一节, 对Window和WindowManager进行了分析, blog, 其中的WMS是不容忽视的角色 关于Android的framework层主要就是]]></description>
+</item><item>
+    <title>深入WindowManager</title>
+    <link>http://suzeyu.cc:20003/posts/%E6%B7%B1%E5%85%A5windowmanager/</link>
+    <pubDate>Mon, 28 Nov 2016 14:25:52 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.cc:20003/posts/%E6%B7%B1%E5%85%A5windowmanager/</guid>
+    <description><![CDATA[WindowManager的重要程度不需要多说, 界面真正的显示, 外部事件的传递等. 这是一个子系统. 本章会梳理WindowManager,Wi]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>MySQL(三)--子查询 - Blog</title><meta name="Description" content=" "><meta property="og:title" content="MySQL(三)--子查询" />
+<meta property="og:description" content=" " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-05-17T16:26:27+00:00" />
+<meta property="article:modified_time" content="2016-05-17T16:26:27+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL(三)--子查询"/>
+<meta name="twitter:description" content=" "/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" /><link rel="next" href="http://suzeyu.cc:20003/posts/mysql-%E5%9B%9B-%E6%95%B0%E6%8D%AE%E6%8E%A7%E5%88%B6%E8%AF%AD%E8%A8%80%E6%8E%A7%E5%88%B6%E5%99%A8%E7%AD%89/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MySQL(三)--子查询",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2\/"
+        },"genre": "posts","keywords": "mySql","wordcount":  2465 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2\/","datePublished": "2016-05-17T16:26:27+00:00","dateModified": "2016-05-17T16:26:27+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": " "
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">MySQL(三)--子查询</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql/"><i class="far fa-folder fa-fw"></i>mySql</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-05-17">2016-05-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2465 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/posts/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2/" class="leancloud_visitors" data-flag-title="MySQL(三)--子查询">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#连接查询">连接查询</a></li>
+        <li><a href="#子查询">子查询</a></li>
+        <li><a href="#联合查询union">联合查询union</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>自学小笔记</p>
+<h3 id="连接查询">连接查询</h3>
+<p>概念: 就是将两个或两个以上的表，连接起来，当做一个数据源，并从中去取得所需要的数据。</p>
+<p>就是将每一个表的每一行数据两两之间相互对接起来，每次对接的结果都是连接结果的 一行 数据。</p>
+<p>没有条件的连接写法:</p>
+<ul>
+<li><code>select * from 表1, 表2;</code></li>
+<li><code>select * from 表1 join 表2;</code></li>
+<li><code>select * from 表1 cross join 表2;</code></li>
+</ul>
+<p><strong>连接基本形式</strong></p>
+<p>在代码级别，连接的基本形式为:</p>
+<ul>
+<li><code>表1 [连接形式] join 表2 [on 连接条件];</code></li>
+</ul>
+<p>如果是3个表，则进一步扩展为:</p>
+<ul>
+<li><code>表1 [连接形式] join 表2 [on 连接条件] [连接形式] join 表3 [on 连接条件]</code></li>
+</ul>
+<p><strong>连接的分类</strong></p>
+<p>交叉连接</p>
+<ul>
+<li>其实就是上面的连接形式，&ndash;因为没有条件，只是按连接的基本概念，将所有数据行都连接起来的结果。它又叫做‘笛卡尔积’。</li>
+<li>对于表1 和表2 的连接，交叉结果是: 行数=两个表字段之和； 列数=两个表的乘积数</li>
+</ul>
+<p><strong>内连接</strong></p>
+<ul>
+<li><code>形式: select * from 表1 [inner] join 表2 on 连接条件。</code></li>
+</ul>
+<p>例如有 <code>student</code>表和 <code>type</code>表   学生表中包含科目<code>pro_id</code>, 而<code>Type</code>表有每个<code>pro_id</code>字段并对应说明。这时候如果需要类连接查询如下：</p>
+<p><code>select * from student inner join type on student.pro_id = type.pro_id;</code></p>
+<p>优化: <code>SELECT o.* ,t.sex FROM db1.join1 as o inner join db1.join2 as t on o.type = t.type;</code></p>
+<p>注意: 这种的表和表之间的内连接传，虽然可以提现为表跟表之间的关系&ndash; 一般情况下这就是外键的关系，单并不是有外键关系才可以使用。</p>
+<p><strong>左(外)连接 left(outer) join</strong></p>
+<ul>
+<li>形式: <code>表1(左表) left [outer] join 表2(右表) on 连接条件</code></li>
+<li>含义: 就是将两个表的内连接的结果，再加上左边表不符合内连接所设定的条件的那些数据结果。</li>
+<li><code>SELECT o.* ,t.sex FROM db1.join1 as o  left join db1.join2 as t on o.type = t.type; </code></li>
+</ul>
+<p><strong>右(外)连接 right(outer) join</strong></p>
+<p>同左连接&ndash;只不过关键字为right(outer)</p>
+<p><strong>全连接 full(outer) join</strong></p>
+<p>在<code>mysql</code>中不支持全连接的语法;</p>
+<p>含义: 将两个表内连接的结果，加上左边不符合的结果，和右边不符合的结果。</p>
+<h3 id="子查询">子查询</h3>
+<p>含义: 一个<code>select</code>语句，就是一个查询语句</p>
+<ul>
+<li><code>select 字段或表达式 from 数据源 where xx条件判断；</code></li>
+</ul>
+<p>上述<code>select</code>部分，<code>from</code>部分，<code>where</code>部分，往往都是一些数据  或者数据的集合。</p>
+<p><code>from</code>部分, 当然就是 表 ，或 表的连接结果，他们也是数据，只是通常为表数据。</p>
+<p>例子 <code>select pro_id, price from product where price &gt; (select avg(price) from product)</code></p>
+<p>例子的<code>where</code>后面括号中的<code>select</code>语句就是子查询。</p>
+<p>所以可以认为就是在一个查询语句的内部，某些位置，又出现了查询语句。 由此引出了主查询和子查询的概念。</p>
+<p>通常，子查询是为主查询服务的，所以子查询获得一定的结果数据之后，才去执行主查询。</p>
+<p>形式: <code>select 字段或表达式或子查询 [as 别名] from 表名或链接结果或子查询 where 字段或表达式或子查询的条件判断。</code></p>
+<p><strong>按子查询结果，可分为如下几个</strong></p>
+<ul>
+<li>表 子查询</li>
+</ul>
+<p>一个子查询返回的结果理论上是多行多列的时候，此时可以当做一个表来使用，通常是放在<code>from</code>后面。</p>
+<ul>
+<li>行 子查询</li>
+</ul>
+<p>一个子查询返回的结果理论是一行多列的时候。此时可以当做一个行来使用，通常放在行比较语法上。<!-- raw HTML omitted -->行比较语法类似这样: <code>where row(字段1,字段2) = (select 行子查询)</code>;</p>
+<ul>
+<li>列 子查询</li>
+</ul>
+<p>一个子查询返回的结果理论上是多行一列的时候，此时可以当做多个值来使用。<!-- raw HTML omitted -->类似(5,8,10,11).</p>
+<ul>
+<li>标量 子查询</li>
+</ul>
+<p>一个子查询返回的结果理论上是一行一列的时候，此时可以当做一个单个值使用，类似这种: <code>select 5 as c1; 或select ... where id = 17, 或select ... where b&gt;8;</code></p>
+<p><strong>子查询，按位置(场合)分</strong></p>
+<ul>
+<li>作为主查询的结果数据</li>
+<li>作为主查询的条件数据</li>
+<li>作为主查询的来源数据</li>
+</ul>
+<p><strong>常见子查询</strong></p>
+<p><strong>比较运算符总的子查询</strong></p>
+<p>形式: 操作数 比较运算符 (标量子查询)</p>
+<p>说明: 操作数，其实就是比较运算符的2个数据之一而已，通常就是一个字段名。</p>
+<p>举例:</p>
+<p>找出最高价的商品:</p>
+<ul>
+<li><code>select * from product where price = (select max(price) from product);</code></li>
+</ul>
+<p><strong>使用in的子查询</strong></p>
+<p>以前的in的用法:</p>
+<ul>
+<li><code>xx in (值1, 值2, 值3, ...);</code></li>
+</ul>
+<p>in的子查询为:</p>
+<ul>
+<li><code>xx in (列子查询)</code></li>
+</ul>
+<p>举例: 找出所有列别名称中带电这个字的所有商品。</p>
+<p>可以分两步思考:</p>
+<p><code>select protype_id from product_type where protype_name like %电%;</code></p>
+<p>为子查询条件    &mdash;  以下为主程序  嵌入where其中。</p>
+<p><code>select * product where protype_id in('此处为上一步');</code></p>
+<p><strong>使用any的子查询</strong></p>
+<p>形式: 操作数 比较运算符 <code>any</code> (列子查询);</p>
+<p>含义: 当某个操作数(字段) 对于该列子查询的任意一个值，只要有一个满足该比较运算符，则就算是满足了条件。</p>
+<p><strong>使用all的子查询</strong></p>
+<p>形式: 操作数 比较运算符 <code>all</code> (列子查询);</p>
+<p>含义: 当某个操作数(字段) 对于该列子查询的任意一个值，必须全部满足该比较运算符，则就算是满足了条件。</p>
+<p>列子查询   子查询只能是一个字段。</p>
+<p>举例: 查询出所有非最高价的商品</p>
+<ol>
+<li>查询所有的价格   <code>select price form product;</code></li>
+<li>在所有的价格中只有最高价会不满足 <code>&lt;any</code>(全部价格)，所以可以这样</li>
+</ol>
+<ul>
+<li><code>select * from product where price &lt; any(select price from product);</code></li>
+</ul>
+<p>同理: 求出最高价的商品价格，特征： 大于所有的价格</p>
+<ul>
+<li><code>select * from product where price &gt;= all(select price from produc);</code></li>
+</ul>
+<p><strong>使用some的子查询</strong></p>
+<p>一句话: <code>some</code>是<code>any</code>的同义词。</p>
+<p><strong>使用exists的查询</strong></p>
+<p>形式: <code>where exists (子查询)</code></p>
+<p>含义: 该子查询如果有数据，则<code>exists</code>的结果是<code>true</code>，否则就是<code>false</code>。</p>
+<p>在实际应用中，该子查询往往都不是独立的子查询，而是会需要跟主查询的数据源(表),建立牟宗关系&mdash;通常就是连接关系。建立的方式是&quot;隐式的&quot;，既没有在代码上体现关系，单却在内部有其连接的 实质 。</p>
+<p>此隐式方式，通常就体现在查询中的where条件语句中，使用了主查询表中的数据(字段)，</p>
+<p>问题: 查询商品表中其类别名称中带&quot;电&quot;这个字的所有商品。</p>
+<p><code>select * from product where exists(select * from product_type where protype_name like '%电%' and protype_id = product.protype_id);</code></p>
+<p>注意:</p>
+<ol>
+<li>这种子查询语句，没法独立存在或者独立运行的，而是必须跟主查询一起使用。</li>
+<li>其他子查询，是可以独立运行的，而且会得到一个运行结果。</li>
+<li>盖子查询中的条件，应该设定为跟主查询的某个字段有一定的关联性判断。筒仓该判断就是这两个表的 本来该有的脸连接条件。</li>
+</ol>
+<h3 id="联合查询union">联合查询union</h3>
+<p>提示:</p>
+<p>在<code>mysql</code>的手册中，将连接查询(<code>join</code>) 翻译为联合查询。而联合查询(<code>union</code>),没有明确翻译。</p>
+<p>在通常的书籍或文章，<code>join</code>被翻译为连接查询；而<code>union</code>才被翻译为联合查询。</p>
+<p><strong>基本概念</strong></p>
+<p>将两个具有相同字段数量的查询语句的结果，以 上下堆叠 的方式，合并为一个查询结果</p>
+<p>形式: <code>select 语句1 union [all | distinct] select 语句2;</code></p>
+<p>此联合查询语句，默认会&quot;自动消除重复行&quot; ，既默认是<code>distinct</code>。 如果想要将所有数据都显示(允许重复行),就是用<code>all</code>。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-05-17</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2/" data-title="MySQL(三)--子查询" data-via="xxxx" data-hashtags="mySql"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2/" data-hashtag="mySql"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2/" data-title="MySQL(三)--子查询" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2/" data-title="MySQL(三)--子查询"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2/" data-title="MySQL(三)--子查询" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2/" data-title="MySQL(三)--子查询" data-description=" "><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2/" data-title="MySQL(三)--子查询" data-description=" "><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/mysql-%E4%B8%89-%E5%AD%90%E6%9F%A5%E8%AF%A2/" data-title="MySQL(三)--子查询"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/mysql/">mySql</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mysql-%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" class="prev" rel="prev" title="MySQL(二)--基本查询语句"><i class="fas fa-angle-left fa-fw"></i>MySQL(二)--基本查询语句</a>
+            <a href="/posts/mysql-%E5%9B%9B-%E6%95%B0%E6%8D%AE%E6%8E%A7%E5%88%B6%E8%AF%AD%E8%A8%80%E6%8E%A7%E5%88%B6%E5%99%A8%E7%AD%89/" class="next" rel="next" title="MySql(四)--数据控制语言控制器等">MySql(四)--数据控制语言控制器等<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

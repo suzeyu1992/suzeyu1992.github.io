@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《Android 开发艺术探索》 15-Android性能优化 - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android 开发艺术探索》 15-Android性能优化" />
+<meta property="og:description" content="第15章: 通过一些常见的性能优化方法, 这将有助于提高Android程序的性能, 于一些性能能分析等. 优化主要几个方面: 布局优化 绘制优化 内存泄漏" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-08-27T21:19:26+00:00" />
+<meta property="article:modified_time" content="2016-08-27T21:19:26+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="《Android 开发艺术探索》 15-Android性能优化"/>
+<meta name="twitter:description" content="第15章: 通过一些常见的性能优化方法, 这将有助于提高Android程序的性能, 于一些性能能分析等. 优化主要几个方面: 布局优化 绘制优化 内存泄漏"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-14-jni%E5%92%8Cndk%E7%BC%96%E7%A8%8B/" /><link rel="next" href="http://suzeyu.cc:20003/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《Android 开发艺术探索》 15-Android性能优化",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96\/"
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  4691 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96\/","datePublished": "2016-08-27T21:19:26+00:00","dateModified": "2016-08-27T21:19:26+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android 开发艺术探索》 15-Android性能优化</h1><h2 class="single-subtitle">抄书系列</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-08-27">2016-08-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4691 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;<span id="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="leancloud_visitors" data-flag-title="《Android 开发艺术探索》 15-Android性能优化">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#android性能优化的方法">Android性能优化的方法</a>
+      <ul>
+        <li><a href="#布局优化">布局优化</a></li>
+        <li><a href="#绘制优化">绘制优化</a></li>
+        <li><a href="#内存泄漏优化">内存泄漏优化</a></li>
+        <li><a href="#响应速度和anr日志分析">响应速度和ANR日志分析</a></li>
+        <li><a href="#listview和bitmap优化">ListView和Bitmap优化</a></li>
+        <li><a href="#线程优化">线程优化</a></li>
+        <li><a href="#额外的性能优化建议">额外的性能优化建议</a></li>
+        <li><a href="#内存泄漏分析工具mat">内存泄漏分析工具MAT</a></li>
+      </ul>
+    </li>
+    <li><a href="#提高程序的可维护性">提高程序的可维护性</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>第15章: 通过一些常见的性能优化方法, 这将有助于提高Android程序的性能, 于一些性能能分析等.</p>
+</blockquote>
+<p>优化主要几个方面:</p>
+<ul>
+<li>布局优化</li>
+<li>绘制优化</li>
+<li>内存泄漏优化</li>
+<li>响应速度优化</li>
+<li>ListView, Bitmap, 线程优化</li>
+</ul>
+<h2 id="android性能优化的方法">Android性能优化的方法</h2>
+<h3 id="布局优化">布局优化</h3>
+<blockquote>
+<p>布局优化的思想就是<strong>尽量减少布局的嵌套层级,这就可以让Android绘制时的工作量减少</strong></p>
+</blockquote>
+<p>删除无用的控件和层级, 有选择地使用<code>ViewGroup</code>. 例如<code>RelativeLayout</code>和<code>LinearLayout</code>. 都可以的话那么就采用<code>LinearLayout</code>. 因为<code>RelativeLayout</code>的功能比较复杂, 它的布局过程需要花费更多的CPU时间. <code>FrameLayout</code>和<code>LinearLayout</code>都是一种简单高效的<code>ViewGroup</code>. <strong>如果需要嵌套才可以实现的布局那么就使用RelativeLayout</strong>.</p>
+<p>布局优化的另外一个方法就是采用<code>&lt;include&gt;</code>标签, <code>&lt;merge&gt;</code>标签和<code>ViewStub</code>.</p>
+<ul>
+<li><code>&lt;include&gt;</code>: 主要用于布局的重用</li>
+<li><code>&lt;merge&gt;</code>: 一般和include标签配合使用, 它可以减少布局的层级</li>
+<li><code>ViewStub</code>: 提供了按需加载的功能, 当需要时才会将ViewStub中的布局加载到内存,这可以提高程序的初始化.</li>
+</ul>
+<p><strong><code>&lt;include&gt;</code>标签</strong></p>
+<p>可以将一个指定的布局文件加载到当前布局文件中:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+    <span class="na">android:layout_width=</span><span class="s">&#34;match_parent&#34;</span>
+    <span class="na">android:layout_height=</span><span class="s">&#34;match_parent&#34;</span>
+    <span class="na">android:orientation=</span><span class="s">&#34;horizontal&#34;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;include</span>
+        <span class="na">android:id=</span><span class="s">&#34;@+id/hah&#34;</span>
+        <span class="na">android:layout=</span><span class="s">&#34;@layout/layout_titlebar&#34;</span>
+        <span class="na">android:layout_height=</span><span class="s">&#34;match_parent&#34;</span>
+        <span class="na">android:layout_width=</span><span class="s">&#34;match_parent&#34;</span>
+        <span class="na">android:visibility=</span><span class="s">&#34;invisible&#34;</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/LinearLayout&gt;</span>
+
+</code></pre></div><p>这个标签里面支持的属性很少, 根据编辑器的提示只有5个, 而且<code>width和height</code>如果要出现需要同时出现, 也可以不写, 最重要的就是一个必须指定导入的布局<code>layout=&quot;xxxxxx&quot;</code>.</p>
+<p><strong><code>&lt;merge&gt;</code>标签</strong></p>
+<p>这个标签一般和<code>include</code>标签一起使用从而减少布局的层级. 有时候会有这样一个场景, 如果<code>include</code>导入的布局的根布局是竖直方向的, 而当前布局也是竖直方向的, 那么显然有一个层级是多余的. 这个时候使用<code>&lt;merge&gt;</code>就可以去掉重复布局.</p>
+<p><strong>ViewStub</strong></p>
+<p><code>ViewStub</code>继承了<code>View</code>, 这是一个非常轻量级的且宽高都是0, 因此它本身不参与任何的布局和绘制过程. 而<code>ViewStub</code>存在的意义在于按需加载所需的布局文件, 在实际开发中, 有很多布局文件在正常情况系不会显示, 如网络异常等. 这个时候就没有必要再整个界面初始化的时候将其加载.</p>
+<p>首先布局中添加<code>&lt;ViewStub&gt;</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;ViewStub</span>
+   <span class="na">android:id=</span><span class="s">&#34;@+id/stub_import&#34;</span>
+   <span class="na">android:inflatedId=</span><span class="s">&#34;@+id/stin_root&#34;</span>
+   <span class="na">android:layout=</span><span class="s">&#34;@layout/layout_stubview&#34;</span>
+   <span class="na">android:layout_width=</span><span class="s">&#34;match_parent&#34;</span>
+   <span class="na">android:layout_height=</span><span class="s">&#34;60dp&#34;</span><span class="nt">/&gt;</span>
+</code></pre></div><p>这里<code>android:layout</code>属性还是导入外部布局的意思. <code>inflatedId</code>这个添加的id的属性是给导入进来的布局<code>layout_stubview</code>的根布局设定了一个id值.</p>
+<p>然后在代码中有两种方式让其显示</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 方式一 通过设置visibility
+</span><span class="c1"></span><span class="o">((</span><span class="n">ViewStub</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">stub_import</span><span class="o">)).</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">VISIBLE</span><span class="o">);</span>
+ <span class="c1">// 方式二 通过inflate加载显示
+</span><span class="c1"></span> <span class="c1">//View inflate =  ((ViewStub) findViewById(R.id.stub_import)).inflate();
+</span><span class="c1"></span>
+ <span class="c1">// 通过inflatedId这个id可以得到加载进来的布局的根布局
+</span><span class="c1"></span> <span class="n">LinearLayout</span> <span class="n">commLv</span> <span class="o">=</span> <span class="o">(</span><span class="n">LinearLayout</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">stin_root</span><span class="o">);</span>
+</code></pre></div><h3 id="绘制优化">绘制优化</h3>
+<p>绘制优化是指<code>View#onDraw()</code>方法要避免执行大量的操作.两个方面</p>
+<ol>
+<li>onDraw中不要创建新的局部对象, 因为<code>onDraw()</code>方法可能会被频繁调用, 这样就会在一瞬间产生大量的临时对象, 这不仅占用了过多的内存而且还会导致系统频繁的gc, 降低了程序的执行效率.</li>
+<li>不要做耗时任务, 也不能执行成千上万次的循环操作. 即使每次循环都很轻量级, 但是大量的循环仍然十分抢占CPU的时间片, 这会造成View的绘制流程不流畅. 按照官方的规范, View的绘制帧率保证60fps最佳. 也就是16ms的为每一阵帧的绘制时间.</li>
+</ol>
+<h3 id="内存泄漏优化">内存泄漏优化</h3>
+<p><strong>情况1. 静态变量导致的内存泄漏</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="n">View</span> <span class="n">sView</span><span class="o">;</span>
+
+<span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+   <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+   <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+
+   <span class="n">sView</span> <span class="o">=</span> <span class="k">new</span> <span class="n">View</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>如非必须传递Activity的引用不要这么做, 如果需要上下文可以传递<code>getApplicationContext()</code>返回的上下文</p>
+<hr>
+<p><strong>情况2. 单例模式导致的内存泄漏</strong></p>
+<p>常见的就是在使用注册监听的时候, 往往会往一个单例类中传入<code>this</code>本类对象,进行注册,  然后却没有解注册的动作. 那么这个Activity被引用的时间也就是和<code>Application</code>的生命周期持平.</p>
+<hr>
+<p><strong>情况3. 属性动画导致的内存泄漏</strong></p>
+<p>在Android 3.0中加入了属性动画, 属性动画有一类<strong>无限循环</strong>的动画, 如果在Activity中播放此类动画且没有在Activity退出的时候没有停止动画. 尽管无法界面上看到效果, 但是创建这个动画所关联的<code>View</code>被动画所持有, 而<code>View</code>又持有了<code>Activity</code>, 最终Activity无法释放. <strong>解决方案, 就是在<code>onDestroy()</code>中调用动画的<code>cancel()</code>来停止动画.</strong></p>
+<h3 id="响应速度和anr日志分析">响应速度和ANR日志分析</h3>
+<p>响应速度的优化核心就是避免主线程做耗时操作, 响应速度过慢更多体现在<code>Activity</code>启动的速度上. 如果主线程内做太多的事情, 会导致Activity启动时出现黑屏现象, 甚至出现ANR.</p>
+<p>Android中规定如果<code>Activity</code>5秒钟之内无法响应屏幕事件或者键盘输入事件就会出现<strong>ANR</strong>. 而<code>BroadCastReceiver</code>如果10秒之内还未执行完操作也会出现<strong>ANR</strong>.</p>
+<p>如果进程发生了ANR以后, 系统会在<code>data/anr</code>目录下创建一个文件<code>traces.txt</code>. 通过分析这个文件就定位出原因.(这个文件很长如果需要分析, 请先删除文件生成一个在分析来进行了解)</p>
+<p>通过一个例子来了解如何去分析文件, 首先在<code>onCreate()</code>添加如下代码, 让主线程等待一个锁,然后点击返回5秒后会出现ANR, 贴代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+   <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+   <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+   <span class="c1">// 以下代码是为了模拟一个ANR的场景来分析日志
+</span><span class="c1"></span>   <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+       <span class="nd">@Override</span>
+       <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+           <span class="n">testANR</span><span class="o">();</span>
+       <span class="o">}</span>
+   <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+   <span class="n">SystemClock</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">10</span><span class="o">);</span>
+   <span class="n">initView</span><span class="o">();</span>
+<span class="o">}</span>
+
+
+<span class="cm">/**
+</span><span class="cm">*  以下两个方法用来模拟出一个稍微不好发现的ANR
+</span><span class="cm">*/</span>
+<span class="kd">private</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">testANR</span><span class="o">(){</span>
+   <span class="n">SystemClock</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">3000</span> <span class="o">*</span> <span class="n">1000</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">initView</span><span class="o">(){}</span>
+</code></pre></div><p>这样会出现ANR, 然后导出<code>/data/anr/straces.txt</code>文件.  因为内容比较多只贴出关键部分</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">DALVIK</span> <span class="nf">THREADS</span> <span class="o">(</span><span class="n">15</span><span class="o">):</span>
+<span class="s">&#34;main&#34;</span> <span class="n">prio</span><span class="o">=</span><span class="n">5</span> <span class="n">tid</span><span class="o">=</span><span class="n">1</span> <span class="n">Blocked</span>
+  <span class="o">|</span> <span class="n">group</span><span class="o">=</span><span class="s">&#34;main&#34;</span> <span class="n">sCount</span><span class="o">=</span><span class="n">1</span> <span class="n">dsCount</span><span class="o">=</span><span class="n">0</span> <span class="n">obj</span><span class="o">=</span><span class="n">0x73db0970</span> <span class="n">self</span><span class="o">=</span><span class="n">0xf4306800</span>
+  <span class="o">|</span> <span class="n">sysTid</span><span class="o">=</span><span class="n">19949</span> <span class="n">nice</span><span class="o">=</span><span class="n">0</span> <span class="n">cgrp</span><span class="o">=</span><span class="n">apps</span> <span class="n">sched</span><span class="o">=</span><span class="n">0</span><span class="o">/</span><span class="n">0</span> <span class="n">handle</span><span class="o">=</span><span class="n">0xf778d160</span>
+  <span class="o">|</span> <span class="n">state</span><span class="o">=</span><span class="n">S</span> <span class="n">schedstat</span><span class="o">=(</span> <span class="n">151056979</span> <span class="n">25055334</span> <span class="n">199</span> <span class="o">)</span> <span class="n">utm</span><span class="o">=</span><span class="n">5</span> <span class="n">stm</span><span class="o">=</span><span class="n">9</span> <span class="n">core</span><span class="o">=</span><span class="n">1</span> <span class="n">HZ</span><span class="o">=</span><span class="n">100</span>
+  <span class="o">|</span> <span class="n">stack</span><span class="o">=</span><span class="n">0xff5b2000</span><span class="o">-</span><span class="n">0xff5b4000</span> <span class="n">stackSize</span><span class="o">=</span><span class="n">8MB</span>
+  <span class="o">|</span> <span class="n">held</span> <span class="n">mutexes</span><span class="o">=</span>
+  <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">szysky</span><span class="o">.</span><span class="na">note</span><span class="o">.</span><span class="na">androiddevseek_15</span><span class="o">.</span><span class="na">MainActivity</span><span class="o">.</span><span class="na">initView</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">0</span><span class="o">)</span>
+  <span class="o">-</span> <span class="n">waiting</span> <span class="n">to</span> <span class="n">lock</span> <span class="o">&lt;</span><span class="n">0x2fbcb3de</span><span class="o">&gt;</span> <span class="o">(</span><span class="n">a</span> <span class="n">com</span><span class="o">.</span><span class="na">szysky</span><span class="o">.</span><span class="na">note</span><span class="o">.</span><span class="na">androiddevseek_15</span><span class="o">.</span><span class="na">MainActivity</span><span class="o">)</span> 
+  <span class="o">-</span> <span class="n">held</span> <span class="n">by</span> <span class="n">thread</span> <span class="n">15</span>
+  <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">szysky</span><span class="o">.</span><span class="na">note</span><span class="o">.</span><span class="na">androiddevseek_15</span><span class="o">.</span><span class="na">MainActivity</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">42</span><span class="o">)</span>
+</code></pre></div><p>这段可以看出最后指明了<code>ANR</code>发生的位置在<code>ManiActivity的42行</code>. 并且通过上面看出<code>initView</code>方法正在<code>等待一个锁&lt;0x2fbcb3de&gt;</code>锁的类型是一个<code>MainActivity</code>对象. 并且这个锁已经被线程id为15(tid=15)的线程持有了. 接下来找一下线程15</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="s">&#34;Thread-404&#34;</span> <span class="n">prio</span><span class="o">=</span><span class="n">5</span> <span class="n">tid</span><span class="o">=</span><span class="n">15</span> <span class="n">Sleeping</span>
+  <span class="o">|</span> <span class="n">group</span><span class="o">=</span><span class="s">&#34;main&#34;</span> <span class="n">sCount</span><span class="o">=</span><span class="n">1</span> <span class="n">dsCount</span><span class="o">=</span><span class="n">0</span> <span class="n">obj</span><span class="o">=</span><span class="n">0x12c00f80</span> <span class="n">self</span><span class="o">=</span><span class="n">0xeb95bc00</span>
+  <span class="o">|</span> <span class="n">sysTid</span><span class="o">=</span><span class="n">19985</span> <span class="n">nice</span><span class="o">=</span><span class="n">0</span> <span class="n">cgrp</span><span class="o">=</span><span class="n">apps</span> <span class="n">sched</span><span class="o">=</span><span class="n">0</span><span class="o">/</span><span class="n">0</span> <span class="n">handle</span><span class="o">=</span><span class="n">0xef34be80</span>
+  <span class="o">|</span> <span class="n">state</span><span class="o">=</span><span class="n">S</span> <span class="n">schedstat</span><span class="o">=(</span> <span class="n">391248</span> <span class="n">0</span> <span class="n">1</span> <span class="o">)</span> <span class="n">utm</span><span class="o">=</span><span class="n">0</span> <span class="n">stm</span><span class="o">=</span><span class="n">0</span> <span class="n">core</span><span class="o">=</span><span class="n">2</span> <span class="n">HZ</span><span class="o">=</span><span class="n">100</span>
+  <span class="o">|</span> <span class="n">stack</span><span class="o">=</span><span class="n">0xe2bfe000</span><span class="o">-</span><span class="n">0xe2c00000</span> <span class="n">stackSize</span><span class="o">=</span><span class="n">1036KB</span>
+  <span class="o">|</span> <span class="n">held</span> <span class="n">mutexes</span><span class="o">=</span>
+  <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">!(</span><span class="n">Native</span> <span class="n">method</span><span class="o">)</span>
+  <span class="o">-</span> <span class="n">sleeping</span> <span class="n">on</span> <span class="o">&lt;</span><span class="n">0x2e3896a7</span><span class="o">&gt;</span> <span class="o">(</span><span class="n">a</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Object</span><span class="o">)</span>
+  <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">1031</span><span class="o">)</span>
+  <span class="o">-</span> <span class="n">locked</span> <span class="o">&lt;</span><span class="n">0x2e3896a7</span><span class="o">&gt;</span> <span class="o">(</span><span class="n">a</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Object</span><span class="o">)</span>
+  <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">985</span><span class="o">)</span>
+  <span class="n">at</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">SystemClock</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">SystemClock</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">120</span><span class="o">)</span>
+  <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">szysky</span><span class="o">.</span><span class="na">note</span><span class="o">.</span><span class="na">androiddevseek_15</span><span class="o">.</span><span class="na">MainActivity</span><span class="o">.</span><span class="na">testANR</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">50</span><span class="o">)</span>
+  <span class="o">-</span> <span class="n">locked</span> <span class="o">&lt;</span><span class="n">0x2fbcb3de</span><span class="o">&gt;</span> <span class="o">(</span><span class="n">a</span> <span class="n">com</span><span class="o">.</span><span class="na">szysky</span><span class="o">.</span><span class="na">note</span><span class="o">.</span><span class="na">androiddevseek_15</span><span class="o">.</span><span class="na">MainActivity</span><span class="o">)</span>
+</code></pre></div><p>tid = 15 就是相关信息如上, 首行已经标出线程的状态为<code>Sleeping</code>, 原因在<strong>50行</strong>, 就是<code>        SystemClock.sleep(3000 * 1000);</code>这句话. 也就是<code>testANR()</code>. 而最后一行也表明了持有的<code>locked&lt;0x2fbcb3de&gt;</code>就是主线程在等待的那个锁对象.</p>
+<h3 id="listview和bitmap优化">ListView和Bitmap优化</h3>
+<ul>
+<li><code>ListView</code>: 在前面已经说过了, 主要三个方面: 采用<code>ViewHolder</code>避免在getView中执行耗时操作; 其次要根据列表的滑动状态来控制任务的执行频率; 最后可以尝试开启硬件加速是<code>ListView</code>滑动更加流畅. <code>ListView</code>的优化策略也完全适用于<code>GridView</code></li>
+<li><code>Bitmap</code>: 也已经说过, 主要是通过<code>BitmapFactory.Options</code>根据需要对图片进行采样, 采样率的设置通过<code>inSampleSize</code>属性.</li>
+</ul>
+<h3 id="线程优化">线程优化</h3>
+<p>主要思想就是采用线程池, 避免程序中存在大量的<code>Thread</code>. 线程池可以重用内部的线程, 避免了线程创建和销毁的性能开销. 同时线程池还能有效的控制线程的最大并发数, 避免了大量线程因互相抢占系统资源从而导致阻塞现象的发生.</p>
+<h3 id="额外的性能优化建议">额外的性能优化建议</h3>
+<ul>
+<li>避免创建过多的对象</li>
+<li>不要过多使用枚举, 枚举占用的内存空间比整形还要大,使用Android官方提供的方法可参考另一篇博客<a href="http://szysky.com/2016/05/20/Android-%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8annotion%E6%9B%BF%E4%BB%A3Enum/" target="_blank" rel="noopener noreffer">链接跳转</a></li>
+<li>常量请使用 static final 来修饰</li>
+<li>使用一些Android特有的数据结构, 比如<code>SparseArray</code>和<code>Pair</code>等</li>
+<li>适当的使用软引用和弱引用</li>
+<li>采用内存缓存和磁盘缓存</li>
+<li>尽量采用静态内部类, 避免潜在的由于内部类而导致的内存泄漏</li>
+</ul>
+<h3 id="内存泄漏分析工具mat">内存泄漏分析工具MAT</h3>
+<p>MAT全程Eclipse Memory Analyzer, 是一个内存泄漏分析工具. 下载后解压即可. 下载地址<code>http://www.eclipse.org/mat/downloads.php</code>. 这里仅简单说一下. 这个我没有手动去实践, 就当个记录, 因为现在<code>Android Studio</code>可以直接分析<code>hprof</code>文件.</p>
+<p>可以手动写一个会造成内存泄漏的代码, 然后打开<code>DDMS</code>, 然后选中要分析的进程, 然后单击<code>Dump HPROF file</code>这个按钮. 等一小段会生成一个文件. 这个文件不能被<code>MAT</code>直接识别. 需要使用<code>Android SDK</code>中的工具进行格式转换一下.这个工具在<code>platform-conv</code>文件夹下</p>
+<p><code>hprof-conv 要转换的文件名  输出的文件名</code> 文件名的签名有包名.</p>
+<p>然后打开<code>MAT</code>通过菜单打开转换后的这个文件. 这里常用的就有两个</p>
+<ul>
+<li><code>Histogram</code>: 可以直观的看出内存中不同类型的buffer的数量和占用内存大小</li>
+<li><code>Dominator Tree</code>: 把内存中的对象按照从大到小的顺序进行排序, 并且可以分析对象之间的引用关系, 内存泄漏分析就是通过这个完成的.</li>
+</ul>
+<hr>
+<p>分析内存泄漏的时候需要分析<code>Dominator Tree</code>里面的内存信息, 一般会不直接显示出来, 可以按照从大到小的顺序去排查一遍. 如果发生了了泄漏, 那么在泄漏对象处右键单击<code>Path To GC Roots-&gt;exclude wake/soft references</code>. 可以看到最终是什么对象导致的无法释放. 刚才的操作之所以排除软引用和弱引用是因为,大部分情况下这两种类型都可以被gc回收掉,所以基本也就不会造成内存泄漏.</p>
+<p>同样这里也可以使用搜索功能, 假如我们手动模拟了内存泄漏, 泄漏的对象就是<code>Activity</code>那么我们<code>back</code>退出重进循环几次, 会发现其实很多个<code>Activit</code>对象.</p>
+<p>更多的东西我也不会,作者也没有说..   不过这些以后Android Studio都会很有好用对应功能.</p>
+<h2 id="提高程序的可维护性">提高程序的可维护性</h2>
+<p>这里主要说<code>Android</code>的程序设计思想. 主旨是如何提高代码的可维护性和可扩展性, 而程序的可维护性也包含可扩展性. 这里的切入点为: <strong>代码风格</strong>, <strong>代码的层次性和单一职责原则</strong>, <strong>面向扩展编程以及设计模式</strong></p>
+<p>可读性是代码可维护性的前提, 一段只能让机器读懂的代码即使可以跑也属于&quot;坏味道的代码&quot;, 而良好的代码风格在一定程度上可以提高从程序的可读性. 代码的风格有 命名规范, 代码排版, 注释说明.</p>
+<ol>
+<li>命名要规范, 正确传达出变量或者方法的定义, 少用缩写除非业界通用的缩写如<code>String-&gt;str</code>.能让人一眼明白的. 私有成员要以<code>m</code>开头. 静态成员要以<code>s</code>开头. 常量要全部大写.</li>
+<li>代码排版上留出合理的空白来区分不同的代码块, 其中同类变量的声明放在一组, 两类变量之间留出一行作为空白.</li>
+<li>仅为非常关键的代码添加注释, 其他地方不写注释, 这就对变量和方法的命名风格提出了很高的要求. 一个合理的命名风格可以让读者阅读源码的时候就如阅读注释一样. 因此根本不需要为代码额外写注释</li>
+</ol>
+<hr>
+<p>代码的层次是指代码要有分层的概念, 对于一段业务逻辑, 不要试图在一个方法或者一个类中去全部实现, 而是将其分成几个子逻辑, 然后每个逻辑做自己的事情, 这样即显得代码层次分明, 又可以分解任务从而实现简单逻辑的效果.</p>
+<p>单一职责是和层次性相关联的. 代码分层以后, 每一层仅仅关注少量的逻辑, 这样就做到了单一职责.</p>
+<p>程序的扩展性, 由于很多时候在开发过程中无法保证已经做好的需求不在后面的版本发生更改, 因此在写程序的时候要时刻考虑到扩展的问题, 考虑如果这个逻辑以后发生了改变那么哪些需要修改, 以及怎样在以后修改的时候降低工作量, 而面向扩展编程可以让程序具有很好的扩展性.</p>
+<p>适当使用设计模式可以提高代码的可维护性和可扩展性. 但是一定控制设计的度, 千万别过度设计.</p>
+<hr>
+<blockquote>
+<p>这本书终于抄完了, 看了两遍. 全部理解透彻是没达到. 不过这本书挺不错的. 以后针对一些不是很理解,并且在Android中是一些贯穿始终的东西必须要认真琢磨. good night. 感谢任玉刚.</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-08-27</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-title="《Android 开发艺术探索》 15-Android性能优化" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-title="《Android 开发艺术探索》 15-Android性能优化" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-title="《Android 开发艺术探索》 15-Android性能优化"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-title="《Android 开发艺术探索》 15-Android性能优化" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-title="《Android 开发艺术探索》 15-Android性能优化" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-title="《Android 开发艺术探索》 15-Android性能优化" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-15-android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-title="《Android 开发艺术探索》 15-Android性能优化"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android/">android</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-14-jni%E5%92%8Cndk%E7%BC%96%E7%A8%8B/" class="prev" rel="prev" title="《Android 开发艺术探索》 14-JNI和NDK编程"><i class="fas fa-angle-left fa-fw"></i>《Android 开发艺术探索》 14-JNI和NDK编程</a>
+            <a href="/posts/android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E9%9A%8F%E8%AE%B0%E4%B8%80/" class="next" rel="next" title="《Android编程权威指南》随记一 零散知识整理">《Android编程权威指南》随记一 零散知识整理<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

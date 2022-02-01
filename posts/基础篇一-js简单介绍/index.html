@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>基础篇(一)-JS简单介绍 - Blog</title><meta name="Description" content=" "><meta property="og:title" content="基础篇(一)-JS简单介绍" />
+<meta property="og:description" content=" " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-04-10T02:42:23+00:00" />
+<meta property="article:modified_time" content="2016-04-10T02:42:23+00:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="基础篇(一)-JS简单介绍"/>
+<meta name="twitter:description" content=" "/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" /><link rel="prev" href="http://suzeyu.cc:20003/posts/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F/" /><link rel="next" href="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%BA%8C-js%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "基础篇(一)-JS简单介绍",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.cc:20003\/posts\/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D\/"
+        },"genre": "posts","keywords": "JavaScript, 入门","wordcount":  1551 ,
+        "url": "http:\/\/suzeyu.cc:20003\/posts\/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D\/","datePublished": "2016-04-10T02:42:23+00:00","dateModified": "2016-04-10T02:42:23+00:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": " "
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">基础篇(一)-JS简单介绍</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/javascript/"><i class="far fa-folder fa-fw"></i>JavaScript</a>&nbsp;<a href="/categories/%E5%85%A5%E9%97%A8/"><i class="far fa-folder fa-fw"></i>入门</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-04-10">2016-04-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1551 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" class="leancloud_visitors" data-flag-title="基础篇(一)-JS简单介绍">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#javascript是什么">JavaScript是什么？</a></li>
+        <li><a href="#javascript能干什么">JavaScript能干什么？</a></li>
+        <li><a href="#javascript名称的由来">JavaScript名称的由来？</a></li>
+        <li><a href="#常用的两个客户端输出方法">常用的两个客户端输出方法</a></li>
+        <li><a href="#js中的注释">JS中的注释</a></li>
+        <li><a href="#变量">变量</a></li>
+        <li><a href="#变量的数据类型">变量的数据类型</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>自学小笔记</p>
+<h3 id="javascript是什么">JavaScript是什么？</h3>
+<ul>
+<li>
+<p><code>JavaScript</code>是一种小型的、轻量级的、面向对象的、跨平台的客户端脚本语言。</p>
+</li>
+<li>
+<p><code>JavaScript</code>是嵌入到浏览器软件当中的，只要电脑有浏览器就可以执行JS程序了。</p>
+</li>
+<li>
+<p><code>JavaScript</code>是一种面向<code>对象</code>的程序语言。
+在程序中，对象是由<code>属性</code>和<code>方法</code>构成。</p>
+</li>
+<li>
+<p><code>JS</code>中的对象只要会用就可以，不需要我们自己去创建对象</p>
+</li>
+<li>
+<p>跨平台性: <code>JS</code>程序可以在多种平台下运行, 如: windows、linux、mac、android、ios等。</p>
+</li>
+<li>
+<p>客户端脚本程序: JS只能在客户端的浏览器来运行, 不能再服务器端来运行。</p>
+</li>
+<li>
+<p>浏览器是一个翻译器，可以翻译三种代码: <code>Html</code>代码、<code>CSS</code>代码、<code>JavaScript</code>代码。</p>
+</li>
+</ul>
+<h3 id="javascript能干什么">JavaScript能干什么？</h3>
+<ul>
+<li>
+<p>表单验证: 是JS最基本的功能。</p>
+</li>
+<li>
+<p>动态HTML: 可以实现一些动态的、重复的效果。</p>
+</li>
+<li>
+<p>交互式: 人机交互，可以通过键盘或鼠标，与网页中的元素进行交互。</p>
+</li>
+</ul>
+<h3 id="javascript名称的由来">JavaScript名称的由来？</h3>
+<p><code>JavaScript</code>最初叫&quot;LiveScript&quot;，是网景公司(<code>Netscape</code>)公司开发，为自己的浏览器<code>Navigator2.0</code>开的客户端语言。</p>
+<p>###<code>\&lt;script&gt;\&lt;/script&gt;标记</code>###</p>
+<p>JS代码也是<strong>嵌入到HTML文档</strong>中去的。</p>
+<p>同一个网页中，可以有HTML代码，CSS代码、JavaScript代码。</p>
+<p>通过<code>&lt;script&gt;&lt;/script&gt;</code>来引入JS程序代码。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+	//在&lt;body&gt;中输出一句话
+	document.write(&quot;我是通过js写出来的&quot;);
+&lt;/script&gt;
+</code></pre>
+<h3 id="常用的两个客户端输出方法">常用的两个客户端输出方法</h3>
+<p><strong>document.write(str)</strong></p>
+<ul>
+<li>
+<p>描述: 在网页的<code>&lt;body&gt;</code>标记，输出<code>str</code>的内容。</p>
+</li>
+<li>
+<p><code>document</code>意思“文档”，就是整个网页。</p>
+</li>
+<li>
+<p><code>document</code>是一个文档对象，代表整个网页</p>
+</li>
+<li>
+<p><code>wirte()</code>是document对象的一个输出方法。</p>
+</li>
+<li>
+<p><code>.</code>小数点:通过小数点来调用对象的方法。</p>
+</li>
+<li>
+<p><code>str</code>: 表示要输出的内容。</p>
+<pre><code>  //创建一个网页标题
+  document.write(&quot;&lt;h1&gt;我是最大的标题&lt;/h1&gt;&quot;)
+  //创建一个网页的段落
+  document.write('&lt;p style=&quot;color:blue;&quot;&gt; 这是第一个js文件哦&lt;/p&gt;');
+</code></pre>
+</li>
+</ul>
+<p><strong><code>windown.alert(str)</code></strong></p>
+<ul>
+<li>
+<p>描述: 在当前窗口中弹出一个警告对话框，<code>str</code>为对话框中要显示的内容。</p>
+</li>
+<li>
+<p><code>window</code>代表当前浏览器窗口,<code>window</code>是一个窗口对象。</p>
+</li>
+<li>
+<p><code>alert()</code>方法: 弹出一个对话框。</p>
+</li>
+<li>
+<p><code>str</code>: 表示要输出的内容。</p>
+<pre><code>  window.alert(&quot;我是一个alert窗口!&quot;);
+</code></pre>
+</li>
+</ul>
+<h3 id="js中的注释">JS中的注释</h3>
+<ul>
+<li>
+<p>HTML的注释: <code>&lt;!-- 注释内容 --&gt;</code></p>
+</li>
+<li>
+<p>CSS注释: <code>/* 注释 */</code></p>
+</li>
+<li>
+<p>JavaScript注释: <code>// 或 /* 多行注释 */</code></p>
+</li>
+</ul>
+<h3 id="变量">变量</h3>
+<p><strong>变量的概念</strong></p>
+<ul>
+<li>变量是变化的一个量。</li>
+<li>变量可以是一个未知数。 x=1。</li>
+<li>变量可以是一个符号。</li>
+<li>变量可以看成车牌号。</li>
+<li>变量一般是程序的数据。</li>
+<li>变量是在内存中存在和运行的。</li>
+<li>变脸是临时存在的数据。</li>
+</ul>
+<p><strong>变量的声明</strong></p>
+<ul>
+<li>
+<p>变量的声明，相当于预定宾馆的房间。</p>
+</li>
+<li>
+<p>语法格式: <code>var 变量名 = 变量值</code></p>
+</li>
+<li>
+<p>声明变量是使用系统关键字<strong>var</strong>来进行的。</p>
+<pre><code>  var name ;	//声明一个变量
+  var name,sex,edu;	//同时声明多个变量，多个变量间用英文下的逗号隔开
+  var name = &quot;小明&quot;;	//声明一个变量并为其附上一个值
+</code></pre>
+</li>
+</ul>
+<p><strong>变量的命名规则</strong></p>
+<ul>
+<li>
+<p>变量名可以包含字母、数字、下划线。</p>
+</li>
+<li>
+<p>变量名不能以数字开头，可以以字母或下划线开头。</p>
+</li>
+<li>
+<p>变量名不能是系统关键字。 如 <code>var</code>、<code>switch</code>、<code>for</code>、<code>try</code>、<code>case</code>、<code>else</code>、<code>while</code>等。</p>
+</li>
+</ul>
+<h3 id="变量的数据类型">变量的数据类型</h3>
+<p>变量室友数据类型的，这个类型来源于“变量的值”。动态变量</p>
+<p>JS中变量的类型有: 数值型、字符型、布尔型、<code>undefined</code>、<code>null</code>、<code>array</code>、<code>object</code>、<code>function</code>。
+动态变量在进行运算的时候，只能进行同类运算。如果类型不同，将进行类型转换。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-04-10</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="基础篇(一)-JS简单介绍" data-via="xxxx" data-hashtags="JavaScript,入门"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-hashtag="JavaScript"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="基础篇(一)-JS简单介绍" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="基础篇(一)-JS简单介绍"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="基础篇(一)-JS简单介绍" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="基础篇(一)-JS简单介绍" data-description=" "><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="基础篇(一)-JS简单介绍" data-description=" "><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.cc:20003/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80-js%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="基础篇(一)-JS简单介绍"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/javascript/">JavaScript</a>,&nbsp;<a href="/tags/%E5%85%A5%E9%97%A8/">入门</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/css%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F/" class="prev" rel="prev" title="CSS语法格式"><i class="fas fa-angle-left fa-fw"></i>CSS语法格式</a>
+            <a href="/posts/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%BA%8C-js%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="next" rel="next" title="基础篇(二)-JS基本语法">基础篇(二)-JS基本语法<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
