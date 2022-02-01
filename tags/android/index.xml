@@ -1,78 +1,78 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>android - 标签 - Blog</title>
-        <link>http://suzeyu.cc:20003/tags/android/</link>
+        <link>http://suzeyu.com/tags/android/</link>
         <description>android - 标签 - Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Tue, 14 Feb 2017 20:43:53 &#43;0000</lastBuildDate><atom:link href="http://suzeyu.cc:20003/tags/android/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Tue, 14 Feb 2017 20:43:53 &#43;0000</lastBuildDate><atom:link href="http://suzeyu.com/tags/android/" rel="self" type="application/rss+xml" /><item>
     <title>Android之蓝牙4.0BLE开发资料整理</title>
-    <link>http://suzeyu.cc:20003/posts/android%E4%B9%8Bble%E5%BC%80%E5%8F%91%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/</link>
+    <link>http://suzeyu.com/posts/android%E4%B9%8Bble%E5%BC%80%E5%8F%91%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/</link>
     <pubDate>Tue, 14 Feb 2017 20:43:53 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/android%E4%B9%8Bble%E5%BC%80%E5%8F%91%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/</guid>
+    <guid>http://suzeyu.com/posts/android%E4%B9%8Bble%E5%BC%80%E5%8F%91%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/</guid>
     <description><![CDATA[使用 官方ble使用文档中文 官方ble使用文档英文 基于android 5.x系统新api的ble连接 问题 BluetoothGatt status 133的解决方案 深入 android的]]></description>
 </item><item>
     <title>Android系统的启动流程</title>
-    <link>http://suzeyu.cc:20003/posts/android%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</link>
+    <link>http://suzeyu.com/posts/android%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</link>
     <pubDate>Thu, 09 Feb 2017 19:30:09 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/android%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</guid>
+    <guid>http://suzeyu.com/posts/android%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</guid>
     <description><![CDATA[第一个系统进程init Android设备的启动需要经过Boot Loader, Linux Kernel和Android系统服务三个核心阶段. 默认情况都有其对应的启动]]></description>
 </item><item>
     <title>面试之Binder的认知</title>
-    <link>http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/</link>
+    <link>http://suzeyu.com/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/</link>
     <pubDate>Wed, 08 Feb 2017 17:04:50 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/</guid>
+    <guid>http://suzeyu.com/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/</guid>
     <description><![CDATA[说一说你对Binder的理解&hellip; Binder为何存在 在日常代码编写中. 我们总是会理所应当的对函数进行调用, 对变量进行访问. 之所以]]></description>
 </item><item>
     <title>Android Studio 常用手册</title>
-    <link>http://suzeyu.cc:20003/posts/android-studio-%E5%B8%B8%E7%94%A8%E6%89%8B%E5%86%8C/</link>
+    <link>http://suzeyu.com/posts/android-studio-%E5%B8%B8%E7%94%A8%E6%89%8B%E5%86%8C/</link>
     <pubDate>Sat, 17 Dec 2016 02:12:22 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/android-studio-%E5%B8%B8%E7%94%A8%E6%89%8B%E5%86%8C/</guid>
+    <guid>http://suzeyu.com/posts/android-studio-%E5%B8%B8%E7%94%A8%E6%89%8B%E5%86%8C/</guid>
     <description><![CDATA[整理Android群英传和网上出现的比较完整AS的快捷小技巧. mac版已测, win大部分测试. 最后有一个整理的完整快捷键表格. win也好ma]]></description>
 </item><item>
     <title>年终福利-一个实用方便的图片控件SImageView(第二弹)</title>
-    <link>http://suzeyu.cc:20003/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B62/</link>
+    <link>http://suzeyu.com/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B62/</link>
     <pubDate>Wed, 14 Dec 2016 02:30:02 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B62/</guid>
+    <guid>http://suzeyu.com/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B62/</guid>
     <description><![CDATA[一年快要过去了, 你的目标实现了么? 不管实现没有, 先来个小目标吧.比如造一个轮子? 说点题外话. Coding中我们总是经历着这么几个过程. 学会使]]></description>
 </item><item>
     <title>年终福利-一个实用方便的图片控件SImageView(第一弹)</title>
-    <link>http://suzeyu.cc:20003/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B6/</link>
+    <link>http://suzeyu.com/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B6/</link>
     <pubDate>Mon, 05 Dec 2016 19:15:49 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B6/</guid>
+    <guid>http://suzeyu.com/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B6/</guid>
     <description><![CDATA[一年快要过去了, 你的目标实现了么? 不管实现没有, 先来个小目标吧.比如造一个轮子? 说点题外话. Coding中我们总是经历着这么几个过程. 学会使]]></description>
 </item><item>
     <title>WindowManagerService</title>
-    <link>http://suzeyu.cc:20003/posts/windowmanagerservice/</link>
+    <link>http://suzeyu.com/posts/windowmanagerservice/</link>
     <pubDate>Mon, 28 Nov 2016 19:29:31 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/windowmanagerservice/</guid>
+    <guid>http://suzeyu.com/posts/windowmanagerservice/</guid>
     <description><![CDATA[前一节, 对Window和WindowManager进行了分析, blog, 其中的WMS是不容忽视的角色 关于Android的framework层主要就是]]></description>
 </item><item>
     <title>深入WindowManager</title>
-    <link>http://suzeyu.cc:20003/posts/%E6%B7%B1%E5%85%A5windowmanager/</link>
+    <link>http://suzeyu.com/posts/%E6%B7%B1%E5%85%A5windowmanager/</link>
     <pubDate>Mon, 28 Nov 2016 14:25:52 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/%E6%B7%B1%E5%85%A5windowmanager/</guid>
+    <guid>http://suzeyu.com/posts/%E6%B7%B1%E5%85%A5windowmanager/</guid>
     <description><![CDATA[WindowManager的重要程度不需要多说, 界面真正的显示, 外部事件的传递等. 这是一个子系统. 本章会梳理WindowManager,Wi]]></description>
 </item><item>
     <title>《Android-编程实战》12-远程设备其余通信方式</title>
-    <link>http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9812-%E8%BF%9C%E7%A8%8B%E8%AE%BE%E5%A4%87%E5%85%B6%E4%BD%99%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/</link>
+    <link>http://suzeyu.com/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9812-%E8%BF%9C%E7%A8%8B%E8%AE%BE%E5%A4%87%E5%85%B6%E4%BD%99%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/</link>
     <pubDate>Sat, 08 Oct 2016 16:16:13 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9812-%E8%BF%9C%E7%A8%8B%E8%AE%BE%E5%A4%87%E5%85%B6%E4%BD%99%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/</guid>
+    <guid>http://suzeyu.com/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9812-%E8%BF%9C%E7%A8%8B%E8%AE%BE%E5%A4%87%E5%85%B6%E4%BD%99%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/</guid>
     <description><![CDATA[阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第18章 Android中的连接技术 大多数Android设备都支持多种连接技术. 通常, 例]]></description>
 </item><item>
     <title>《Android-编程实战》11-网络 Web服务</title>
-    <link>http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9811-%E7%BD%91%E7%BB%9C-web%E6%9C%8D%E5%8A%A1/</link>
+    <link>http://suzeyu.com/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9811-%E7%BD%91%E7%BB%9C-web%E6%9C%8D%E5%8A%A1/</link>
     <pubDate>Sat, 08 Oct 2016 09:24:32 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9811-%E7%BD%91%E7%BB%9C-web%E6%9C%8D%E5%8A%A1/</guid>
+    <guid>http://suzeyu.com/posts/android-%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%9811-%E7%BD%91%E7%BB%9C-web%E6%9C%8D%E5%8A%A1/</guid>
     <description><![CDATA[阅读《Android 编程实战》一书的抄书笔记 &ndash;&gt; 对应书籍第17章 Android上的网络调用 虽然Android同时支持TCP和UDP通信, 但应用]]></description>
 </item></channel>
 </rss>

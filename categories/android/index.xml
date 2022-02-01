@@ -1,57 +1,57 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>android - 分类 - Blog</title>
-        <link>http://suzeyu.cc:20003/categories/android/</link>
+        <link>http://suzeyu.com/categories/android/</link>
         <description>android - 分类 - Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Tue, 12 Jul 2016 21:56:20 &#43;0000</lastBuildDate><atom:link href="http://suzeyu.cc:20003/categories/android/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Tue, 12 Jul 2016 21:56:20 &#43;0000</lastBuildDate><atom:link href="http://suzeyu.com/categories/android/" rel="self" type="application/rss+xml" /><item>
     <title>mac系统android编译源码</title>
-    <link>http://suzeyu.cc:20003/posts/mac%E7%B3%BB%E7%BB%9Fandroid%E7%BC%96%E8%AF%91%E6%BA%90%E7%A0%81/</link>
+    <link>http://suzeyu.com/posts/mac%E7%B3%BB%E7%BB%9Fandroid%E7%BC%96%E8%AF%91%E6%BA%90%E7%A0%81/</link>
     <pubDate>Tue, 12 Jul 2016 21:56:20 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/mac%E7%B3%BB%E7%BB%9Fandroid%E7%BC%96%E8%AF%91%E6%BA%90%E7%A0%81/</guid>
+    <guid>http://suzeyu.com/posts/mac%E7%B3%BB%E7%BB%9Fandroid%E7%BC%96%E8%AF%91%E6%BA%90%E7%A0%81/</guid>
     <description><![CDATA[<p>= =!!  太痛苦, 放弃保智商&hellip;.</p>]]></description>
 </item><item>
     <title>Android绘图篇-01 Canvas和Paint的基础使用</title>
-    <link>http://suzeyu.cc:20003/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/</link>
+    <link>http://suzeyu.com/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Tue, 05 Jul 2016 10:27:09 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/</guid>
+    <guid>http://suzeyu.com/posts/android-%E7%BB%98%E5%9B%BE%E7%AF%87-1-canvas%E5%92%8Cpaint%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/</guid>
     <description><![CDATA[<p>了解Cavans和Paint的具体用处,才可以更好的发挥他们的用户,方便我们应对不同的样式&hellip;</p>]]></description>
 </item><item>
     <title>善用继承实现,避免不必要的错误</title>
-    <link>http://suzeyu.cc:20003/posts/1/</link>
+    <link>http://suzeyu.com/posts/1/</link>
     <pubDate>Wed, 25 May 2016 16:28:50 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/1/</guid>
+    <guid>http://suzeyu.com/posts/1/</guid>
     <description><![CDATA[<p>用输出来显示出类究竟是如何被加载的,以及到底以什么样的顺序来进行的初始化,可以让我们跳过一些不必要的麻烦&hellip;</p>]]></description>
 </item><item>
     <title>Android Studio 快捷键 mac版</title>
-    <link>http://suzeyu.cc:20003/posts/android-studio-%E5%BF%AB%E6%8D%B7%E9%94%AE-mac/</link>
+    <link>http://suzeyu.com/posts/android-studio-%E5%BF%AB%E6%8D%B7%E9%94%AE-mac/</link>
     <pubDate>Fri, 20 May 2016 15:26:26 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/android-studio-%E5%BF%AB%E6%8D%B7%E9%94%AE-mac/</guid>
+    <guid>http://suzeyu.com/posts/android-studio-%E5%BF%AB%E6%8D%B7%E9%94%AE-mac/</guid>
     <description><![CDATA[<p>工欲善其事必先利其器</p>]]></description>
 </item><item>
     <title>Android 中如何使用annotion替代Enum</title>
-    <link>http://suzeyu.cc:20003/posts/android-%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8annotion%E6%9B%BF%E4%BB%A3enum/</link>
+    <link>http://suzeyu.com/posts/android-%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8annotion%E6%9B%BF%E4%BB%A3enum/</link>
     <pubDate>Fri, 20 May 2016 12:21:42 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/android-%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8annotion%E6%9B%BF%E4%BB%A3enum/</guid>
+    <guid>http://suzeyu.com/posts/android-%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8annotion%E6%9B%BF%E4%BB%A3enum/</guid>
     <description><![CDATA[<p>抛弃枚举,  在android中一个更好的方法替代他.</p>]]></description>
 </item><item>
     <title>5.0特性Verctor2SVG</title>
-    <link>http://suzeyu.cc:20003/posts/5.0%E7%89%B9%E6%80%A7verctor2svg/</link>
+    <link>http://suzeyu.com/posts/5.0%E7%89%B9%E6%80%A7verctor2svg/</link>
     <pubDate>Thu, 19 May 2016 18:31:33 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/5.0%E7%89%B9%E6%80%A7verctor2svg/</guid>
+    <guid>http://suzeyu.com/posts/5.0%E7%89%B9%E6%80%A7verctor2svg/</guid>
     <description><![CDATA[<p>你不知道svg? 那你知道矢量图? 也不知道!? 位图呢? &hellip;  快来看一看吧</p>]]></description>
 </item><item>
     <title>安卓录制视频并转换为gif</title>
-    <link>http://suzeyu.cc:20003/posts/%E8%A7%86%E9%A2%91%E8%BD%AC%E6%8D%A2%E4%B8%BAgif/</link>
+    <link>http://suzeyu.com/posts/%E8%A7%86%E9%A2%91%E8%BD%AC%E6%8D%A2%E4%B8%BAgif/</link>
     <pubDate>Thu, 19 May 2016 15:05:29 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/%E8%A7%86%E9%A2%91%E8%BD%AC%E6%8D%A2%E4%B8%BAgif/</guid>
+    <guid>http://suzeyu.com/posts/%E8%A7%86%E9%A2%91%E8%BD%AC%E6%8D%A2%E4%B8%BAgif/</guid>
     <description><![CDATA[<p>本方法适用于mac, 利用ffmpeg实现转换</p>]]></description>
 </item></channel>
 </rss>

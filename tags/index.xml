@@ -1,78 +1,78 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Tags - 标签 - Blog</title>
-        <link>http://suzeyu.cc:20003/tags/</link>
+        <link>http://suzeyu.com/tags/</link>
         <description>Tags - 标签 - Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Sat, 08 May 2021 21:51:34 &#43;0000</lastBuildDate><atom:link href="http://suzeyu.cc:20003/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Sat, 08 May 2021 21:51:34 &#43;0000</lastBuildDate><atom:link href="http://suzeyu.com/tags/" rel="self" type="application/rss+xml" /><item>
     <title>黑苹果</title>
-    <link>http://suzeyu.cc:20003/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/</link>
+    <link>http://suzeyu.com/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/</link>
     <pubDate>Sat, 08 May 2021 21:51:34 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/</guid>
+    <guid>http://suzeyu.com/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>android</title>
-    <link>http://suzeyu.cc:20003/tags/android/</link>
+    <link>http://suzeyu.com/tags/android/</link>
     <pubDate>Tue, 14 Feb 2017 20:43:53 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/tags/android/</guid>
+    <guid>http://suzeyu.com/tags/android/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>数据结构</title>
-    <link>http://suzeyu.cc:20003/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+    <link>http://suzeyu.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
     <pubDate>Fri, 06 Jan 2017 20:13:46 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+    <guid>http://suzeyu.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>操作系统</title>
-    <link>http://suzeyu.cc:20003/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+    <link>http://suzeyu.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
     <pubDate>Fri, 30 Dec 2016 17:43:46 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
+    <guid>http://suzeyu.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>vim</title>
-    <link>http://suzeyu.cc:20003/tags/vim/</link>
+    <link>http://suzeyu.com/tags/vim/</link>
     <pubDate>Tue, 27 Dec 2016 14:11:35 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/tags/vim/</guid>
+    <guid>http://suzeyu.com/tags/vim/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>shell</title>
-    <link>http://suzeyu.cc:20003/tags/shell/</link>
+    <link>http://suzeyu.com/tags/shell/</link>
     <pubDate>Mon, 26 Dec 2016 15:33:50 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/tags/shell/</guid>
+    <guid>http://suzeyu.com/tags/shell/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>自定义View</title>
-    <link>http://suzeyu.cc:20003/tags/%E8%87%AA%E5%AE%9A%E4%B9%89view/</link>
+    <link>http://suzeyu.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89view/</link>
     <pubDate>Wed, 14 Dec 2016 02:30:02 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/tags/%E8%87%AA%E5%AE%9A%E4%B9%89view/</guid>
+    <guid>http://suzeyu.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89view/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>设计模式</title>
-    <link>http://suzeyu.cc:20003/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+    <link>http://suzeyu.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
     <pubDate>Mon, 28 Nov 2016 21:56:47 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+    <guid>http://suzeyu.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>framework</title>
-    <link>http://suzeyu.cc:20003/tags/framework/</link>
+    <link>http://suzeyu.com/tags/framework/</link>
     <pubDate>Mon, 28 Nov 2016 19:29:31 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/tags/framework/</guid>
+    <guid>http://suzeyu.com/tags/framework/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>面试整理</title>
-    <link>http://suzeyu.cc:20003/tags/%E9%9D%A2%E8%AF%95%E6%95%B4%E7%90%86/</link>
+    <link>http://suzeyu.com/tags/%E9%9D%A2%E8%AF%95%E6%95%B4%E7%90%86/</link>
     <pubDate>Wed, 16 Nov 2016 14:16:55 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/tags/%E9%9D%A2%E8%AF%95%E6%95%B4%E7%90%86/</guid>
+    <guid>http://suzeyu.com/tags/%E9%9D%A2%E8%AF%95%E6%95%B4%E7%90%86/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

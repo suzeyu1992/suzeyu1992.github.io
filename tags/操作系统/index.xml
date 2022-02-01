@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>操作系统 - 标签 - Blog</title>
-        <link>http://suzeyu.cc:20003/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+        <link>http://suzeyu.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
         <description>操作系统 - 标签 - Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Fri, 30 Dec 2016 17:43:46 &#43;0000</lastBuildDate><atom:link href="http://suzeyu.cc:20003/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Fri, 30 Dec 2016 17:43:46 &#43;0000</lastBuildDate><atom:link href="http://suzeyu.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="self" type="application/rss+xml" /><item>
     <title>操作系统简介</title>
-    <link>http://suzeyu.cc:20003/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/</link>
+    <link>http://suzeyu.com/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/</link>
     <pubDate>Fri, 30 Dec 2016 17:43:46 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/</guid>
+    <guid>http://suzeyu.com/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/</guid>
     <description><![CDATA[硬件是软件的基石. 所有的软件功能最终都是由硬件来实现的. 计算机体系结构作为一门学科, 是软件和硬件的抽象体, 也是所有开发者都应该了解的. 计算机]]></description>
 </item></channel>
 </rss>

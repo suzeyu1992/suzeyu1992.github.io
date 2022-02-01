@@ -1,22 +1,22 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>自定义View - 标签 - Blog</title>
-        <link>http://suzeyu.cc:20003/tags/%E8%87%AA%E5%AE%9A%E4%B9%89view/</link>
+        <link>http://suzeyu.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89view/</link>
         <description>自定义View - 标签 - Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Wed, 14 Dec 2016 02:30:02 &#43;0000</lastBuildDate><atom:link href="http://suzeyu.cc:20003/tags/%E8%87%AA%E5%AE%9A%E4%B9%89view/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Wed, 14 Dec 2016 02:30:02 &#43;0000</lastBuildDate><atom:link href="http://suzeyu.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89view/" rel="self" type="application/rss+xml" /><item>
     <title>年终福利-一个实用方便的图片控件SImageView(第二弹)</title>
-    <link>http://suzeyu.cc:20003/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B62/</link>
+    <link>http://suzeyu.com/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B62/</link>
     <pubDate>Wed, 14 Dec 2016 02:30:02 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B62/</guid>
+    <guid>http://suzeyu.com/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B62/</guid>
     <description><![CDATA[一年快要过去了, 你的目标实现了么? 不管实现没有, 先来个小目标吧.比如造一个轮子? 说点题外话. Coding中我们总是经历着这么几个过程. 学会使]]></description>
 </item><item>
     <title>年终福利-一个实用方便的图片控件SImageView(第一弹)</title>
-    <link>http://suzeyu.cc:20003/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B6/</link>
+    <link>http://suzeyu.com/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B6/</link>
     <pubDate>Mon, 05 Dec 2016 19:15:49 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.cc:20003/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B6/</guid>
+    <guid>http://suzeyu.com/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B6/</guid>
     <description><![CDATA[一年快要过去了, 你的目标实现了么? 不管实现没有, 先来个小目标吧.比如造一个轮子? 说点题外话. Coding中我们总是经历着这么几个过程. 学会使]]></description>
 </item></channel>
 </rss>
