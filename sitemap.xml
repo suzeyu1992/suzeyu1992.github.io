@@ -2,9 +2,10 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>http://suzeyu.com/</loc><lastmod>2022-02-01T23:09:34&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/posts/</loc><lastmod>2022-02-01T23:09:34&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/posts/test/</loc><lastmod>2022-02-01T23:09:34&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://suzeyu.com/about/</loc><lastmod>2021-11-21T00:24:35&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://suzeyu.com/</loc><lastmod>2021-05-08T21:51:34&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://suzeyu.com/posts/</loc><lastmod>2021-05-08T21:51:34&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/tags/</loc><lastmod>2021-05-08T21:51:34&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/</loc><lastmod>2021-05-08T21:51:34&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C-%E5%8D%8E%E7%A1%95m12e-usb%E5%AE%9A%E5%88%B6/</loc><lastmod>2021-05-08T21:51:34&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
