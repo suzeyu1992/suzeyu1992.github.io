@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Kotlin基础-语法 - Blog</title><meta name="Description" content=""><meta property="og:title" content="Kotlin基础-语法" />
+<meta property="og:description" content="2011年JetBrains发布了Kotlin第一个版本; 2016年Kotlin发布了1.0正式版; 2017年Google宣布Kotlin成" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-15T16:22:37+08:00" />
+<meta property="article:modified_time" content="2022-02-15T16:22:37+08:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kotlin基础-语法"/>
+<meta name="twitter:description" content="2011年JetBrains发布了Kotlin第一个版本; 2016年Kotlin发布了1.0正式版; 2017年Google宣布Kotlin成"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" /><link rel="prev" href="http://suzeyu.com/posts/android%E9%80%82%E9%85%8D-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Kotlin基础-语法",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.com\/posts\/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95\/"
+        },"genre": "posts","keywords": "kotlin","wordcount":  2973 ,
+        "url": "http:\/\/suzeyu.com\/posts\/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95\/","datePublished": "2022-02-15T16:22:37+08:00","dateModified": "2022-02-15T16:22:37+08:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Kotlin基础-语法</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/kotlin/"><i class="far fa-folder fa-fw"></i>kotlin</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-15">2022-02-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2973 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" class="leancloud_visitors" data-flag-title="Kotlin基础-语法">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基础知识">基础知识</a>
+      <ul>
+        <li><a href="#变量varaibale">变量(varaibale)</a></li>
+        <li><a href="#函数function">函数(function)</a></li>
+        <li><a href="#逻辑控制语句">逻辑控制语句</a></li>
+        <li><a href="#类和对象">类和对象</a></li>
+        <li><a href="#集合">集合</a></li>
+        <li><a href="#lambda">Lambda</a></li>
+        <li><a href="#关键字">关键字</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>2011年JetBrains发布了Kotlin第一个版本; 2016年Kotlin发布了<strong>1.0正式版</strong>; 2017年Google宣布Kotlin成为Android一级开发语言.</p>
+</blockquote>
+<h2 id="基础知识">基础知识</h2>
+<h3 id="变量varaibale">变量(varaibale)</h3>
+<p><strong>val</strong>(value)用来声明一个不可变的变量, 对应Java中的Final.
+<strong>var</strong>(variable)用来声明一个可变的变量, 对应Java中的非Final.</p>
+<pre tabindex="0"><code>// 完整的变量声明例子
+val a: Int = 10
+
+// Kotlin具有类型推导机制, 可以简化
+val a = 10
+</code></pre><p>Kotlin取消了Java的<strong>基本数据类型</strong>, 全部使用对象数据类型.</p>
+<h3 id="函数function">函数(function)</h3>
+<p>Java中多数称为方法(method). 声明方法需要<strong>fun</strong>关键字.</p>
+<pre tabindex="0"><code>    // 函数的创建语法.
+    fun 函数名称(参数1: 参数类型, 参数2: 参数类型): 返回值 {
+        return 返回值
+    }
+    
+    // 示例 完整版
+    fun largerNumber(num1: Int, num2: Int): Int {
+        return max(num1, num2)
+    }
+
+    // Kotlin语法糖
+    // 当函数体只有一行代码时, 可以省略函数体{}, 将唯一一行代码
+    // 定义到函数声明的尾部, 并用=连接
+    fun largerNumber(num1: Int, num2: Int) : Int = max(num2, num1)
+    
+    // 由于推导机制, 返回值声明可以省略.
+    fun largerNumber(num1: Int, num2: Int) = max(num2, num1)
+    
+    // 函数支持默认值, 上面函数可以添加默认
+    fun largerNumber(num1: Int = 1, num2: Int = 2) = max(num2, num1)
+
+</code></pre><h3 id="逻辑控制语句">逻辑控制语句</h3>
+<h4 id="if条件语句">if条件语句</h4>
+<p>Kotlin的条件语句有两种: <strong>if</strong>, <strong>when</strong></p>
+<p>if语句和Java中的if几乎一模一样. 但Kotlin的if支持返回值, 就是每个条件的最后一行代码作为返回值.</p>
+<p>when语句类似Java中的<em>switch</em>. 但不仅局限与Java的只能<em>整型</em>, <em>短整型</em>,<em>字符串</em></p>
+<pre tabindex="0"><code>    // when语法结构
+    when(变量){
+        匹配值 -&gt; {执行逻辑}
+        匹配值 -&gt; {执行逻辑}
+    }
+    
+    // 示例 
+    when(name){
+        &quot;张三&quot; -&gt; {&quot;20岁&quot;}
+        &quot;李四&quot; -&gt; {&quot;21岁&quot;}
+        &quot;王五&quot; -&gt; {&quot;22岁&quot;}
+    }
+    
+    // 简化, 由于和if一样, 函数体最后一句最为返回值, 并且函数体只有一行代码
+    // 可以省略{}
+    when(name){
+        &quot;张三&quot; -&gt; &quot;20岁&quot;
+        &quot;李四&quot; -&gt; &quot;21岁&quot;
+        &quot;王五&quot; -&gt; &quot;22岁&quot;
+    }
+</code></pre><h4 id="循环语句">循环语句</h4>
+<ul>
+<li><strong>while</strong> 与Java没有区别</li>
+<li><strong>for</strong> 舍弃了Java中的<em>for-i</em>循环, 对Java中的<em>for-each</em>进行增强, 并变成了<em>for-in</em>循环</li>
+</ul>
+<p><strong>区间概念</strong>: 正是由于没有了for-i的变量控制条件,才出现了区间概念</p>
+<pre tabindex="0"><code>    // 创建一个0到100的区间
+    var range = 0..100
+    // 以上代码意思是. 一个0到100的区间, 并且两端都是闭区间, 也就是包含0和100.等价于数学中的
+    // [0,100]
+
+    // for-in 升序
+    for (i in 1..100){
+        println(i)
+    }
+    
+    // 每次循环自增2
+    for (i in 1..100 step){
+        println(i)
+    }
+    
+</code></pre><h3 id="类和对象">类和对象</h3>
+<ul>
+<li><strong>Class</strong> 类, 同Java</li>
+<li><strong>File</strong> 通常用于编写Kotlin的<strong>顶层函数</strong>和<strong>扩展函数</strong></li>
+<li><strong>Interface</strong> 接口, 同Java</li>
+<li><strong>Enum class</strong> 枚举类</li>
+<li><strong>Object</strong> 数据类</li>
+</ul>
+<pre tabindex="0"><code>    // 创建一个class类
+    class Person{
+    }
+    
+    // 获取Person示例, 不需要new
+    var person = Person()
+</code></pre><h4 id="继承与构造函数">继承与构造函数</h4>
+<p>在Kotlin中任何一个非抽象类默认都是<strong>不可被继承的</strong>, 相当于Java中的String类添加了final关键字一样. 就如<em>Effective java</em>中提到的, 如果一个类不是为了专门继承而设计的, 就应该主动加上final. 而Kotlin把默认实现修改到final模式</p>
+<p>那么如果要想一个类被继承, 使用<strong>open</strong>来修饰类.</p>
+<pre tabindex="0"><code>    open class Person{}
+    
+    // Kotiln中使用 : 来代替Java中的extends
+    class Student : Person(){}
+
+</code></pre><p>Kotlin中有两种构造函数: <strong>主构造函数</strong>, <strong>次构造函数</strong></p>
+<p>一个类只能有<strong>一个</strong>主构造函数, 但是可以<strong>很多个</strong>次构造函数.
+一个类默认有一个不带参的主构造函数
+一个类如果仅有一个次构造函数, 那么此类是没有主构造函数</p>
+<pre tabindex="0"><code>    // 主构造函数
+    // 每个类默认有一个不带参数的主构造函数
+    // 主构造函数特点是没有函数体, 只需在类名后显式的指明参数即可
+    // 如果需要编写构造逻辑, 使用Kotlin提供的init结构体
+    open class Person(age: Int, name:String){
+        init {
+            // 构造逻辑
+        }
+    }
+
+    // 次构造函数
+    // 当一个类既有主构造也有次构造, 那么所有的次构造都要调用主构造函数.
+    open class Person(age: Int, name: String) {
+        constructor() : this(11, &quot;&quot;) {
+        }
+
+        constructor(age: Int, name: String, sex: Int) : this(age, name) {
+        }
+    }   
+    
+
+</code></pre><h4 id="接口">接口</h4>
+<p>同样使用**:**来实现接口继承, 并且被继承的类不需要追加括号, 因为接口没有构造函数.</p>
+<p>允许对接口中定义的函数进行默认是实现. 这一特性在Java JDK1.8之后也同样支持.</p>
+<h4 id="函数可见性修饰符">函数可见性修饰符</h4>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>Java</th>
+<th>Kotlin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public</td>
+<td>所有类可见</td>
+<td>所有类可见(默认)</td>
+</tr>
+<tr>
+<td>private</td>
+<td>当前类可见</td>
+<td>当前类可见</td>
+</tr>
+<tr>
+<td>protected</td>
+<td>本类,子类,同一包路径可见</td>
+<td>当前类,子类可见</td>
+</tr>
+<tr>
+<td>default</td>
+<td>同一包路径下的可见</td>
+<td>无</td>
+</tr>
+<tr>
+<td>internal</td>
+<td>无</td>
+<td>同一模块中的类可见</td>
+</tr>
+</tbody>
+</table>
+<h4 id="数据类型与单例类">数据类型与单例类</h4>
+<pre tabindex="0"><code>    // 数据类实现 data关键字
+    // 不再像Java一样需要实现equals(), hashCode(), toString()等方法
+    data class schoolRool(val name:String, val id:Int)
+    
+    // 单例类  object关键字
+    object Singleton{
+    }
+</code></pre><h3 id="集合">集合</h3>
+<p>使用内置函数<strong>listOf</strong>简化初始化集合的写法
+<code>val list = listOf(&quot;张三&quot;, &quot;李四&quot;, &quot;王五&quot;)</code></p>
+<p>遍历集合
+<code>for(person in list){....}</code></p>
+<p><strong>listOf()</strong> 函数创建的是不可变集合, 即只读不能修改删除.
+<strong>mutableListOf()</strong> 函数与之对应, 可变集合.</p>
+<p><strong>setOf()</strong>
+<strong>mutableSetOf()</strong></p>
+<p>Map</p>
+<p>Kotlin提供了一中类似数组下标的语法结构提供读写.</p>
+<pre tabindex="0"><code>    val map = mutableMapOf(&quot;张三&quot; to 1, &quot;李四&quot; to 2)
+    map[&quot;王五&quot;] = 3       // 赋值
+    val age = map[&quot;李四&quot;] // 取值
+</code></pre><p>常用的一些函数式API</p>
+<pre tabindex="0"><code>// 遍历集合元素, 并在函数体进行转换
+list.map{ it.toUpperCase }
+
+// 过滤集合, 进行筛选
+list.filter{ it.lenght &gt;= 5}
+
+// 判断集合中是否至少存在一个元素满足条件
+list.any { it.length &gt;= 5 }
+
+// 判断集合所有元素是否满足条件
+list.all { it.length &gt;= 5 }
+</code></pre><h3 id="lambda">Lambda</h3>
+<blockquote>
+<p>就是一小段可以作为参数传递的代码.</p>
+</blockquote>
+<p>语法结构
+{参数名1: 参数类型, 参数名2: 参数类型 -&gt; 函数体}</p>
+<pre tabindex="0"><code>推导简化过程
+
+        // 原始
+        val list = listOf(&quot;apple&quot;, &quot;pear&quot;, &quot;banana&quot;)
+        val lambda = { name: String -&gt; name.length }  // lambda语句, 最后为单句省略了花括号
+        val maxLength = list.maxOf (lambda)
+        
+        
+        // 不需要定义lambda变量, 直接传入
+        val maxLength = list.maxOf({ name: String -&gt; name.length })
+        
+        // 当Lambda参数是函数的最后一个参数时,可以移到函数括号外面
+        val maxLength = list.maxOf(){ name: String -&gt; name.length }
+         
+        // 当Lambda参数是函数的唯一参数时, 可以去掉函数的括号
+        val maxLength = list.maxOf{ name: String -&gt; name.length }
+        
+        // 由于推导机制, Lambda的参数类型声明可以去掉
+        val maxLength = list.maxOf{ name -&gt; name.length }
+        
+        // 当Lambda表达式只有一个参数时, 不必声明参数, 使用it关键字代替
+        val maxLength = list.maxOf{ it.length }
+
+
+</code></pre><h4 id="空指针">空指针</h4>
+<p>Kotlin默认所有的参数和变量都<strong>不可为空</strong>, 也就是说Kotlin将空指针异常的检查提前到了编译时期.</p>
+<p>如果一个变量可空, 使用&quot;?&ldquo;关键字<code>id Int?</code></p>
+<p>判空辅助工具
+<code>person?.eat()</code> 如果person为空就不调用eat()函数.</p>
+<p><code>id?.lenght ?: 0</code> 如果?:前为空就返回0, 否则不处理 ? : 逻辑</p>
+<p><strong>!!</strong>  非空断言</p>
+<h4 id="字符串内嵌表达式">字符串内嵌表达式</h4>
+<p><code>&quot;hi, ${person.name} &quot;</code></p>
+<p>当表达式中仅有一个变量的时候, 可以将两边的大括号省略.</p>
+<h3 id="关键字">关键字</h3>
+<ul>
+<li><strong>is</strong> 相当于Java中的<strong>instanceof</strong>, 判断对象类型.</li>
+<li><strong>==</strong> 判断字符串或对象是否相等. 不再需要equals()专门判断字符串</li>
+<li><strong>..</strong> 区间声明(升序), 两端都是闭区间, 也就是两端数字都包含, 等价于数学中*[0,100]*</li>
+<li><strong>until</strong> 区间声明(升序), 左闭右开区间, 包头不包尾,等价数学*[0,100)*</li>
+<li><strong>downTo</strong> 区间声明(降序), 两端都是闭区间, 包头包尾, 等价数学*[100,0]*</li>
+<li><strong>step</strong> 配合<strong>区间</strong>使用, 常规下区间是i++, i&ndash;,效果. 使用step 2, 实现循环中条件i=i+2的循环效果</li>
+<li><strong>class</strong> 声明类</li>
+<li><strong>open</strong> 修改类为可以被继承</li>
+<li><strong>:</strong> 类的继承关系指向</li>
+<li><strong>constructor</strong> 次构造函数声明</li>
+<li><strong>data</strong> 数据类型声明.</li>
+<li><strong>object</strong> 单例类声明</li>
+<li><strong>?.</strong> 判空辅助工具  不空就调用</li>
+<li><strong>?:</strong> 判空辅助工具  不空就返回</li>
+<li><strong>!!</strong> 非空断言</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-02-15</span>
+            </div>
+            <div class="post-info-license"><span><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" data-title="Kotlin基础-语法" data-via="xxxx" data-hashtags="kotlin"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" data-hashtag="kotlin"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" data-title="Kotlin基础-语法" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" data-title="Kotlin基础-语法"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" data-title="Kotlin基础-语法" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" data-title="Kotlin基础-语法" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" data-title="Kotlin基础-语法" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" data-title="Kotlin基础-语法"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kotlin/">kotlin</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android%E9%80%82%E9%85%8D-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/" class="prev" rel="prev" title="Android适配 文件存储"><i class="fas fa-angle-left fa-fw"></i>Android适配 文件存储</a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
