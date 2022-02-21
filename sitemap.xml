@@ -2,14 +2,15 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://suzeyu.com/</loc><lastmod>2022-02-15T16:22:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/categories/</loc><lastmod>2022-02-15T16:22:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/tags/kotlin/</loc><lastmod>2022-02-15T16:22:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/categories/kotlin/</loc><lastmod>2022-02-15T16:22:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/</loc><lastmod>2022-02-15T22:13:55&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/categories/</loc><lastmod>2022-02-15T22:13:55&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/tags/kotlin/</loc><lastmod>2022-02-15T22:13:55&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/categories/kotlin/</loc><lastmod>2022-02-15T22:13:55&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/</loc><lastmod>2022-02-15T22:13:55&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/posts/</loc><lastmod>2022-02-15T22:13:55&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/tags/</loc><lastmod>2022-02-15T22:13:55&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/</loc><lastmod>2022-02-15T16:22:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/posts/</loc><lastmod>2022-02-15T16:22:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/tags/</loc><lastmod>2022-02-15T16:22:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/posts/android%E9%80%82%E9%85%8D-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/</loc><lastmod>2022-02-11T15:53:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/posts/android%E9%80%82%E9%85%8D-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/</loc><lastmod>2022-02-11T15:53:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
             <loc>http://suzeyu.com/about/</loc><lastmod>2021-11-21T00:24:35&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/</loc><lastmod>2021-05-08T21:51:34&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C-%E5%8D%8E%E7%A1%95m12e-usb%E5%AE%9A%E5%88%B6/</loc><lastmod>2021-05-08T21:51:34&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -18,9 +19,10 @@
             <loc>http://suzeyu.com/posts/android%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</loc><lastmod>2017-02-09T19:30:09&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/</loc><lastmod>2017-02-08T17:04:50&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc><lastmod>2017-01-06T20:13:46&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://suzeyu.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc><lastmod>2017-01-06T20:13:46&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/posts/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/</loc><lastmod>2017-01-06T20:13:46&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/posts/%E7%BA%BF%E6%80%A7%E8%A1%A8/</loc><lastmod>2017-01-04T17:58:35&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://suzeyu.com/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/</loc><lastmod>2017-01-01T21:18:23&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://suzeyu.com/posts/%E7%AE%97%E6%B3%95%E7%9A%84%E4%BA%86%E8%A7%A3/</loc><lastmod>2017-01-01T21:18:23&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc><lastmod>2016-12-30T17:43:46&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/</loc><lastmod>2016-12-30T17:43:46&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/tags/vim/</loc><lastmod>2016-12-27T14:11:35&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

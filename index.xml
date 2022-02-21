@@ -4,9 +4,16 @@
         <link>http://suzeyu.com/</link>
         <description>Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Tue, 15 Feb 2022 16:22:37 &#43;0800</lastBuildDate>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Tue, 15 Feb 2022 22:13:55 &#43;0800</lastBuildDate>
             <atom:link href="http://suzeyu.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Kotlin基础 标准函数和静态方法</title>
+    <link>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/</link>
+    <pubDate>Tue, 15 Feb 2022 22:13:55 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/</guid>
+    <description><![CDATA[标准函数 Kotlin的标准函数定义在Standard.kt文件中的函数. 任何Kotlin代码都能调用标准函数 let标准函数 可以用来配合**?]]></description>
+</item><item>
     <title>Kotlin基础-语法</title>
     <link>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/</link>
     <pubDate>Tue, 15 Feb 2022 16:22:37 &#43;0800</pubDate>
@@ -61,20 +68,13 @@
     <pubDate>Wed, 04 Jan 2017 17:58:35 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://suzeyu.com/posts/%E7%BA%BF%E6%80%A7%E8%A1%A8/</guid>
-    <description><![CDATA[首先看一下线性表都包括哪些结构: 线性表的定义 零个或多个数据元素的有限序列. 序列: 说明了元素之间是由顺序的. 有限: 泛指元素的个数为有限. 因为计]]></description>
+    <description><![CDATA[首先看一下线性表都包括哪些结构: 线性表的定义 零个或多个数据元素的有限序列. 序列: 说明了元素之间是有顺序的. 有限: 泛指元素的个数为有限. 因为计]]></description>
 </item><item>
     <title>算法的了解</title>
-    <link>http://suzeyu.com/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/</link>
-    <pubDate>Sun, 01 Jan 2017 21:18:23 &#43;0000</pubDate>
+    <link>http://suzeyu.com/posts/%E7%AE%97%E6%B3%95%E7%9A%84%E4%BA%86%E8%A7%A3/</link>
+    <pubDate>Sun, 01 Jan 2017 21:18:23 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.com/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/</guid>
+    <guid>http://suzeyu.com/posts/%E7%AE%97%E6%B3%95%E7%9A%84%E4%BA%86%E8%A7%A3/</guid>
     <description><![CDATA[算法定义 算法是解决特定问题求解步骤的描述, 在计算机中表现为指令的有限序列, 并且每条指令表示一个或多个操作. 算法是针对一种或者是一类问题的解决]]></description>
-</item><item>
-    <title>操作系统简介</title>
-    <link>http://suzeyu.com/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/</link>
-    <pubDate>Fri, 30 Dec 2016 17:43:46 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/</guid>
-    <description><![CDATA[硬件是软件的基石. 所有的软件功能最终都是由硬件来实现的. 计算机体系结构作为一门学科, 是软件和硬件的抽象体, 也是所有开发者都应该了解的. 计算机]]></description>
 </item></channel>
 </rss>

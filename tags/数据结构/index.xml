@@ -17,13 +17,13 @@
     <pubDate>Wed, 04 Jan 2017 17:58:35 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://suzeyu.com/posts/%E7%BA%BF%E6%80%A7%E8%A1%A8/</guid>
-    <description><![CDATA[首先看一下线性表都包括哪些结构: 线性表的定义 零个或多个数据元素的有限序列. 序列: 说明了元素之间是由顺序的. 有限: 泛指元素的个数为有限. 因为计]]></description>
+    <description><![CDATA[首先看一下线性表都包括哪些结构: 线性表的定义 零个或多个数据元素的有限序列. 序列: 说明了元素之间是有顺序的. 有限: 泛指元素的个数为有限. 因为计]]></description>
 </item><item>
     <title>算法的了解</title>
-    <link>http://suzeyu.com/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/</link>
-    <pubDate>Sun, 01 Jan 2017 21:18:23 &#43;0000</pubDate>
+    <link>http://suzeyu.com/posts/%E7%AE%97%E6%B3%95%E7%9A%84%E4%BA%86%E8%A7%A3/</link>
+    <pubDate>Sun, 01 Jan 2017 21:18:23 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://suzeyu.com/posts/%E8%AE%A4%E7%9F%A5%E7%AE%97%E6%B3%95/</guid>
+    <guid>http://suzeyu.com/posts/%E7%AE%97%E6%B3%95%E7%9A%84%E4%BA%86%E8%A7%A3/</guid>
     <description><![CDATA[算法定义 算法是解决特定问题求解步骤的描述, 在计算机中表现为指令的有限序列, 并且每条指令表示一个或多个操作. 算法是针对一种或者是一类问题的解决]]></description>
 </item></channel>
 </rss>
