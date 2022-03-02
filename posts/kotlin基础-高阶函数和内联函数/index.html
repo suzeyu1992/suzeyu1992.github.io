@@ -5,30 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Kotlin基础 标准函数和静态方法 - Blog</title><meta name="Description" content=""><meta property="og:title" content="Kotlin基础 标准函数和静态方法" />
-<meta property="og:description" content="标准函数 Kotlin的标准函数定义在Standard.kt文件中的函数. 任何Kotlin代码都能调用标准函数 let标准函数 可以用来配合**?" />
+        <title>Kotlin基础 高阶函数和内联函数 - Blog</title><meta name="Description" content=""><meta property="og:title" content="Kotlin基础 高阶函数和内联函数" />
+<meta property="og:description" content="高阶函数 一般函数接收的参数有Lambda表达式就可以称为具有函数式编程风格的API, 如果想要定义自己的函数式API, 就需要借助高阶函数. 定义" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-02-15T22:13:55+08:00" />
-<meta property="article:modified_time" content="2022-02-15T22:13:55+08:00" /><meta property="og:site_name" content="szySky Blog" />
+<meta property="og:url" content="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-02T17:43:54+08:00" />
+<meta property="article:modified_time" content="2022-03-02T17:43:54+08:00" /><meta property="og:site_name" content="szySky Blog" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Kotlin基础 标准函数和静态方法"/>
-<meta name="twitter:description" content="标准函数 Kotlin的标准函数定义在Standard.kt文件中的函数. 任何Kotlin代码都能调用标准函数 let标准函数 可以用来配合**?"/>
+<meta name="twitter:title" content="Kotlin基础 高阶函数和内联函数"/>
+<meta name="twitter:description" content="高阶函数 一般函数接收的参数有Lambda表达式就可以称为具有函数式编程风格的API, 如果想要定义自己的函数式API, 就需要借助高阶函数. 定义"/>
 <meta name="application-name" content="Blog">
 <meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" /><link rel="prev" href="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" /><link rel="next" href="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E5%AF%86%E5%B0%81%E7%B1%BB%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" /><link rel="prev" href="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E5%AF%86%E5%B0%81%E7%B1%BB%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" /><link rel="next" href="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Kotlin基础 标准函数和静态方法",
+        "headline": "Kotlin基础 高阶函数和内联函数",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/suzeyu.com\/posts\/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95\/"
-        },"genre": "posts","keywords": "kotlin","wordcount":  1136 ,
-        "url": "http:\/\/suzeyu.com\/posts\/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95\/","datePublished": "2022-02-15T22:13:55+08:00","dateModified": "2022-02-15T22:13:55+08:00","publisher": {
+            "@id": "http:\/\/suzeyu.com\/posts\/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0\/"
+        },"genre": "posts","keywords": "kotlin","wordcount":  1691 ,
+        "url": "http:\/\/suzeyu.com\/posts\/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0\/","datePublished": "2022-03-02T17:43:54+08:00","dateModified": "2022-03-02T17:43:54+08:00","publisher": {
             "@type": "Organization",
             "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
                 "@type": "Person",
@@ -102,10 +102,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Kotlin基础 标准函数和静态方法</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">Kotlin基础 高阶函数和内联函数</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/kotlin/"><i class="far fa-folder fa-fw"></i>kotlin</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-15">2022-02-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1136 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" class="leancloud_visitors" data-flag-title="Kotlin基础 标准函数和静态方法">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-02">2022-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1691 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" class="leancloud_visitors" data-flag-title="Kotlin基础 高阶函数和内联函数">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
@@ -115,95 +115,103 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#标准函数">标准函数</a>
+    <li>
       <ul>
-        <li><a href="#let标准函数">let标准函数</a></li>
-        <li><a href="#with标准函数">with标准函数</a></li>
-        <li><a href="#run标准函数">run标准函数</a></li>
-        <li><a href="#apply标准函数">apply标准函数</a></li>
-      </ul>
-    </li>
-    <li><a href="#静态方法">静态方法</a>
-      <ul>
-        <li></li>
+        <li><a href="#高阶函数">高阶函数</a></li>
+        <li><a href="#内联函数">内联函数</a></li>
       </ul>
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="标准函数">标准函数</h2>
+            </div><div class="content" id="content"><h3 id="高阶函数">高阶函数</h3>
 <blockquote>
-<p>Kotlin的标准函数定义在<strong>Standard.kt</strong>文件中的函数. 任何Kotlin代码都能调用标准函数</p>
+<p>一般函数接收的参数有Lambda表达式就可以称为具有函数式编程风格的API, 如果想要定义自己的函数式API, 就需要借助高阶函数.</p>
 </blockquote>
-<h3 id="let标准函数">let标准函数</h3>
-<p>可以用来配合**?.**进行辅助判空处理</p>
-<pre tabindex="0"><code>    // 使用?.代替if的判断语句, 并使用let让lambda函数体内存在list的上下文it
-    list?.let { 
-        it.add(&quot;1&quot;)
-        it.add(&quot;2&quot;)
-    }
-</code></pre><h3 id="with标准函数">with标准函数</h3>
-<p>场景: 在java中使用StringBuilder时, 在拼接经常出现<strong>sb.xxx sb.xxx</strong>这样的语句. 此函数可以简化StringBuild对象的频繁敲打.</p>
-<p><strong>with</strong>函数接收两个参数, 第一个参数为任意类型; 第二个参数Lambda表达式, 并在表达式中提供第一个参数的上下文.</p>
-<pre tabindex="0"><code>  val sb = StringBuilder()
-    val studentStr = with(sb) {
-        append(&quot;开始输入成绩&quot;)  // sb.append()省略了sb. 以下如是
-        for (student in list) {
-            append(student.name)
-        }
-        append(&quot;输入结束.&quot;)
-        toString() // 最后一行作为返回值
-    }
-</code></pre><h3 id="run标准函数">run标准函数</h3>
-<p>与<strong>with</strong>相似, <strong>with</strong>是直接调用的, 而<strong>run</strong>是任意对象调用的. 并且参数只有一个Lambda函数体</p>
-<pre tabindex="0"><code>    val sb = StringBuilder()
-    val studentStr =sb.run {
-        append(&quot;开始输入成绩&quot;)
-        for (student in list) {
-            append(student.name)
-        }
-        append(&quot;输入结束.&quot;)
-        toString()
-    }
+<p><strong>定义:</strong> 如果一个函数接收另一个函数作为参数, 或者返回值类型是另一个函数, 那么就称该函数为高阶函数.</p>
+<p><strong>用途:</strong> 高阶函数允许让函数类型的参数来决定函数的执行逻辑.</p>
+<p>函数类型: 编程语言中有整型, 布尔型等字段类型, 而Kotlin中又增加了函数类型的概念, 如果将这个函数类型添加到一个函数的声明或者返回值声明, 那么这就是一个高阶函数</p>
+<p>函数类型语法规则:</p>
+<p><code>(String, Int) -&gt; Unit</code></p>
+<p><em>-&gt;</em> 的左边用来声明该函数接收什么参数, 多个参数之间使用逗号隔开, 如果不接收参数那么就是空括号; 右边用来声明该函数的返回值, 没有就是Unit相当于Java中的void.</p>
+<pre tabindex="0"><code>fun example(func: (String, Int) -&gt; Unit){
+    func(&quot;Hello&quot;, 111)
+}
+</code></pre><p>在函数的传参中, 可以函数名字传入<strong>方法名()</strong>, 也可以使用 <strong>::方法名</strong> . <strong>::</strong> 这种写法, 是一种函数引用方式的写法, 表示函数作为参数传递到函数中.</p>
+<pre tabindex="0"><code>// 高阶函数定义
+fun example(func: (Int, Int) -&gt; Int): Int {
+    return func(1, 2);
+}
 
-</code></pre><h3 id="apply标准函数">apply标准函数</h3>
-<p>与<strong>run</strong>一样, 不过<strong>apply</strong>返回值只能返回调用者本身. 适用类型Android创建<strong>Intent</strong>进行一系列传参.</p>
-<h2 id="静态方法">静态方法</h2>
-<p>Kotlin中弱化了静态方法这个概念, 因为Kotlin提供了比静态方法更好用得特性-<strong>单例类</strong>.</p>
-<p>使用<strong>Object</strong>关键字声明类为单例, 充当Java中的工具类, 由于语法糖的关系, 在调用时同样是<em>类名.函数()</em></p>
-<p>如果只想一个普通类中的某一个方法实现静态方法的调用方式, 可以使用 <strong>companion object</strong></p>
-<pre tabindex="0"><code>class util{
-    
-    // 伴生类
-    companion object{
-        fuc strWrap(){}
+// 高阶函数调用  Lambda表达式
+example({ int1, int2 -&gt;
+    int1 + int2
+})
+
+// 简化1: 当参数列表最后一个参数为Lambda表达式, 可以移到括号的后面
+example(){ int1, int2 -&gt;
+    int1 + int2
+}
+
+// 简化2: 当参数列表为空时, 可以省略空括号
+example{ int1, int2 -&gt;
+    int1 + int2
+}
+</code></pre><p>系统<strong>apply</strong>的实现. 当连续调用同一个对象的多个方法时, apply可以让代码变得更简洁.
+以StringBuilder为例</p>
+<pre tabindex="0"><code>// 定义一个StringBuild扩展函数
+fun StringBuilder.build(block: StringBuilder.() -&gt; Unit){
+    block
+}
+// StringBuilder.()表示这个函数类型定义在StringBuilder中, 并且在实现体内会持有上下文对象
+
+// 调用
+StringBuilder().build { 
+    append(&quot;Hi&quot;)
+    append(&quot;Hello&quot;)
+    append(&quot;world&quot;)
+}
+
+
+</code></pre><h3 id="内联函数">内联函数</h3>
+<p>Kotlin的代码最终还是要编译成Java的字节码, 但Java中没有高阶函数的概念, 但是通过Kotlin的编译器将高阶函数的语法转换成了Java支持的语法.</p>
+<p>比方你定义的<strong>函数类型</strong>接收两个参数. 那么Kolin转换的时候会把这个函数类型转换成一个<strong>Function</strong>接口, 这个接口有一个待实现的<strong>invoke()</strong> 接口并把定义的两个参数传入了进去.
+那么问题就出现了, Lambda表达式在调用的时候被底层转化成了<strong>匿名内部类</strong>的实现, 而匿名内部类每次的新建都会造成额外的开销. 所以为了解决这个为题出现了<strong>内联函数</strong>的概念.</p>
+<p>内联函数使用很简单, 只要在定义的高阶函数前面加上<strong>inline</strong> 关键字修饰即可.</p>
+<p>其实就是编译器将内联函数中的代码在编译的时候自动替换到调用的地方.</p>
+<ol>
+<li>先将在<strong>调用处</strong>的Lambda表达式中的代码,替换到<strong>高阶函数定义的实现体内</strong>. 这样高阶函数就变成了普通的函数, 没有了函数类型.</li>
+<li>再将<strong>内联函数</strong>中的代码全部替换到<strong>调用处</strong></li>
+</ol>
+<h4 id="noinline">noinline</h4>
+<p>如果一个函数存在多个函数类型的参数时, 想要某一个函数类型不使用内联函数可以如下:</p>
+<p><code>inline fun methodName(block: ()-&gt;Unit, noinline bloack2: () -&gt; Unit){}</code></p>
+<p><strong>内联函数</strong>虽然可以解决匿名内部类的问题, 但是由于代码在编译期间的替换, 所以没有真正的参数属性. 非内联的函数类型参数可以自由的传递给其他任何函数, 因为他就是一个真实的参数, 而内联函数类型参数只允许传递给另外一个内联函数, 这就是最大的局限性.</p>
+<p><strong>内联函数</strong>和<strong>非内联函数</strong>还有一个区别是, 内联函数所引用的Lambda表达式是可以使用return关键字进行函数返回. 而非内联函数只能进行局部返回.</p>
+<h4 id="crossinline">crossinline</h4>
+<pre tabindex="0"><code>inline fun runRunnable( block: ()-&gt;Unit){
+    Runnable{
+        block()
     }
 }
-</code></pre><p><strong>companion object</strong> 关键字会在util类中创建一个伴生类, strWrap()就是这个伴生类的实例方法, Kotlin会保证Util中只有一个伴生类. 所以可以类名.函数()调用</p>
-<p>以上都是真正意义上的静态方法, 只是模拟了静态方法的调用方式, 如果必须要实现. Kotlin两种方式: <strong>注解</strong>和<strong>顶层方法</strong></p>
-<h4 id="注解实现">注解实现</h4>
-<p>当我们给单例类或者<strong>companion object</strong>中的方法加上了**@JvmStatic**注解, 那么Kotlin就会将这些方法编译成静态方法.</p>
-<pre tabindex="0"><code>class util{
-    companion object{
-        @JvmStatic
-        fuc strWrap(){}
-    }
-}
-</code></pre><h4 id="顶层方法实现">顶层方法实现</h4>
-<p>顶层方法是指没有定义在任何类中的方法. Kotlin会将所有的顶层方法全部编译成静态方法.</p>
-<p>创建一个<strong>File</strong>类型的Kotlin文件.  声明函数. 然后再任何Kotlin中直接函数名调用.
-但是如果在Java中调用, 会找不到, 因为Java中没有顶层函数的概念, 所有的方法都必须在类中. 在我们创建<strong>名字.kt</strong>时, Kotlin会自动创建一个<strong>名字kt</strong>的Java类. 刚才声明的方式就在其中, 所有就可以通过<strong>名字Kt.函数()</strong> 来调用</p>
+// 报错: Can't inline 'block' here: it may contain non-local returns. Add 'crossinline' modifier to parameter declaration 'block'
+</code></pre><p>报错是因为Runnable对象创建的Lambda表达式会在编译的时候转换成匿名内部类的实现方式, 也就是在匿名内部类中调用了传入的函数类型参数.</p>
+<p><strong>内联函数</strong>所引用的Lambda表达式允许使用<strong>return</strong>, 但是由于上述代码在匿名内部类中调用了<strong>函数类型参数</strong>, 此时是不可能进行外层调用函数返回的, 最多只能对匿名内部类中函数返回. 所以出现了上述错误.</p>
+<p>这个时候使用<strong>crossinline</strong>就能解决这个错误提示</p>
+<p><code>inline fun runRunnable(crossinline block: ()-&gt;Unit){...}</code></p>
+<p><strong>crossinline</strong>就像一个契约, 他能用于保证在内联函数的Lambda表达式中一定不会使用return关键字, 这样就不存在冲突.</p>
+<p>声明了交叉函数后, 就不能在调用<strong>runRunnable()</strong> 函数时的Lambda表达式中使用return关键字, 但是任然可以使用<strong>return@runRunnable</strong>写法进行局部返回.</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-02-15</span>
+                <span>更新于 2022-03-02</span>
             </div>
             <div class="post-info-license"><span><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法" data-via="xxxx" data-hashtags="kotlin"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-hashtag="kotlin"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" data-title="Kotlin基础 高阶函数和内联函数" data-via="xxxx" data-hashtags="kotlin"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" data-hashtag="kotlin"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" data-title="Kotlin基础 高阶函数和内联函数" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" data-title="Kotlin基础 高阶函数和内联函数"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" data-title="Kotlin基础 高阶函数和内联函数" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" data-title="Kotlin基础 高阶函数和内联函数" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" data-title="Kotlin基础 高阶函数和内联函数" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" data-title="Kotlin基础 高阶函数和内联函数"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -215,8 +223,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" class="prev" rel="prev" title="Kotlin基础-语法"><i class="fas fa-angle-left fa-fw"></i>Kotlin基础-语法</a>
-            <a href="/posts/kotlin%E5%9F%BA%E7%A1%80-%E5%AF%86%E5%B0%81%E7%B1%BB%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" class="next" rel="next" title="Kotlin基础 密封类,扩展函数,运算符重载">Kotlin基础 密封类,扩展函数,运算符重载<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/posts/kotlin%E5%9F%BA%E7%A1%80-%E5%AF%86%E5%B0%81%E7%B1%BB%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" class="prev" rel="prev" title="Kotlin基础 密封类,扩展函数,运算符重载"><i class="fas fa-angle-left fa-fw"></i>Kotlin基础 密封类,扩展函数,运算符重载</a>
+            <a href="/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" class="next" rel="next" title="Kotlin基础 泛型,类委托,infix">Kotlin基础 泛型,类委托,infix<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="valine" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.

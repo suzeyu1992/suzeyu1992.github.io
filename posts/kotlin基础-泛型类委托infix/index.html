@@ -5,30 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Kotlin基础 标准函数和静态方法 - Blog</title><meta name="Description" content=""><meta property="og:title" content="Kotlin基础 标准函数和静态方法" />
-<meta property="og:description" content="标准函数 Kotlin的标准函数定义在Standard.kt文件中的函数. 任何Kotlin代码都能调用标准函数 let标准函数 可以用来配合**?" />
+        <title>Kotlin基础 泛型,类委托,infix - Blog</title><meta name="Description" content=""><meta property="og:title" content="Kotlin基础 泛型,类委托,infix" />
+<meta property="og:description" content="泛型 Kotlin中的泛型和Java中的泛型有同有异. 泛型主要有两种定义方式: 定义泛型类 定义泛型方法 例如: // 定义泛型类 class MyClass&lt;T&gt;{ fun method(param: T):T{ return param } } // 定义" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-02-15T22:13:55+08:00" />
-<meta property="article:modified_time" content="2022-02-15T22:13:55+08:00" /><meta property="og:site_name" content="szySky Blog" />
+<meta property="og:url" content="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-02T17:45:20+08:00" />
+<meta property="article:modified_time" content="2022-03-02T17:45:20+08:00" /><meta property="og:site_name" content="szySky Blog" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Kotlin基础 标准函数和静态方法"/>
-<meta name="twitter:description" content="标准函数 Kotlin的标准函数定义在Standard.kt文件中的函数. 任何Kotlin代码都能调用标准函数 let标准函数 可以用来配合**?"/>
+<meta name="twitter:title" content="Kotlin基础 泛型,类委托,infix"/>
+<meta name="twitter:description" content="泛型 Kotlin中的泛型和Java中的泛型有同有异. 泛型主要有两种定义方式: 定义泛型类 定义泛型方法 例如: // 定义泛型类 class MyClass&lt;T&gt;{ fun method(param: T):T{ return param } } // 定义"/>
 <meta name="application-name" content="Blog">
 <meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" /><link rel="prev" href="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" /><link rel="next" href="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E5%AF%86%E5%B0%81%E7%B1%BB%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" /><link rel="prev" href="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Kotlin基础 标准函数和静态方法",
+        "headline": "Kotlin基础 泛型,类委托,infix",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/suzeyu.com\/posts\/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95\/"
-        },"genre": "posts","keywords": "kotlin","wordcount":  1136 ,
-        "url": "http:\/\/suzeyu.com\/posts\/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95\/","datePublished": "2022-02-15T22:13:55+08:00","dateModified": "2022-02-15T22:13:55+08:00","publisher": {
+            "@id": "http:\/\/suzeyu.com\/posts\/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix\/"
+        },"genre": "posts","keywords": "kotlin","wordcount":  1424 ,
+        "url": "http:\/\/suzeyu.com\/posts\/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix\/","datePublished": "2022-03-02T17:45:20+08:00","dateModified": "2022-03-02T17:45:20+08:00","publisher": {
             "@type": "Organization",
             "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
                 "@type": "Person",
@@ -102,10 +102,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Kotlin基础 标准函数和静态方法</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">Kotlin基础 泛型,类委托,infix</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/kotlin/"><i class="far fa-folder fa-fw"></i>kotlin</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-15">2022-02-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1136 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" class="leancloud_visitors" data-flag-title="Kotlin基础 标准函数和静态方法">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-02">2022-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1424 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" class="leancloud_visitors" data-flag-title="Kotlin基础 泛型,类委托,infix">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
@@ -115,95 +115,108 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#标准函数">标准函数</a>
+    <li>
       <ul>
-        <li><a href="#let标准函数">let标准函数</a></li>
-        <li><a href="#with标准函数">with标准函数</a></li>
-        <li><a href="#run标准函数">run标准函数</a></li>
-        <li><a href="#apply标准函数">apply标准函数</a></li>
-      </ul>
-    </li>
-    <li><a href="#静态方法">静态方法</a>
-      <ul>
-        <li></li>
+        <li><a href="#泛型">泛型</a></li>
+        <li><a href="#类委托和委托属性">类委托和委托属性</a></li>
+        <li><a href="#infix函数">infix函数</a></li>
       </ul>
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="标准函数">标准函数</h2>
-<blockquote>
-<p>Kotlin的标准函数定义在<strong>Standard.kt</strong>文件中的函数. 任何Kotlin代码都能调用标准函数</p>
-</blockquote>
-<h3 id="let标准函数">let标准函数</h3>
-<p>可以用来配合**?.**进行辅助判空处理</p>
-<pre tabindex="0"><code>    // 使用?.代替if的判断语句, 并使用let让lambda函数体内存在list的上下文it
-    list?.let { 
-        it.add(&quot;1&quot;)
-        it.add(&quot;2&quot;)
+            </div><div class="content" id="content"><h3 id="泛型">泛型</h3>
+<p>Kotlin中的泛型和Java中的泛型有同有异.</p>
+<p>泛型主要有两种定义方式:</p>
+<ol>
+<li>定义泛型类</li>
+<li>定义泛型方法</li>
+</ol>
+<p>例如:</p>
+<pre tabindex="0"><code>// 定义泛型类
+class MyClass&lt;T&gt;{
+    fun method(param: T):T{
+        return param
     }
-</code></pre><h3 id="with标准函数">with标准函数</h3>
-<p>场景: 在java中使用StringBuilder时, 在拼接经常出现<strong>sb.xxx sb.xxx</strong>这样的语句. 此函数可以简化StringBuild对象的频繁敲打.</p>
-<p><strong>with</strong>函数接收两个参数, 第一个参数为任意类型; 第二个参数Lambda表达式, 并在表达式中提供第一个参数的上下文.</p>
-<pre tabindex="0"><code>  val sb = StringBuilder()
-    val studentStr = with(sb) {
-        append(&quot;开始输入成绩&quot;)  // sb.append()省略了sb. 以下如是
-        for (student in list) {
-            append(student.name)
-        }
-        append(&quot;输入结束.&quot;)
-        toString() // 最后一行作为返回值
+}
+
+// 定义泛型方法
+class MyClass{
+    fun &lt;T&gt; method(param: T):T{
+        return param
     }
-</code></pre><h3 id="run标准函数">run标准函数</h3>
-<p>与<strong>with</strong>相似, <strong>with</strong>是直接调用的, 而<strong>run</strong>是任意对象调用的. 并且参数只有一个Lambda函数体</p>
-<pre tabindex="0"><code>    val sb = StringBuilder()
-    val studentStr =sb.run {
-        append(&quot;开始输入成绩&quot;)
-        for (student in list) {
-            append(student.name)
-        }
-        append(&quot;输入结束.&quot;)
-        toString()
+}
+</code></pre><p><strong>泛型的界限限定</strong></p>
+<p>如果想指定泛型只能是数字那么<code>&lt;T : Number&gt;</code>.这样泛型的上界设置就为Number类型.</p>
+<p>默认情况下, 所有的泛型都可以指定为可空类型, 因为在不手动设置上界时, 默认都是<strong>Any?</strong></p>
+<h4 id="泛型的实化">泛型的实化</h4>
+<p><strong>概念:</strong> 在Java中的泛型功能是通过<em>类型擦除机制</em>来实现的. 就是泛型的约束只存在<em>编译时期</em> 运行时仍然会按照JDK1.5之前机制运行, JVM是识别不出来我们在代码中指定的泛型类型. 所以像<strong>T.class</strong>这样语法是无法工作, 因为运行时实际类型已经被擦除.</p>
+<p>但是Kotlin提供了内联函数的概念, 内联函数就是会在编译的时候自动替换它调用的地方,这样也就不存在泛型擦除的问题, 因为代码在编译之后会直接使用实际类型来替代内联函数中的泛型声明.</p>
+<p>所以<strong>泛型实化</strong>写法:</p>
+<ol>
+<li>函数必须是内联函数</li>
+<li>声明泛型的地方必须加上<strong>reified</strong>关键字, 表示该泛型可以实例化</li>
+</ol>
+<p>例如:</p>
+<p><code>inline fun &lt;reified T&gt; getType() = T::class.java</code></p>
+<p>这行代码实现了java中完全不可能实现的功能: 函数直接返回了当前指定泛型的实际类型.</p>
+<h3 id="类委托和委托属性">类委托和委托属性</h3>
+<p>委托是一中设计模式, 基本理念: 操作对象自己不会去处理某段逻辑, 而是会把工作委托给另外一个辅助对象去处理. Java中对于委托并没有语言层级的实现, 而C#等语言就对委托进行了原生的支持.</p>
+<p>Kotlin中也支持委托功能, 并且将委托分为了两种: 类委托和属性委托.</p>
+<p><strong>类委托</strong></p>
+<p>核心思想就是将一个类的具体实现委托给另一个类.</p>
+<p>为什么要委托? 我们想保留一个类的大部分方法, 少部分方法自己重写, 或者加入一些自定义方法, 这就是委托的意义. 但是如果如果要委托的是个接口, 并且接口有很多, 手动实现属实很麻烦, Kotlin中可以通过类委托来解决.</p>
+<p>关键字: <strong>by</strong></p>
+<p>例如:</p>
+<p><code>class MySet&lt;T&gt;(val helperSet: HashSet&lt;T&gt;) : Set&lt;T&gt; by helperSet{}</code></p>
+<p><strong>by</strong>后面接上受委托的辅助对象</p>
+<p><strong>属性委托</strong></p>
+<pre tabindex="0"><code>class MyClass{
+    var p by Delegate()
+}
+</code></pre><p>委托属性核心思想是将一个属性字段的具体实现委托给另一个类去完成.</p>
+<p>将<strong>p</strong>属性的具体实现委托给了Delegate类去完成, 当调用<strong>p</strong>属性时会自动调用Delegate类的<strong>getValue()</strong>, 赋值时会调用<strong>setValue()</strong></p>
+<p>因此还需要对Delegate类进行具体实现.</p>
+<pre tabindex="0"><code>class Delegate{
+    var propValue: Any? = null
+    
+    operator fun getValue(myClass: MyClass, prop: KProperty&lt;*&gt;): Any?{
+        return propValue
+    }
+    
+    operator fun setValue(myClass: MyClass, prop: KProperty&lt;*&gt;, value: Any?){
+      propValue = value
     }
 
-</code></pre><h3 id="apply标准函数">apply标准函数</h3>
-<p>与<strong>run</strong>一样, 不过<strong>apply</strong>返回值只能返回调用者本身. 适用类型Android创建<strong>Intent</strong>进行一系列传参.</p>
-<h2 id="静态方法">静态方法</h2>
-<p>Kotlin中弱化了静态方法这个概念, 因为Kotlin提供了比静态方法更好用得特性-<strong>单例类</strong>.</p>
-<p>使用<strong>Object</strong>关键字声明类为单例, 充当Java中的工具类, 由于语法糖的关系, 在调用时同样是<em>类名.函数()</em></p>
-<p>如果只想一个普通类中的某一个方法实现静态方法的调用方式, 可以使用 <strong>companion object</strong></p>
-<pre tabindex="0"><code>class util{
-    
-    // 伴生类
-    companion object{
-        fuc strWrap(){}
-    }
 }
-</code></pre><p><strong>companion object</strong> 关键字会在util类中创建一个伴生类, strWrap()就是这个伴生类的实例方法, Kotlin会保证Util中只有一个伴生类. 所以可以类名.函数()调用</p>
-<p>以上都是真正意义上的静态方法, 只是模拟了静态方法的调用方式, 如果必须要实现. Kotlin两种方式: <strong>注解</strong>和<strong>顶层方法</strong></p>
-<h4 id="注解实现">注解实现</h4>
-<p>当我们给单例类或者<strong>companion object</strong>中的方法加上了**@JvmStatic**注解, 那么Kotlin就会将这些方法编译成静态方法.</p>
-<pre tabindex="0"><code>class util{
-    companion object{
-        @JvmStatic
-        fuc strWrap(){}
-    }
-}
-</code></pre><h4 id="顶层方法实现">顶层方法实现</h4>
-<p>顶层方法是指没有定义在任何类中的方法. Kotlin会将所有的顶层方法全部编译成静态方法.</p>
-<p>创建一个<strong>File</strong>类型的Kotlin文件.  声明函数. 然后再任何Kotlin中直接函数名调用.
-但是如果在Java中调用, 会找不到, 因为Java中没有顶层函数的概念, 所有的方法都必须在类中. 在我们创建<strong>名字.kt</strong>时, Kotlin会自动创建一个<strong>名字kt</strong>的Java类. 刚才声明的方式就在其中, 所有就可以通过<strong>名字Kt.函数()</strong> 来调用</p>
+</code></pre><ul>
+<li>getValue(): 第一个参数声明该Delegate类可以在什么类中使用, 这里的写法表明只能在MyClass中使用. 第二个参数时Kotlin的一个属性操作类, 可用于获取各种属性相关的值. &lt;*&gt;表示你不知道或者不关心泛型的具体类型</li>
+<li>setValue(): 前两个与前面都相似, 最后一个参数表示具体要赋值给委托属性的值, 这个参数的类型必须和getValue()返回值保持一致.</li>
+</ul>
+<p>Kotlin中的懒加载<strong>by lazy</strong>就是利用了委托</p>
+<h3 id="infix函数">infix函数</h3>
+<p>类似<em>A to B</em> 这种构建键值对的语法. to并非是关键字, 而是Kotlin实现的一个语法糖.</p>
+<p>infix函数主要是把编程语言函数的调用语法调整了一下. 例如<strong>A to B</strong>等价于<strong>A.to(B)</strong>.</p>
+<p>例如: 包装<strong>String#startsWith()</strong></p>
+<p><code>infix fun String.beginsWith(prefix: String) = startsWith(prefix)</code></p>
+<p>给String类添加一个扩展函数, 判断字符串是否以参数字符串开头. 使用infix后就可以如下调用:</p>
+<p><code>val bol = &quot;Hello World&quot; beginsWith &quot;Hello&quot;</code></p>
+<p><strong>infix</strong> 有两个限制:</p>
+<ol>
+<li><strong>infix</strong> 函数不能定义成顶层函数, 它必须是某个类的成员函数, 可以使用扩展函数的方式将它定义到某个类当中</li>
+<li><strong>infix</strong> 函数必须接收且只能接收一个参数, 至于参数类型是没有限制的.</li>
+</ol>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-02-15</span>
+                <span>更新于 2022-03-02</span>
             </div>
             <div class="post-info-license"><span><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法" data-via="xxxx" data-hashtags="kotlin"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-hashtag="kotlin"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/" data-title="Kotlin基础 标准函数和静态方法"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" data-title="Kotlin基础 泛型,类委托,infix" data-via="xxxx" data-hashtags="kotlin"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" data-hashtag="kotlin"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" data-title="Kotlin基础 泛型,类委托,infix" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" data-title="Kotlin基础 泛型,类委托,infix"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" data-title="Kotlin基础 泛型,类委托,infix" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" data-title="Kotlin基础 泛型,类委托,infix" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" data-title="Kotlin基础 泛型,类委托,infix" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" data-title="Kotlin基础 泛型,类委托,infix"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -215,8 +228,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/" class="prev" rel="prev" title="Kotlin基础-语法"><i class="fas fa-angle-left fa-fw"></i>Kotlin基础-语法</a>
-            <a href="/posts/kotlin%E5%9F%BA%E7%A1%80-%E5%AF%86%E5%B0%81%E7%B1%BB%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" class="next" rel="next" title="Kotlin基础 密封类,扩展函数,运算符重载">Kotlin基础 密封类,扩展函数,运算符重载<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" class="prev" rel="prev" title="Kotlin基础 高阶函数和内联函数"><i class="fas fa-angle-left fa-fw"></i>Kotlin基础 高阶函数和内联函数</a></div>
 </div>
 <div id="comments"><div id="valine" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.

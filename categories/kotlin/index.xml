@@ -4,7 +4,28 @@
         <link>http://suzeyu.com/categories/kotlin/</link>
         <description>kotlin - 分类 - Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Tue, 15 Feb 2022 22:13:55 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/categories/kotlin/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Wed, 02 Mar 2022 17:45:20 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/categories/kotlin/" rel="self" type="application/rss+xml" /><item>
+    <title>Kotlin基础 泛型,类委托,infix</title>
+    <link>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/</link>
+    <pubDate>Wed, 02 Mar 2022 17:45:20 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/</guid>
+    <description><![CDATA[泛型 Kotlin中的泛型和Java中的泛型有同有异. 泛型主要有两种定义方式: 定义泛型类 定义泛型方法 例如: // 定义泛型类 class MyClass&lt;T&gt;{ fun method(param: T):T{ return param } } // 定义]]></description>
+</item><item>
+    <title>Kotlin基础 高阶函数和内联函数</title>
+    <link>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/</link>
+    <pubDate>Wed, 02 Mar 2022 17:43:54 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/</guid>
+    <description><![CDATA[高阶函数 一般函数接收的参数有Lambda表达式就可以称为具有函数式编程风格的API, 如果想要定义自己的函数式API, 就需要借助高阶函数. 定义]]></description>
+</item><item>
+    <title>Kotlin基础 密封类,扩展函数,运算符重载</title>
+    <link>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E5%AF%86%E5%B0%81%E7%B1%BB%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/</link>
+    <pubDate>Wed, 02 Mar 2022 17:42:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E5%AF%86%E5%B0%81%E7%B1%BB%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/</guid>
+    <description><![CDATA[延迟初始化 由于Kotlin中严格判空机制. 对于一些全局变量声明为 ? 可空类型, 先赋值null. 然后再合适的时机再进行创建赋值, 这个时候又需要判]]></description>
+</item><item>
     <title>Kotlin基础 标准函数和静态方法</title>
     <link>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/</link>
     <pubDate>Tue, 15 Feb 2022 22:13:55 &#43;0800</pubDate>
