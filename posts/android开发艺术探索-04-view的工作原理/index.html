@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>android开发艺术探索-笔记04-view的工作原理 - Blog</title><meta name="Description" content=""><meta property="og:title" content="android开发艺术探索-笔记04-view的工作原理" />
+        <title>《Android 开发艺术探索》 04-view的工作原理 - Blog</title><meta name="Description" content=""><meta property="og:title" content="《Android 开发艺术探索》 04-view的工作原理" />
 <meta property="og:description" content="拨开炫酷的外表, 看看衣服里面的View是怎样工作的 blog相关代码 ViewRoot和DecorView 这是在View三大流程之前(measu" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" /><meta property="article:section" content="posts" />
@@ -13,7 +13,7 @@
 <meta property="article:modified_time" content="2016-08-10T09:23:22+00:00" /><meta property="og:site_name" content="szySky Blog" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="android开发艺术探索-笔记04-view的工作原理"/>
+<meta name="twitter:title" content="《Android 开发艺术探索》 04-view的工作原理"/>
 <meta name="twitter:description" content="拨开炫酷的外表, 看看衣服里面的View是怎样工作的 blog相关代码 ViewRoot和DecorView 这是在View三大流程之前(measu"/>
 <meta name="application-name" content="Blog">
 <meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -22,7 +22,7 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "android开发艺术探索-笔记04-view的工作原理",
+        "headline": "《Android 开发艺术探索》 04-view的工作原理",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
@@ -102,10 +102,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">android开发艺术探索-笔记04-view的工作原理</h1><h2 class="single-subtitle">抄书系列</h2><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Android 开发艺术探索》 04-view的工作原理</h1><h2 class="single-subtitle">抄书系列</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-08-10">2016-08-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 8797 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 18 分钟&nbsp;<span id="/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="leancloud_visitors" data-flag-title="android开发艺术探索-笔记04-view的工作原理">
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 18 分钟&nbsp;<span id="/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="leancloud_visitors" data-flag-title="《Android 开发艺术探索》 04-view的工作原理">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
@@ -571,7 +571,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="android开发艺术探索-笔记04-view的工作原理" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="android开发艺术探索-笔记04-view的工作原理" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="android开发艺术探索-笔记04-view的工作原理"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="android开发艺术探索-笔记04-view的工作原理" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="android开发艺术探索-笔记04-view的工作原理" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="android开发艺术探索-笔记04-view的工作原理" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="android开发艺术探索-笔记04-view的工作原理"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="《Android 开发艺术探索》 04-view的工作原理" data-via="xxxx" data-hashtags="android,笔记"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-hashtag="android"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="《Android 开发艺术探索》 04-view的工作原理" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="《Android 开发艺术探索》 04-view的工作原理"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="《Android 开发艺术探索》 04-view的工作原理" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="《Android 开发艺术探索》 04-view的工作原理" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="《Android 开发艺术探索》 04-view的工作原理" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.com/posts/android%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-04-view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title="《Android 开发艺术探索》 04-view的工作原理"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
