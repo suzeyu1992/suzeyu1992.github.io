@@ -4,7 +4,35 @@
         <link>http://suzeyu.com/categories/android/</link>
         <description>android - 分类 - Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Tue, 12 Jul 2016 21:56:20 &#43;0000</lastBuildDate><atom:link href="http://suzeyu.com/categories/android/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/categories/android/" rel="self" type="application/rss+xml" /><item>
+    <title>Jenkins部署Android篇4之Pipeline流水线</title>
+    <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%874%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF/</link>
+    <pubDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%874%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF/</guid>
+    <description><![CDATA[&hellip;]]></description>
+</item><item>
+    <title>Jenkins部署Android篇3之构建完整Android自动化流程</title>
+    <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%873%E4%B9%8B%E6%9E%84%E5%BB%BA%E5%AE%8C%E6%95%B4android%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%81%E7%A8%8B/</link>
+    <pubDate>Sun, 13 Mar 2022 21:24:29 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%873%E4%B9%8B%E6%9E%84%E5%BB%BA%E5%AE%8C%E6%95%B4android%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%81%E7%A8%8B/</guid>
+    <description><![CDATA[前面的章节完成了环境的搭建, 并且利用WebHook监听Github的分支变化. 接下来针对构建过程和结果的完善. 增加构建类型选项 之前构建命令a]]></description>
+</item><item>
+    <title>Jenkins部署Android篇2之Jenkins使用Github的Webhooks</title>
+    <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%872%E4%B9%8Bjenkins%E4%BD%BF%E7%94%A8github%E7%9A%84webhooks/</link>
+    <pubDate>Sat, 12 Mar 2022 15:20:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%872%E4%B9%8Bjenkins%E4%BD%BF%E7%94%A8github%E7%9A%84webhooks/</guid>
+    <description><![CDATA[上一节对Android项目简单的搭建了jenkins环境. 实现了手动拉取仓库代码进行编译, 这一节就是利用WebHook(钩子) 实现当关注的分]]></description>
+</item><item>
+    <title>Jenkins部署Android篇1之Mac安装Jenkins</title>
+    <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%871%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/</link>
+    <pubDate>Fri, 11 Mar 2022 21:12:10 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%871%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/</guid>
+    <description><![CDATA[安装环境 操作系统: macOS Monterey 12.1 Git版本: JDK版本: Gradle版本: SDK版本 开始安装 1.brew安装jenkins brew install jenkins-lts 2.运行jenkin]]></description>
+</item><item>
     <title>mac系统android编译源码</title>
     <link>http://suzeyu.com/posts/mac%E7%B3%BB%E7%BB%9Fandroid%E7%BC%96%E8%AF%91%E6%BA%90%E7%A0%81/</link>
     <pubDate>Tue, 12 Jul 2016 21:56:20 &#43;0000</pubDate>
@@ -46,12 +74,5 @@
     <author>作者</author>
     <guid>http://suzeyu.com/posts/5.0%E7%89%B9%E6%80%A7verctor2svg/</guid>
     <description><![CDATA[<p>你不知道svg? 那你知道矢量图? 也不知道!? 位图呢? &hellip;  快来看一看吧</p>]]></description>
-</item><item>
-    <title>安卓录制视频并转换为gif</title>
-    <link>http://suzeyu.com/posts/%E8%A7%86%E9%A2%91%E8%BD%AC%E6%8D%A2%E4%B8%BAgif/</link>
-    <pubDate>Thu, 19 May 2016 15:05:29 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/posts/%E8%A7%86%E9%A2%91%E8%BD%AC%E6%8D%A2%E4%B8%BAgif/</guid>
-    <description><![CDATA[<p>本方法适用于mac, 利用ffmpeg实现转换</p>]]></description>
 </item></channel>
 </rss>
