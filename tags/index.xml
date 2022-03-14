@@ -4,12 +4,19 @@
         <link>http://suzeyu.com/tags/</link>
         <description>Tags - 标签 - Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Sun, 13 Mar 2022 21:24:29 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/tags/" rel="self" type="application/rss+xml" /><item>
     <title>android</title>
     <link>http://suzeyu.com/tags/android/</link>
-    <pubDate>Sun, 13 Mar 2022 21:24:29 &#43;0800</pubDate>
+    <pubDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://suzeyu.com/tags/android/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>流水线</title>
+    <link>http://suzeyu.com/tags/%E6%B5%81%E6%B0%B4%E7%BA%BF/</link>
+    <pubDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/tags/%E6%B5%81%E6%B0%B4%E7%BA%BF/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>自动化</title>
@@ -66,13 +73,6 @@
     <pubDate>Wed, 14 Dec 2016 02:30:02 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://suzeyu.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89view/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>设计模式</title>
-    <link>http://suzeyu.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
-    <pubDate>Mon, 28 Nov 2016 21:56:47 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

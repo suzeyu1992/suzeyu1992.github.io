@@ -4,9 +4,16 @@
         <link>http://suzeyu.com/</link>
         <description>Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Sun, 13 Mar 2022 21:24:29 &#43;0800</lastBuildDate>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</lastBuildDate>
             <atom:link href="http://suzeyu.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Jenkins部署Android篇4之Pipeline流水线</title>
+    <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%874%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF/</link>
+    <pubDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%874%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF/</guid>
+    <description><![CDATA[&hellip;]]></description>
+</item><item>
     <title>Jenkins部署Android篇3之构建完整Android自动化流程</title>
     <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%873%E4%B9%8B%E6%9E%84%E5%BB%BA%E5%AE%8C%E6%95%B4android%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%81%E7%A8%8B/</link>
     <pubDate>Sun, 13 Mar 2022 21:24:29 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>http://suzeyu.com/posts/android%E9%80%82%E9%85%8D-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/</guid>
     <description><![CDATA[文件操作 Android 10 (Q-29) Scoped Storage 分区存储 限制了应用在外部存储可以肆意创建的能力. 改善公共目录的简洁干净. 文件位置 所需权限 访问方法 卸载时是否移除文件 应用目录]]></description>
-</item><item>
-    <title>黑苹果 华硕M12E USB定制</title>
-    <link>http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C-%E5%8D%8E%E7%A1%95m12e-usb%E5%AE%9A%E5%88%B6/</link>
-    <pubDate>Sat, 08 May 2021 21:51:34 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C-%E5%8D%8E%E7%A1%95m12e-usb%E5%AE%9A%E5%88%B6/</guid>
-    <description><![CDATA[定制原因: 黑苹果升级系统 -&gt; BigSur 11.3.1 背部USB部分失效. 使用环境 主板 华硕 M12E 系统版本 macOS Big Sur 11.3.1 (20E241) 必要工具 OpenCore Configurator(下文简称OCC) Hackintool]]></description>
 </item></channel>
 </rss>

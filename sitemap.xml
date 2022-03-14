@@ -2,13 +2,16 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://suzeyu.com/tags/android/</loc><lastmod>2022-03-13T21:24:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/categories/android/</loc><lastmod>2022-03-13T21:24:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/</loc><lastmod>2022-03-13T21:24:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/categories/</loc><lastmod>2022-03-13T21:24:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/tags/android/</loc><lastmod>2022-03-14T22:12:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/categories/android/</loc><lastmod>2022-03-14T22:12:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/</loc><lastmod>2022-03-14T22:12:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/categories/</loc><lastmod>2022-03-14T22:12:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%874%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF/</loc><lastmod>2022-03-14T22:12:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/posts/</loc><lastmod>2022-03-14T22:12:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/tags/</loc><lastmod>2022-03-14T22:12:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/tags/%E6%B5%81%E6%B0%B4%E7%BA%BF/</loc><lastmod>2022-03-14T22:12:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/categories/%E6%B5%81%E6%B0%B4%E7%BA%BF/</loc><lastmod>2022-03-14T22:12:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%873%E4%B9%8B%E6%9E%84%E5%BB%BA%E5%AE%8C%E6%95%B4android%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%81%E7%A8%8B/</loc><lastmod>2022-03-13T21:24:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/posts/</loc><lastmod>2022-03-13T21:24:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/tags/</loc><lastmod>2022-03-13T21:24:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://suzeyu.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</loc><lastmod>2022-03-13T21:24:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://suzeyu.com/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/</loc><lastmod>2022-03-13T21:24:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%872%E4%B9%8Bjenkins%E4%BD%BF%E7%94%A8github%E7%9A%84webhooks/</loc><lastmod>2022-03-12T15:20:21&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
