@@ -4,9 +4,37 @@
         <link>http://suzeyu.com/</link>
         <description>Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Wed, 02 Mar 2022 17:45:20 &#43;0800</lastBuildDate>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</lastBuildDate>
             <atom:link href="http://suzeyu.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Jenkins部署Android篇4之Pipeline流水线</title>
+    <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%874%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF/</link>
+    <pubDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%874%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF/</guid>
+    <description><![CDATA[&hellip;]]></description>
+</item><item>
+    <title>Jenkins部署Android篇3之构建完整Android自动化流程</title>
+    <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%873%E4%B9%8B%E6%9E%84%E5%BB%BA%E5%AE%8C%E6%95%B4android%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%81%E7%A8%8B/</link>
+    <pubDate>Sun, 13 Mar 2022 21:24:29 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%873%E4%B9%8B%E6%9E%84%E5%BB%BA%E5%AE%8C%E6%95%B4android%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%81%E7%A8%8B/</guid>
+    <description><![CDATA[前面的章节完成了环境的搭建, 并且利用WebHook监听Github的分支变化. 接下来针对构建过程和结果的完善. 增加构建类型选项 之前构建命令a]]></description>
+</item><item>
+    <title>Jenkins部署Android篇2之Jenkins使用Github的Webhooks</title>
+    <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%872%E4%B9%8Bjenkins%E4%BD%BF%E7%94%A8github%E7%9A%84webhooks/</link>
+    <pubDate>Sat, 12 Mar 2022 15:20:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%872%E4%B9%8Bjenkins%E4%BD%BF%E7%94%A8github%E7%9A%84webhooks/</guid>
+    <description><![CDATA[上一节对Android项目简单的搭建了jenkins环境. 实现了手动拉取仓库代码进行编译, 这一节就是利用WebHook(钩子) 实现当关注的分]]></description>
+</item><item>
+    <title>Jenkins部署Android篇1之Mac安装Jenkins</title>
+    <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%871%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/</link>
+    <pubDate>Fri, 11 Mar 2022 21:12:10 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%871%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/</guid>
+    <description><![CDATA[安装环境 操作系统: macOS Monterey 12.1 Git版本: JDK版本: Gradle版本: SDK版本 开始安装 1.brew安装jenkins brew install jenkins-lts 2.运行jenkin]]></description>
+</item><item>
     <title>Kotlin基础 泛型,类委托,infix</title>
     <link>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/</link>
     <pubDate>Wed, 02 Mar 2022 17:45:20 &#43;0800</pubDate>
@@ -48,33 +76,5 @@
     <author>作者</author>
     <guid>http://suzeyu.com/posts/android%E9%80%82%E9%85%8D-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/</guid>
     <description><![CDATA[文件操作 Android 10 (Q-29) Scoped Storage 分区存储 限制了应用在外部存储可以肆意创建的能力. 改善公共目录的简洁干净. 文件位置 所需权限 访问方法 卸载时是否移除文件 应用目录]]></description>
-</item><item>
-    <title>黑苹果 华硕M12E USB定制</title>
-    <link>http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C-%E5%8D%8E%E7%A1%95m12e-usb%E5%AE%9A%E5%88%B6/</link>
-    <pubDate>Sat, 08 May 2021 21:51:34 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C-%E5%8D%8E%E7%A1%95m12e-usb%E5%AE%9A%E5%88%B6/</guid>
-    <description><![CDATA[定制原因: 黑苹果升级系统 -&gt; BigSur 11.3.1 背部USB部分失效. 使用环境 主板 华硕 M12E 系统版本 macOS Big Sur 11.3.1 (20E241) 必要工具 OpenCore Configurator(下文简称OCC) Hackintool]]></description>
-</item><item>
-    <title>Android之蓝牙4.0BLE开发资料整理</title>
-    <link>http://suzeyu.com/posts/android%E4%B9%8Bble%E5%BC%80%E5%8F%91%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/</link>
-    <pubDate>Tue, 14 Feb 2017 20:43:53 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/posts/android%E4%B9%8Bble%E5%BC%80%E5%8F%91%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/</guid>
-    <description><![CDATA[使用 官方ble使用文档中文 官方ble使用文档英文 基于android 5.x系统新api的ble连接 问题 BluetoothGatt status 133的解决方案 深入 android的]]></description>
-</item><item>
-    <title>Android系统的启动流程</title>
-    <link>http://suzeyu.com/posts/android%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</link>
-    <pubDate>Thu, 09 Feb 2017 19:30:09 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/posts/android%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</guid>
-    <description><![CDATA[第一个系统进程init Android设备的启动需要经过Boot Loader, Linux Kernel和Android系统服务三个核心阶段. 默认情况都有其对应的启动]]></description>
-</item><item>
-    <title>面试之Binder的认知</title>
-    <link>http://suzeyu.com/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/</link>
-    <pubDate>Wed, 08 Feb 2017 17:04:50 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/posts/%E9%9D%A2%E8%AF%95%E4%B9%8Bbinder%E7%9A%84%E8%AE%A4%E7%9F%A5/</guid>
-    <description><![CDATA[说一说你对Binder的理解&hellip; Binder为何存在 在日常代码编写中. 我们总是会理所应当的对函数进行调用, 对变量进行访问. 之所以]]></description>
 </item></channel>
 </rss>
