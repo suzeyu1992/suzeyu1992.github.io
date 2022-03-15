@@ -12,28 +12,28 @@
     <pubDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E5%9B%9B%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF/</guid>
-    <description><![CDATA[]]></description>
+    <description><![CDATA[Jenkins部署Android篇-1.Mac安装Jenkins Jenkins部署Android篇-2.Jenkins使用Github的We]]></description>
 </item><item>
     <title>Jenkins部署Android篇3之构建完整Android自动化流程</title>
     <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%89%E4%B9%8B%E6%9E%84%E5%BB%BA%E5%AE%8C%E6%95%B4android%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%81%E7%A8%8B/</link>
     <pubDate>Sun, 13 Mar 2022 21:24:29 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%89%E4%B9%8B%E6%9E%84%E5%BB%BA%E5%AE%8C%E6%95%B4android%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%81%E7%A8%8B/</guid>
-    <description><![CDATA[前面的章节完成了环境的搭建, 并且利用WebHook监听Github的分支变化. 接下来针对构建过程和结果的完善. 增加构建类型选项 之前构建命令a]]></description>
+    <description><![CDATA[Jenkins部署Android篇-1.Mac安装Jenkins Jenkins部署Android篇-2.Jenkins使用Github的We]]></description>
 </item><item>
     <title>Jenkins部署Android篇2之Jenkins使用Github的Webhooks</title>
     <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%BA%8C%E4%B9%8Bjenkins%E4%BD%BF%E7%94%A8github%E7%9A%84webhooks/</link>
     <pubDate>Sat, 12 Mar 2022 15:20:21 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%BA%8C%E4%B9%8Bjenkins%E4%BD%BF%E7%94%A8github%E7%9A%84webhooks/</guid>
-    <description><![CDATA[上一节对Android项目简单的搭建了jenkins环境. 实现了手动拉取仓库代码进行编译, 这一节就是利用WebHook(钩子) 实现当关注的分]]></description>
+    <description><![CDATA[Jenkins部署Android篇-1.Mac安装Jenkins Jenkins部署Android篇-2.Jenkins使用Github的We]]></description>
 </item><item>
     <title>Jenkins部署Android篇1之Mac安装Jenkins</title>
     <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/</link>
     <pubDate>Fri, 11 Mar 2022 21:12:10 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/</guid>
-    <description><![CDATA[安装环境 操作系统: macOS Monterey 12.1 Git版本: JDK版本: Gradle版本: SDK版本 开始安装 1.brew安装jenkins brew install jenkins-lts 2.运行jenkin]]></description>
+    <description><![CDATA[Jenkins部署Android篇-1.Mac安装Jenkins Jenkins部署Android篇-2.Jenkins使用Github的We]]></description>
 </item><item>
     <title>Kotlin基础 泛型,类委托,infix</title>
     <link>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/</link>

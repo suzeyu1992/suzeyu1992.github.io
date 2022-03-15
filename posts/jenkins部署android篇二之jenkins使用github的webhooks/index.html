@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Jenkins部署Android篇2之Jenkins使用Github的Webhooks - Blog</title><meta name="Description" content=""><meta property="og:title" content="Jenkins部署Android篇2之Jenkins使用Github的Webhooks" />
-<meta property="og:description" content="上一节对Android项目简单的搭建了jenkins环境. 实现了手动拉取仓库代码进行编译, 这一节就是利用WebHook(钩子) 实现当关注的分" />
+<meta property="og:description" content="Jenkins部署Android篇-1.Mac安装Jenkins Jenkins部署Android篇-2.Jenkins使用Github的We" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%BA%8C%E4%B9%8Bjenkins%E4%BD%BF%E7%94%A8github%E7%9A%84webhooks/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-12T15:20:21+08:00" />
@@ -14,7 +14,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Jenkins部署Android篇2之Jenkins使用Github的Webhooks"/>
-<meta name="twitter:description" content="上一节对Android项目简单的搭建了jenkins环境. 实现了手动拉取仓库代码进行编译, 这一节就是利用WebHook(钩子) 实现当关注的分"/>
+<meta name="twitter:description" content="Jenkins部署Android篇-1.Mac安装Jenkins Jenkins部署Android篇-2.Jenkins使用Github的We"/>
 <meta name="application-name" content="Blog">
 <meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/suzeyu.com\/posts\/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%BA%8C%E4%B9%8Bjenkins%E4%BD%BF%E7%94%A8github%E7%9A%84webhooks\/"
-        },"genre": "posts","keywords": "自动化, android","wordcount":  1019 ,
+        },"genre": "posts","keywords": "自动化, android","wordcount":  1162 ,
         "url": "http:\/\/suzeyu.com\/posts\/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%BA%8C%E4%B9%8Bjenkins%E4%BD%BF%E7%94%A8github%E7%9A%84webhooks\/","datePublished": "2022-03-12T15:20:21+08:00","dateModified": "2022-03-12T15:20:21+08:00","publisher": {
             "@type": "Organization",
             "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
@@ -106,7 +106,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Jenkins部署Android篇2之Jenkins使用Github的Webhooks</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/"><i class="far fa-folder fa-fw"></i>自动化</a>&nbsp;<a href="/categories/android/"><i class="far fa-folder fa-fw"></i>android</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-12">2022-03-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1019 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-12">2022-03-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1162 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%BA%8C%E4%B9%8Bjenkins%E4%BD%BF%E7%94%A8github%E7%9A%84webhooks/" class="leancloud_visitors" data-flag-title="Jenkins部署Android篇2之Jenkins使用Github的Webhooks">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -125,7 +125,21 @@
     <li><a href="#6测试">6.测试</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>上一节对Android项目简单的搭建了<strong>jenkins</strong>环境. 实现了手动拉取仓库代码进行编译, 这一节就是利用<strong>WebHook(钩子)</strong> 实现当关注的分支有了新的提交自动拉取代码.  真的向<strong>自动化部署</strong>实现.</p>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855"
+        data-srcset="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999%2c10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855, https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999%2c10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855 1.5x, https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999%2c10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855 2x"
+        data-sizes="auto"
+        alt="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855"
+        title="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855" /></p>
+<ul>
+<li><a href="https://suzeyu.com/posts/jenkins%e9%83%a8%e7%bd%b2android%e7%af%87%e5%9b%9b%e4%b9%8bpipeline%e6%b5%81%e6%b0%b4%e7%ba%bf/" target="_blank" rel="noopener noreffer">Jenkins部署Android篇-1.Mac安装Jenkins</a></li>
+<li><a href="https://suzeyu.com/posts/jenkins%e9%83%a8%e7%bd%b2android%e7%af%87%e4%b8%89%e4%b9%8b%e6%9e%84%e5%bb%ba%e5%ae%8c%e6%95%b4android%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%81%e7%a8%8b/" target="_blank" rel="noopener noreffer">Jenkins部署Android篇-2.Jenkins使用Github的Webhooks</a></li>
+<li><a href="https://suzeyu.com/posts/jenkins%e9%83%a8%e7%bd%b2android%e7%af%87%e4%ba%8c%e4%b9%8bjenkins%e4%bd%bf%e7%94%a8github%e7%9a%84webhooks/" target="_blank" rel="noopener noreffer">Jenkins部署Android篇-3.构建完整Android自动化流程</a></li>
+<li><a href="https://suzeyu.com/posts/jenkins%e9%83%a8%e7%bd%b2android%e7%af%87%e4%b8%80%e4%b9%8bmac%e5%ae%89%e8%a3%85jenkins/" target="_blank" rel="noopener noreffer">Jenkins部署Android篇-4.Pipeline流水线</a></li>
+</ul>
+<p>上一节对Android项目简单的搭建了<strong>jenkins</strong>环境. 实现了手动拉取仓库代码进行编译, 这一节就是利用<strong>WebHook(钩子)</strong> 实现当关注的分支有了新的提交自动拉取代码.  真的向<strong>自动化部署</strong>实现.</p>
 <h2 id="1确认端口是否正确">1.确认端口是否正确</h2>
 <p><img
         class="lazyload"

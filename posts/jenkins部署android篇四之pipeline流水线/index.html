@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Jenkins部署Android篇4之Pipeline流水线 - Blog</title><meta name="Description" content=""><meta property="og:title" content="Jenkins部署Android篇4之Pipeline流水线" />
-<meta property="og:description" content="" />
+<meta property="og:description" content="Jenkins部署Android篇-1.Mac安装Jenkins Jenkins部署Android篇-2.Jenkins使用Github的We" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E5%9B%9B%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-14T22:12:45+08:00" />
@@ -14,7 +14,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Jenkins部署Android篇4之Pipeline流水线"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:description" content="Jenkins部署Android篇-1.Mac安装Jenkins Jenkins部署Android篇-2.Jenkins使用Github的We"/>
 <meta name="application-name" content="Blog">
 <meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/suzeyu.com\/posts\/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E5%9B%9B%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF\/"
-        },"genre": "posts","keywords": "流水线, android","wordcount":  0 ,
+        },"genre": "posts","keywords": "流水线, android","wordcount":  1927 ,
         "url": "http:\/\/suzeyu.com\/posts\/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E5%9B%9B%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF\/","datePublished": "2022-03-14T22:12:45+08:00","dateModified": "2022-03-14T22:12:45+08:00","publisher": {
             "@type": "Organization",
             "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Jenkins部署Android篇4之Pipeline流水线</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%B5%81%E6%B0%B4%E7%BA%BF/"><i class="far fa-folder fa-fw"></i>流水线</a>&nbsp;<a href="/categories/android/"><i class="far fa-folder fa-fw"></i>android</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-14">2022-03-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 0 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 0 分钟&nbsp;<span id="/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E5%9B%9B%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF/" class="leancloud_visitors" data-flag-title="Jenkins部署Android篇4之Pipeline流水线">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-14">2022-03-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1927 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E5%9B%9B%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF/" class="leancloud_visitors" data-flag-title="Jenkins部署Android篇4之Pipeline流水线">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
@@ -115,8 +115,210 @@
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-            </div><div class="content" id="content"></div><div class="post-footer" id="post-footer">
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#为什么用流水线">为什么用流水线</a></li>
+    <li><a href="#整理docker安装jenkin-android所需要的大体步骤">整理Docker安装Jenkin Android所需要的大体步骤</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855"
+        data-srcset="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999%2c10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855, https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999%2c10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855 1.5x, https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999%2c10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855 2x"
+        data-sizes="auto"
+        alt="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855"
+        title="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855" /></p>
+<ul>
+<li><a href="https://suzeyu.com/posts/jenkins%e9%83%a8%e7%bd%b2android%e7%af%87%e5%9b%9b%e4%b9%8bpipeline%e6%b5%81%e6%b0%b4%e7%ba%bf/" target="_blank" rel="noopener noreffer">Jenkins部署Android篇-1.Mac安装Jenkins</a></li>
+<li><a href="https://suzeyu.com/posts/jenkins%e9%83%a8%e7%bd%b2android%e7%af%87%e4%b8%89%e4%b9%8b%e6%9e%84%e5%bb%ba%e5%ae%8c%e6%95%b4android%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%81%e7%a8%8b/" target="_blank" rel="noopener noreffer">Jenkins部署Android篇-2.Jenkins使用Github的Webhooks</a></li>
+<li><a href="https://suzeyu.com/posts/jenkins%e9%83%a8%e7%bd%b2android%e7%af%87%e4%ba%8c%e4%b9%8bjenkins%e4%bd%bf%e7%94%a8github%e7%9a%84webhooks/" target="_blank" rel="noopener noreffer">Jenkins部署Android篇-3.构建完整Android自动化流程</a></li>
+<li><a href="https://suzeyu.com/posts/jenkins%e9%83%a8%e7%bd%b2android%e7%af%87%e4%b8%80%e4%b9%8bmac%e5%ae%89%e8%a3%85jenkins/" target="_blank" rel="noopener noreffer">Jenkins部署Android篇-4.Pipeline流水线</a></li>
+</ul>
+<h2 id="为什么用流水线">为什么用流水线</h2>
+<p>前面三篇基于<strong>自由风格</strong>的类型Job创建的构建任务.</p>
+<p>虽然已经可以实现了从构建, 打包, 上传, 通知. 但是这个步骤却只针对某一个分支(或者多个分支). 也就是无法<strong>根据不同分支</strong>处理不同<strong>逻辑任务</strong>.  只能针对分支再创建一个Job任务</p>
+<p>而<strong>流水线(Pipeline)</strong> 让之前页面编辑构建流程, 变成了编写代码去构建. 通过进行一个个<strong>任务块</strong>编写组成一个大的构建流程. 并且查看构建过程,结果更加直观.</p>
+<p>例如下面图片就是, 流水线的构建结果展示:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="1.png"
+        data-srcset="1.png, 1.png 1.5x, 1.png 2x"
+        data-sizes="auto"
+        alt="1.png"
+        title="1.png" /></p>
+<p>每个步骤清晰可见.</p>
+<p><strong>流水线</strong> 有两种方式实现方式:</p>
+<ol>
+<li><strong>声明式流水线:</strong> 通过在任务界面的添加代码</li>
+<li><strong>SCM:</strong> 通过仓库根目录的<strong>Jenkinsfile</strong>文件来执行任务.</li>
+</ol>
+<p>稍微整理下, 要做什么样的自动化.</p>
+<ul>
+<li>
+<p>master分支: 构建项目-&gt;打包(Release)-&gt;多渠道-&gt;上传蒲公英-&gt;上传FTP服务器归档-&gt;邮件通知(发版)</p>
+</li>
+<li>
+<p>sandbox分支: 构建项目-&gt;打包(Sandbox)-&gt;上传蒲公英-&gt;邮件通知(通知测试人员)</p>
+</li>
+<li>
+<p>dev分支: 构建项目-&gt;打包(Debug)-&gt;上传蒲公英-&gt;邮件通知(通知测试,产品,UI人员)</p>
+</li>
+<li>
+<p>其他分支: 不处理</p>
+</li>
+<li>
+<p>master分支: 主要保留线上版本代码</p>
+</li>
+<li>
+<p>sandbox分支: 进行预上线环境测试和发布包区别就是log可以输出, 其余一样, (主要检测线上服务器是否有异常, 混淆是否存在问题, 只需产品测试)</p>
+</li>
+<li>
+<p>dev分支: 开发环境测试, 提测后需要UI,产品,测试多方审查</p>
+</li>
+<li>
+<p>其他分支: 开发基于dev检出创建其他分支开发迭代.</p>
+</li>
+</ul>
+<p>以上步骤因公司而异,</p>
+<p>那么流程步骤确定了, 就选择实现方式, 这里选择<strong>SCM</strong>也就是每个分支下的<strong>代码仓库</strong>都存在一个<strong>Jenkinsfile</strong>文件来声明自己构建逻辑.</p>
+<p>但这样有个问题, 运维如果需要进行构建的修改, 那么可能也需要频繁的操作开发人员代码仓库, 并且有些步骤任务其实是通用的, 每个文件都声明一个方法, 不利于后期更改. 所以这里选择<strong>扩展共享库</strong></p>
+<p>扩展共享库: 就是把所有的构建任务细节提取到另一仓库, 并封装成一个个任务方法, 而代码仓库只要选择需要的任务进行组序执行即可.</p>
+<p>大体流程: 如下</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2.png"
+        data-srcset="2.png, 2.png 1.5x, 2.png 2x"
+        data-sizes="auto"
+        alt="2.png"
+        title="2.png" /></p>
+<p>没了&hellip;  没啥具体实现</p>
+<h2 id="整理docker安装jenkin-android所需要的大体步骤">整理Docker安装Jenkin Android所需要的大体步骤</h2>
+<p>是大体步骤, 详细配置前三篇都有.</p>
+<ol>
+<li>安装<strong>Blue Ocean</strong>镜像</li>
+</ol>
+<pre tabindex="0"><code>docker run   -d 
+-p 11006:8080       // 设置外部访问接口为11006
+-p 11007:50000 
+-v /etc/localtime:/etc/localtime    // 设置时区
+-e TZ=&quot;Asia/Shanghai&quot; 
+-v /var/run/docker.sock:/var/run/docker.sock 
+-v /Users/suzeyu/Documents/workspace/docker/jenkins_mount/jenkins:/var/jenkins_home     // 挂载镜像工作目录为本地电脑的Jenkins文件夹
+-v  /Users/suzeyu/Library/Android:/usr/local/android  // 挂载Android SDK
+-v /Users/suzeyu/.gradle/wrapper/dists:/usr/local/gradle // 挂载Gradle
+--name jenkinsblue  jenkinsci/blueocean     // 设置别名并安装
+</code></pre><ol start="2">
+<li>打开Jenkins网页<a href="http://localhost:11006" target="_blank" rel="noopener noreffer">localhost:11006</a>,并重置密码,安装推荐插件, 设置账户</li>
+<li>进入到首页, 继续安装其他需要的插件. 如下</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">插件名称</th>
+<th style="text-align:center">插件功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Android Signing</td>
+<td style="text-align:center">android打包签名</td>
+</tr>
+<tr>
+<td style="text-align:center">Build Name and Description Setter</td>
+<td style="text-align:center">优化Job的任务名字</td>
+</tr>
+<tr>
+<td style="text-align:center">Build Timestamp</td>
+<td style="text-align:center">时间格式化插件</td>
+</tr>
+<tr>
+<td style="text-align:center">build user vars</td>
+<td style="text-align:center">优化Job的任务名字</td>
+</tr>
+<tr>
+<td style="text-align:center">Date Parameter</td>
+<td style="text-align:center">时间参数</td>
+</tr>
+<tr>
+<td style="text-align:center">description setter</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Email Extension</td>
+<td style="text-align:center">邮件通知</td>
+</tr>
+<tr>
+<td style="text-align:center">Generic Webhook</td>
+<td style="text-align:center">git钩子</td>
+</tr>
+<tr>
+<td style="text-align:center">Multibranch Scan Webhook Trigger</td>
+<td style="text-align:center">git钩子</td>
+</tr>
+<tr>
+<td style="text-align:center">Publish Over FTP</td>
+<td style="text-align:center">上传其他文件服务器</td>
+</tr>
+<tr>
+<td style="text-align:center">Upload to pgyer</td>
+<td style="text-align:center">蒲公英上传apk</td>
+</tr>
+</tbody>
+</table>
+<ol start="4">
+<li><strong>系统管理</strong> -&gt; <strong>全局工具配置</strong></li>
+</ol>
+<ul>
+<li><strong>JDK环境</strong> 内置的openJdk(<em>/opt/java/openjdk</em>), 本地都可以</li>
+<li><strong>Git环境</strong> 内置的(<em>/usr/bin/git</em>), 本地都可以</li>
+<li><strong>Gradle环境</strong></li>
+</ul>
+<ol start="5">
+<li><strong>系统管理</strong> -&gt; <strong>Manage Credentials(凭据)</strong></li>
+</ol>
+<p>这一步主要设置访问Git仓库的凭据, 和设置apk签名文件, 和邮箱通知的凭据</p>
+<p>需要两个Git仓库</p>
+<ul>
+<li>一个项目代码仓库</li>
+<li>一个SCM流水线构建流程仓库</li>
+</ul>
+<p>需要一个签名文件
+需要一个邮箱</p>
+<ul>
+<li><strong>Username with password</strong>类型, 创建邮箱凭据</li>
+<li><strong>Certificate</strong>类型, 创建apk签名文件凭据</li>
+<li><strong>Secret text</strong>类型, git仓库访问</li>
+<li><strong>Username with passwordt</strong>类型, git仓库访问(https方式, 也可以添加ssh使用ssh方式操作)</li>
+</ul>
+<ol start="6">
+<li><strong>系统管理</strong> &ndash;&gt; <strong>全局安全设置</strong></li>
+</ol>
+<p><strong>标记格式器</strong>选择为:<strong>Safe HTML</strong></p>
+<ol start="7">
+<li><strong>系统管理</strong> &ndash;&gt; <strong>系统配置</strong></li>
+</ol>
+<ul>
+<li>修改<strong>Jenkins URL</strong></li>
+<li>添加<strong>系统管理员邮件地址</strong></li>
+<li><strong>全局属性</strong>中的<strong>环境变量</strong>添加<strong>Android SDK</strong></li>
+<li><strong>GitHub服务器</strong>添加token的Certificate类型凭据(不使用github不需要添加)</li>
+<li><strong>Global Pipeline Libraries</strong> 添加流水线使用的共享仓库</li>
+<li><strong>Extended E-mail Notification</strong> 设置邮件通知发送者</li>
+<li><strong>Publish over FTP</strong>  设置上传文件到服务器配置</li>
+</ul>
+<ol start="8">
+<li><strong>新建流水线任务</strong></li>
+</ol>
+<p>必要的设置:</p>
+<ul>
+<li><strong>分支源:</strong> 添加代码仓库地址</li>
+<li><strong>扫描多分支流水线触发器</strong>的<strong>Scan by webhook</strong> 设置源代码仓库的钩子监听</li>
+</ul>
+<p>如果项目代码分支存在<strong>Jenkinsfile</strong>文件, 那么就会被添加进来, <strong>共享扩展库</strong>如果没问题那么就可以构建</p>
+</div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
