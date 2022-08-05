@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>AOSP - 分类 - Blog</title>
+        <link>http://suzeyu.com/categories/aosp/</link>
+        <description>AOSP - 分类 - Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Thu, 28 Jul 2022 11:11:02 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/categories/aosp/" rel="self" type="application/rss+xml" /><item>
+    <title>AOSP之Pixel4XL刷机Android12</title>
+    <link>http://suzeyu.com/posts/aosp%E4%B9%8Bpixel4xl%E5%88%B7%E6%9C%BAandroid12/</link>
+    <pubDate>Thu, 28 Jul 2022 11:11:02 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/aosp%E4%B9%8Bpixel4xl%E5%88%B7%E6%9C%BAandroid12/</guid>
+    <description><![CDATA[piexl4（flame）手机android12.1.0驱动下载： https://developers.google.cn/android/drivers#flamesq3a.220705.003.a1 (coral)https://developers.google.cn/android/drivers#coralsq3a.220705.003.a1 Piexl手机对应版本号： https://source.android.google.cn/setup/build/running#selecting-device-buildPixel Pixel 4a刷机参考： https://blog.csdn.net/lzz137/article/details/118526642 去除原生wifi感叹号：]]></description>
+</item><item>
+    <title>AOSP之Ubuntu22编译Android12源码</title>
+    <link>http://suzeyu.com/posts/aosp%E4%B9%8Bandroid12%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD%E7%BC%96%E8%AF%91/</link>
+    <pubDate>Mon, 25 Jul 2022 14:59:02 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/aosp%E4%B9%8Bandroid12%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD%E7%BC%96%E8%AF%91/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.cnx-software.com/wp-content/uploads/2021/10/Android-12-source-code-AOSP.png" referrerpolicy="no-referrer">
+            </div>1.编译准备 安装系统: Ubuntu 22.04 LTS 编译版本: Android 12.1.0 物理机配置: CPU10900K 32GB内存, 1T硬盘, 16G虚拟内存 题外话: 主力机一直都是mac, 但是mac编译真]]></description>
+</item></channel>
+</rss>

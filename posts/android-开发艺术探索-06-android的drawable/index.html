@@ -144,20 +144,20 @@
 <h2 id="drawable的分类">Drawable的分类</h2>
 <h3 id="bitmapdrawable">BitmapDrawable</h3>
 <p>表示一张图片, 在开发中直接引用原始图片也可, 下面给出在XML中描述稍微完整的声明</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
-<span class="nt">&lt;bitmap</span>
-    <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
-    <span class="na">android:src=</span><span class="s">&#34;@mipmap/ic_sample&#34;</span>
-    <span class="na">android:antialias=</span><span class="s">&#34;true&#34;</span>
-    <span class="na">android:dither=</span><span class="s">&#34;true&#34;</span>
-    <span class="na">android:filter=</span><span class="s">&#34;true&#34;</span>
-    <span class="na">android:gravity=</span><span class="s">&#34;top&#34;</span>
-    <span class="na">android:mipMap=</span><span class="s">&#34;true&#34;</span>
-    <span class="na">android:tileMode=</span><span class="s">&#34;repeat&#34;</span>
-    <span class="nt">&gt;</span>
-
-<span class="nt">&lt;/bitmap&gt;</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;bitmap</span>
+</span></span><span class="line"><span class="cl">    <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:src=</span><span class="s">&#34;@mipmap/ic_sample&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:antialias=</span><span class="s">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:dither=</span><span class="s">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:filter=</span><span class="s">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:gravity=</span><span class="s">&#34;top&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:mipMap=</span><span class="s">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:tileMode=</span><span class="s">&#34;repeat&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/bitmap&gt;</span>
+</span></span></code></pre></div><ul>
 <li>src: 图片的资源文件id(AS下可能不会自动提示<code>mipmap</code>,直接写入即可)</li>
 <li>antialias: 图片抗锯齿.属性值boolean 开启可以让图片变得平滑.</li>
 <li>dither: 抖动效果. 属性值Boolean. 当图片的像素配置和手机屏幕的像素配置不一致时,开启此选项可以让高质量的图片在低质量的屏幕上继续保持较好效果. 例如图片模式为<code>ARGB8888</code>,而设备屏幕所支持为RGB555. 开启可以让图片不会过于失真.</li>
@@ -236,35 +236,35 @@
         title="titlemode.png" /></p>
 <p><strong>NinePatchDrawable</strong></p>
 <p>表示一张.9格式的图片, .9图片可以自动的根据所需要的宽高进行相应的缩放并保证不失真. 和<code>BitmapDrawable</code>使用一样直接引入图片即可. xml方式如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
-<span class="nt">&lt;nine-patch</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
-    <span class="na">android:src=</span><span class="s">&#34;xxxx&#34;</span>
-    <span class="na">android:dither=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
-</code></pre></div><h3 id="shapedrawable">ShapeDrawable</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;nine-patch</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:src=</span><span class="s">&#34;xxxx&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:dither=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+</span></span></code></pre></div><h3 id="shapedrawable">ShapeDrawable</h3>
 <p>这是一种通过颜色来构成的图片, 它可以为纯色的图形, 也可以具有渐变的图形. 以下是一个简单使用方法</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
-<span class="nt">&lt;shape</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
-    <span class="na">android:shape=</span><span class="s">&#34;rectangle&#34;</span><span class="nt">&gt;</span>
-    <span class="c">&lt;!--圆角--&gt;</span>
-    <span class="nt">&lt;corners</span> <span class="na">android:radius=</span><span class="s">&#34;50dp&#34;</span><span class="nt">/&gt;</span>
-    
-    <span class="nt">&lt;padding</span> <span class="na">android:top=</span><span class="s">&#34;5dp&#34;</span><span class="nt">/&gt;</span>
-    
-    <span class="c">&lt;!--填充--&gt;</span>
-    <span class="nt">&lt;solid</span> <span class="na">android:color=</span><span class="s">&#34;@color/colorPrimary&#34;</span><span class="nt">/&gt;</span>
-
-    <span class="c">&lt;!--gradient 和solid 互斥属性谁放在后面谁才有效--&gt;</span>
-    <span class="c">&lt;!--渐变--&gt;</span>
-    <span class="nt">&lt;gradient</span> <span class="na">android:angle=</span><span class="s">&#34;90&#34;</span>
-        <span class="na">android:startColor=</span><span class="s">&#34;#f00&#34;</span>
-        <span class="na">android:centerColor=</span><span class="s">&#34;#0f0&#34;</span>
-        <span class="na">android:endColor=</span><span class="s">&#34;#00f&#34;</span><span class="nt">/&gt;</span>
-    
-    <span class="c">&lt;!--边框--&gt;</span>
-    <span class="nt">&lt;stroke</span> <span class="na">android:width=</span><span class="s">&#34;30dp&#34;</span>
-        <span class="na">android:color=</span><span class="s">&#34;#ff0000&#34;</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;/shape&gt;</span>
-</code></pre></div><p>来说说具体的属性都有什么</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;shape</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:shape=</span><span class="s">&#34;rectangle&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--圆角--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;corners</span> <span class="na">android:radius=</span><span class="s">&#34;50dp&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;padding</span> <span class="na">android:top=</span><span class="s">&#34;5dp&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--填充--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;solid</span> <span class="na">android:color=</span><span class="s">&#34;@color/colorPrimary&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--gradient 和solid 互斥属性谁放在后面谁才有效--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--渐变--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;gradient</span> <span class="na">android:angle=</span><span class="s">&#34;90&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:startColor=</span><span class="s">&#34;#f00&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:centerColor=</span><span class="s">&#34;#0f0&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:endColor=</span><span class="s">&#34;#00f&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--边框--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;stroke</span> <span class="na">android:width=</span><span class="s">&#34;30dp&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:color=</span><span class="s">&#34;#ff0000&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/shape&gt;</span>
+</span></span></code></pre></div><p>来说说具体的属性都有什么</p>
 <p><strong>shape:</strong></p>
 <p>表示图片的形状, 有四个选项: <code>rectangle</code>()矩形, <code>oval</code>(椭圆), <code>line</code>(横线), <code>ring</code>(圆环). <strong>默认值为矩形</strong>. 另外<code>line</code>和<code>ring</code>这两个选项必须要通过<code>&lt;stroke&gt;</code>标签来指定线的宽度和颜色等信息, 否则无法达到预期效果.<strong>当ring这个形状还需要添加几个属性</strong><code>innerRadius</code>圆环内半径, <code>thickness</code>圆环的厚度,外半径减去内半径的距离. 还有两个半分比的属性.效果一样.  <code>useLevel</code>:基本都是用false, 否则可能无法到达预期的显示效果,除非被当做LevelListDrawable.如下图可以看看几个方式的样子</p>
 <p><img
@@ -321,40 +321,40 @@
         title="Layer_list.png" /></p>
 <h3 id="statelistdrawable">StateListDrawable</h3>
 <p>StateList对应<code>&lt;selector&gt;</code>标签, 也是Drawable集合. 这个我们经常使用在开发中的按钮状态选择器.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
-<span class="nt">&lt;selector</span>
-    <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
-    <span class="na">android:constantSize=</span><span class="s">&#34;true&#34;</span>
-    <span class="na">android:dither=</span><span class="s">&#34;true&#34;</span>
-    <span class="na">android:variablePadding=</span><span class="s">&#34;false&#34;</span>
-    <span class="nt">&gt;</span>
-   <span class="c">&lt;!-- 只是列举一下
-</span><span class="c">
-</span><span class="c">   &lt;item android:state_pressed=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
-</span><span class="c">
-</span><span class="c">   &lt;item android:state_focused=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
-</span><span class="c">
-</span><span class="c">   &lt;item android:state_hovered=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
-</span><span class="c">
-</span><span class="c">   &lt;item android:state_pressed=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
-</span><span class="c">
-</span><span class="c">   &lt;item android:state_selected=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
-</span><span class="c">
-</span><span class="c">   &lt;item android:state_checkable=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
-</span><span class="c">
-</span><span class="c">   &lt;item android:state_checked=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
-</span><span class="c">
-</span><span class="c">   &lt;item android:state_enabled=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
-</span><span class="c">
-</span><span class="c">   &lt;item android:state_activated=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
-</span><span class="c">
-</span><span class="c">   &lt;item android:state_window_focused=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
-</span><span class="c">
-</span><span class="c">    --&gt;</span>
-
-
-<span class="nt">&lt;/selector&gt;</span>
-</code></pre></div><p><code>select</code>标签对应有三个属性</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;selector</span>
+</span></span><span class="line"><span class="cl">    <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:constantSize=</span><span class="s">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:dither=</span><span class="s">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:variablePadding=</span><span class="s">&#34;false&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="c">&lt;!-- 只是列举一下
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">   &lt;item android:state_pressed=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">   &lt;item android:state_focused=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">   &lt;item android:state_hovered=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">   &lt;item android:state_pressed=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">   &lt;item android:state_selected=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">   &lt;item android:state_checkable=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">   &lt;item android:state_checked=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">   &lt;item android:state_enabled=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">   &lt;item android:state_activated=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">   &lt;item android:state_window_focused=&#34;true&#34; android:drawable=&#34;xxx&#34;/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">    --&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/selector&gt;</span>
+</span></span></code></pre></div><p><code>select</code>标签对应有三个属性</p>
 <ul>
 <li>constantSize: 用于<code>StateListDrawable</code>的固有大小是否不随着其状态改变而改变的, 因为状态的改变会切换不同的item的drawable, 而不同的drawable具有不同的固有大小. <strong>如果为true</strong>那就是整个<code>StateListDrawable</code>固有大小是内部所有<code>Drawable</code>的<strong>最大</strong>固有大小的值. false会随之变化, <strong>默认为false</strong></li>
 <li>dither: 是否开启抖动效果, 默认为true</li>
@@ -395,69 +395,69 @@
 <p>默认状态的一定要放在最后一条, 因为系统是按照从上到下的顺序查找. 只要找到任何一个匹配状态的那么久结束了.</p>
 <h3 id="levellistdrawable">LevelListDrawable</h3>
 <p><code>LevelListDrawable</code>对应于<code>&lt;level-list&gt;</code>标签, 也表示一个Drawable集合, 集合中每一个Drawable都有一个等级的概念, 根据不同的等级<code>LevelListDrawable</code>会切换不同的对应的Drawable.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
-<span class="nt">&lt;level-list</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span><span class="nt">&gt;</span>
-
-    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@mipmap/ic_sample&#34;</span>
-        <span class="na">android:maxLevel=</span><span class="s">&#34;2&#34;</span>
-        <span class="na">android:minLevel=</span><span class="s">&#34;2&#34;</span><span class="nt">/&gt;</span>
-
-    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@mipmap/ic_launcher&#34;</span>
-        <span class="na">android:maxLevel=</span><span class="s">&#34;1&#34;</span>
-        <span class="na">android:minLevel=</span><span class="s">&#34;1&#34;</span>
-        <span class="nt">/&gt;</span>
-
-<span class="nt">&lt;/level-list&gt;</span>
-</code></pre></div><p>这里就相当于给每一个<code>Drawable</code>设定一个标识. <code>level-list</code>会根据这个标识去自己的item中查找. 默认等级为0, Level的取值在<code>0~10000</code>. 在给每个Item声明等级的时候尽量最大和最小等级保持一致. 让每个item都可以有一个唯一标识等级, 而避免有一些公共拥有等级的Item导致出现和我们预期的不符.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;level-list</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@mipmap/ic_sample&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:maxLevel=</span><span class="s">&#34;2&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:minLevel=</span><span class="s">&#34;2&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@mipmap/ic_launcher&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:maxLevel=</span><span class="s">&#34;1&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:minLevel=</span><span class="s">&#34;1&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/level-list&gt;</span>
+</span></span></code></pre></div><p>这里就相当于给每一个<code>Drawable</code>设定一个标识. <code>level-list</code>会根据这个标识去自己的item中查找. 默认等级为0, Level的取值在<code>0~10000</code>. 在给每个Item声明等级的时候尽量最大和最小等级保持一致. 让每个item都可以有一个唯一标识等级, 而避免有一些公共拥有等级的Item导致出现和我们预期的不符.</p>
 <p>如果作为了背景, 那么获得<code>Drawable</code>对象通过<code>getLevel()</code>, <code>setLevel()</code>来得到和设置不同的等级做到切换图片的效果. 如果是<code>ImageView</code>那么通过前景设置其等级就可以,一定别忘了把Drawable设置前景再通过这种方式实现.</p>
 <h3 id="transitiondrawable">TransitionDrawable</h3>
 <p>对应着<code>&lt;transition&gt;</code>标签, 它用于实现两个Drawable之间的淡入淡出效果.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;transition</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span><span class="nt">&gt;</span>
-
-    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@mipmap/ic_sample&#34;</span><span class="nt">/&gt;</span>
-
-    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@mipmap/ic_launcher&#34;</span><span class="nt">/&gt;</span>
-
-<span class="nt">&lt;/transition&gt;</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"> <span class="n">TransitionDrawable</span> <span class="n">drawable</span> <span class="o">=</span> <span class="o">(</span><span class="n">TransitionDrawable</span><span class="o">)</span> <span class="n">iv_main</span><span class="o">.</span><span class="na">getBackground</span><span class="o">();</span>
-<span class="n">drawable</span><span class="o">.</span><span class="na">startTransition</span><span class="o">(</span><span class="n">5000</span><span class="o">);</span>
-</code></pre></div><p>这个没什么好说的了, 很简单. 注意一下如果是给<code>ImageView</code>设置前景的话那么不要用<code>getBackground()</code>来获取了,通过<code>getDrawable()</code>来获取.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;transition</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@mipmap/ic_sample&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@mipmap/ic_launcher&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/transition&gt;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"> <span class="n">TransitionDrawable</span> <span class="n">drawable</span> <span class="o">=</span> <span class="o">(</span><span class="n">TransitionDrawable</span><span class="o">)</span> <span class="n">iv_main</span><span class="o">.</span><span class="na">getBackground</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">drawable</span><span class="o">.</span><span class="na">startTransition</span><span class="o">(</span><span class="n">5000</span><span class="o">);</span>
+</span></span></code></pre></div><p>这个没什么好说的了, 很简单. 注意一下如果是给<code>ImageView</code>设置前景的话那么不要用<code>getBackground()</code>来获取了,通过<code>getDrawable()</code>来获取.</p>
 <h3 id="insetdrawable">InsetDrawable</h3>
 <p><code>InsetDrawable</code>对应<code>&lt;inset&gt;</code>标签, 它可以将其他Drawable内嵌到自己当中, 并可以在四周留出一定的距离. 当一个View希望自己的背景比自己的实际区域小的时候, 可以使用这个来实现.(相当于给使用的View增加了margin效果) <strong>LayerDrawable也可以实现此效果</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
-<span class="nt">&lt;inset</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
-    <span class="na">android:insetBottom=</span><span class="s">&#34;20dp&#34;</span>
-    <span class="na">android:insetTop=</span><span class="s">&#34;50dp&#34;</span>
-    <span class="na">android:insetRight=</span><span class="s">&#34;20dp&#34;</span>
-    <span class="na">android:insetLeft=</span><span class="s">&#34;20dp&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;shape</span> <span class="nt">&gt;</span>
-        <span class="nt">&lt;solid</span> <span class="na">android:color=</span><span class="s">&#34;#ffff00&#34;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/shape&gt;</span>
-
-<span class="nt">&lt;/inset&gt;</span>
-</code></pre></div><h3 id="scaledrawable">ScaleDrawable</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;inset</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:insetBottom=</span><span class="s">&#34;20dp&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:insetTop=</span><span class="s">&#34;50dp&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:insetRight=</span><span class="s">&#34;20dp&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:insetLeft=</span><span class="s">&#34;20dp&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;shape</span> <span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;solid</span> <span class="na">android:color=</span><span class="s">&#34;#ffff00&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/shape&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/inset&gt;</span>
+</span></span></code></pre></div><h3 id="scaledrawable">ScaleDrawable</h3>
 <p><code>ScaleDrawable</code>对应<code>&lt;scale&gt;</code>标签, 他可以根据自己的等级level将制定的<code>Drawable</code>缩放到一定比例.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
-<span class="nt">&lt;scale</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
-    <span class="na">android:drawable=</span><span class="s">&#34;@mipmap/ic_sample&#34;</span>
-    <span class="na">android:scaleHeight=</span><span class="s">&#34;10%&#34;</span>
-    <span class="na">android:scaleWidth=</span><span class="s">&#34;10%&#34;</span>
-    <span class="na">android:scaleGravity=</span><span class="s">&#34;center&#34;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;/scale&gt;</span>
-</code></pre></div><p>并在代码中设置等级, 默认为0是不显示<code>ScaleDrawable</code></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">ScaleDrawable</span> <span class="n">drawable</span> <span class="o">=</span> <span class="o">(</span><span class="n">ScaleDrawable</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">activity_main</span><span class="o">).</span><span class="na">getBackground</span><span class="o">();</span>
-<span class="n">drawable</span><span class="o">.</span><span class="na">setLevel</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
-</code></pre></div><p>其中<code>scaleHeight</code>和<code>scaleWidth</code>需要的是百分比值. 有点别扭, 如果你设置了<strong>10%</strong>, 那么实际的意义就是缩放了原大小的10%, 相当于去掉了设置的值.  最终呈现出来的是<strong>1-设定的百分比</strong>. 就是展现了90%.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;scale</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:drawable=</span><span class="s">&#34;@mipmap/ic_sample&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:scaleHeight=</span><span class="s">&#34;10%&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:scaleWidth=</span><span class="s">&#34;10%&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:scaleGravity=</span><span class="s">&#34;center&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/scale&gt;</span>
+</span></span></code></pre></div><p>并在代码中设置等级, 默认为0是不显示<code>ScaleDrawable</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ScaleDrawable</span> <span class="n">drawable</span> <span class="o">=</span> <span class="o">(</span><span class="n">ScaleDrawable</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">activity_main</span><span class="o">).</span><span class="na">getBackground</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">drawable</span><span class="o">.</span><span class="na">setLevel</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+</span></span></code></pre></div><p>其中<code>scaleHeight</code>和<code>scaleWidth</code>需要的是百分比值. 有点别扭, 如果你设置了<strong>10%</strong>, 那么实际的意义就是缩放了原大小的10%, 相当于去掉了设置的值.  最终呈现出来的是<strong>1-设定的百分比</strong>. 就是展现了90%.</p>
 <p>而设置的等级会影响最终的图片大小, 等级越大图片越大. 最好等级控制到0~10000 最后.</p>
 <h3 id="clipdrawable">ClipDrawable</h3>
 <p><strong>ClipDrawable</strong>对应于<code>&lt;clip&gt;</code>标签, 他可以根据自己当前的等级来裁剪Drawable, 裁剪的方向通过<code>android:clipOrientation</code>和<code>android:gravity</code>这两个属性来共同控制.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
-<span class="nt">&lt;clip</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
-    <span class="na">android:clipOrientation=</span><span class="s">&#34;horizontal&#34;</span>
-    <span class="na">android:drawable=</span><span class="s">&#34;@mipmap/ic_sample&#34;</span>
-    <span class="na">android:gravity=</span><span class="s">&#34;center&#34;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;/clip&gt;</span>
-</code></pre></div><p>首先<code>android:clipOrientation</code> 如果参数添加<code>水平 horizontal</code>. 实际上是竖直切割, 保留垂直方向的完整. 如果是Vertical反之. 看图吧.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;clip</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:clipOrientation=</span><span class="s">&#34;horizontal&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:drawable=</span><span class="s">&#34;@mipmap/ic_sample&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:gravity=</span><span class="s">&#34;center&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/clip&gt;</span>
+</span></span></code></pre></div><p>首先<code>android:clipOrientation</code> 如果参数添加<code>水平 horizontal</code>. 实际上是竖直切割, 保留垂直方向的完整. 如果是Vertical反之. 看图吧.</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -476,9 +476,9 @@
         alt="clipgravity.png"
         title="clipgravity.png" /></p>
 <p><strong>重要的一点还有动态代码设置等级, 要是不设置等级就是默认的0, 0就是切割掉100%的部分,所以剩下的部位为0也就是空的</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">ClipDrawable</span> <span class="n">drawable</span> <span class="o">=</span> <span class="o">(</span><span class="n">ClipDrawable</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">activity_main</span><span class="o">).</span><span class="na">getBackground</span><span class="o">();</span>
-<span class="n">drawable</span><span class="o">.</span><span class="na">setLevel</span><span class="o">(</span><span class="n">5000</span><span class="o">);</span>
-</code></pre></div><p>这个等级的数还是<strong>1~10000</strong>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ClipDrawable</span> <span class="n">drawable</span> <span class="o">=</span> <span class="o">(</span><span class="n">ClipDrawable</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">activity_main</span><span class="o">).</span><span class="na">getBackground</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">drawable</span><span class="o">.</span><span class="na">setLevel</span><span class="o">(</span><span class="n">5000</span><span class="o">);</span>
+</span></span></code></pre></div><p>这个等级的数还是<strong>1~10000</strong>.</p>
 <ul>
 <li>等级为<strong>0</strong>那么意味着裁剪Drawable的**100%**部分. 什么东西没有.空的</li>
 <li>等级为<strong>5000</strong>那么意味着裁剪Drawable的**50%**部分, 我上面的演示的图片都是以等级为5000为标准测试的</li>
@@ -523,7 +523,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -538,5 +538,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

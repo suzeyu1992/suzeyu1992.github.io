@@ -169,9 +169,9 @@
 <li><code>translationX</code>, <code>translationY</code>: 表示View的左上点相对于父容器的偏移量(默认是0).</li>
 </ul>
 <p>而这些参数的换算关系为:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="n">x</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">translationX</span><span class="o">;</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">top</span> <span class="o">+</span> <span class="n">translationY</span><span class="o">;</span>
-</code></pre></div><h3 id="motionevent和touchslop">MotionEvent和TouchSlop</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">translationX</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="n">top</span> <span class="o">+</span> <span class="n">translationY</span><span class="o">;</span>
+</span></span></code></pre></div><h3 id="motionevent和touchslop">MotionEvent和TouchSlop</h3>
 <p><strong>MotionEvent是指手指在接触屏幕之后产生的一系列事件</strong></p>
 <p>最常见事件类型是<code>ACTION_DOWN</code>,<code>ACTION_MOVE</code>,<code>ACTION_UP</code></p>
 <p>一次事件可以有不同的<strong>持续时间</strong>, 和不同的<strong>事件类型</strong>. 例如</p>
@@ -193,34 +193,33 @@
 <p>用于追踪手指在滑动过程中的速度,包括水平和数值方向的速度</p>
 </blockquote>
 <p>使用方式: 在View的OnTouchEvent方法中:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//获得速度追踪对象
-</span><span class="c1"></span><span class="n">VelocityTracker</span> <span class="n">velocity</span> <span class="o">=</span> <span class="n">VelocityTracker</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
-<span class="n">velocity</span><span class="o">.</span><span class="na">addMovement</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
-
-<span class="c1">//计算速度 并获取计算值
-</span><span class="c1"></span><span class="n">velocity</span><span class="o">.</span><span class="na">computeCurrentVelocity</span><span class="o">(</span><span class="n">1000</span><span class="o">);</span> <span class="c1">//设定一个时间间隔值
-</span><span class="c1"></span><span class="kt">float</span> <span class="n">xVelocity</span> <span class="o">=</span> <span class="n">velocity</span><span class="o">.</span><span class="na">getXVelocity</span><span class="o">();</span>
-<span class="kt">float</span> <span class="n">yVelocity</span> <span class="o">=</span> <span class="n">velocity</span><span class="o">.</span><span class="na">getYVelocity</span><span class="o">();</span>
-</code></pre></div><p>必须要先计算并设定计算速度的时间单元值,才可以获得速率.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//获得速度追踪对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">VelocityTracker</span> <span class="n">velocity</span> <span class="o">=</span> <span class="n">VelocityTracker</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">velocity</span><span class="o">.</span><span class="na">addMovement</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//计算速度 并获取计算值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">velocity</span><span class="o">.</span><span class="na">computeCurrentVelocity</span><span class="o">(</span><span class="n">1000</span><span class="o">);</span> <span class="c1">//设定一个时间间隔值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">float</span> <span class="n">xVelocity</span> <span class="o">=</span> <span class="n">velocity</span><span class="o">.</span><span class="na">getXVelocity</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="kt">float</span> <span class="n">yVelocity</span> <span class="o">=</span> <span class="n">velocity</span><span class="o">.</span><span class="na">getYVelocity</span><span class="o">();</span>
+</span></span></code></pre></div><p>必须要先计算并设定计算速度的时间单元值,才可以获得速率.</p>
 <p>公式: <code>速度 = (终点位置 - 起点位置) / 时间间隔值</code></p>
 <p>可以看到, 计算的速度是根据我们自己添加的时间间隔值计算的. 并且速度可以为负值,如果向左滑动.</p>
 <p>当不需要的时候, 调用<code>clear()</code>重置并回收内存.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">velocity</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
-<span class="n">velocity</span><span class="o">.</span><span class="na">recycle</span><span class="o">();</span>
-</code></pre></div><p><strong>GestureDetector 手势检测</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">velocity</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">velocity</span><span class="o">.</span><span class="na">recycle</span><span class="o">();</span>
+</span></span></code></pre></div><p><strong>GestureDetector 手势检测</strong></p>
 <blockquote>
 <p>用于辅助检测用户的单击, 滑动, 长按, 双击等行为.</p>
 </blockquote>
 <p>使用如下</p>
 <p>创建<code>GestureDetector</code>对象并实现<code>OnGestureDetector</code>接口.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">GestureDetector</span> <span class="n">mGestureDetector</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GestureDetector</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-<span class="c1">// 解决长按屏幕后无法拖动的现象
-</span><span class="c1"></span><span class="n">mGestureDetector</span><span class="o">.</span><span class="na">setIsLongpressEnabled</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-
-</code></pre></div><p>然后接管目标View的<code>onTouchEvent()</code>方法. 在<code>onTouchEvent()</code>方法中</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kt">boolean</span> <span class="n">consume</span> <span class="o">=</span> <span class="n">mGestureDetector</span><span class="o">.</span><span class="na">onTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
-<span class="k">return</span> <span class="n">consume</span><span class="o">;</span>
-</code></pre></div><p>然后根据需求可以选择性的实现<code>OnGestureListener</code>和<code>OnDoubleTapListener</code>接口</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">GestureDetector</span> <span class="n">mGestureDetector</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GestureDetector</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 解决长按屏幕后无法拖动的现象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mGestureDetector</span><span class="o">.</span><span class="na">setIsLongpressEnabled</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+</span></span></code></pre></div><p>然后接管目标View的<code>onTouchEvent()</code>方法. 在<code>onTouchEvent()</code>方法中</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">boolean</span> <span class="n">consume</span> <span class="o">=</span> <span class="n">mGestureDetector</span><span class="o">.</span><span class="na">onTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="n">consume</span><span class="o">;</span>
+</span></span></code></pre></div><p>然后根据需求可以选择性的实现<code>OnGestureListener</code>和<code>OnDoubleTapListener</code>接口</p>
 <p>接口的方法说明:</p>
 <table>
 <thead>
@@ -301,10 +300,10 @@
 <li>scrollBy: 根据当前View的内容值进行相对位置移动.</li>
 </ul>
 <p>看一下<code>scrollBy</code>的源码调用</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">scrollBy</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
-   <span class="n">scrollTo</span><span class="o">(</span><span class="n">mScrollX</span> <span class="o">+</span> <span class="n">x</span><span class="o">,</span> <span class="n">mScrollY</span> <span class="o">+</span> <span class="n">y</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><p>其实本质上<code>scrollBy</code>调用了<code>scrollTo</code>方法</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">scrollBy</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="n">scrollTo</span><span class="o">(</span><span class="n">mScrollX</span> <span class="o">+</span> <span class="n">x</span><span class="o">,</span> <span class="n">mScrollY</span> <span class="o">+</span> <span class="n">y</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>其实本质上<code>scrollBy</code>调用了<code>scrollTo</code>方法</p>
 <p>而<code>mScrollX/mScrollY</code>是什么? 这个就是当前View的内容 与这个View实际布局位置(原始位置)的差值.
 而当前View内容这个东西就是让用户看到的效果发生改变. 但是如果这个View可以被点击. 那么能触发点击的位置是View的<strong>实际所在布局位置</strong>. 而不是View的内容显示的位置.</p>
 <h3 id="使用动画">使用动画</h3>
@@ -317,12 +316,12 @@
 <p><code>ObjectAnimator.ofFloat(tagerView,&quot;translationX&quot;,0,100).setDuration(100).start()</code></p>
 <h3 id="改变布局参数">改变布局参数</h3>
 <p>这个比较简单, 获得View的<code>LayoutParams</code>参数.进行修改,改好之后再赋值回去.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">MarginLayoutParams</span> <span class="n">params</span> <span class="o">=</span> <span class="o">(</span><span class="n">MarginLayoutParams</span><span class="o">)</span><span class="n">mTextView</span><span class="o">.</span><span class="na">getLayoutParams</span><span class="o">();</span>
-<span class="n">params</span><span class="o">.</span><span class="na">width</span> <span class="o">+=</span> <span class="n">100</span><span class="o">;</span>
-<span class="n">params</span><span class="o">.</span><span class="na">leftMargin</span> <span class="o">+=</span> <span class="n">100</span><span class="o">;</span>
-<span class="n">mTextView</span><span class="o">.</span><span class="na">requestLayout</span><span class="o">();</span>
-<span class="c1">//或者mTextview.setLayoutParams(params);
-</span></code></pre></div><p><strong>关于这三种方式的简单总结</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">MarginLayoutParams</span> <span class="n">params</span> <span class="o">=</span> <span class="o">(</span><span class="n">MarginLayoutParams</span><span class="o">)</span><span class="n">mTextView</span><span class="o">.</span><span class="na">getLayoutParams</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">params</span><span class="o">.</span><span class="na">width</span> <span class="o">+=</span> <span class="n">100</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">params</span><span class="o">.</span><span class="na">leftMargin</span> <span class="o">+=</span> <span class="n">100</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">mTextView</span><span class="o">.</span><span class="na">requestLayout</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//或者mTextview.setLayoutParams(params);
+</span></span></span></code></pre></div><p><strong>关于这三种方式的简单总结</strong></p>
 <ul>
 <li><strong>scrollTo/scrollBy</strong>: 操作简单, 适合对View内容的滑动</li>
 <li><strong>动画</strong>: 操作简单,主要适用于没有交互的View和实现复杂的动画效果.</li>
@@ -331,47 +330,46 @@
 <h2 id="弹性滑动">弹性滑动</h2>
 <p><strong>使用Scroller</strong></p>
 <p>一个简单的使用方法如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Scroller</span> <span class="n">mScroller</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scroller</span><span class="o">(</span><span class="n">mContent</span><span class="o">);</span>
-
-<span class="c1">// 封装一个方法, 接收要移动到的目标点 x和y
-</span><span class="c1"></span><span class="kd">private</span> <span class="kt">void</span> <span class="nf">smoothScrollTo</span><span class="o">(</span><span class="kt">int</span> <span class="n">destX</span><span class="o">,</span> <span class="kt">int</span> <span class="n">destY</span><span class="o">){</span>
-    <span class="kt">int</span> <span class="n">scrollX</span> <span class="o">=</span> <span class="n">getScrollX</span><span class="o">();</span>
-    <span class="kt">int</span> <span class="n">deltaX</span> <span class="o">=</span> <span class="n">destX</span> <span class="o">-</span> <span class="n">scrollX</span><span class="o">;</span>
-    <span class="c1">// 1000ms内逐渐滑向destX
-</span><span class="c1"></span>    <span class="n">mScroller</span><span class="o">.</span><span class="na">startScroll</span><span class="o">(</span><span class="n">scrollX</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">deltaX</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">1000</span><span class="o">);</span>
-    <span class="n">invalidate</span><span class="o">();</span>
-<span class="o">}</span>
-
-<span class="c1">//复写View的computeScroll方法
-</span><span class="c1"></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">computeScroll</span><span class="o">(){</span>
-    <span class="k">if</span><span class="o">(</span><span class="n">mScroller</span><span class="o">.</span><span class="na">computeScrollOffset</span><span class="o">()){</span>
-        <span class="n">scrollTo</span><span class="o">(</span><span class="n">mScroller</span><span class="o">.</span><span class="na">getCurrX</span><span class="o">(),</span> <span class="n">mScroller</span><span class="o">.</span><span class="na">getCurrY</span><span class="o">());</span>
-        <span class="n">postInvalidate</span><span class="o">()</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p>源码中<code>Scroller类中startScroll()</code>方法,其实没有实际操作什么,只是保存了调用方法时,传递的几个参数. 如: 开始结束点,时间等. <em>那动画究竟是怎么实现的? 复写的<code>computeScroll()</code>又有什么用?</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Scroller</span> <span class="n">mScroller</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scroller</span><span class="o">(</span><span class="n">mContent</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 封装一个方法, 接收要移动到的目标点 x和y
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">private</span> <span class="kt">void</span> <span class="nf">smoothScrollTo</span><span class="o">(</span><span class="kt">int</span> <span class="n">destX</span><span class="o">,</span> <span class="kt">int</span> <span class="n">destY</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">scrollX</span> <span class="o">=</span> <span class="n">getScrollX</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">deltaX</span> <span class="o">=</span> <span class="n">destX</span> <span class="o">-</span> <span class="n">scrollX</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 1000ms内逐渐滑向destX
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">mScroller</span><span class="o">.</span><span class="na">startScroll</span><span class="o">(</span><span class="n">scrollX</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">deltaX</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">1000</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">invalidate</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//复写View的computeScroll方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">computeScroll</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="o">(</span><span class="n">mScroller</span><span class="o">.</span><span class="na">computeScrollOffset</span><span class="o">()){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">scrollTo</span><span class="o">(</span><span class="n">mScroller</span><span class="o">.</span><span class="na">getCurrX</span><span class="o">(),</span> <span class="n">mScroller</span><span class="o">.</span><span class="na">getCurrY</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">postInvalidate</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>源码中<code>Scroller类中startScroll()</code>方法,其实没有实际操作什么,只是保存了调用方法时,传递的几个参数. 如: 开始结束点,时间等. <em>那动画究竟是怎么实现的? 复写的<code>computeScroll()</code>又有什么用?</em></p>
 <p>流程顺序这样的: 当调用了<code>startScroll()</code>系统只是保存了一些信息, 但是下面调用<code>invalidate()</code>. 这个方法都知道是会导致View的重绘, 在View的<code>draw()</code>方法中又会去调用<code>computeScroll()</code>方法,本身<code>computeScroll()</code>是一个空实现,但是这里进行了复写. 而这个方法我们复写的时候调用了<code>scrollTo()</code>方法!  ok这样View就会真正的移动了! 但是还有一点这次滚动只是整个滚动事件的一个小部分,后续的怎么触发的? 就是下面又调用了<code>postInvalidate()</code>, 又会重新绘制重新调用computeScroll()这个复写过的空实现方法.</p>
 <p>而<code>Scroller类中的computeScrollOffset()</code>可以直接返回这个滚动的动作是否全部完成. 源码实现思路就是根据时间的流逝的百分比来计算出当前ScrollX和ScrollY的值.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 核心代码  x就是时间流逝的百分比
-</span><span class="c1"></span><span class="n">mCurrX</span> <span class="o">=</span> <span class="n">mStartX</span> <span class="o">+</span> <span class="n">Math</span><span class="o">.</span><span class="na">round</span><span class="o">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">mDeltaX</span><span class="o">);</span>
-<span class="n">mCurrY</span> <span class="o">=</span> <span class="n">mStartY</span> <span class="o">+</span> <span class="n">Math</span><span class="o">.</span><span class="na">round</span><span class="o">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">mDeltaY</span><span class="o">);</span>
-</code></pre></div><p>小结Scroller的工作原理:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 核心代码  x就是时间流逝的百分比
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mCurrX</span> <span class="o">=</span> <span class="n">mStartX</span> <span class="o">+</span> <span class="n">Math</span><span class="o">.</span><span class="na">round</span><span class="o">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">mDeltaX</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">mCurrY</span> <span class="o">=</span> <span class="n">mStartY</span> <span class="o">+</span> <span class="n">Math</span><span class="o">.</span><span class="na">round</span><span class="o">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">mDeltaY</span><span class="o">);</span>
+</span></span></code></pre></div><p>小结Scroller的工作原理:</p>
 <p><code>Scroller</code>本身不可以实现滑动, 需要和<code>View的ComputeScroll()</code>配合使用来完成弹性滑动. 通过不断的在<code>computeScroll()</code>调用View的重绘方法. 每次绘制时候的当前时间与开始时间的时间差与设定的<strong>执行动画时间</strong>的百分比,算出每一次需要scroll到的坐标点, 然后通过调用**scrollTo()**来实现每一次的小滚动效果. 通过一连串的滚动达到了平滑的效果. 这就是<code>Scroller</code>工作机制. 完全实现了解耦操作. 这个过程没有任何一处对View进行引用,甚至连内部计时器都没有.</p>
 <p><strong>通过动画</strong></p>
 <p>可以直接使用<code>ObjectAnimator.ofFloat(tagerView,&quot;translationX&quot;,0,100).setDuration(100).start()</code></p>
 <p>也可以利用动画的特性, 实现与Scroller原理近似的方法.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">final</span> <span class="kt">int</span> <span class="n">startX</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span>
-<span class="kd">final</span> <span class="kt">int</span> <span class="n">endX</span> <span class="o">=</span> <span class="n">200</span><span class="o">;</span>
-<span class="n">ValueAnimator</span> <span class="n">valueAnimator</span> <span class="o">=</span> <span class="n">ValueAnimator</span><span class="o">.</span><span class="na">ofInt</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">1</span><span class="o">).</span><span class="na">setDuration</span><span class="o">(</span><span class="n">1000</span><span class="o">);</span>
-<span class="n">valueAnimator</span><span class="o">.</span><span class="na">addUpdateListener</span><span class="o">(</span><span class="k">new</span> <span class="n">ValueAnimator</span><span class="o">.</span><span class="na">AnimatorUpdateListener</span><span class="o">()</span> <span class="o">{</span>
-  <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAnimationUpdate</span><span class="o">(</span><span class="n">ValueAnimator</span> <span class="n">animation</span><span class="o">)</span> <span class="o">{</span>
-      <span class="kt">int</span> <span class="n">offset</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">animation</span><span class="o">.</span><span class="na">getAnimatedFraction</span><span class="o">();</span>
-      <span class="n">mTextview</span><span class="o">.</span><span class="na">scrollTo</span><span class="o">(</span><span class="n">startX</span><span class="o">+</span><span class="n">offset</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
-  <span class="o">}</span>
-<span class="o">});</span>
-
-</code></pre></div><p>让系统算出每个时间片我们需要移动的距离, 并回调给我们.让我们自己实现. 如果是一组动画在相同的时间执行的绝对值相同我们就可以在<code>onAnimationUpdate()</code>一起进行调用.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">final</span> <span class="kt">int</span> <span class="n">startX</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">final</span> <span class="kt">int</span> <span class="n">endX</span> <span class="o">=</span> <span class="n">200</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">ValueAnimator</span> <span class="n">valueAnimator</span> <span class="o">=</span> <span class="n">ValueAnimator</span><span class="o">.</span><span class="na">ofInt</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">1</span><span class="o">).</span><span class="na">setDuration</span><span class="o">(</span><span class="n">1000</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">valueAnimator</span><span class="o">.</span><span class="na">addUpdateListener</span><span class="o">(</span><span class="k">new</span> <span class="n">ValueAnimator</span><span class="o">.</span><span class="na">AnimatorUpdateListener</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAnimationUpdate</span><span class="o">(</span><span class="n">ValueAnimator</span> <span class="n">animation</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">int</span> <span class="n">offset</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">animation</span><span class="o">.</span><span class="na">getAnimatedFraction</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">      <span class="n">mTextview</span><span class="o">.</span><span class="na">scrollTo</span><span class="o">(</span><span class="n">startX</span><span class="o">+</span><span class="n">offset</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">});</span>
+</span></span></code></pre></div><p>让系统算出每个时间片我们需要移动的距离, 并回调给我们.让我们自己实现. 如果是一组动画在相同的时间执行的绝对值相同我们就可以在<code>onAnimationUpdate()</code>一起进行调用.</p>
 <p><strong>使用延时策略</strong></p>
 <blockquote>
 <p>核心思想就是通过发送一些列延时消息从而达到一种渐进的效果.</p>
@@ -389,20 +387,20 @@
 <li><code>onTouchEvent()</code>: 在dispatchTouchEvent中被调用. 用来处理点击事件, 返回结果表示是否消耗当前事件,如果不消耗, 则在同一个事件序列中, 当前View无法再次接收到事件.</li>
 </ul>
 <p>如果把源码中的各种判断去掉, 只留最核心的代码, 那么就如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">dispatchTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-   <span class="kt">boolean</span> <span class="n">consume</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>   <span class="c1">//表示这个事件最终的处理结果
-</span><span class="c1"></span>   
-   <span class="k">if</span> <span class="o">(</span><span class="n">onInterceptTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">)){</span>
-        <span class="c1">//事件被拦截自己处理
-</span><span class="c1"></span>       <span class="n">consume</span> <span class="o">=</span> <span class="n">onTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
-   <span class="o">}</span><span class="k">else</span><span class="o">{</span>
-        <span class="c1">//事件被分发到子view的dispatchTouchEvent()中
-</span><span class="c1"></span>       <span class="n">consume</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="na">dispatchTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
-   <span class="o">}</span>
-   
-   <span class="k">return</span> <span class="n">consume</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div><p><strong>OnTouchListener() , onTouchEvent() , OnClickListener() 的优先级</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">dispatchTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="kt">boolean</span> <span class="n">consume</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>   <span class="c1">//表示这个事件最终的处理结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(</span><span class="n">onInterceptTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">)){</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//事件被拦截自己处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">consume</span> <span class="o">=</span> <span class="n">onTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//事件被分发到子view的dispatchTouchEvent()中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">consume</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="na">dispatchTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="n">consume</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p><strong>OnTouchListener() , onTouchEvent() , OnClickListener() 的优先级</strong></p>
 <p>上面说了普遍情况下的事件分发. 如果这个View同时还添加了<code>OnTouchListener</code>和<code>OnClickListener</code>. 此时的优先级如下:</p>
 <blockquote>
 <p>OnTouchListener &ndash;&gt; onTouchEvent &ndash;&gt; OnClickListener</p>
@@ -438,40 +436,40 @@
 <p>这个方法可以获取到Activity所设置的View. 所以之间的关系很清楚了. 事件先交给最顶级的DecorView然后交由我们设置的View.</p>
 <p><strong>2.ViewGroup对事件的处理</strong></p>
 <p>在父元素中判断子元素是否能接收点击事件的主要由两个因素衡量: 子元素是否在播放动画和点击事件的坐标是否落在子元素的区域内.<code>dispatchTransformedTouchEvent()</code>实际就是调用子View的<code>dispatchTouchEvent</code>. 而在事件从孩子到父元素(子View在<code>onTouchEvent</code>返回false). 其实也是调用了<code>dispatchTransformedTouchEvent()</code>. 区别就在于向内传递参数3是传入的不是空值, 向外传传入的是null.看下面代码:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"> <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">dispatchTransformedTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">event</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">cancel</span><span class="o">,</span>
-            <span class="n">View</span> <span class="n">child</span><span class="o">,</span> <span class="kt">int</span> <span class="n">desiredPointerIdBits</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">child</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-     <span class="n">handled</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">dispatchTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
-    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-     <span class="n">handled</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="na">dispatchTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p><strong>3.View对事件的处理</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"> <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">dispatchTransformedTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">event</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">cancel</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">View</span> <span class="n">child</span><span class="o">,</span> <span class="kt">int</span> <span class="n">desiredPointerIdBits</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">child</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">     <span class="n">handled</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">dispatchTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">     <span class="n">handled</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="na">dispatchTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p><strong>3.View对事件的处理</strong></p>
 <ol>
 <li>View对事件的判断首先是检测是否有<code>onTouchListener</code>如果有那么就调用其中的<code>onTouch()</code>方法.</li>
 <li>然后执行<code>onTouchEvent()</code>这里有个判断条件,如果在<code>onTouchListener()</code>返回true. 那么if中的条件判断第一个就不会成立,也就不会再调用<code>onTouchEvent()</code>方法.如下:</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">li</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">li</span><span class="o">.</span><span class="na">mOnTouchListener</span> <span class="o">!=</span> <span class="kc">null</span>
-               <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">mViewFlags</span> <span class="o">&amp;</span> <span class="n">ENABLED_MASK</span><span class="o">)</span> <span class="o">==</span> <span class="n">ENABLED</span>
-               <span class="o">&amp;&amp;</span> <span class="n">li</span><span class="o">.</span><span class="na">mOnTouchListener</span><span class="o">.</span><span class="na">onTouch</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">event</span><span class="o">))</span> <span class="o">{</span>
-           <span class="n">result</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-<span class="o">}</span>
-
-<span class="k">if</span> <span class="o">(!</span><span class="n">result</span> <span class="o">&amp;&amp;</span> <span class="n">onTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">))</span> <span class="o">{</span>
- <span class="n">result</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div><ol start="3">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">li</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">li</span><span class="o">.</span><span class="na">mOnTouchListener</span> <span class="o">!=</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">               <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">mViewFlags</span> <span class="o">&amp;</span> <span class="n">ENABLED_MASK</span><span class="o">)</span> <span class="o">==</span> <span class="n">ENABLED</span>
+</span></span><span class="line"><span class="cl">               <span class="o">&amp;&amp;</span> <span class="n">li</span><span class="o">.</span><span class="na">mOnTouchListener</span><span class="o">.</span><span class="na">onTouch</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">event</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           <span class="n">result</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(!</span><span class="n">result</span> <span class="o">&amp;&amp;</span> <span class="n">onTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"> <span class="n">result</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><ol start="3">
 <li>然后在<code>onTouchEvent()</code>中首先是查看View处理不可用状态. 这里需要注意一下, 虽然View不可用但是如果点击标记或者长按点击标记都是<code>true</code>. 那么事件也会被消费.如下</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"> <span class="k">if</span> <span class="o">((</span><span class="n">viewFlags</span> <span class="o">&amp;</span> <span class="n">ENABLED_MASK</span><span class="o">)</span> <span class="o">==</span> <span class="n">DISABLED</span><span class="o">)</span> <span class="o">{</span>
-        <span class="o">.....</span>
-            <span class="c1">// A disabled view that is clickable still consumes the touch
-</span><span class="c1"></span>            <span class="c1">// events, it just doesn&#39;t respond to them.
-</span><span class="c1"></span>            <span class="k">return</span> <span class="o">(((</span><span class="n">viewFlags</span> <span class="o">&amp;</span> <span class="n">CLICKABLE</span><span class="o">)</span> <span class="o">==</span> <span class="n">CLICKABLE</span>
-                    <span class="o">||</span> <span class="o">(</span><span class="n">viewFlags</span> <span class="o">&amp;</span> <span class="n">LONG_CLICKABLE</span><span class="o">)</span> <span class="o">==</span> <span class="n">LONG_CLICKABLE</span><span class="o">)</span>
-                    <span class="o">||</span> <span class="o">(</span><span class="n">viewFlags</span> <span class="o">&amp;</span> <span class="n">CONTEXT_CLICKABLE</span><span class="o">)</span> <span class="o">==</span> <span class="n">CONTEXT_CLICKABLE</span><span class="o">);</span>
-        <span class="o">}</span>
-</code></pre></div><ol start="4">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"> <span class="k">if</span> <span class="o">((</span><span class="n">viewFlags</span> <span class="o">&amp;</span> <span class="n">ENABLED_MASK</span><span class="o">)</span> <span class="o">==</span> <span class="n">DISABLED</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.....</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// A disabled view that is clickable still consumes the touch
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// events, it just doesn&#39;t respond to them.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">return</span> <span class="o">(((</span><span class="n">viewFlags</span> <span class="o">&amp;</span> <span class="n">CLICKABLE</span><span class="o">)</span> <span class="o">==</span> <span class="n">CLICKABLE</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">||</span> <span class="o">(</span><span class="n">viewFlags</span> <span class="o">&amp;</span> <span class="n">LONG_CLICKABLE</span><span class="o">)</span> <span class="o">==</span> <span class="n">LONG_CLICKABLE</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">||</span> <span class="o">(</span><span class="n">viewFlags</span> <span class="o">&amp;</span> <span class="n">CONTEXT_CLICKABLE</span><span class="o">)</span> <span class="o">==</span> <span class="n">CONTEXT_CLICKABLE</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span></code></pre></div><ol start="4">
 <li>如果View设置有代理, 那么还会执行<code>TouchDelegate的onTouchEvent()</code></li>
 <li>然后对点击状态进行处理.首先如果<strong>点击</strong>和<strong>长按</strong>有一个为true那么就会消费事件. 即<code>onTouchEvent()</code>返回true.  然后在<code>ACTION_UP</code>中会触发<code>performClick()</code>如果设置了<code>onClickListener()</code>那么就会在此处进行判断并调用<code>onClick()</code>.</li>
 <li>上面一直说的<strong>LONG_CLICKABLE</strong>与<strong>CLICKABLE</strong>. 长按标记默认为false. 点击标记和View是否是可点击View有关系. 如button可点击默认就是true. 否者反之.  在使用时可以通过<code>setClickable</code>和<code>setLongClickable</code>对View的这两个标记进行修改. 这里还要注意还有一种赋值方式. 如果设置了<code>setOnClickListener()</code>或者<code>setOnLongClickListener()</code>监听的话那么会自动将其对应的属性置为true.</li>
@@ -521,99 +519,98 @@
 <p><em>外部拦截法相关代码在仓库的outside包中</em></p>
 <p>接下来就解决这个问题.  既然打算外部拦截法,那么首先继承这个<code>MyHorizontalScrollView</code>类, 复写其中的<code>onInterceptTouchEvent()</code>进行相应的处理.</p>
 <p>需要解决的就是在:<strong>滑动过程中水平距离差比垂直距离差大,父容器就要拦截事件</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onInterceptTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">ev</span><span class="o">)</span> <span class="o">{</span>
-<span class="kt">boolean</span> <span class="n">intercept</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getX</span><span class="o">();</span>
-<span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getY</span><span class="o">();</span>
-
-   <span class="k">switch</span> <span class="o">(</span><span class="n">ev</span><span class="o">.</span><span class="na">getAction</span><span class="o">()){</span>
-       <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span><span class="o">:</span>
-           <span class="k">if</span> <span class="o">(!</span><span class="n">mScroller</span><span class="o">.</span><span class="na">isFinished</span><span class="o">()){</span>
-               <span class="n">mScroller</span><span class="o">.</span><span class="na">abortAnimation</span><span class="o">();</span>  <span class="c1">//优化滑动效果
-</span><span class="c1"></span>               <span class="n">intercept</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-           <span class="o">}</span>
-           <span class="k">break</span><span class="o">;</span>
-
-       <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_MOVE</span><span class="o">:</span>
-           <span class="kt">int</span> <span class="n">deltaX</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">mLastYIntercept</span><span class="o">;</span>
-           <span class="kt">int</span> <span class="n">deltaY</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">mLastYIntercept</span><span class="o">;</span>
-           <span class="c1">//根据绝对值判断是否需要拦截
-</span><span class="c1"></span>           <span class="k">if</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">deltaX</span><span class="o">)</span> <span class="o">&lt;</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">deltaY</span><span class="o">)){</span>
-               <span class="n">intercept</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-           <span class="o">}</span><span class="k">else</span><span class="o">{</span>
-               <span class="n">intercept</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-           <span class="o">}</span>
-           <span class="k">break</span><span class="o">;</span>
-
-       <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_UP</span><span class="o">:</span>
-           <span class="n">intercept</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-           <span class="k">break</span><span class="o">;</span>
-<span class="nl">
-</span><span class="nl">       default:</span>
-           <span class="k">break</span><span class="o">;</span>
-   <span class="o">}</span>
-   <span class="c1">//赋值给mLast是防止在onTouchEvent第一次move移动时候跳屏
-</span><span class="c1"></span>   <span class="n">mLastX</span> <span class="o">=</span> <span class="n">mLastXIntercept</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
-   <span class="n">mLastY</span> <span class="o">=</span> <span class="n">mLastYIntercept</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
-   <span class="k">return</span> <span class="n">intercept</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div><h3 id="内部拦截解决">内部拦截解决</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onInterceptTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">ev</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="kt">boolean</span> <span class="n">intercept</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getX</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getY</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">switch</span> <span class="o">(</span><span class="n">ev</span><span class="o">.</span><span class="na">getAction</span><span class="o">()){</span>
+</span></span><span class="line"><span class="cl">       <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">           <span class="k">if</span> <span class="o">(!</span><span class="n">mScroller</span><span class="o">.</span><span class="na">isFinished</span><span class="o">()){</span>
+</span></span><span class="line"><span class="cl">               <span class="n">mScroller</span><span class="o">.</span><span class="na">abortAnimation</span><span class="o">();</span>  <span class="c1">//优化滑动效果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>               <span class="n">intercept</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">           <span class="o">}</span>
+</span></span><span class="line"><span class="cl">           <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_MOVE</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">           <span class="kt">int</span> <span class="n">deltaX</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">mLastYIntercept</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">           <span class="kt">int</span> <span class="n">deltaY</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">mLastYIntercept</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">           <span class="c1">//根据绝对值判断是否需要拦截
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>           <span class="k">if</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">deltaX</span><span class="o">)</span> <span class="o">&lt;</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">deltaY</span><span class="o">)){</span>
+</span></span><span class="line"><span class="cl">               <span class="n">intercept</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">           <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">               <span class="n">intercept</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">           <span class="o">}</span>
+</span></span><span class="line"><span class="cl">           <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_UP</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">           <span class="n">intercept</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">           <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nl">
+</span></span></span><span class="line"><span class="cl"><span class="nl">       default:</span>
+</span></span><span class="line"><span class="cl">           <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">//赋值给mLast是防止在onTouchEvent第一次move移动时候跳屏
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">mLastX</span> <span class="o">=</span> <span class="n">mLastXIntercept</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mLastY</span> <span class="o">=</span> <span class="n">mLastYIntercept</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="n">intercept</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h3 id="内部拦截解决">内部拦截解决</h3>
 <p><em>内部拦截法相关代码在仓库的inside包中</em></p>
 <p>上面总结过使用内部拦截法. 主要就是允许父容器在<code>onIntercept()</code>中的<code>MOVE和UP事件中一直返回true</code>表示拦截事件.  而在子容器中进行对父容器的<code>requestDisallowIntercept</code>标记的修改. 来控制事件的分发.(<code>DOWN</code>事件不能返回true,会导致子View永远收不到事件)</p>
 <p>子容器这里<code>ListView</code>进行继承并复写<code>dispatchTouchEvent()</code>,来控制父容器的<code>requestDisallowIntercept</code>标记.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">dispatchTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">ev</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getX</span><span class="o">();</span>
-    <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getY</span><span class="o">();</span>
-    
-    <span class="k">switch</span> <span class="o">(</span><span class="n">ev</span><span class="o">.</span><span class="na">getAction</span><span class="o">()){</span>
-      <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span><span class="o">:</span>
-          <span class="c1">//相当于进行初始化每次发生一个事件序列时, 都对不容器进行重置不允许拦截
-</span><span class="c1"></span>          <span class="n">mInSide2HorizontalScrollview</span><span class="o">.</span><span class="na">requestDisallowInterceptTouchEvent</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-          <span class="k">break</span><span class="o">;</span>
-      <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_MOVE</span><span class="o">:</span>
-          <span class="kt">int</span> <span class="n">deltaX</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">mLastX</span><span class="o">;</span>
-          <span class="kt">int</span> <span class="n">deltaY</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">mLastY</span><span class="o">;</span>
-    
-          <span class="k">if</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">deltaX</span><span class="o">)</span> <span class="o">&gt;</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">deltaY</span><span class="o">)){</span>
-              <span class="c1">//当水平距离大的时候 允许父容器拦截
-</span><span class="c1"></span>              <span class="n">mInSide2HorizontalScrollview</span><span class="o">.</span><span class="na">requestDisallowInterceptTouchEvent</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-          <span class="o">}</span>
-    
-          <span class="k">break</span><span class="o">;</span>
-    
-      <span class="k">default</span><span class="o">:</span>
-          <span class="k">break</span><span class="o">;</span>
-    
-    <span class="o">}</span>
-    <span class="n">mLastX</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
-    <span class="n">mLastY</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
-    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">dispatchTouchEvent</span><span class="o">(</span><span class="n">ev</span><span class="o">);</span>
-<span class="o">}</span>
-
-</code></pre></div><p>同时修改一下父容器的<code>onInterceptTouchEvent()</code>方法</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onInterceptTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">ev</span><span class="o">)</span> <span class="o">{</span>
-   <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getX</span><span class="o">();</span>
-   <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getY</span><span class="o">();</span>
-
-   <span class="k">switch</span> <span class="o">(</span><span class="n">ev</span><span class="o">.</span><span class="na">getAction</span><span class="o">()){</span>
-       <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span><span class="o">:</span>
-           <span class="k">if</span> <span class="o">(!</span><span class="n">mScroller</span><span class="o">.</span><span class="na">isFinished</span><span class="o">()){</span>
-               <span class="n">mScroller</span><span class="o">.</span><span class="na">abortAnimation</span><span class="o">();</span>
-               <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-           <span class="o">}</span>
-           <span class="n">mLastX</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
-           <span class="n">mLastY</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
-           <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-<span class="nl">
-</span><span class="nl">       default:</span>
-          <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-   <span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">dispatchTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">ev</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getX</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getY</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="o">(</span><span class="n">ev</span><span class="o">.</span><span class="na">getAction</span><span class="o">()){</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">//相当于进行初始化每次发生一个事件序列时, 都对不容器进行重置不允许拦截
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="n">mInSide2HorizontalScrollview</span><span class="o">.</span><span class="na">requestDisallowInterceptTouchEvent</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">          <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_MOVE</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="kt">int</span> <span class="n">deltaX</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">mLastX</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">          <span class="kt">int</span> <span class="n">deltaY</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">mLastY</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">deltaX</span><span class="o">)</span> <span class="o">&gt;</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">deltaY</span><span class="o">)){</span>
+</span></span><span class="line"><span class="cl">              <span class="c1">//当水平距离大的时候 允许父容器拦截
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>              <span class="n">mInSide2HorizontalScrollview</span><span class="o">.</span><span class="na">requestDisallowInterceptTouchEvent</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">          <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">          <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mLastX</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mLastY</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">dispatchTouchEvent</span><span class="o">(</span><span class="n">ev</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>同时修改一下父容器的<code>onInterceptTouchEvent()</code>方法</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onInterceptTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">ev</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getX</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getY</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">switch</span> <span class="o">(</span><span class="n">ev</span><span class="o">.</span><span class="na">getAction</span><span class="o">()){</span>
+</span></span><span class="line"><span class="cl">       <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">           <span class="k">if</span> <span class="o">(!</span><span class="n">mScroller</span><span class="o">.</span><span class="na">isFinished</span><span class="o">()){</span>
+</span></span><span class="line"><span class="cl">               <span class="n">mScroller</span><span class="o">.</span><span class="na">abortAnimation</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">               <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">           <span class="o">}</span>
+</span></span><span class="line"><span class="cl">           <span class="n">mLastX</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">           <span class="n">mLastY</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">           <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nl">
+</span></span></span><span class="line"><span class="cl"><span class="nl">       default:</span>
+</span></span><span class="line"><span class="cl">          <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><blockquote>
 <p>好啦 结束了 慢慢消化&hellip;.</p>
 </blockquote></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -646,7 +643,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -661,5 +658,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

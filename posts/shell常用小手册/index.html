@@ -159,148 +159,146 @@
 <blockquote>
 <p>格式: <code>cd destination</code></p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 绝对文件路径</span>
-$ <span class="nb">cd</span> /usr/bin
-
-<span class="c1"># 相对文件路径 进入当前目录下的doc文件夹</span>
-$ <span class="nb">cd</span> doc
-
-<span class="c1"># 进入当前文件夹的同级目录pics</span>
-$ <span class="nb">cd</span> ../pics
-</code></pre></div><h3 id="查看当前目录路径">查看当前目录路径</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ <span class="nb">pwd</span>
-</code></pre></div><h3 id="文件基本操作操作">文件基本操作操作</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 显示当前目录下的文件和目录, 按字母排序, 展示顺序为按列</span>
-$ ls
-
-<span class="c1"># 如果想让文件夹变得更容易区分, -F参数可让显示文件夹后面追加一个 /</span>
-$ ls -F
-
-<span class="c1"># 如果查看包括隐藏文件, .开头的文件. 可使用 -a 参数</span>
-$ ls -a
-
-<span class="c1"># 默认ls只会显示指定目录下一个层级所有文件. 如果要显示指定目录下的所有所有子层级</span>
-$ ls -R
-</code></pre></div><h3 id="文件的长列表">文件的长列表</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 绝对文件路径</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">cd</span> /usr/bin
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 相对文件路径 进入当前目录下的doc文件夹</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">cd</span> doc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 进入当前文件夹的同级目录pics</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">cd</span> ../pics
+</span></span></code></pre></div><h3 id="查看当前目录路径">查看当前目录路径</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ <span class="nb">pwd</span>
+</span></span></code></pre></div><h3 id="文件基本操作操作">文件基本操作操作</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 显示当前目录下的文件和目录, 按字母排序, 展示顺序为按列</span>
+</span></span><span class="line"><span class="cl">$ ls
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果想让文件夹变得更容易区分, -F参数可让显示文件夹后面追加一个 /</span>
+</span></span><span class="line"><span class="cl">$ ls -F
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果查看包括隐藏文件, .开头的文件. 可使用 -a 参数</span>
+</span></span><span class="line"><span class="cl">$ ls -a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 默认ls只会显示指定目录下一个层级所有文件. 如果要显示指定目录下的所有所有子层级</span>
+</span></span><span class="line"><span class="cl">$ ls -R
+</span></span></code></pre></div><h3 id="文件的长列表">文件的长列表</h3>
 <p>如果需要查看更多的信息, 比如<strong>文件类型</strong>,<strong>文件权限</strong>,<strong>属组或属主</strong>,<strong>大小</strong>等</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ ls -l
-
-<span class="c1"># 一个连贯的展示习惯, 就是将参数组合, 例如展示隐藏 长列表的显示结果</span>
-$ ls -la
-</code></pre></div><h3 id="过滤输出信息">过滤输出信息</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ ls -l
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 一个连贯的展示习惯, 就是将参数组合, 例如展示隐藏 长列表的显示结果</span>
+</span></span><span class="line"><span class="cl">$ ls -la
+</span></span></code></pre></div><h3 id="过滤输出信息">过滤输出信息</h3>
 <p>例如如果你只想想查找目录下的<code>test.java</code>文件的相关信息. 不想显示出其他信息干扰到你. 你可以这样</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 只显示过滤要求的文件相关信息</span>
-$ ls -l test.java
-
-<span class="c1"># 可以使用通配符 ? , 代表一个任意字符</span>
-$ ls -l tes?.java
-
-<span class="c1"># 可以使用通配符 * , 代表0或者多个任意字符</span>
-$ ls -l tet*
-</code></pre></div><p>上面的后两种使用<code>星号</code>或者<code>问号</code>被称为<code>文件扩展匹配</code>, 就是使用通配符进行模糊匹配的过程. 还有一些其他的通配符. 还是以<code>test.java</code>为例</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 指定某个位置的的区间, [a-z], abc...xyz都可以</span>
-$ ls -l tes<span class="o">[</span>a-z<span class="o">]</span>.java
-</code></pre></div><h3 id="文件创建">文件创建</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 只显示过滤要求的文件相关信息</span>
+</span></span><span class="line"><span class="cl">$ ls -l test.java
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 可以使用通配符 ? , 代表一个任意字符</span>
+</span></span><span class="line"><span class="cl">$ ls -l tes?.java
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 可以使用通配符 * , 代表0或者多个任意字符</span>
+</span></span><span class="line"><span class="cl">$ ls -l tet*
+</span></span></code></pre></div><p>上面的后两种使用<code>星号</code>或者<code>问号</code>被称为<code>文件扩展匹配</code>, 就是使用通配符进行模糊匹配的过程. 还有一些其他的通配符. 还是以<code>test.java</code>为例</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 指定某个位置的的区间, [a-z], abc...xyz都可以</span>
+</span></span><span class="line"><span class="cl">$ ls -l tes<span class="o">[</span>a-z<span class="o">]</span>.java
+</span></span></code></pre></div><h3 id="文件创建">文件创建</h3>
 <blockquote>
 <p>创建一个空文件<code>touch</code>命令</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 创建一个名字为 Hello.java 的文件</span>
-$ touch Hello.java
-
-<span class="c1"># 当文件已经存在时, touch命令不会清空原有数据, 但是会更改文件的修改时间</span>
-$ <span class="nb">test</span> ll *.js
--rw-r--r--  <span class="m">1</span> suzeyu  staff   107B <span class="m">10</span> <span class="m">26</span> 16:36 test.js
-$ <span class="nb">test</span> touch test.js
-$ <span class="nb">test</span> ll *.js
--rw-r--r--  <span class="m">1</span> suzeyu  staff   107B <span class="m">12</span> <span class="m">26</span> 16:51 test.js
-
-
-<span class="c1"># 如果只想改变 访问时间 那么通过 -a 参数</span>
-$ touch -a Hello.java
-</code></pre></div><h3 id="复制文件">复制文件</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 创建一个名字为 Hello.java 的文件</span>
+</span></span><span class="line"><span class="cl">$ touch Hello.java
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 当文件已经存在时, touch命令不会清空原有数据, 但是会更改文件的修改时间</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">test</span> ll *.js
+</span></span><span class="line"><span class="cl">-rw-r--r--  <span class="m">1</span> suzeyu  staff   107B <span class="m">10</span> <span class="m">26</span> 16:36 test.js
+</span></span><span class="line"><span class="cl">$ <span class="nb">test</span> touch test.js
+</span></span><span class="line"><span class="cl">$ <span class="nb">test</span> ll *.js
+</span></span><span class="line"><span class="cl">-rw-r--r--  <span class="m">1</span> suzeyu  staff   107B <span class="m">12</span> <span class="m">26</span> 16:51 test.js
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果只想改变 访问时间 那么通过 -a 参数</span>
+</span></span><span class="line"><span class="cl">$ touch -a Hello.java
+</span></span></code></pre></div><h3 id="复制文件">复制文件</h3>
 <blockquote>
 <p><code>cp source destination</code></p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 文件 -&gt; 文件的拷贝  </span>
-$ cp test.cpp test_1.cpp
-
-
-<span class="c1"># 如果目标文件文件已经存在可能会直接覆盖, 所以 -i 会让操作更加安全,警告提示</span>
-$ cp -i test.cpp test_1.cpp
-
-<span class="c1"># 文件 -&gt; /users/suzeyu 目录下</span>
-$ cp test.cpp /users/suzeyu/    <span class="c1">#注意最后的 / , 如果没有就代表users目录下suzeyu文件</span>
-
-<span class="c1"># /users/suzeyu/orgin.txt文件  -&gt; 当前目录下, 利用 . 可以代表当前目录</span>
-$ cp /users/suzeyu/orgin.txt .
-
-
-<span class="c1"># 当前目录下的olds文件夹 -&gt; 目录下的命为news的新文件夹</span>
-$ cp -R olds/ news          <span class="c1"># -R 可以递归遍历olds文件夹,  并创建新的news</span>
-
-<span class="c1"># 也可以使用通配符. 把所有的java文件复制出去</span>
-$ cp *.java  javaDir/
-
-</code></pre></div><h3 id="链接文件">链接文件</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 文件 -&gt; 文件的拷贝  </span>
+</span></span><span class="line"><span class="cl">$ cp test.cpp test_1.cpp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果目标文件文件已经存在可能会直接覆盖, 所以 -i 会让操作更加安全,警告提示</span>
+</span></span><span class="line"><span class="cl">$ cp -i test.cpp test_1.cpp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 文件 -&gt; /users/suzeyu 目录下</span>
+</span></span><span class="line"><span class="cl">$ cp test.cpp /users/suzeyu/    <span class="c1">#注意最后的 / , 如果没有就代表users目录下suzeyu文件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># /users/suzeyu/orgin.txt文件  -&gt; 当前目录下, 利用 . 可以代表当前目录</span>
+</span></span><span class="line"><span class="cl">$ cp /users/suzeyu/orgin.txt .
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 当前目录下的olds文件夹 -&gt; 目录下的命为news的新文件夹</span>
+</span></span><span class="line"><span class="cl">$ cp -R olds/ news          <span class="c1"># -R 可以递归遍历olds文件夹,  并创建新的news</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 也可以使用通配符. 把所有的java文件复制出去</span>
+</span></span><span class="line"><span class="cl">$ cp *.java  javaDir/
+</span></span></code></pre></div><h3 id="链接文件">链接文件</h3>
 <p>链接是目录中指向文件真实位置的占位符.</p>
 <ul>
 <li><code>符号链接</code>: 一个真实的文件. 指向存放在虚拟目录结构中的一个文件.</li>
 <li><code>硬链接</code>: 会创建独立的虚拟文件, 包含原始文件的信息及位置. 但他们根本而言是一个文件</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 符号链接</span>
-<span class="c1"># 为一个文件创建符号链接 使用 ln 命令和 -s 选项</span>
-$ ln -s filename  linkname
-
-<span class="c1"># 通过 ls -l *name, 查看文件信息, 会发现linkname -&gt; filename. 这两个文件是完全不同的文件, </span>
-<span class="c1"># 也可以通过文件唯一 inode 编码来证实</span>
-
-$ ls -i *name
-
-
-<span class="c1"># 硬链接</span>
-<span class="c1"># ln 命令, 不过不需要-s 选项</span>
-$ ln filename hardname
-
-</code></pre></div><h3 id="重命名文件">重命名文件</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 符号链接</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 为一个文件创建符号链接 使用 ln 命令和 -s 选项</span>
+</span></span><span class="line"><span class="cl">$ ln -s filename  linkname
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 通过 ls -l *name, 查看文件信息, 会发现linkname -&gt; filename. 这两个文件是完全不同的文件, </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 也可以通过文件唯一 inode 编码来证实</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ ls -i *name
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 硬链接</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ln 命令, 不过不需要-s 选项</span>
+</span></span><span class="line"><span class="cl">$ ln filename hardname
+</span></span></code></pre></div><h3 id="重命名文件">重命名文件</h3>
 <blockquote>
 <p>重命名也被称为<code>移动(moving)</code> , 主要是<code>mv</code>命令</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 修改文件 test.java 名为 new_test.java</span>
-$ mv test.java new_test.java    <span class="c1"># mv不会改变文件唯一inode编码和时间戳. </span>
-
-<span class="c1"># 也可以移动文件到某个文件夹</span>
-$ mv test.java /Users/suzeyu/Desktop/
-
-<span class="c1"># 同样可以在移动的时候, 添加 -i 参数, 同cp一样. 当覆盖已有文件时会警告提示</span>
-
-
-<span class="c1"># 或者移动整个目录及其内容</span>
-$ mv oldDirs  newDirs
-</code></pre></div><h3 id="删除文件">删除文件</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 修改文件 test.java 名为 new_test.java</span>
+</span></span><span class="line"><span class="cl">$ mv test.java new_test.java    <span class="c1"># mv不会改变文件唯一inode编码和时间戳. </span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 也可以移动文件到某个文件夹</span>
+</span></span><span class="line"><span class="cl">$ mv test.java /Users/suzeyu/Desktop/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 同样可以在移动的时候, 添加 -i 参数, 同cp一样. 当覆盖已有文件时会警告提示</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者移动整个目录及其内容</span>
+</span></span><span class="line"><span class="cl">$ mv oldDirs  newDirs
+</span></span></code></pre></div><h3 id="删除文件">删除文件</h3>
 <blockquote>
 <p><code>rm</code> 删除也称为<code>移除removing</code>. 但要注意, 一旦删除了可以无法找回的. 所以删除前一定要确认好信息</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 删除文件 Hello.txt</span>
-$ rm Hello.txt
-
-<span class="c1"># 添加确认信息删除, 上面的会直接删除掉文件, 而如果加入了 -i 会有警告提示</span>
-$ rm -i Hello.txt
-
-<span class="c1"># 同样可以使用通配符进行批量删除, 例如当前目录的java文件</span>
-$ rm *.java
-
-<span class="c1"># 如果想删除整个文件夹, 那么需要配合使用 -R 进行递归遍历删除.</span>
-$ rm -R dirsName
-
-<span class="c1"># 如果有多个警告提示, 想强制关掉, 可以添加  -f 参数</span>
-<span class="c1"># rm 中的 -r -R 效果是一样</span>
-</code></pre></div><h3 id="创建目录">创建目录</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 创建一个目录</span>
-$ mkdir name
-
-<span class="c1"># 如果需要批量的创建目录. 那么需要 -p 选项的配合</span>
-$ mkdir -p parentDir/subDir/sunDir
-</code></pre></div><h3 id="删除目录">删除目录</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 删除文件 Hello.txt</span>
+</span></span><span class="line"><span class="cl">$ rm Hello.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加确认信息删除, 上面的会直接删除掉文件, 而如果加入了 -i 会有警告提示</span>
+</span></span><span class="line"><span class="cl">$ rm -i Hello.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 同样可以使用通配符进行批量删除, 例如当前目录的java文件</span>
+</span></span><span class="line"><span class="cl">$ rm *.java
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果想删除整个文件夹, 那么需要配合使用 -R 进行递归遍历删除.</span>
+</span></span><span class="line"><span class="cl">$ rm -R dirsName
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果有多个警告提示, 想强制关掉, 可以添加  -f 参数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># rm 中的 -r -R 效果是一样</span>
+</span></span></code></pre></div><h3 id="创建目录">创建目录</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 创建一个目录</span>
+</span></span><span class="line"><span class="cl">$ mkdir name
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果需要批量的创建目录. 那么需要 -p 选项的配合</span>
+</span></span><span class="line"><span class="cl">$ mkdir -p parentDir/subDir/sunDir
+</span></span></code></pre></div><h3 id="删除目录">删除目录</h3>
 <pre tabindex="0"><code># 删除一个目录
 $ rmdir name
 
@@ -337,27 +335,27 @@ $ more Hello.java
 </blockquote>
 <hr>
 <p><code>tail</code>尾部查看</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 查看文件的尾部</span>
-$ tail Hello.java 
-
-<span class="c1"># 默认 tail 显示文件的最后10行 , 通过 -n 参数来修改所显示的行数</span>
-$ tail -n <span class="m">5</span> Hello.java
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 查看文件的尾部</span>
+</span></span><span class="line"><span class="cl">$ tail Hello.java 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 默认 tail 显示文件的最后10行 , 通过 -n 参数来修改所显示的行数</span>
+</span></span><span class="line"><span class="cl">$ tail -n <span class="m">5</span> Hello.java
+</span></span></code></pre></div><hr>
 <p><code>head</code>头部查看</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 查看头部内容 , 默认显示前10行</span>
-$ head Hello.java
-
-<span class="c1"># 指定显示多少行的参数设置</span>
-$ head -20 Hello.java
-</code></pre></div><h2 id="检测程序">检测程序</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 查看头部内容 , 默认显示前10行</span>
+</span></span><span class="line"><span class="cl">$ head Hello.java
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定显示多少行的参数设置</span>
+</span></span><span class="line"><span class="cl">$ head -20 Hello.java
+</span></span></code></pre></div><h2 id="检测程序">检测程序</h2>
 <h3 id="进程查看">进程查看</h3>
 <blockquote>
 <p><code>ps</code> 默认显示运行在当前控制台下属于当前用户的进程</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># -e 参数可以显示所有运行在系统上的进程</span>
-<span class="c1"># -f 参数则扩展了输出</span>
-<span class="c1"># -l 会产生一个长格式的输出 </span>
-</code></pre></div><p>关于<code>-f</code>的扩展出的选项的字段含义</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># -e 参数可以显示所有运行在系统上的进程</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -f 参数则扩展了输出</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -l 会产生一个长格式的输出 </span>
+</span></span></code></pre></div><p>关于<code>-f</code>的扩展出的选项的字段含义</p>
 <table>
 <thead>
 <tr>
@@ -433,46 +431,46 @@ $ head -20 Hello.java
 </tbody>
 </table>
 <hr>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 查看实时进程监测</span>
-$ top 
-</code></pre></div><h2 id="磁盘空间">磁盘空间</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 查看实时进程监测</span>
+</span></span><span class="line"><span class="cl">$ top 
+</span></span></code></pre></div><h2 id="磁盘空间">磁盘空间</h2>
 <h3 id="mount">mount</h3>
 <p>用来挂载媒体的命令叫做<code>mount</code>. 默认情况下, <code>mount</code>命令会输出当前系统上挂载的设备列表</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 显示当前系统上挂载的设备列表</span>
-$ mount
-</code></pre></div><p>一般输入会是如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">/dev/disk1 on / <span class="o">(</span>hfs, local, journaled<span class="o">)</span>
-
-提供了四部分信息, 从前到后
-1. 媒体的设备文件名 
-2. 媒体挂载到虚拟目录的挂载点
-3. 文件的系统类型  hfs 
-4. 已挂载媒体的访问状态
-</code></pre></div><p>如果需要手动挂载, 需要root权限</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ mount -t <span class="nb">type</span> device directory
-<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>
-$ mount -t ntfs /dev/sdb1 /media/disk
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 显示当前系统上挂载的设备列表</span>
+</span></span><span class="line"><span class="cl">$ mount
+</span></span></code></pre></div><p>一般输入会是如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">/dev/disk1 on / <span class="o">(</span>hfs, local, journaled<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">提供了四部分信息, 从前到后
+</span></span><span class="line"><span class="cl">1. 媒体的设备文件名 
+</span></span><span class="line"><span class="cl">2. 媒体挂载到虚拟目录的挂载点
+</span></span><span class="line"><span class="cl">3. 文件的系统类型  hfs 
+</span></span><span class="line"><span class="cl">4. 已挂载媒体的访问状态
+</span></span></code></pre></div><p>如果需要手动挂载, 需要root权限</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ mount -t <span class="nb">type</span> device directory
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>
+</span></span><span class="line"><span class="cl">$ mount -t ntfs /dev/sdb1 /media/disk
+</span></span></code></pre></div><hr>
 <p><strong>卸载设备<code>umount</code></strong></p>
 <p>形式: <code>umount [ directory | device ]</code></p>
 <h3 id="df命令">df命令</h3>
 <blockquote>
 <p><code>df</code>可以快速的知道某个设备上还有多少磁盘空间, 方便查看所有已经挂载的磁盘情况</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 配合 -h 可以把输出按照用户易读的形式表示. 如M, G</span>
-$ df -h
-</code></pre></div><h3 id="du命令">du命令</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 配合 -h 可以把输出按照用户易读的形式表示. 如M, G</span>
+</span></span><span class="line"><span class="cl">$ df -h
+</span></span></code></pre></div><h3 id="du命令">du命令</h3>
 <blockquote>
 <p><code>df</code>可以很容易发现那个磁盘的存储空间快没了. <code>du</code>就是接下来要处理问题的工具, 它可以显示某个特定目录下的磁盘使用情况. 这一方法可用来快速判断系统上某个目录下是不是有超大文件.</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 常规使用, 显示当前目录下所有的文件, 目录, 和子目录的使用情况</span>
-<span class="c1"># 会以磁盘块为单位显示占有空间</span>
-$ du
-
-<span class="c1"># 一般需要配合几个参数进行使用</span>
--c 显示所有已列出文件的总大小
--h 以用户易读的方式显示占有大小, 如K, M, G
-</code></pre></div><h3 id="数据的排序">数据的排序</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 常规使用, 显示当前目录下所有的文件, 目录, 和子目录的使用情况</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 会以磁盘块为单位显示占有空间</span>
+</span></span><span class="line"><span class="cl">$ du
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 一般需要配合几个参数进行使用</span>
+</span></span><span class="line"><span class="cl">-c 显示所有已列出文件的总大小
+</span></span><span class="line"><span class="cl">-h 以用户易读的方式显示占有大小, 如K, M, G
+</span></span></code></pre></div><h3 id="数据的排序">数据的排序</h3>
 <blockquote>
 <p><code>sort</code>命令按照会话指定的默认语言的排序规则对文本文件中的数据进行排序</p>
 </blockquote>
@@ -486,12 +484,12 @@ $ du
         alt="sort_num.png"
         title="sort_num.png" /></p>
 <p>如果你要排序的是数字, 那么需要通过<code>-n</code>让<code>sort</code>命令不要把数字当成字符处理. 这样对于100 &gt; 2的情况就可以避免</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 让sort命令识别数字, 而不是把每一个数字当成字符处理</span>
-$ sort -n fileName
-
-<span class="c1"># 如果需要排序的按照月份, 并且排序的值是Jan, Feb, Mar等三字符的月份, 那么使用-M</span>
-$ sort -M fileName
-</code></pre></div><p>不仅仅如此, 例如如果我们有这么一个键值表:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 让sort命令识别数字, 而不是把每一个数字当成字符处理</span>
+</span></span><span class="line"><span class="cl">$ sort -n fileName
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果需要排序的按照月份, 并且排序的值是Jan, Feb, Mar等三字符的月份, 那么使用-M</span>
+</span></span><span class="line"><span class="cl">$ sort -M fileName
+</span></span></code></pre></div><p>不仅仅如此, 例如如果我们有这么一个键值表:</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -516,9 +514,9 @@ $ sort -M fileName
         title="age_sort.png" /></p>
 <hr>
 <p>那么如果想查看目录下所有文件的占用排序, 就可以</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 从大到小排序</span>
-$ du -s * <span class="p">|</span> sort -nr
-</code></pre></div><h3 id="搜索数据">搜索数据</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 从大到小排序</span>
+</span></span><span class="line"><span class="cl">$ du -s * <span class="p">|</span> sort -nr
+</span></span></code></pre></div><h3 id="搜索数据">搜索数据</h3>
 <blockquote>
 <p>在大文件查找一条数据, 通过<code>grep</code>命令就可直接查找
 <code>grep</code>会在输入或者指定的文件中查找包含匹配指定模式的字符的行</p>
@@ -565,7 +563,6 @@ $  test grep -e 张三 -e 王五 age.txt
 $  test grep [89] age.txt
 王五:18
 赵六:79
-
 </code></pre><p><code>grep</code>是一个基础的搜索工具, 衍生版本也是存在的</p>
 <ul>
 <li><code>egrep</code>: 是<code>grep</code>的衍生, 支持<code>POSIX</code>扩展正则表达式. 含有更多可以用来指定匹配的模式的字符</li>
@@ -708,17 +705,17 @@ $  test grep [89] age.txt
 </table>
 <hr>
 <p>列举常用的方式</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 创建归档, 把test/ test2/两个文件夹的内容进行归档</span>
-$ tar -cvf test.tar  test/ test2/
-
-
-<span class="c1"># 列出tar文件的内容, 但不提取</span>
-$ tar -tf test.tar
-
-
-<span class="c1"># 解压提取归档的内容</span>
-$ tar -xvf test.tar 
-</code></pre></div></div><div class="post-footer" id="post-footer">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 创建归档, 把test/ test2/两个文件夹的内容进行归档</span>
+</span></span><span class="line"><span class="cl">$ tar -cvf test.tar  test/ test2/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 列出tar文件的内容, 但不提取</span>
+</span></span><span class="line"><span class="cl">$ tar -tf test.tar
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 解压提取归档的内容</span>
+</span></span><span class="line"><span class="cl">$ tar -xvf test.tar 
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -749,7 +746,7 @@ $ tar -xvf test.tar
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -764,5 +761,5 @@ $ tar -xvf test.tar
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

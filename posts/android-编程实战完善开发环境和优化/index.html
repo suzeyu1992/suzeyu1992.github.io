@@ -141,24 +141,24 @@
 <p>SDK基本我们都是确保为最新的. 更新SDK最简单的方法就是命令行:</p>
 <p><code>$ android update sdk --no-ui</code></p>
 <p>命令脚本在<code>SDK</code>安装目录的<code>tools</code>文件夹下. 对于之后对其例如<code>tools</code>, <code>platform-tools</code>, <code>gradle</code>的全局环境配置就不单独说明. 说一下<code>mac</code>下的配置<code>/Users/yourname/</code>文件夹下的<code>bash_profile</code>文件.  放入一下我的全局配置文件,可以作为格式参考,别忘了替换成你自己的电脑用户名.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">export PATH=&#34;/usr/local/mysql/bin:$PATH&#34;
-#添加mysql的全局开启关闭服务
-export PATH=&#34;/usr/local/mysql/support-files:$PATH&#34; 
-  
-export PATH=${PATH}:/Users/suzeyu/Library/Android/sdk/tools  
-
-export PATH=${PATH}:/Users/suzeyu/Library/Android/sdk/platform-tools 
-
-export ANDROID_HOME=~/Library/Android/sdk
-
-# 设置ndk环境路径
-export PATH=${PATH}:/Users/suzeyu/Library/Android/sdk/ndk-bundle
-
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR=&#34;/Users/suzeyu/.sdkman&#34;
-[[ -s &#34;/Users/suzeyu/.sdkman/bin/sdkman-init.sh&#34; ]] <span class="err">&amp;&amp;</span> source &#34;/Users/suzeyu/.sdkman/bin/sdkman-init.sh&#34;
-</code></pre></div><p>当配置全局环境完成之后, 可以手动刷新全局环境, 让更改的操作立即生效.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">export PATH=&#34;/usr/local/mysql/bin:$PATH&#34;
+</span></span><span class="line"><span class="cl">#添加mysql的全局开启关闭服务
+</span></span><span class="line"><span class="cl">export PATH=&#34;/usr/local/mysql/support-files:$PATH&#34; 
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">export PATH=${PATH}:/Users/suzeyu/Library/Android/sdk/tools  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">export PATH=${PATH}:/Users/suzeyu/Library/Android/sdk/platform-tools 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">export ANDROID_HOME=~/Library/Android/sdk
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 设置ndk环境路径
+</span></span><span class="line"><span class="cl">export PATH=${PATH}:/Users/suzeyu/Library/Android/sdk/ndk-bundle
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+</span></span><span class="line"><span class="cl">export SDKMAN_DIR=&#34;/Users/suzeyu/.sdkman&#34;
+</span></span><span class="line"><span class="cl">[[ -s &#34;/Users/suzeyu/.sdkman/bin/sdkman-init.sh&#34; ]] <span class="err">&amp;&amp;</span> source &#34;/Users/suzeyu/.sdkman/bin/sdkman-init.sh&#34;
+</span></span></code></pre></div><p>当配置全局环境完成之后, 可以手动刷新全局环境, 让更改的操作立即生效.</p>
 <p><code>$ source ~/.bash_profile</code></p>
 <h3 id="adb工具">adb工具</h3>
 <p><code>adb</code>位于<code>platform-tools</code>文件夹. 可以使用<code>$ adb help all</code>查看可执行的操作.</p>
@@ -184,10 +184,10 @@ export SDKMAN_DIR=&#34;/Users/suzeyu/.sdkman&#34;
 <p><strong>WiFi连接adb</strong></p>
 <p>USB连接时最常用, 当不代表就是唯一途径. 也可以用<code>WiFi</code>通过<code>TCP/IP</code>连接来连接设备.</p>
 <p>如果想要无线连接, 首先需要使用USB先连接电脑, 进行配置; 并且保证电脑和手机是处在同一<code>WiFi</code>环境下. 这是先决条件. (WiFi ip地址可以在手机设备网络连接查看). 然后命令即可</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">$ adb tcpip 5555
-$ adb connect 192.168.1.104
-$ adb devices    #查看当前连接设备, 应该可以看见两个连接
-</code></pre></div><p>说明一下,<code>tcpip 5555</code>会在<code>TCP/IP</code>模式下重启adb守护进程, 然后监听5555端口(adb默认端口). <code>connect</code>命令会使用电脑上的adb服务连接设备的IP地址. 然后拔掉usb查看设备应该会出现一个<strong>ip地址:端口</strong>序列名的设备. 你可以使用<code>adb shell</code>简单测试一下.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">$ adb tcpip 5555
+</span></span><span class="line"><span class="cl">$ adb connect 192.168.1.104
+</span></span><span class="line"><span class="cl">$ adb devices    #查看当前连接设备, 应该可以看见两个连接
+</span></span></code></pre></div><p>说明一下,<code>tcpip 5555</code>会在<code>TCP/IP</code>模式下重启adb守护进程, 然后监听5555端口(adb默认端口). <code>connect</code>命令会使用电脑上的adb服务连接设备的IP地址. 然后拔掉usb查看设备应该会出现一个<strong>ip地址:端口</strong>序列名的设备. 你可以使用<code>adb shell</code>简单测试一下.</p>
 <p>adb守护进程会一直保持<code>TCP/IP</code>模式, 直到设备重新启动, 或者运行了<code>adb usb</code>, 该命令会重启<code>USB守护进程</code>.</p>
 <p>当然有利就有弊, 首先不是所有设备都支持<code>WiFi</code>连接, 并且相比较usb调试. 速度方面明显比较慢.</p>
 <p><strong>在Android设备上执行命令</strong></p>
@@ -201,20 +201,20 @@ $ adb devices    #查看当前连接设备, 应该可以看见两个连接
 <h3 id="gradle简单说明">Gradle简单说明</h3>
 <p>随着AS的普及, 对于<code>Gradle</code>也将彻底替代<code>Ant</code>脚本. 和<code>Ivy</code>,<code>Maven</code>一样的模块化构建系统. 他结合了<code>Ant</code>的灵活以及<code>Maven</code>中的依赖管理. <code>Gradle</code>使用了<code>Groovy</code>领域的专用语言, 可以更清楚地描述配置项, 不用再写复杂的XML构建脚本.</p>
 <p>关于根目录的<code>build.gradle</code>文件. 中主要有三个区块:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">apply plugin: xxx       // gradle应用哪种插件
-
-buildscript{    // 告诉gradle使用哪个仓库去下载构建所用的插件以及依赖
-    ...
-}
-
-dependencies{   // 项目的依赖
-    ...
-}
-
-android{        // 项目的配置项
-    ..
-}
-</code></pre></div><p>虽然可以直接在<code>AS</code>中构建项目, 同样也可以通过命令与构建系统交互. <code>Gradle</code>定义了一系列任务. 在项目根目录下输入如下命令即可列出可用的任务:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">apply plugin: xxx       // gradle应用哪种插件
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">buildscript{    // 告诉gradle使用哪个仓库去下载构建所用的插件以及依赖
+</span></span><span class="line"><span class="cl">    ...
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">dependencies{   // 项目的依赖
+</span></span><span class="line"><span class="cl">    ...
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">android{        // 项目的配置项
+</span></span><span class="line"><span class="cl">    ..
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>虽然可以直接在<code>AS</code>中构建项目, 同样也可以通过命令与构建系统交互. <code>Gradle</code>定义了一系列任务. 在项目根目录下输入如下命令即可列出可用的任务:</p>
 <p><code>$ ./gradlew tasks</code></p>
 <p>如果需要从头开始构建一个应用程序, 只需要运行下面的命令:</p>
 <p><code>$ ./gradlew clean build</code></p>
@@ -225,18 +225,18 @@ android{        // 项目的配置项
 <li>并且由于对方法名,成员变量等混淆可以提高相应的运行速度</li>
 </ol>
 <p>由于<code>ProGuard</code>工具对Android代码进行了混淆, <code>Gradle</code>构建工具也支持该工具, 可在<code>build.gradle</code>文件的<code>android块-&gt;buildTypes块-&gt;</code>添加对应代码.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">buildTypes {
-   debug {
-   }
-   release {
-       //混淆开关
-       minifyEnabled true
-      
-       //加载默认混淆配置文件 progudard-android.txt在sdk目录里面，不用管，proguard.cfg是我们自己配的混淆文件
-       proguardFiles getDefaultProguardFile(&#39;proguard-android.txt&#39;), &#39;proguard-rules.pro&#39;
-   }
-}
-</code></pre></div><h2 id="熟悉ide">熟悉IDE</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">buildTypes {
+</span></span><span class="line"><span class="cl">   debug {
+</span></span><span class="line"><span class="cl">   }
+</span></span><span class="line"><span class="cl">   release {
+</span></span><span class="line"><span class="cl">       //混淆开关
+</span></span><span class="line"><span class="cl">       minifyEnabled true
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">       //加载默认混淆配置文件 progudard-android.txt在sdk目录里面，不用管，proguard.cfg是我们自己配的混淆文件
+</span></span><span class="line"><span class="cl">       proguardFiles getDefaultProguardFile(&#39;proguard-android.txt&#39;), &#39;proguard-rules.pro&#39;
+</span></span><span class="line"><span class="cl">   }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><h2 id="熟悉ide">熟悉IDE</h2>
 <h3 id="断点">断点</h3>
 <p>当程序达到断点出, 可以检查此时的应用状态. 所有的作用域中的变量都会直接显示IDE的调试视图中. 并且可以改变当前作用域的变量值, 可不需要重启应用.</p>
 <p>根据单步的不同跳入方法, 可以<strong>顺序执行</strong>, <strong>自己定义的方法跳入</strong>, <strong>系统提供的方法跳入</strong>, 鼠<strong>标垫跳入</strong>.等可以追踪到不容易发现的问题.</p>
@@ -326,7 +326,7 @@ android{        // 项目的配置项
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -341,5 +341,5 @@ android{        // 项目的配置项
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

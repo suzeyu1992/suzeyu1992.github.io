@@ -188,37 +188,37 @@
 </tbody>
 </table>
 <p>创建的动画的xml文件. 是放在<strong>res/anim</strong>这个文件夹下的. View动画描述文件的固有语法如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
-<span class="nt">&lt;set</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
-    <span class="na">android:shareInterpolator=</span><span class="s">&#34;true&#34;</span>
-    <span class="na">android:fillAfter=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
-    
-    <span class="nt">&lt;alpha</span> 
-        <span class="na">android:fromAlpha=</span><span class="s">&#34;float&#34;</span>
-        <span class="na">android:toAlpha=</span><span class="s">&#34;float&#34;</span><span class="nt">/&gt;</span>
-    
-    <span class="nt">&lt;scale</span>
-        <span class="na">android:fromXScale=</span><span class="s">&#34;float&#34;</span>
-        <span class="na">android:toXScale=</span><span class="s">&#34;float&#34;</span>
-        <span class="na">android:fromYScale=</span><span class="s">&#34;float&#34;</span>
-        <span class="na">android:toYScale=</span><span class="s">&#34;float&#34;</span>
-        <span class="na">android:pivotX=</span><span class="s">&#34;float&#34;</span>
-        <span class="na">android:pivotY=</span><span class="s">&#34;float&#34;</span><span class="nt">/&gt;</span>
-    
-    <span class="nt">&lt;translate</span>
-        <span class="na">android:fromXDelta=</span><span class="s">&#34;float&#34;</span>
-        <span class="na">android:toXDelta=</span><span class="s">&#34;float&#34;</span>
-        <span class="na">android:fromYDelta=</span><span class="s">&#34;float&#34;</span>
-        <span class="na">android:toYDelta=</span><span class="s">&#34;float&#34;</span><span class="nt">/&gt;</span>
-    
-    <span class="nt">&lt;rotate</span>
-        <span class="na">android:fromDegrees=</span><span class="s">&#34;float&#34;</span>
-        <span class="na">android:toDegrees=</span><span class="s">&#34;float&#34;</span>
-        <span class="na">android:pivotY=</span><span class="s">&#34;float&#34;</span>
-        <span class="na">android:pivotX=</span><span class="s">&#34;float&#34;</span><span class="nt">/&gt;</span>
-
-<span class="nt">&lt;/set&gt;</span>
-</code></pre></div><p>关于动画我们可以只设置一种也可以设置多种的组合.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;set</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:shareInterpolator=</span><span class="s">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:fillAfter=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;alpha</span> 
+</span></span><span class="line"><span class="cl">        <span class="na">android:fromAlpha=</span><span class="s">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:toAlpha=</span><span class="s">&#34;float&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;scale</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:fromXScale=</span><span class="s">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:toXScale=</span><span class="s">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:fromYScale=</span><span class="s">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:toYScale=</span><span class="s">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:pivotX=</span><span class="s">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:pivotY=</span><span class="s">&#34;float&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;translate</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:fromXDelta=</span><span class="s">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:toXDelta=</span><span class="s">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:fromYDelta=</span><span class="s">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:toYDelta=</span><span class="s">&#34;float&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;rotate</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:fromDegrees=</span><span class="s">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:toDegrees=</span><span class="s">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:pivotY=</span><span class="s">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">android:pivotX=</span><span class="s">&#34;float&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/set&gt;</span>
+</span></span></code></pre></div><p>关于动画我们可以只设置一种也可以设置多种的组合.</p>
 <p><strong>set标签对应着<code>AnimationSet</code>类, 标签中的属性的意义:</strong></p>
 <ul>
 <li><strong>shareInterpolator</strong> 表示集合中的动画是否和集合共享一个插值器. 如果集合不指定插值器, 那么子动画就需要单独制定所需的插值器或者使用默认值</li>
@@ -234,15 +234,14 @@
 <p><code>fromAlpha</code>表示透明度的起始值, <code>toAlpha</code>表示透明度的结束值.</p>
 <p>上面这些标签还有一些通用的属性值. 例如<code>duration</code>执行时间.</p>
 <p>xml如果声明了之后那么我们就该在代码中应用了.  如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">View</span> <span class="n">btn_main</span> <span class="o">=</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">parent</span><span class="o">);</span>
-<span class="n">Animation</span> <span class="n">animation</span> <span class="o">=</span> <span class="n">AnimationUtils</span><span class="o">.</span><span class="na">loadAnimation</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">anim</span><span class="o">.</span><span class="na">temp</span><span class="o">);</span>
-<span class="n">btn_main</span><span class="o">.</span><span class="na">startAnimation</span><span class="o">(</span><span class="n">animation</span><span class="o">);</span>
-</code></pre></div><p>同样也可以不需要xml直接在代码中生成动画对象.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">AlphaAnimation</span> <span class="n">alphaAnimation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AlphaAnimation</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
-<span class="n">alphaAnimation</span><span class="o">.</span><span class="na">setDuration</span><span class="o">(</span><span class="n">1000</span><span class="o">);</span>
-<span class="n">btn_main</span><span class="o">.</span><span class="na">startAnimation</span><span class="o">(</span><span class="n">alphaAnimation</span><span class="o">);</span>
-
-</code></pre></div><p>在开始动画之前可以给动画添加一个监听<code>setAnimationListener()</code>这样在动画开始结束和每一次循环下一次的时候都可以在回调方法中监听到.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">View</span> <span class="n">btn_main</span> <span class="o">=</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">parent</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Animation</span> <span class="n">animation</span> <span class="o">=</span> <span class="n">AnimationUtils</span><span class="o">.</span><span class="na">loadAnimation</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">anim</span><span class="o">.</span><span class="na">temp</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">btn_main</span><span class="o">.</span><span class="na">startAnimation</span><span class="o">(</span><span class="n">animation</span><span class="o">);</span>
+</span></span></code></pre></div><p>同样也可以不需要xml直接在代码中生成动画对象.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">AlphaAnimation</span> <span class="n">alphaAnimation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AlphaAnimation</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">alphaAnimation</span><span class="o">.</span><span class="na">setDuration</span><span class="o">(</span><span class="n">1000</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">btn_main</span><span class="o">.</span><span class="na">startAnimation</span><span class="o">(</span><span class="n">alphaAnimation</span><span class="o">);</span>
+</span></span></code></pre></div><p>在开始动画之前可以给动画添加一个监听<code>setAnimationListener()</code>这样在动画开始结束和每一次循环下一次的时候都可以在回调方法中监听到.</p>
 <h3 id="自定义view动画">自定义View动画</h3>
 <p>如果需要自定义View动画, 首先应该继承<code>Animation</code>这个抽象类来派生出一种新动画. 然后重写<code>initialize()</code>和<code>applyTransformation()</code>方法. 在<code>initialize</code>中做一些初始化动作, 在<code>applyTransformation()</code>中进行相应矩阵变换, 很多时候需要采用<code>Camera</code>来简化矩阵变换的过程. 而View动画变化主要就是矩阵的变换过程.</p>
 <p>这里举一个Android中ApiDemo的一个自定义View动画. 大概效果就是这样可以参照官网的api也可在包中的<code>MyRotateAnimation</code></p>
@@ -257,48 +256,48 @@
 <h3 id="帧动画">帧动画</h3>
 <p>帧动画是顺序播放一组预先定义好的图片, 类似于电影. 系统提供了<code>AnimationDrawable</code>来使用帧动画.</p>
 <p>同样在xml中声明, 在<code>res/drawable/</code>包下创建文件, 并替换每个<code>drawable</code>图片即可</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
-<span class="nt">&lt;animation-list</span>
-    <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
-    <span class="na">android:oneshot=</span><span class="s">&#34;false&#34;</span><span class="nt">&gt;</span>
-
-    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@drawable/xx1&#34;</span> <span class="na">android:duration=</span><span class="s">&#34;500&#34;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@drawable/xx2&#34;</span> <span class="na">android:duration=</span><span class="s">&#34;500&#34;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@drawable/xx3&#34;</span> <span class="na">android:duration=</span><span class="s">&#34;500&#34;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@drawable/xx4&#34;</span> <span class="na">android:duration=</span><span class="s">&#34;500&#34;</span><span class="nt">/&gt;</span>
-
-<span class="nt">&lt;/animation-list&gt;</span>
-</code></pre></div><p>将上述的Drawable作为View的背景并通过Drawable来播放动画.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">AnimationDrawable</span> <span class="n">background</span> <span class="o">=</span> <span class="o">(</span><span class="n">AnimationDrawable</span><span class="o">)</span> <span class="n">iv_main</span><span class="o">.</span><span class="na">getBackground</span><span class="o">();</span><span class="n">background</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-</code></pre></div><h2 id="view动画的特殊使用场景">View动画的特殊使用场景</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;animation-list</span>
+</span></span><span class="line"><span class="cl">    <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:oneshot=</span><span class="s">&#34;false&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@drawable/xx1&#34;</span> <span class="na">android:duration=</span><span class="s">&#34;500&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@drawable/xx2&#34;</span> <span class="na">android:duration=</span><span class="s">&#34;500&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@drawable/xx3&#34;</span> <span class="na">android:duration=</span><span class="s">&#34;500&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">&#34;@drawable/xx4&#34;</span> <span class="na">android:duration=</span><span class="s">&#34;500&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/animation-list&gt;</span>
+</span></span></code></pre></div><p>将上述的Drawable作为View的背景并通过Drawable来播放动画.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">AnimationDrawable</span> <span class="n">background</span> <span class="o">=</span> <span class="o">(</span><span class="n">AnimationDrawable</span><span class="o">)</span> <span class="n">iv_main</span><span class="o">.</span><span class="na">getBackground</span><span class="o">();</span><span class="n">background</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></div><h2 id="view动画的特殊使用场景">View动画的特殊使用场景</h2>
 <p>前面介绍的View动画都是作用在某一个<code>View</code>对象上的. 还可以针对<code>ViewGroup</code>控制其子元素. 或者针对<code>Activity</code>切换的动画.</p>
 <h3 id="layoutanimation">LayoutAnimation</h3>
 <p><code>LayoutAnimation</code>作用于<code>ViewGroup</code>上的. 为<code>ViewGroup</code>指定一个动画, 这样当它的子元素出场时都会具有这种动画效果. 常用的使用场景是在ListView和GridView.  使用很简单步骤如下.</p>
 <ol>
 <li>在<code>res/anim/</code>文件夹下创建xml文件.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
-<span class="nt">&lt;layoutAnimation</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
-    <span class="na">android:delay=</span><span class="s">&#34;0.5&#34;</span>
-    <span class="na">android:animationOrder=</span><span class="s">&#34;random&#34;</span>
-    <span class="na">android:animation=</span><span class="s">&#34;@anim/layout&#34;</span><span class="nt">&gt;</span>
-    
-<span class="nt">&lt;/layoutAnimation&gt;</span>
-</code></pre></div><p><strong>delay</strong>: 子元素开始动画的延迟时间, 传入值是浮点值. 1为100%. 例如如果是0.5 入场动画周期为300ms(下面关联动画的duration时间), 那么每个子元素都需要延迟150ms才能播放入场动画. 而且这个时间会根据item的递增而增加. 比方说第一个为延迟150ms, 第二个就是300ms依次类推.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;layoutAnimation</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:delay=</span><span class="s">&#34;0.5&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:animationOrder=</span><span class="s">&#34;random&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:animation=</span><span class="s">&#34;@anim/layout&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/layoutAnimation&gt;</span>
+</span></span></code></pre></div><p><strong>delay</strong>: 子元素开始动画的延迟时间, 传入值是浮点值. 1为100%. 例如如果是0.5 入场动画周期为300ms(下面关联动画的duration时间), 那么每个子元素都需要延迟150ms才能播放入场动画. 而且这个时间会根据item的递增而增加. 比方说第一个为延迟150ms, 第二个就是300ms依次类推.</p>
 <p><strong>animationOrder</strong>: 子元素动画的顺序, 有三种选择<code>normal</code>,<code>reverse</code>,<code>random</code>. <code>reverse</code>表示排在后面的元素先执行入场动画. <code>random</code>随机子元素执行动画.</p>
 <p><strong>animation</strong>: 为子元素指定具体的入场动画. 里面放的就是针对View的animation动画的xml</p>
 <p><code>layoutAnimation</code>声明完成之后, 在要作用的ViewGroup标签中增加<code>android:layoutAnimation:&quot;@anim/xxx&quot;</code>进行关联即可. 同样也可以通过代码创建<code>LayoutAnimation</code>类来实现.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//获得子元素需要执行的View动画
-</span><span class="c1"></span><span class="n">Animation</span> <span class="n">animation</span> <span class="o">=</span> <span class="n">AnimationUtils</span><span class="o">.</span><span class="na">loadAnimation</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">anim</span><span class="o">.</span><span class="na">layout</span><span class="o">);</span>
-   
-<span class="c1">//创建一个LayoutAnimation动画对象
-</span><span class="c1"></span><span class="n">LayoutAnimationController</span> <span class="n">controller</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LayoutAnimationController</span><span class="o">(</span><span class="n">animation</span><span class="o">);</span>
-<span class="n">controller</span><span class="o">.</span><span class="na">setDelay</span><span class="o">(</span><span class="n">0</span><span class="o">.</span><span class="na">5f</span><span class="o">);</span>
-<span class="n">controller</span><span class="o">.</span><span class="na">setOrder</span><span class="o">(</span><span class="n">LayoutAnimationController</span><span class="o">.</span><span class="na">ORDER_RANDOM</span><span class="o">);</span>
-   
-<span class="c1">//对ViewGrop进行绑定
-</span><span class="c1"></span><span class="n">listView</span><span class="o">.</span><span class="na">setLayoutAnimation</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
-</code></pre></div><h3 id="activity的切换效果">Activity的切换效果</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//获得子元素需要执行的View动画
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Animation</span> <span class="n">animation</span> <span class="o">=</span> <span class="n">AnimationUtils</span><span class="o">.</span><span class="na">loadAnimation</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">anim</span><span class="o">.</span><span class="na">layout</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl"><span class="c1">//创建一个LayoutAnimation动画对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">LayoutAnimationController</span> <span class="n">controller</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LayoutAnimationController</span><span class="o">(</span><span class="n">animation</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">controller</span><span class="o">.</span><span class="na">setDelay</span><span class="o">(</span><span class="n">0</span><span class="o">.</span><span class="na">5f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">controller</span><span class="o">.</span><span class="na">setOrder</span><span class="o">(</span><span class="n">LayoutAnimationController</span><span class="o">.</span><span class="na">ORDER_RANDOM</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl"><span class="c1">//对ViewGrop进行绑定
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">listView</span><span class="o">.</span><span class="na">setLayoutAnimation</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
+</span></span></code></pre></div><h3 id="activity的切换效果">Activity的切换效果</h3>
 <p>Activity默认是有一种切换效果的. 如果需要自定义切换效果, 主要用到<code>overridePendingTransition()</code>这个方法, 这个方法必须在<strong>startActivity()或者finish()之后调用才会生效</strong></p>
 <p>需要的形参有两个, 第一个是被打开时候所需的动画资源id, 第二个是被暂停时,所需的动画资源id.</p>
 <p><strong>= =.  这里有问题, 试了半天不好使, 就没写具体步骤&hellip;.</strong></p>
@@ -307,13 +306,13 @@
 <h3 id="使用属性动画">使用属性动画</h3>
 <p>属性动画可以对任何对象的属性进行动画而不仅仅是View, 动画默认时间间隔为300ms, 默认帧率10ms/帧. 可以达到的效果为: 在一段时间间隔内完成对象从一个属性值到另一个属性值的改变. 属性动画是从<strong>API11</strong>增加的.</p>
 <p>如: 改变一个对象的背景色属性, 典型的改变View的背景色, 下面的动画可以让背景颜色的渐变, 动画会无限循环而且会有反转效果.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">ObjectAnimator</span> <span class="n">colorAnim</span> <span class="o">=</span> <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofInt</span><span class="o">(</span><span class="n">activity_main</span><span class="o">,</span> <span class="s">&#34;backgroundColor&#34;</span><span class="o">,</span> <span class="n">0xffffa000</span><span class="o">,</span> <span class="n">0xffffa0ff</span><span class="o">);</span>
-        <span class="n">colorAnim</span><span class="o">.</span><span class="na">setDuration</span><span class="o">(</span><span class="n">5000</span><span class="o">);</span>
-        <span class="n">colorAnim</span><span class="o">.</span><span class="na">setEvaluator</span><span class="o">(</span><span class="k">new</span> <span class="n">ArgbEvaluator</span><span class="o">());</span>
-        <span class="n">colorAnim</span><span class="o">.</span><span class="na">setRepeatCount</span><span class="o">(</span><span class="n">ValueAnimator</span><span class="o">.</span><span class="na">INFINITE</span><span class="o">);</span>
-        <span class="n">colorAnim</span><span class="o">.</span><span class="na">setRepeatMode</span><span class="o">(</span><span class="n">ValueAnimator</span><span class="o">.</span><span class="na">REVERSE</span><span class="o">);</span>
-        <span class="n">colorAnim</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-</code></pre></div><p>效果这样:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ObjectAnimator</span> <span class="n">colorAnim</span> <span class="o">=</span> <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofInt</span><span class="o">(</span><span class="n">activity_main</span><span class="o">,</span> <span class="s">&#34;backgroundColor&#34;</span><span class="o">,</span> <span class="n">0xffffa000</span><span class="o">,</span> <span class="n">0xffffa0ff</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">colorAnim</span><span class="o">.</span><span class="na">setDuration</span><span class="o">(</span><span class="n">5000</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">colorAnim</span><span class="o">.</span><span class="na">setEvaluator</span><span class="o">(</span><span class="k">new</span> <span class="n">ArgbEvaluator</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">colorAnim</span><span class="o">.</span><span class="na">setRepeatCount</span><span class="o">(</span><span class="n">ValueAnimator</span><span class="o">.</span><span class="na">INFINITE</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">colorAnim</span><span class="o">.</span><span class="na">setRepeatMode</span><span class="o">(</span><span class="n">ValueAnimator</span><span class="o">.</span><span class="na">REVERSE</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">colorAnim</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></div><p>效果这样:</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -323,20 +322,20 @@
         alt="bg1.gif"
         title="bg1.gif" /></p>
 <p><strong>动画集合,5秒内对View旋转平移缩放透明</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">AnimatorSet</span> <span class="n">animatorSet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnimatorSet</span><span class="o">();</span>
-        <span class="n">animatorSet</span><span class="o">.</span><span class="na">playTogether</span><span class="o">(</span>
-                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;rotationX&#34;</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span><span class="n">360</span><span class="o">),</span>
-                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;rotationY&#34;</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span><span class="n">360</span><span class="o">),</span>
-                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;rotation&#34;</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span><span class="n">360</span><span class="o">),</span>
-                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;translationX&#34;</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span><span class="n">200</span><span class="o">),</span>
-                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;translationY&#34;</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span><span class="n">200</span><span class="o">),</span>
-                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;scaleX&#34;</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">.</span><span class="na">5f</span><span class="o">),</span>
-                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;scaleY&#34;</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">.</span><span class="na">5f</span><span class="o">),</span>
-                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;alpha&#34;</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">.</span><span class="na">25f</span><span class="o">,</span> <span class="n">1</span><span class="o">)</span>
-        <span class="o">);</span>
-
-        <span class="n">animatorSet</span><span class="o">.</span><span class="na">setDuration</span><span class="o">(</span><span class="n">5</span><span class="o">*</span><span class="n">1000</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-</code></pre></div><p>也可以使用xml的形式形式来声明</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">AnimatorSet</span> <span class="n">animatorSet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnimatorSet</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">animatorSet</span><span class="o">.</span><span class="na">playTogether</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;rotationX&#34;</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span><span class="n">360</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;rotationY&#34;</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span><span class="n">360</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;rotation&#34;</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span><span class="n">360</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;translationX&#34;</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span><span class="n">200</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;translationY&#34;</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span><span class="n">200</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;scaleX&#34;</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">.</span><span class="na">5f</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;scaleY&#34;</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">.</span><span class="na">5f</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ObjectAnimator</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="n">iv_main</span><span class="o">,</span> <span class="s">&#34;alpha&#34;</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">.</span><span class="na">25f</span><span class="o">,</span> <span class="n">1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">animatorSet</span><span class="o">.</span><span class="na">setDuration</span><span class="o">(</span><span class="n">5</span><span class="o">*</span><span class="n">1000</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></div><p>也可以使用xml的形式形式来声明</p>
 <h3 id="理解插值器和估值器">理解插值器和估值器</h3>
 <p><code>TimeInterpolator</code>时间插值器, 作用是根据时间流逝的百分比来计算当前属性值改变的百分比. 系统预置的有</p>
 <ul>
@@ -392,122 +391,122 @@
 <h3 id="属性动画的工作原理">属性动画的工作原理</h3>
 <p>前面说过, 说属性画要求作用的对象提供该属性方法set方法, 属性动画根据传递的该属性的初始值和最终值, 以动画的效果多次去调用set方法. 每次set方法时候传递的值都是不一样的. 也就是随着时间的推移所传递的值会越来越接近终点值.</p>
 <p>源码分析: 针对<code>ObjectAnimator的start()</code>为入口</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">()</span> <span class="o">{</span>
-   <span class="c1">// See if any of the current active/pending animators need to be canceled
-</span><span class="c1"></span>   <span class="n">AnimationHandler</span> <span class="n">handler</span> <span class="o">=</span> <span class="n">sAnimationHandler</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-   <span class="k">if</span> <span class="o">(</span><span class="n">handler</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-       <span class="kt">int</span> <span class="n">numAnims</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="na">mAnimations</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
-       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">numAnims</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
-           <span class="k">if</span> <span class="o">(</span><span class="n">handler</span><span class="o">.</span><span class="na">mAnimations</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="k">instanceof</span> <span class="n">ObjectAnimator</span><span class="o">)</span> <span class="o">{</span>
-               <span class="n">ObjectAnimator</span> <span class="n">anim</span> <span class="o">=</span> <span class="o">(</span><span class="n">ObjectAnimator</span><span class="o">)</span> <span class="n">handler</span><span class="o">.</span><span class="na">mAnimations</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
-               <span class="k">if</span> <span class="o">(</span><span class="n">anim</span><span class="o">.</span><span class="na">mAutoCancel</span> <span class="o">&amp;&amp;</span> <span class="n">hasSameTargetAndProperties</span><span class="o">(</span><span class="n">anim</span><span class="o">))</span> <span class="o">{</span>
-                   <span class="n">anim</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
-               <span class="o">}</span>
-           <span class="o">}</span>
-       <span class="o">}</span>
-       <span class="n">numAnims</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="na">mPendingAnimations</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
-       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">numAnims</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
-           <span class="k">if</span> <span class="o">(</span><span class="n">handler</span><span class="o">.</span><span class="na">mPendingAnimations</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="k">instanceof</span> <span class="n">ObjectAnimator</span><span class="o">)</span> <span class="o">{</span>
-               <span class="n">ObjectAnimator</span> <span class="n">anim</span> <span class="o">=</span> <span class="o">(</span><span class="n">ObjectAnimator</span><span class="o">)</span> <span class="n">handler</span><span class="o">.</span><span class="na">mPendingAnimations</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
-               <span class="k">if</span> <span class="o">(</span><span class="n">anim</span><span class="o">.</span><span class="na">mAutoCancel</span> <span class="o">&amp;&amp;</span> <span class="n">hasSameTargetAndProperties</span><span class="o">(</span><span class="n">anim</span><span class="o">))</span> <span class="o">{</span>
-                   <span class="n">anim</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
-               <span class="o">}</span>
-           <span class="o">}</span>
-       <span class="o">}</span>
-       <span class="n">numAnims</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="na">mDelayedAnims</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
-       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">numAnims</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
-           <span class="k">if</span> <span class="o">(</span><span class="n">handler</span><span class="o">.</span><span class="na">mDelayedAnims</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="k">instanceof</span> <span class="n">ObjectAnimator</span><span class="o">)</span> <span class="o">{</span>
-               <span class="n">ObjectAnimator</span> <span class="n">anim</span> <span class="o">=</span> <span class="o">(</span><span class="n">ObjectAnimator</span><span class="o">)</span> <span class="n">handler</span><span class="o">.</span><span class="na">mDelayedAnims</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
-               <span class="k">if</span> <span class="o">(</span><span class="n">anim</span><span class="o">.</span><span class="na">mAutoCancel</span> <span class="o">&amp;&amp;</span> <span class="n">hasSameTargetAndProperties</span><span class="o">(</span><span class="n">anim</span><span class="o">))</span> <span class="o">{</span>
-                   <span class="n">anim</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
-               <span class="o">}</span>
-           <span class="o">}</span>
-       <span class="o">}</span>
-   <span class="o">}</span>
-   <span class="k">if</span> <span class="o">(</span><span class="n">DBG</span><span class="o">)</span> <span class="o">{</span>
-       <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">LOG_TAG</span><span class="o">,</span> <span class="s">&#34;Anim target, duration: &#34;</span> <span class="o">+</span> <span class="n">getTarget</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;, &#34;</span> <span class="o">+</span> <span class="n">getDuration</span><span class="o">());</span>
-       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">mValues</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
-           <span class="n">PropertyValuesHolder</span> <span class="n">pvh</span> <span class="o">=</span> <span class="n">mValues</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
-           <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">LOG_TAG</span><span class="o">,</span> <span class="s">&#34;   Values[&#34;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">&#34;]: &#34;</span> <span class="o">+</span>
-               <span class="n">pvh</span><span class="o">.</span><span class="na">getPropertyName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;, &#34;</span> <span class="o">+</span> <span class="n">pvh</span><span class="o">.</span><span class="na">mKeyframes</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="n">0</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;, &#34;</span> <span class="o">+</span>
-               <span class="n">pvh</span><span class="o">.</span><span class="na">mKeyframes</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="n">1</span><span class="o">));</span>
-       <span class="o">}</span>
-   <span class="o">}</span>
-   <span class="kd">super</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-<span class="o">}</span>
-</code></pre></div><p>这段代码主要就是取消和当前动画相同的动画. 最开始判断了当前动画,等待动画,延迟动画是否有一致的. 如果有那么就给取消. 最后调用了父类方法. 因为<code>ObjectAnimator</code>继承了<code>ValueAnimator</code>,所以继续看一下父类的<code>start()</code></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">playBackwards</span><span class="o">)</span> <span class="o">{</span>
-   <span class="k">if</span> <span class="o">(</span><span class="n">Looper</span><span class="o">.</span><span class="na">myLooper</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-       <span class="k">throw</span> <span class="k">new</span> <span class="n">AndroidRuntimeException</span><span class="o">(</span><span class="s">&#34;Animators may only be run on Looper threads&#34;</span><span class="o">);</span>
-   <span class="o">}</span>
-   <span class="n">mReversing</span> <span class="o">=</span> <span class="n">playBackwards</span><span class="o">;</span>
-   <span class="n">mPlayingBackwards</span> <span class="o">=</span> <span class="n">playBackwards</span><span class="o">;</span>
-   
-   <span class="kt">int</span> <span class="n">prevPlayingState</span> <span class="o">=</span> <span class="n">mPlayingState</span><span class="o">;</span>
-   <span class="n">mPlayingState</span> <span class="o">=</span> <span class="n">STOPPED</span><span class="o">;</span>
-   <span class="n">mStarted</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-   <span class="n">mStartedDelay</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-   <span class="n">mPaused</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-   <span class="n">updateScaledDuration</span><span class="o">();</span> <span class="c1">// in case the scale factor has changed since creation time
-</span><span class="c1"></span>   <span class="n">AnimationHandler</span> <span class="n">animationHandler</span> <span class="o">=</span> <span class="n">getOrCreateAnimationHandler</span><span class="o">();</span>
-   <span class="n">animationHandler</span><span class="o">.</span><span class="na">mPendingAnimations</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-   <span class="k">if</span> <span class="o">(</span><span class="n">mStartDelay</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
-       <span class="c1">// This sets the initial value of the animation, prior to actually starting it running
-</span><span class="c1"></span>       <span class="k">if</span> <span class="o">(</span><span class="n">prevPlayingState</span> <span class="o">!=</span> <span class="n">SEEKED</span><span class="o">)</span> <span class="o">{</span>
-           <span class="n">setCurrentPlayTime</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
-       <span class="o">}</span>
-       <span class="n">mPlayingState</span> <span class="o">=</span> <span class="n">STOPPED</span><span class="o">;</span>
-       <span class="n">mRunning</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-       <span class="n">notifyStartListeners</span><span class="o">();</span>
-   <span class="o">}</span>
-   <span class="n">animationHandler</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-<span class="o">}</span>
-</code></pre></div><p>属性动画需要运行在有<code>Looper</code>的线程中, 最终会调用<code>AnimationHandler.start()</code>方法.  <code>AnimationHandler</code>并不是Handler, 他是一个<code>Runnable</code>. 后面会调到JNI层, 然后JNI层还会调回, 然后<code>run</code>方法会被调用, 这个Runable涉及和底层的交互. 略过. 看重点.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"> <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// See if any of the current active/pending animators need to be canceled
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">AnimationHandler</span> <span class="n">handler</span> <span class="o">=</span> <span class="n">sAnimationHandler</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(</span><span class="n">handler</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="kt">int</span> <span class="n">numAnims</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="na">mAnimations</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">numAnims</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           <span class="k">if</span> <span class="o">(</span><span class="n">handler</span><span class="o">.</span><span class="na">mAnimations</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="k">instanceof</span> <span class="n">ObjectAnimator</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">               <span class="n">ObjectAnimator</span> <span class="n">anim</span> <span class="o">=</span> <span class="o">(</span><span class="n">ObjectAnimator</span><span class="o">)</span> <span class="n">handler</span><span class="o">.</span><span class="na">mAnimations</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">               <span class="k">if</span> <span class="o">(</span><span class="n">anim</span><span class="o">.</span><span class="na">mAutoCancel</span> <span class="o">&amp;&amp;</span> <span class="n">hasSameTargetAndProperties</span><span class="o">(</span><span class="n">anim</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">anim</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">               <span class="o">}</span>
+</span></span><span class="line"><span class="cl">           <span class="o">}</span>
+</span></span><span class="line"><span class="cl">       <span class="o">}</span>
+</span></span><span class="line"><span class="cl">       <span class="n">numAnims</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="na">mPendingAnimations</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">numAnims</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           <span class="k">if</span> <span class="o">(</span><span class="n">handler</span><span class="o">.</span><span class="na">mPendingAnimations</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="k">instanceof</span> <span class="n">ObjectAnimator</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">               <span class="n">ObjectAnimator</span> <span class="n">anim</span> <span class="o">=</span> <span class="o">(</span><span class="n">ObjectAnimator</span><span class="o">)</span> <span class="n">handler</span><span class="o">.</span><span class="na">mPendingAnimations</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">               <span class="k">if</span> <span class="o">(</span><span class="n">anim</span><span class="o">.</span><span class="na">mAutoCancel</span> <span class="o">&amp;&amp;</span> <span class="n">hasSameTargetAndProperties</span><span class="o">(</span><span class="n">anim</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">anim</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">               <span class="o">}</span>
+</span></span><span class="line"><span class="cl">           <span class="o">}</span>
+</span></span><span class="line"><span class="cl">       <span class="o">}</span>
+</span></span><span class="line"><span class="cl">       <span class="n">numAnims</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="na">mDelayedAnims</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">numAnims</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           <span class="k">if</span> <span class="o">(</span><span class="n">handler</span><span class="o">.</span><span class="na">mDelayedAnims</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="k">instanceof</span> <span class="n">ObjectAnimator</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">               <span class="n">ObjectAnimator</span> <span class="n">anim</span> <span class="o">=</span> <span class="o">(</span><span class="n">ObjectAnimator</span><span class="o">)</span> <span class="n">handler</span><span class="o">.</span><span class="na">mDelayedAnims</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">               <span class="k">if</span> <span class="o">(</span><span class="n">anim</span><span class="o">.</span><span class="na">mAutoCancel</span> <span class="o">&amp;&amp;</span> <span class="n">hasSameTargetAndProperties</span><span class="o">(</span><span class="n">anim</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">anim</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">               <span class="o">}</span>
+</span></span><span class="line"><span class="cl">           <span class="o">}</span>
+</span></span><span class="line"><span class="cl">       <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(</span><span class="n">DBG</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">LOG_TAG</span><span class="o">,</span> <span class="s">&#34;Anim target, duration: &#34;</span> <span class="o">+</span> <span class="n">getTarget</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;, &#34;</span> <span class="o">+</span> <span class="n">getDuration</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">mValues</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           <span class="n">PropertyValuesHolder</span> <span class="n">pvh</span> <span class="o">=</span> <span class="n">mValues</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+</span></span><span class="line"><span class="cl">           <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">LOG_TAG</span><span class="o">,</span> <span class="s">&#34;   Values[&#34;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">&#34;]: &#34;</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">               <span class="n">pvh</span><span class="o">.</span><span class="na">getPropertyName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;, &#34;</span> <span class="o">+</span> <span class="n">pvh</span><span class="o">.</span><span class="na">mKeyframes</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="n">0</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;, &#34;</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">               <span class="n">pvh</span><span class="o">.</span><span class="na">mKeyframes</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="n">1</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">       <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="kd">super</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>这段代码主要就是取消和当前动画相同的动画. 最开始判断了当前动画,等待动画,延迟动画是否有一致的. 如果有那么就给取消. 最后调用了父类方法. 因为<code>ObjectAnimator</code>继承了<code>ValueAnimator</code>,所以继续看一下父类的<code>start()</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">playBackwards</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(</span><span class="n">Looper</span><span class="o">.</span><span class="na">myLooper</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="k">throw</span> <span class="k">new</span> <span class="n">AndroidRuntimeException</span><span class="o">(</span><span class="s">&#34;Animators may only be run on Looper threads&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mReversing</span> <span class="o">=</span> <span class="n">playBackwards</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mPlayingBackwards</span> <span class="o">=</span> <span class="n">playBackwards</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">prevPlayingState</span> <span class="o">=</span> <span class="n">mPlayingState</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mPlayingState</span> <span class="o">=</span> <span class="n">STOPPED</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mStarted</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mStartedDelay</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mPaused</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">updateScaledDuration</span><span class="o">();</span> <span class="c1">// in case the scale factor has changed since creation time
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">AnimationHandler</span> <span class="n">animationHandler</span> <span class="o">=</span> <span class="n">getOrCreateAnimationHandler</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">   <span class="n">animationHandler</span><span class="o">.</span><span class="na">mPendingAnimations</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(</span><span class="n">mStartDelay</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="c1">// This sets the initial value of the animation, prior to actually starting it running
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="k">if</span> <span class="o">(</span><span class="n">prevPlayingState</span> <span class="o">!=</span> <span class="n">SEEKED</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           <span class="n">setCurrentPlayTime</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="o">}</span>
+</span></span><span class="line"><span class="cl">       <span class="n">mPlayingState</span> <span class="o">=</span> <span class="n">STOPPED</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">       <span class="n">mRunning</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">       <span class="n">notifyStartListeners</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="n">animationHandler</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>属性动画需要运行在有<code>Looper</code>的线程中, 最终会调用<code>AnimationHandler.start()</code>方法.  <code>AnimationHandler</code>并不是Handler, 他是一个<code>Runnable</code>. 后面会调到JNI层, 然后JNI层还会调回, 然后<code>run</code>方法会被调用, 这个Runable涉及和底层的交互. 略过. 看重点.</p>
 <p><strong>ValueAnimator的doAnimationFrame()方法, 内部最后调用了animationFrame()方法,而animationFrame()内部调用了animateValue()方法</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">animateValue</span><span class="o">(</span><span class="kt">float</span> <span class="n">fraction</span><span class="o">)</span> <span class="o">{</span>
-   <span class="n">fraction</span> <span class="o">=</span> <span class="n">mInterpolator</span><span class="o">.</span><span class="na">getInterpolation</span><span class="o">(</span><span class="n">fraction</span><span class="o">);</span>
-   <span class="n">mCurrentFraction</span> <span class="o">=</span> <span class="n">fraction</span><span class="o">;</span>
-   <span class="kt">int</span> <span class="n">numValues</span> <span class="o">=</span> <span class="n">mValues</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
-   <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numValues</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
-       <span class="n">mValues</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">calculateValue</span><span class="o">(</span><span class="n">fraction</span><span class="o">);</span>
-   <span class="o">}</span>
-   <span class="k">if</span> <span class="o">(</span><span class="n">mUpdateListeners</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-       <span class="kt">int</span> <span class="n">numListeners</span> <span class="o">=</span> <span class="n">mUpdateListeners</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
-       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numListeners</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
-           <span class="n">mUpdateListeners</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">onAnimationUpdate</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-       <span class="o">}</span>
-   <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p>看到了<code>calculateValue()</code>方法, 这个就是计算每帧动画所对应的属性的值, 然后看一下set,get方法. 比如之前说的如果没有初始值, 则调用get方法等..  查看<code>PropertyValuesHolder类的setupValue()</code></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">setupValue</span><span class="o">(</span><span class="n">Object</span> <span class="n">target</span><span class="o">,</span> <span class="n">Keyframe</span> <span class="n">kf</span><span class="o">)</span> <span class="o">{</span>
-   <span class="k">if</span> <span class="o">(</span><span class="n">mProperty</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-       <span class="n">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="n">convertBack</span><span class="o">(</span><span class="n">mProperty</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">target</span><span class="o">));</span>
-       <span class="n">kf</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
-   <span class="o">}</span>
-   
-  <span class="k">if</span> <span class="o">(</span><span class="n">mGetter</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-      <span class="n">Class</span> <span class="n">targetClass</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="na">getClass</span><span class="o">();</span>
-      <span class="n">setupGetter</span><span class="o">(</span><span class="n">targetClass</span><span class="o">);</span>
-      <span class="k">if</span> <span class="o">(</span><span class="n">mGetter</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-          <span class="c1">// Already logged the error - just return to avoid NPE
-</span><span class="c1"></span>          <span class="k">return</span><span class="o">;</span>
-      <span class="o">}</span>
-  <span class="o">}</span>
-  <span class="n">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="n">convertBack</span><span class="o">(</span><span class="n">mGetter</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">target</span><span class="o">));</span>
-  <span class="n">kf</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
-       
-</code></pre></div><p>当动画的下一帧到来的时, <code>setAnimatedValue()</code>方法会将新的属性值给对象, 调用其set()方法.同样set也是反射调用</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">setAnimatedValue</span><span class="o">(</span><span class="n">Object</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
-   <span class="k">if</span> <span class="o">(</span><span class="n">mProperty</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-       <span class="n">mProperty</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">target</span><span class="o">,</span> <span class="n">getAnimatedValue</span><span class="o">());</span>
-   <span class="o">}</span>
-   <span class="k">if</span> <span class="o">(</span><span class="n">mSetter</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-      <span class="n">mTmpValueArray</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">getAnimatedValue</span><span class="o">();</span>
-      <span class="n">mSetter</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">target</span><span class="o">,</span> <span class="n">mTmpValueArray</span><span class="o">);</span>
-   <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><h2 id="使用动画的注意事项">使用动画的注意事项</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">animateValue</span><span class="o">(</span><span class="kt">float</span> <span class="n">fraction</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="n">fraction</span> <span class="o">=</span> <span class="n">mInterpolator</span><span class="o">.</span><span class="na">getInterpolation</span><span class="o">(</span><span class="n">fraction</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mCurrentFraction</span> <span class="o">=</span> <span class="n">fraction</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">numValues</span> <span class="o">=</span> <span class="n">mValues</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numValues</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="n">mValues</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">calculateValue</span><span class="o">(</span><span class="n">fraction</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(</span><span class="n">mUpdateListeners</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="kt">int</span> <span class="n">numListeners</span> <span class="o">=</span> <span class="n">mUpdateListeners</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numListeners</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           <span class="n">mUpdateListeners</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">onAnimationUpdate</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>看到了<code>calculateValue()</code>方法, 这个就是计算每帧动画所对应的属性的值, 然后看一下set,get方法. 比如之前说的如果没有初始值, 则调用get方法等..  查看<code>PropertyValuesHolder类的setupValue()</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">setupValue</span><span class="o">(</span><span class="n">Object</span> <span class="n">target</span><span class="o">,</span> <span class="n">Keyframe</span> <span class="n">kf</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(</span><span class="n">mProperty</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="n">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="n">convertBack</span><span class="o">(</span><span class="n">mProperty</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">target</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">       <span class="n">kf</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">mGetter</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Class</span> <span class="n">targetClass</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="na">getClass</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">      <span class="n">setupGetter</span><span class="o">(</span><span class="n">targetClass</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="o">(</span><span class="n">mGetter</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">// Already logged the error - just return to avoid NPE
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="n">convertBack</span><span class="o">(</span><span class="n">mGetter</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">target</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">  <span class="n">kf</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       
+</span></span></code></pre></div><p>当动画的下一帧到来的时, <code>setAnimatedValue()</code>方法会将新的属性值给对象, 调用其set()方法.同样set也是反射调用</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">setAnimatedValue</span><span class="o">(</span><span class="n">Object</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(</span><span class="n">mProperty</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="n">mProperty</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">target</span><span class="o">,</span> <span class="n">getAnimatedValue</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(</span><span class="n">mSetter</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">mTmpValueArray</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">getAnimatedValue</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">      <span class="n">mSetter</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">target</span><span class="o">,</span> <span class="n">mTmpValueArray</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h2 id="使用动画的注意事项">使用动画的注意事项</h2>
 <ol>
 <li>OOM问题: 在帧动画时候容易发生</li>
 <li>内存泄漏: 如果有无限循环的属性动画, 在界面退出的时候一定要停止动画 ,否则activity会无法释放. 而<strong>View动画</strong>并不存在此问题.</li>
@@ -551,7 +550,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -566,5 +565,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

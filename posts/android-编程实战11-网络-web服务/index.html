@@ -146,86 +146,86 @@
 <h3 id="httpurlconnection">HttpUrlConnection</h3>
 <p><code>Android</code>提供了两个用于<code>HTTP</code>通信的API. <code>Apache</code>的<code>HttpClient</code>和<code>HttpUrlConnection</code>. 两者都能提供相同的功能. 但是推荐<code>HttpUrlConnection</code>, 因为谷歌一直在对其维护. 比如透明的响应压缩, 响应缓存.</p>
 <p><code>Android 4.0(ICS)</code>提供响应缓存功能, 所以如果要支持早期的版本, 开发者需要使用手动实现通过反射来初始化缓存. 如果应用最低支持4.0, 那么使用以下代码开启.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="n">HttpResponseCache</span> <span class="n">httpResponseCache</span> <span class="o">=</span> <span class="n">HttpResponseCache</span><span class="o">.</span><span class="na">install</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">getCacheDir</span><span class="o">,</span> <span class="s">&#34;http&#34;</span><span class="o">),</span> <span class="n">CACHE_SIZE</span><span class="o">);</span>
-</code></pre></div><p>为应用选择一个合适的缓存大小. 如果只获取少量的数据, 可以选择几兆大小的缓存. 缓存对应用程序是私有的, 所以相对来说是比较安全的.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">    <span class="n">HttpResponseCache</span> <span class="n">httpResponseCache</span> <span class="o">=</span> <span class="n">HttpResponseCache</span><span class="o">.</span><span class="na">install</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">getCacheDir</span><span class="o">,</span> <span class="s">&#34;http&#34;</span><span class="o">),</span> <span class="n">CACHE_SIZE</span><span class="o">);</span>
+</span></span></code></pre></div><p>为应用选择一个合适的缓存大小. 如果只获取少量的数据, 可以选择几兆大小的缓存. 缓存对应用程序是私有的, 所以相对来说是比较安全的.</p>
 <p>比如说<code>HTTP GET</code>请求, <a href="https://github.com/suzeyu1992/AndroidProgrammingPushingTheLimits/blob/0d16eb99528aa7ed7bfc238e881222879ab7d95f/Network/app/src/main/java/com/szysky/note/network/HTTPGet.java" target="_blank" rel="noopener noreffer">可以看事例代码</a></p>
 <p><strong>或者说上传文件</strong></p>
 <p>比如说传送图片或者其他文件到服务器, 由于Java API并没有提供一个可以直接上传文件的的方法. 使用HTTP发送数据涉及使用<code>HTTP POST</code>发送<code>body</code>中的数据. 而body需要设置一些特殊的格式, 并且还要正确地设置<code>header</code>字段. 如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">MAX_FIXED_SIZE</span> <span class="o">=</span> <span class="n">5</span> <span class="o">*</span> <span class="n">1024</span> <span class="o">*</span> <span class="n">1024</span><span class="o">;</span>
-<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CRLF</span> <span class="o">=</span> <span class="s">&#34;\r\n&#34;</span><span class="o">;</span>
-<span class="cm">/**
-</span><span class="cm">*  使用HTTP POST往服务器发送文件
-</span><span class="cm">*/</span>
-<span class="kd">public</span> <span class="kt">int</span> <span class="nf">postFileToURL</span><span class="o">(</span><span class="n">File</span> <span class="n">file</span><span class="o">,</span> <span class="n">String</span> <span class="n">mimeType</span><span class="o">,</span> <span class="n">URL</span> <span class="n">url</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-
-   <span class="n">DataOutputStream</span> <span class="n">requestData</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-   <span class="k">try</span> <span class="o">{</span>
-       <span class="kt">long</span> <span class="n">fileSize</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
-       <span class="n">String</span> <span class="n">fileName</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
-
-       <span class="c1">// 创建一个随机边界符字符串
-</span><span class="c1"></span>       <span class="n">Random</span> <span class="n">random</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
-       <span class="kt">byte</span><span class="o">[]</span> <span class="n">randomBytes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">16</span><span class="o">];</span>
-       <span class="n">random</span><span class="o">.</span><span class="na">nextBytes</span><span class="o">(</span><span class="n">randomBytes</span><span class="o">);</span>
-       <span class="n">String</span> <span class="n">boundary</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">encodeToString</span><span class="o">(</span><span class="n">randomBytes</span><span class="o">,</span> <span class="n">Base64</span><span class="o">.</span><span class="na">NO_WRAP</span><span class="o">);</span>
-
-       <span class="c1">// 配置请求设置
-</span><span class="c1"></span>       <span class="n">HttpURLConnection</span> <span class="n">uc</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
-       <span class="n">uc</span><span class="o">.</span><span class="na">setUseCaches</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-       <span class="n">uc</span><span class="o">.</span><span class="na">setDoOutput</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>           <span class="c1">// 设置可以发送数据
-</span><span class="c1"></span>       <span class="n">uc</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">&#34;POST&#34;</span><span class="o">);</span>
-
-       <span class="c1">// 设置HTTP header
-</span><span class="c1"></span>       <span class="n">uc</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">&#34;Connection&#34;</span><span class="o">,</span> <span class="s">&#34;Keep-Alive&#34;</span><span class="o">);</span>
-       <span class="n">uc</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">&#34;Cache-Control&#34;</span><span class="o">,</span> <span class="s">&#34;no-cache&#34;</span><span class="o">);</span>
-       <span class="n">uc</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">&#34;Content-Type&#34;</span><span class="o">,</span> <span class="s">&#34;multipart/form-data;boundary=&#34;</span><span class="o">+</span><span class="n">boundary</span><span class="o">);</span>
-
-       <span class="c1">// 如果文件大于max_fixed_size, 使用分块流模式
-</span><span class="c1"></span>       <span class="k">if</span> <span class="o">(</span><span class="n">fileSize</span> <span class="o">&gt;</span> <span class="n">MAX_FIXED_SIZE</span><span class="o">){</span>
-           <span class="n">uc</span><span class="o">.</span><span class="na">setChunkedStreamingMode</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
-       <span class="o">}</span><span class="k">else</span><span class="o">{</span>
-           <span class="n">uc</span><span class="o">.</span><span class="na">setFixedLengthStreamingMode</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span><span class="n">fileSize</span><span class="o">);</span>
-       <span class="o">}</span>
-
-       <span class="c1">// 打开文件方便读取
-</span><span class="c1"></span>       <span class="n">FileInputStream</span> <span class="n">fileIn</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
-       <span class="c1">// 打开服务器连接
-</span><span class="c1"></span>       <span class="n">OutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">();</span>
-       <span class="n">requestData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DataOutputStream</span><span class="o">(</span><span class="n">out</span><span class="o">);</span>
-
-       <span class="c1">// 开始写数据
-</span><span class="c1"></span>       <span class="c1">// 首先写入第一个边界符
-</span><span class="c1"></span>       <span class="n">requestData</span><span class="o">.</span><span class="na">writeBytes</span><span class="o">(</span><span class="s">&#34;--&#34;</span> <span class="o">+</span><span class="n">boundary</span> <span class="o">+</span> <span class="n">CRLF</span><span class="o">);</span>
-       <span class="c1">// 让服务器知道文件名
-</span><span class="c1"></span>       <span class="n">requestData</span><span class="o">.</span><span class="na">writeBytes</span><span class="o">(</span><span class="s">&#34;Content-Disposition: form-data; name=\&#34;&#34;</span><span class="o">+</span> <span class="n">fileName</span> <span class="o">+</span> <span class="s">&#34;\&#34;; filename=\&#34;&#34;</span><span class="o">+</span><span class="n">fileName</span> <span class="o">+</span> <span class="n">CRLF</span><span class="o">);</span>
-       <span class="c1">// 文件的MIME类型
-</span><span class="c1"></span>       <span class="n">requestData</span><span class="o">.</span><span class="na">writeBytes</span><span class="o">(</span><span class="s">&#34;Content-Type: &#34;</span><span class="o">+</span><span class="n">mimeType</span> <span class="o">+</span> <span class="n">CRLF</span><span class="o">);</span>
-
-       <span class="c1">// 循环读取本地文件, 并写入服务器
-</span><span class="c1"></span>       <span class="kt">int</span> <span class="n">bytesRead</span><span class="o">;</span>
-       <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">8</span> <span class="o">*</span> <span class="n">1024</span><span class="o">];</span>
-       <span class="k">while</span><span class="o">((</span><span class="n">bytesRead</span> <span class="o">=</span> <span class="n">fileIn</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">))</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">){</span>
-           <span class="n">requestData</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">bytesRead</span><span class="o">);</span>
-       <span class="o">}</span>
-
-       <span class="c1">// 写入边界字符串, 表明已到文件结尾
-</span><span class="c1"></span>       <span class="n">requestData</span><span class="o">.</span><span class="na">writeBytes</span><span class="o">(</span><span class="n">CRLF</span><span class="o">);</span>
-       <span class="n">requestData</span><span class="o">.</span><span class="na">writeBytes</span><span class="o">(</span><span class="s">&#34;--&#34;</span> <span class="o">+</span><span class="n">boundary</span> <span class="o">+</span><span class="s">&#34;--&#34;</span><span class="o">+</span> <span class="n">CRLF</span><span class="o">);</span>
-       <span class="n">requestData</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
-
-       <span class="k">return</span> <span class="n">uc</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
-
-   <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-       <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-   <span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
-       <span class="k">if</span> <span class="o">(</span><span class="n">requestData</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
-           <span class="n">requestData</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-       <span class="o">}</span>
-       <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
-   <span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre></div><p>上面代码, 需要要知道如何使用边界字符串告诉服务器文件的开始和结束位置. 另外上面还通过检查文件的大小而决定是<code>使用分块流模式(chunked streaming mode)</code>,还是<code>使用固定长度流模式</code> . 对于<code>分块流模式</code>参数0表示系统的默认大小, 这是大多数程序在该模式下的大小. 分块基本上意味着数据分部分发送数据, 每一部分都附有该块大小. 分块能更有效地使用内存, 并较少oom异常的分享, 然而, 使用固定长度的数据流模式通常更快, 但它需要更多的内存.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">MAX_FIXED_SIZE</span> <span class="o">=</span> <span class="n">5</span> <span class="o">*</span> <span class="n">1024</span> <span class="o">*</span> <span class="n">1024</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CRLF</span> <span class="o">=</span> <span class="s">&#34;\r\n&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">*  使用HTTP POST往服务器发送文件
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">postFileToURL</span><span class="o">(</span><span class="n">File</span> <span class="n">file</span><span class="o">,</span> <span class="n">String</span> <span class="n">mimeType</span><span class="o">,</span> <span class="n">URL</span> <span class="n">url</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="n">DataOutputStream</span> <span class="n">requestData</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="kt">long</span> <span class="n">fileSize</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">       <span class="n">String</span> <span class="n">fileName</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="c1">// 创建一个随机边界符字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">Random</span> <span class="n">random</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">       <span class="kt">byte</span><span class="o">[]</span> <span class="n">randomBytes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">16</span><span class="o">];</span>
+</span></span><span class="line"><span class="cl">       <span class="n">random</span><span class="o">.</span><span class="na">nextBytes</span><span class="o">(</span><span class="n">randomBytes</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="n">String</span> <span class="n">boundary</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">encodeToString</span><span class="o">(</span><span class="n">randomBytes</span><span class="o">,</span> <span class="n">Base64</span><span class="o">.</span><span class="na">NO_WRAP</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="c1">// 配置请求设置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">HttpURLConnection</span> <span class="n">uc</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">       <span class="n">uc</span><span class="o">.</span><span class="na">setUseCaches</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="n">uc</span><span class="o">.</span><span class="na">setDoOutput</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>           <span class="c1">// 设置可以发送数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">uc</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">&#34;POST&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="c1">// 设置HTTP header
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">uc</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">&#34;Connection&#34;</span><span class="o">,</span> <span class="s">&#34;Keep-Alive&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="n">uc</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">&#34;Cache-Control&#34;</span><span class="o">,</span> <span class="s">&#34;no-cache&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="n">uc</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">&#34;Content-Type&#34;</span><span class="o">,</span> <span class="s">&#34;multipart/form-data;boundary=&#34;</span><span class="o">+</span><span class="n">boundary</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="c1">// 如果文件大于max_fixed_size, 使用分块流模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="k">if</span> <span class="o">(</span><span class="n">fileSize</span> <span class="o">&gt;</span> <span class="n">MAX_FIXED_SIZE</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">           <span class="n">uc</span><span class="o">.</span><span class="na">setChunkedStreamingMode</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">           <span class="n">uc</span><span class="o">.</span><span class="na">setFixedLengthStreamingMode</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span><span class="n">fileSize</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="c1">// 打开文件方便读取
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">FileInputStream</span> <span class="n">fileIn</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="c1">// 打开服务器连接
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">OutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">       <span class="n">requestData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DataOutputStream</span><span class="o">(</span><span class="n">out</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="c1">// 开始写数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="c1">// 首先写入第一个边界符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">requestData</span><span class="o">.</span><span class="na">writeBytes</span><span class="o">(</span><span class="s">&#34;--&#34;</span> <span class="o">+</span><span class="n">boundary</span> <span class="o">+</span> <span class="n">CRLF</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="c1">// 让服务器知道文件名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">requestData</span><span class="o">.</span><span class="na">writeBytes</span><span class="o">(</span><span class="s">&#34;Content-Disposition: form-data; name=\&#34;&#34;</span><span class="o">+</span> <span class="n">fileName</span> <span class="o">+</span> <span class="s">&#34;\&#34;; filename=\&#34;&#34;</span><span class="o">+</span><span class="n">fileName</span> <span class="o">+</span> <span class="n">CRLF</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="c1">// 文件的MIME类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">requestData</span><span class="o">.</span><span class="na">writeBytes</span><span class="o">(</span><span class="s">&#34;Content-Type: &#34;</span><span class="o">+</span><span class="n">mimeType</span> <span class="o">+</span> <span class="n">CRLF</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="c1">// 循环读取本地文件, 并写入服务器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="kt">int</span> <span class="n">bytesRead</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">       <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">8</span> <span class="o">*</span> <span class="n">1024</span><span class="o">];</span>
+</span></span><span class="line"><span class="cl">       <span class="k">while</span><span class="o">((</span><span class="n">bytesRead</span> <span class="o">=</span> <span class="n">fileIn</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">))</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">           <span class="n">requestData</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">bytesRead</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="c1">// 写入边界字符串, 表明已到文件结尾
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">requestData</span><span class="o">.</span><span class="na">writeBytes</span><span class="o">(</span><span class="n">CRLF</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="n">requestData</span><span class="o">.</span><span class="na">writeBytes</span><span class="o">(</span><span class="s">&#34;--&#34;</span> <span class="o">+</span><span class="n">boundary</span> <span class="o">+</span><span class="s">&#34;--&#34;</span><span class="o">+</span> <span class="n">CRLF</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="n">requestData</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="k">return</span> <span class="n">uc</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="k">if</span> <span class="o">(</span><span class="n">requestData</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">           <span class="n">requestData</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">       <span class="o">}</span>
+</span></span><span class="line"><span class="cl">       <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>上面代码, 需要要知道如何使用边界字符串告诉服务器文件的开始和结束位置. 另外上面还通过检查文件的大小而决定是<code>使用分块流模式(chunked streaming mode)</code>,还是<code>使用固定长度流模式</code> . 对于<code>分块流模式</code>参数0表示系统的默认大小, 这是大多数程序在该模式下的大小. 分块基本上意味着数据分部分发送数据, 每一部分都附有该块大小. 分块能更有效地使用内存, 并较少oom异常的分享, 然而, 使用固定长度的数据流模式通常更快, 但它需要更多的内存.</p>
 <h3 id="okhttp和spdy">OkHttp和SPDY</h3>
 <p><code>HTTP</code>的一个大问题就是每个连接只允许一个请求和响应, 这迫使浏览器和其他客户端为了并行请求必须生成多个<code>套接字socket</code>连接. 虽然对于客户端连接问题就不那么大了, 但是如果是服务器端那么面临的状态就不同而语了. 在2009年, 谷歌开始着手更新<code>HTTP协议</code>来解决这些问题. 其结果就是<code>SPDY协议</code>, 它允许在一个套接字连接上发送多个<code>HTTP请求</code>. 该协议已成为下一代<code>HTTP</code>事实上的开放标准, 但它不会取代<code>HTTP</code>, 而是改良了如何通过网络请求和响应. 而<code>HTTP IETF</code>工作组日前已宣布即将开始<code>HTTP 2.0</code>的工作, 并使用<code>SPDY协议</code>作为起点.</p>
 <p>如果同时开始客户端和服务端代码, 研究一下使用<code>SPDY</code>来代替常规的<code>HTTP/1.1</code>还是不错的, 因为<code>SPDY</code>能显著降低网络负载, 并能提高性能. 主流浏览器目前已经很好地支持<code>SPDY</code>, 并且已经有很多平台的实现版本, 启动就包括<code>Android</code>.</p>
@@ -234,21 +234,21 @@
 <h3 id="web-socket">Web Socket</h3>
 <p>运行标准的HTTP之上, 是HTTP的扩展. <code>Web Socket</code>允许在客户端和服务器端之前进行基于消息的异步通信. 首先客户端发送一个常规的<code>HTTP GET</code>请求, 该请求包含特殊的<code>HTTP请求头</code>, 表明客户端希望把连接升级为<code>Web Socket</code>连接.</p>
 <p>如下当使用<code>Web Socket</code>时,客户端发送的请求示例:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">GET /websocket HTTP/1.1
-Host: myserver.com
-Upgrade: websocket
-Connection: Upgrade
-Sec-WebSocket-Key: xxxxxxxxxxxxxxxxxx==
-Sec-WebSocket-Protocol: chat
-Sec-WebSocket-Version: 13
-Origin: http://myserver.com
-</code></pre></div><p>如果接收客户端的请求, 下面是服务器对请求的响应:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">HTTP/1.1 101 Switching Protocols
-Upgrade: websocket
-Connection: Upgrade
-Sec-WebSocket-Accept: xxxxxxxxxxxxxxxxxxx=
-Sec-WebSocket-Protocol: chat
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">GET /websocket HTTP/1.1
+</span></span><span class="line"><span class="cl">Host: myserver.com
+</span></span><span class="line"><span class="cl">Upgrade: websocket
+</span></span><span class="line"><span class="cl">Connection: Upgrade
+</span></span><span class="line"><span class="cl">Sec-WebSocket-Key: xxxxxxxxxxxxxxxxxx==
+</span></span><span class="line"><span class="cl">Sec-WebSocket-Protocol: chat
+</span></span><span class="line"><span class="cl">Sec-WebSocket-Version: 13
+</span></span><span class="line"><span class="cl">Origin: http://myserver.com
+</span></span></code></pre></div><p>如果接收客户端的请求, 下面是服务器对请求的响应:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">HTTP/1.1 101 Switching Protocols
+</span></span><span class="line"><span class="cl">Upgrade: websocket
+</span></span><span class="line"><span class="cl">Connection: Upgrade
+</span></span><span class="line"><span class="cl">Sec-WebSocket-Accept: xxxxxxxxxxxxxxxxxxx=
+</span></span><span class="line"><span class="cl">Sec-WebSocket-Protocol: chat
+</span></span></code></pre></div><blockquote>
 <p>客户端的请求头中的值并不是对每一种情况都有效, 而应根据Web Socket协议规范来计算. 通常情况下, 如果使用现成的<code>Web Socket</code>通信库, 开发者就不需要考虑这些情况.</p>
 </blockquote>
 <p>当<code>Web socket</code>连接建立后, 双方可以给对方发送异步消息. 通信的消息可以是文本, 或者二进制, 通常数据量是很小的. 如果需要传输大的文件, 最好还是使用标准的<code>Http</code>. <code>Web socket</code>用于发送符合相对较小的通知.</p>
@@ -293,7 +293,7 @@ Sec-WebSocket-Protocol: chat
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -308,5 +308,5 @@ Sec-WebSocket-Protocol: chat
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

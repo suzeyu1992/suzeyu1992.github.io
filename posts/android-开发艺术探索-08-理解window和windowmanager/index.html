@@ -141,24 +141,24 @@
 <p>Window表示一个窗口的概念, 如有需要在桌面上显示一个类似悬浮窗的东西, 那么这种效果就需要<code>Window</code>来实现. <code>Window</code>是一个抽象类, 具体实现是<code>PhoneWindow</code>. 如果想要创建一个<code>Window</code>只需要通过<code>WindowManager</code>即可完成. <code>WindowManager</code>是外界访问<code>Window</code>的入口, Window具体实现位于<code>WindowManagerService</code>中, <strong>WM</strong>和<strong>WMS</strong>的交互是一个IPC过程. Android中所有的视图都是通过<code>Window</code>来呈现的, 不管是Activity, Dialog, Toast他们的视图实际上都是附加在Window上的.</p>
 <h2 id="window和windowmanager">Window和WindowManager</h2>
 <p>先演示使用<code>WindowManger</code>添加一个Window.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">addWindow</span><span class="o">(){</span>
-        <span class="n">Button</span> <span class="n">button</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Button</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">());</span>
-        <span class="n">button</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&#34;动态添加&#34;</span><span class="o">);</span>
-        <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span> <span class="n">layoutParams</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">(</span><span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">WRAP_CONTENT</span><span class="o">,</span> <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">WRAP_CONTENT</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">PixelFormat</span><span class="o">.</span><span class="na">TRANSPARENT</span><span class="o">);</span>
-
-        <span class="n">layoutParams</span><span class="o">.</span><span class="na">flags</span> <span class="o">=</span> <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">FLAG_NOT_TOUCH_MODAL</span>
-                <span class="o">|</span> <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">FLAG_NOT_FOCUSABLE</span>
-                <span class="o">|</span> <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">FLAG_SHOW_WHEN_LOCKED</span><span class="o">;</span>
-
-        <span class="n">layoutParams</span><span class="o">.</span><span class="na">gravity</span> <span class="o">=</span> <span class="n">Gravity</span><span class="o">.</span><span class="na">LEFT</span> <span class="o">;</span>
-
-        <span class="n">layoutParams</span><span class="o">.</span><span class="na">width</span> <span class="o">=</span> <span class="n">400</span><span class="o">;</span>
-        <span class="n">layoutParams</span><span class="o">.</span><span class="na">height</span> <span class="o">=</span> <span class="n">300</span><span class="o">;</span>
-
-        <span class="n">getWindowManager</span><span class="o">().</span><span class="na">addView</span><span class="o">(</span><span class="n">button</span><span class="o">,</span> <span class="n">layoutParams</span><span class="o">);</span>
-
-    <span class="o">}</span>
-</code></pre></div><p><strong>Flag参数表示Window的属性</strong>,这些属性可以控制Window的显示特性. 下面是常用的属性:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">addWindow</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Button</span> <span class="n">button</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Button</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">button</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&#34;动态添加&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span> <span class="n">layoutParams</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">(</span><span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">WRAP_CONTENT</span><span class="o">,</span> <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">WRAP_CONTENT</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">PixelFormat</span><span class="o">.</span><span class="na">TRANSPARENT</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">layoutParams</span><span class="o">.</span><span class="na">flags</span> <span class="o">=</span> <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">FLAG_NOT_TOUCH_MODAL</span>
+</span></span><span class="line"><span class="cl">                <span class="o">|</span> <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">FLAG_NOT_FOCUSABLE</span>
+</span></span><span class="line"><span class="cl">                <span class="o">|</span> <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">FLAG_SHOW_WHEN_LOCKED</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">layoutParams</span><span class="o">.</span><span class="na">gravity</span> <span class="o">=</span> <span class="n">Gravity</span><span class="o">.</span><span class="na">LEFT</span> <span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">layoutParams</span><span class="o">.</span><span class="na">width</span> <span class="o">=</span> <span class="n">400</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">layoutParams</span><span class="o">.</span><span class="na">height</span> <span class="o">=</span> <span class="n">300</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">getWindowManager</span><span class="o">().</span><span class="na">addView</span><span class="o">(</span><span class="n">button</span><span class="o">,</span> <span class="n">layoutParams</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></div><p><strong>Flag参数表示Window的属性</strong>,这些属性可以控制Window的显示特性. 下面是常用的属性:</p>
 <ul>
 <li><code>FLAG_NOT_FOCUSABLE</code>: 表示Window不需要获取焦点, 而不需要接收各种输入事件, 此标记会同时启动<code>FLAG_NOT_TOUCH_MODAL</code>, 最终事件会直接传递给下层的具有焦点的Window.</li>
 <li><code>FLAG_NOT_TOUCH_MODAL</code>: 这种模式下, 系统会将当前Window区域以外的点击事件传递给底层的Window, 当前Window区域以内的单击事件则自己处理. 这个标记很重要, 一般来说都需要开启此标记, 否则其他Window将无法接收到单击事件.</li>
@@ -174,24 +174,24 @@
 <p><code>Window</code>是一个抽象的概念, 每一<code>Window</code>都对应着一个View和一个ViewRootImpl, <code>Window</code>和View通过<code>ViewRootImpl</code>来建立联系, 因此Window并不是实际存在的, 他是以View的形式存在. 通过<code>WindowManager</code>的定义和提供的三个接口方法看出都是针对View的. 说明View才是<code>Windwo</code>存在的实体. 而在实际的使用中无法直接访问<code>Window</code>, 对<code>Window</code>的访问都是必须通过WM.</p>
 <h3 id="window的添加过程">Window的添加过程</h3>
 <p><code>Window</code>的添加过程需要通过<code>WindowManager</code>的<code>addView()</code>来实现, 而<code>WindowManager</code>是一个接口, 它的真正实现是<code>WindowManagerImpl</code>类, 在WindowManagerImpl中Window的三大操作如下.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addView</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="nd">@NonNull</span> <span class="n">ViewGroup</span><span class="o">.</span><span class="na">LayoutParams</span> <span class="n">params</span><span class="o">)</span> <span class="o">{</span>
-   <span class="n">applyDefaultToken</span><span class="o">(</span><span class="n">params</span><span class="o">);</span>
-   <span class="n">mGlobal</span><span class="o">.</span><span class="na">addView</span><span class="o">(</span><span class="n">view</span><span class="o">,</span> <span class="n">params</span><span class="o">,</span> <span class="n">mDisplay</span><span class="o">,</span> <span class="n">mParentWindow</span><span class="o">);</span>
-<span class="o">}</span>
-
-<span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">updateViewLayout</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="nd">@NonNull</span> <span class="n">ViewGroup</span><span class="o">.</span><span class="na">LayoutParams</span> <span class="n">params</span><span class="o">)</span> <span class="o">{</span>
-   <span class="n">applyDefaultToken</span><span class="o">(</span><span class="n">params</span><span class="o">);</span>
-   <span class="n">mGlobal</span><span class="o">.</span><span class="na">updateViewLayout</span><span class="o">(</span><span class="n">view</span><span class="o">,</span> <span class="n">params</span><span class="o">);</span>
-<span class="o">}</span>
-
- 
-<span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">removeView</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
-   <span class="n">mGlobal</span><span class="o">.</span><span class="na">removeView</span><span class="o">(</span><span class="n">view</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><p><code>WindowManagerImpl</code>并没有直接实现Window的三大操作, 而是全部交给了<code>WindowManagerGlobal</code>来处理. <code>WindowManagerGlobal</code>以工厂的形式向外提供自己的实例. 而<code>WindowManagerImpl</code>这种工作模式就典型的桥接模式, 将所有的操作全部委托给<code>WindowManagerGlobal</code>来实现.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">addView</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="nd">@NonNull</span> <span class="n">ViewGroup</span><span class="o">.</span><span class="na">LayoutParams</span> <span class="n">params</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="n">applyDefaultToken</span><span class="o">(</span><span class="n">params</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mGlobal</span><span class="o">.</span><span class="na">addView</span><span class="o">(</span><span class="n">view</span><span class="o">,</span> <span class="n">params</span><span class="o">,</span> <span class="n">mDisplay</span><span class="o">,</span> <span class="n">mParentWindow</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">updateViewLayout</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="nd">@NonNull</span> <span class="n">ViewGroup</span><span class="o">.</span><span class="na">LayoutParams</span> <span class="n">params</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="n">applyDefaultToken</span><span class="o">(</span><span class="n">params</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mGlobal</span><span class="o">.</span><span class="na">updateViewLayout</span><span class="o">(</span><span class="n">view</span><span class="o">,</span> <span class="n">params</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">removeView</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mGlobal</span><span class="o">.</span><span class="na">removeView</span><span class="o">(</span><span class="n">view</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p><code>WindowManagerImpl</code>并没有直接实现Window的三大操作, 而是全部交给了<code>WindowManagerGlobal</code>来处理. <code>WindowManagerGlobal</code>以工厂的形式向外提供自己的实例. 而<code>WindowManagerImpl</code>这种工作模式就典型的桥接模式, 将所有的操作全部委托给<code>WindowManagerGlobal</code>来实现.</p>
 <p><strong>WindowManagerGlobal的addView()主要分为</strong></p>
 <ol>
 <li>检查所有参数是否合法, 如果是子Window那么还需要调整一些布局参数.</li>
@@ -201,56 +201,56 @@
 <p><code>WindowManagerService</code>内部会为每一个应用保留一个单独的Session.</p>
 <h3 id="window的删除过程">Window的删除过程</h3>
 <p>Window 的删除过程和添加过程一样, 都是先通过<code>WindowManagerImpl</code>后, 在进一步通过<code>WindowManagerGlobal的removeView()</code>来实现的.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">removeView</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">immediate</span><span class="o">)</span> <span class="o">{</span>
-   <span class="kd">synchronized</span> <span class="o">(</span><span class="n">mLock</span><span class="o">)</span> <span class="o">{</span>
-       <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">findViewLocked</span><span class="o">(</span><span class="n">view</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-       <span class="n">View</span> <span class="n">curView</span> <span class="o">=</span> <span class="n">mRoots</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">).</span><span class="na">getView</span><span class="o">();</span>
-       <span class="n">removeViewLocked</span><span class="o">(</span><span class="n">index</span><span class="o">,</span> <span class="n">immediate</span><span class="o">);</span>
-       <span class="k">if</span> <span class="o">(</span><span class="n">curView</span> <span class="o">==</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
-           <span class="k">return</span><span class="o">;</span>
-       <span class="o">}</span>
-       <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span><span class="s">&#34;Calling with view &#34;</span> <span class="o">+</span> <span class="n">view</span>
-               <span class="o">+</span> <span class="s">&#34; but the ViewAncestor is attached to &#34;</span> <span class="o">+</span> <span class="n">curView</span><span class="o">);</span>
-   <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p>方法内首先通过<code>findViewLocked</code>来查找待删除的View的索引, 这个过程就是建立数组遍历, 然后调用<code>removeViewLocked</code>来做进一步的删除.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">removeViewLocked</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">immediate</span><span class="o">)</span> <span class="o">{</span>
-   <span class="n">ViewRootImpl</span> <span class="n">root</span> <span class="o">=</span> <span class="n">mRoots</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
-   <span class="n">View</span> <span class="n">view</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">getView</span><span class="o">();</span>
-
-   <span class="k">if</span> <span class="o">(</span><span class="n">view</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-       <span class="n">InputMethodManager</span> <span class="n">imm</span> <span class="o">=</span> <span class="n">InputMethodManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
-       <span class="k">if</span> <span class="o">(</span><span class="n">imm</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-           <span class="n">imm</span><span class="o">.</span><span class="na">windowDismissed</span><span class="o">(</span><span class="n">mViews</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">).</span><span class="na">getWindowToken</span><span class="o">());</span>
-       <span class="o">}</span>
-   <span class="o">}</span>
-   <span class="kt">boolean</span> <span class="n">deferred</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">die</span><span class="o">(</span><span class="n">immediate</span><span class="o">);</span>
-   <span class="k">if</span> <span class="o">(</span><span class="n">view</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-       <span class="n">view</span><span class="o">.</span><span class="na">assignParent</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
-       <span class="k">if</span> <span class="o">(</span><span class="n">deferred</span><span class="o">)</span> <span class="o">{</span>
-           <span class="n">mDyingViews</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">view</span><span class="o">);</span>
-       <span class="o">}</span>
-   <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p>这里通过<code>ViewRootImpl</code>的<code>die()</code>完成来完成删除操作. <code>die()</code>方法只是发送了请求删除的消息后就立刻返回了, 这个时候View并没有完成删除操作, 所以最后会将其添加到<code>mDyingViews</code>中, <code>mDyingViews</code>表示待删除的View的列表.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kt">boolean</span> <span class="nf">die</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">immediate</span><span class="o">)</span> <span class="o">{</span>
-   <span class="c1">// Make sure we do execute immediately if we are in the middle of a traversal or the damage
-</span><span class="c1"></span>   <span class="c1">// done by dispatchDetachedFromWindow will cause havoc on return.
-</span><span class="c1"></span>   <span class="k">if</span> <span class="o">(</span><span class="n">immediate</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">mIsInTraversal</span><span class="o">)</span> <span class="o">{</span>
-       <span class="n">doDie</span><span class="o">();</span>
-       <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-   <span class="o">}</span>
-
-   <span class="k">if</span> <span class="o">(!</span><span class="n">mIsDrawing</span><span class="o">)</span> <span class="o">{</span>
-       <span class="n">destroyHardwareRenderer</span><span class="o">();</span>
-   <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-       <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;Attempting to destroy the window while drawing!\n&#34;</span> <span class="o">+</span>
-               <span class="s">&#34;  window=&#34;</span> <span class="o">+</span> <span class="k">this</span> <span class="o">+</span> <span class="s">&#34;, title=&#34;</span> <span class="o">+</span> <span class="n">mWindowAttributes</span><span class="o">.</span><span class="na">getTitle</span><span class="o">());</span>
-   <span class="o">}</span>
-   <span class="n">mHandler</span><span class="o">.</span><span class="na">sendEmptyMessage</span><span class="o">(</span><span class="n">MSG_DIE</span><span class="o">);</span>
-   <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div><p>die方法中只是做了简单的判断, 如果是异步删除那么就发送一个<code>MSG_DIE</code>的消息, <code>ViewRootImpl</code>中的<code>Handler</code>会处理此消息并调用<code>doDie()</code>; 如果是同步删除, 那么就不发送消息直接调用<code>doDie()</code>方法.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">removeView</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">immediate</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="kd">synchronized</span> <span class="o">(</span><span class="n">mLock</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">findViewLocked</span><span class="o">(</span><span class="n">view</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="n">View</span> <span class="n">curView</span> <span class="o">=</span> <span class="n">mRoots</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">).</span><span class="na">getView</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">       <span class="n">removeViewLocked</span><span class="o">(</span><span class="n">index</span><span class="o">,</span> <span class="n">immediate</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="k">if</span> <span class="o">(</span><span class="n">curView</span> <span class="o">==</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           <span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">       <span class="o">}</span>
+</span></span><span class="line"><span class="cl">       <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span><span class="s">&#34;Calling with view &#34;</span> <span class="o">+</span> <span class="n">view</span>
+</span></span><span class="line"><span class="cl">               <span class="o">+</span> <span class="s">&#34; but the ViewAncestor is attached to &#34;</span> <span class="o">+</span> <span class="n">curView</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>方法内首先通过<code>findViewLocked</code>来查找待删除的View的索引, 这个过程就是建立数组遍历, 然后调用<code>removeViewLocked</code>来做进一步的删除.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">removeViewLocked</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">immediate</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="n">ViewRootImpl</span> <span class="n">root</span> <span class="o">=</span> <span class="n">mRoots</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="n">View</span> <span class="n">view</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">getView</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(</span><span class="n">view</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="n">InputMethodManager</span> <span class="n">imm</span> <span class="o">=</span> <span class="n">InputMethodManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">       <span class="k">if</span> <span class="o">(</span><span class="n">imm</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           <span class="n">imm</span><span class="o">.</span><span class="na">windowDismissed</span><span class="o">(</span><span class="n">mViews</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">).</span><span class="na">getWindowToken</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">       <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="kt">boolean</span> <span class="n">deferred</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">die</span><span class="o">(</span><span class="n">immediate</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(</span><span class="n">view</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="n">view</span><span class="o">.</span><span class="na">assignParent</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="k">if</span> <span class="o">(</span><span class="n">deferred</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           <span class="n">mDyingViews</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">view</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">       <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>这里通过<code>ViewRootImpl</code>的<code>die()</code>完成来完成删除操作. <code>die()</code>方法只是发送了请求删除的消息后就立刻返回了, 这个时候View并没有完成删除操作, 所以最后会将其添加到<code>mDyingViews</code>中, <code>mDyingViews</code>表示待删除的View的列表.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">boolean</span> <span class="nf">die</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">immediate</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// Make sure we do execute immediately if we are in the middle of a traversal or the damage
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">// done by dispatchDetachedFromWindow will cause havoc on return.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="k">if</span> <span class="o">(</span><span class="n">immediate</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">mIsInTraversal</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="n">doDie</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">       <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(!</span><span class="n">mIsDrawing</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="n">destroyHardwareRenderer</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;Attempting to destroy the window while drawing!\n&#34;</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">               <span class="s">&#34;  window=&#34;</span> <span class="o">+</span> <span class="k">this</span> <span class="o">+</span> <span class="s">&#34;, title=&#34;</span> <span class="o">+</span> <span class="n">mWindowAttributes</span><span class="o">.</span><span class="na">getTitle</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mHandler</span><span class="o">.</span><span class="na">sendEmptyMessage</span><span class="o">(</span><span class="n">MSG_DIE</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>die方法中只是做了简单的判断, 如果是异步删除那么就发送一个<code>MSG_DIE</code>的消息, <code>ViewRootImpl</code>中的<code>Handler</code>会处理此消息并调用<code>doDie()</code>; 如果是同步删除, 那么就不发送消息直接调用<code>doDie()</code>方法.</p>
 <p>在<code>doDie()</code>方法中会调用<code>dispatchDetachedFromWindow()</code>方法, 真正删除View的逻辑在这个方法内部实现. 其中主要做了四件事:</p>
 <ol>
 <li>垃圾回收的相关工作, 比如清除数据和消息,移除回调.</li>
@@ -265,49 +265,49 @@
 <p>View是Android中视图的呈现方式, 但是View不能单独存在, 它必须依附在Window这个抽象的概念上面, 因此有视图的地方就有<code>Window</code>.</p>
 <h3 id="activity的window创建过程">Activity的Window创建过程</h3>
 <p><code>Activity</code>的大体启动流程: 最终会由<code>ActivityThread</code>中的<code>PerformLaunchActivity()</code>来完成整个启动过程, 这个方法内部会通过类加载器创建<code>Activity</code>的实例对象, 并调用其<code>attach()</code>方法为其关联运行过程中所依赖的一系列上下文环境变量. 代码如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">Activity</span> <span class="nf">performLaunchActivity</span><span class="o">(</span><span class="n">ActivityClientRecord</span> <span class="n">r</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">customIntent</span><span class="o">)</span> <span class="o">{</span>
-  <span class="n">Activity</span> <span class="n">activity</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-   
-  <span class="c1">//获得类加载器
-</span><span class="c1"></span>  <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">ClassLoader</span> <span class="n">cl</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">packageInfo</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">();</span>
-  <span class="n">activity</span> <span class="o">=</span> <span class="n">mInstrumentation</span><span class="o">.</span><span class="na">newActivity</span><span class="o">(</span>
-          <span class="n">cl</span><span class="o">,</span> <span class="n">component</span><span class="o">.</span><span class="na">getClassName</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">intent</span><span class="o">);</span>
-  <span class="n">StrictMode</span><span class="o">.</span><span class="na">incrementExpectedActivityCount</span><span class="o">(</span><span class="n">activity</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
-  <span class="n">r</span><span class="o">.</span><span class="na">intent</span><span class="o">.</span><span class="na">setExtrasClassLoader</span><span class="o">(</span><span class="n">cl</span><span class="o">);</span>
-  <span class="n">r</span><span class="o">.</span><span class="na">intent</span><span class="o">.</span><span class="na">prepareToEnterProcess</span><span class="o">();</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">state</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-      <span class="n">r</span><span class="o">.</span><span class="na">state</span><span class="o">.</span><span class="na">setClassLoader</span><span class="o">(</span><span class="n">cl</span><span class="o">);</span>
-  <span class="o">}</span>
-
- <span class="n">Context</span> <span class="n">appContext</span> <span class="o">=</span> <span class="n">createBaseContextForActivity</span><span class="o">(</span><span class="n">r</span><span class="o">,</span> <span class="n">activity</span><span class="o">);</span>
- <span class="n">CharSequence</span> <span class="n">title</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">activityInfo</span><span class="o">.</span><span class="na">loadLabel</span><span class="o">(</span><span class="n">appContext</span><span class="o">.</span><span class="na">getPackageManager</span><span class="o">());</span>
- <span class="n">Configuration</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Configuration</span><span class="o">(</span><span class="n">mCompatConfiguration</span><span class="o">);</span>
-     
- <span class="n">activity</span><span class="o">.</span><span class="na">attach</span><span class="o">(</span><span class="n">appContext</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="n">getInstrumentation</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">token</span><span class="o">,</span>
-         <span class="n">r</span><span class="o">.</span><span class="na">ident</span><span class="o">,</span> <span class="n">app</span><span class="o">,</span> <span class="n">r</span><span class="o">.</span><span class="na">intent</span><span class="o">,</span> <span class="n">r</span><span class="o">.</span><span class="na">activityInfo</span><span class="o">,</span> <span class="n">title</span><span class="o">,</span> <span class="n">r</span><span class="o">.</span><span class="na">parent</span><span class="o">,</span>
-         <span class="n">r</span><span class="o">.</span><span class="na">embeddedID</span><span class="o">,</span> <span class="n">r</span><span class="o">.</span><span class="na">lastNonConfigurationInstances</span><span class="o">,</span> <span class="n">config</span><span class="o">,</span>
-         <span class="n">r</span><span class="o">.</span><span class="na">referrer</span><span class="o">,</span> <span class="n">r</span><span class="o">.</span><span class="na">voiceInteractor</span><span class="o">);</span>
-
-        <span class="k">return</span> <span class="n">activity</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div><p>在<code>attach()</code>方法里, 系统会创建<code>Activity</code>所属的Window对象并为其设置回调接口, Window对象的创建是通过<code>PolicyManager#makeNewWindow()</code>方法实现. 由于<code>Activity</code>实现了<code>Window</code>的CallBack接口, 因此当<code>Window</code>接收到外界的状态改变的时候就会回调Activity方法. 比如说我们熟悉的<code>onAttachedToWindow()</code>, <code>onDetachedFromWindow()</code>, <code>dispatchTouchEvent()</code>等等.代码如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"> <span class="n">mWindow</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PhoneWindow</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-        <span class="n">mWindow</span><span class="o">.</span><span class="na">setCallback</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-        <span class="n">mWindow</span><span class="o">.</span><span class="na">setOnWindowDismissedCallback</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-        <span class="n">mWindow</span><span class="o">.</span><span class="na">getLayoutInflater</span><span class="o">().</span><span class="na">setPrivateFactory</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">info</span><span class="o">.</span><span class="na">softInputMode</span> <span class="o">!=</span> <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">SOFT_INPUT_STATE_UNSPECIFIED</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">mWindow</span><span class="o">.</span><span class="na">setSoftInputMode</span><span class="o">(</span><span class="n">info</span><span class="o">.</span><span class="na">softInputMode</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">info</span><span class="o">.</span><span class="na">uiOptions</span> <span class="o">!=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">mWindow</span><span class="o">.</span><span class="na">setUiOptions</span><span class="o">(</span><span class="n">info</span><span class="o">.</span><span class="na">uiOptions</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="n">mUiThread</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span>
-</code></pre></div><p>那么Activity视图是怎么附属在Window上的呢? 查看经常使用的<code>setContentView()</code>方法干了什么</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setContentView</span><span class="o">(</span><span class="nd">@LayoutRes</span> <span class="kt">int</span> <span class="n">layoutResID</span><span class="o">)</span> <span class="o">{</span>
-   <span class="n">getWindow</span><span class="o">().</span><span class="na">setContentView</span><span class="o">(</span><span class="n">layoutResID</span><span class="o">);</span>
-   <span class="n">initWindowDecorActionBar</span><span class="o">();</span>
-<span class="o">}</span>
-</code></pre></div><p><code>Activity</code>将具体实现交给了Window处理, 而<code>Window</code>的具体实现就是<code>PhoneWindow</code>, 所以只需要看<code>PhoneWindow</code>的相关逻辑分为以下几步.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="n">Activity</span> <span class="nf">performLaunchActivity</span><span class="o">(</span><span class="n">ActivityClientRecord</span> <span class="n">r</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">customIntent</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Activity</span> <span class="n">activity</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">  <span class="c1">//获得类加载器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">ClassLoader</span> <span class="n">cl</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">packageInfo</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">activity</span> <span class="o">=</span> <span class="n">mInstrumentation</span><span class="o">.</span><span class="na">newActivity</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">          <span class="n">cl</span><span class="o">,</span> <span class="n">component</span><span class="o">.</span><span class="na">getClassName</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">intent</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">StrictMode</span><span class="o">.</span><span class="na">incrementExpectedActivityCount</span><span class="o">(</span><span class="n">activity</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">  <span class="n">r</span><span class="o">.</span><span class="na">intent</span><span class="o">.</span><span class="na">setExtrasClassLoader</span><span class="o">(</span><span class="n">cl</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">r</span><span class="o">.</span><span class="na">intent</span><span class="o">.</span><span class="na">prepareToEnterProcess</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">state</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">r</span><span class="o">.</span><span class="na">state</span><span class="o">.</span><span class="na">setClassLoader</span><span class="o">(</span><span class="n">cl</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="n">Context</span> <span class="n">appContext</span> <span class="o">=</span> <span class="n">createBaseContextForActivity</span><span class="o">(</span><span class="n">r</span><span class="o">,</span> <span class="n">activity</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"> <span class="n">CharSequence</span> <span class="n">title</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">activityInfo</span><span class="o">.</span><span class="na">loadLabel</span><span class="o">(</span><span class="n">appContext</span><span class="o">.</span><span class="na">getPackageManager</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"> <span class="n">Configuration</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Configuration</span><span class="o">(</span><span class="n">mCompatConfiguration</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">     
+</span></span><span class="line"><span class="cl"> <span class="n">activity</span><span class="o">.</span><span class="na">attach</span><span class="o">(</span><span class="n">appContext</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="n">getInstrumentation</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">token</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">         <span class="n">r</span><span class="o">.</span><span class="na">ident</span><span class="o">,</span> <span class="n">app</span><span class="o">,</span> <span class="n">r</span><span class="o">.</span><span class="na">intent</span><span class="o">,</span> <span class="n">r</span><span class="o">.</span><span class="na">activityInfo</span><span class="o">,</span> <span class="n">title</span><span class="o">,</span> <span class="n">r</span><span class="o">.</span><span class="na">parent</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">         <span class="n">r</span><span class="o">.</span><span class="na">embeddedID</span><span class="o">,</span> <span class="n">r</span><span class="o">.</span><span class="na">lastNonConfigurationInstances</span><span class="o">,</span> <span class="n">config</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">         <span class="n">r</span><span class="o">.</span><span class="na">referrer</span><span class="o">,</span> <span class="n">r</span><span class="o">.</span><span class="na">voiceInteractor</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">activity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>在<code>attach()</code>方法里, 系统会创建<code>Activity</code>所属的Window对象并为其设置回调接口, Window对象的创建是通过<code>PolicyManager#makeNewWindow()</code>方法实现. 由于<code>Activity</code>实现了<code>Window</code>的CallBack接口, 因此当<code>Window</code>接收到外界的状态改变的时候就会回调Activity方法. 比如说我们熟悉的<code>onAttachedToWindow()</code>, <code>onDetachedFromWindow()</code>, <code>dispatchTouchEvent()</code>等等.代码如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"> <span class="n">mWindow</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PhoneWindow</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mWindow</span><span class="o">.</span><span class="na">setCallback</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mWindow</span><span class="o">.</span><span class="na">setOnWindowDismissedCallback</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mWindow</span><span class="o">.</span><span class="na">getLayoutInflater</span><span class="o">().</span><span class="na">setPrivateFactory</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">info</span><span class="o">.</span><span class="na">softInputMode</span> <span class="o">!=</span> <span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">SOFT_INPUT_STATE_UNSPECIFIED</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mWindow</span><span class="o">.</span><span class="na">setSoftInputMode</span><span class="o">(</span><span class="n">info</span><span class="o">.</span><span class="na">softInputMode</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">info</span><span class="o">.</span><span class="na">uiOptions</span> <span class="o">!=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mWindow</span><span class="o">.</span><span class="na">setUiOptions</span><span class="o">(</span><span class="n">info</span><span class="o">.</span><span class="na">uiOptions</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mUiThread</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span>
+</span></span></code></pre></div><p>那么Activity视图是怎么附属在Window上的呢? 查看经常使用的<code>setContentView()</code>方法干了什么</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setContentView</span><span class="o">(</span><span class="nd">@LayoutRes</span> <span class="kt">int</span> <span class="n">layoutResID</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="n">getWindow</span><span class="o">().</span><span class="na">setContentView</span><span class="o">(</span><span class="n">layoutResID</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="n">initWindowDecorActionBar</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p><code>Activity</code>将具体实现交给了Window处理, 而<code>Window</code>的具体实现就是<code>PhoneWindow</code>, 所以只需要看<code>PhoneWindow</code>的相关逻辑分为以下几步.</p>
 <ol>
 <li>如果没有DecorView, 那么就创建它. 由<code>installDecor()--&gt;generateDecor()</code>触发</li>
 <li>将View添加到<code>DecorView</code>的<code>mContentParent</code>中</li>
@@ -315,15 +315,15 @@
 </ol>
 <p>这个时候<code>DecorView</code>已经被创建并初始化完毕, Activity的布局文件也已经添加成功到<code>DecorView的mContentParent</code>中. 但是这个时候<code>DecorView</code>还没有被<code>WindowManager</code>正式添加到Window中. 虽然早在<code>Activity的attach</code>方法中window就已经被创建了, 但是这个时候由于<code>DecorView</code>并没有被<code>WindowManager</code>识别, 所以这个时候的Window无法提供具体功能, 因为他还无法接收外界的输入信息.</p>
 <p>在<code>ActivityThread#handleResumeActivity()</code>方法中, 首先会调用<code>Activity#onResume()</code>, 接着会调用<code>Activity#makeVisible()</code>, 正是在makeVisible方法中, <code>DecorView</code>真正的完成了添加和显示这两个过程. 如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">makeVisible</span><span class="o">()</span> <span class="o">{</span>
-   <span class="k">if</span> <span class="o">(!</span><span class="n">mWindowAdded</span><span class="o">)</span> <span class="o">{</span>
-       <span class="n">ViewManager</span> <span class="n">wm</span> <span class="o">=</span> <span class="n">getWindowManager</span><span class="o">();</span>
-       <span class="n">wm</span><span class="o">.</span><span class="na">addView</span><span class="o">(</span><span class="n">mDecor</span><span class="o">,</span> <span class="n">getWindow</span><span class="o">().</span><span class="na">getAttributes</span><span class="o">());</span>
-       <span class="n">mWindowAdded</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-   <span class="o">}</span>
-   <span class="n">mDecor</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">VISIBLE</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><h3 id="dialog的window创建过程">Dialog的Window创建过程</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">makeVisible</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(!</span><span class="n">mWindowAdded</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="n">ViewManager</span> <span class="n">wm</span> <span class="o">=</span> <span class="n">getWindowManager</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">       <span class="n">wm</span><span class="o">.</span><span class="na">addView</span><span class="o">(</span><span class="n">mDecor</span><span class="o">,</span> <span class="n">getWindow</span><span class="o">().</span><span class="na">getAttributes</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">       <span class="n">mWindowAdded</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mDecor</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">VISIBLE</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h3 id="dialog的window创建过程">Dialog的Window创建过程</h3>
 <p><code>Dialog</code>的<code>Window</code>的创建过程和Activity类似, 有如下几步</p>
 <p><strong>1. 创建Window</strong></p>
 <p>Dialog的创建后的实际就是<code>PhoneWindow</code>, 这个过程和Activity的Window创建过程一致.</p>
@@ -331,100 +331,99 @@
 <p>这个过程也类似, 都是通过<code>Window</code>去添加指定的布局文件.</p>
 <p><strong>3. 将DecorView添加到Window中并显示</strong></p>
 <p>在<code>Dialog</code>的show方法中, 会通过<code>WindowManager</code>将<code>DecorView</code>添加Window中.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">mWindowManager</span><span class="o">.</span><span class="na">addView</span><span class="o">(</span><span class="n">mDecor</span><span class="o">,</span> <span class="n">l</span><span class="o">);</span>
-<span class="n">mShowing</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>   
-<span class="n">sendShowMessage</span><span class="o">();</span>
-</code></pre></div><p>普通的<code>Dialog</code>有一个特殊之处, 那就是必须采用<code>Activity</code>的Content, 如果采用<code>Application</code>的Content, 那么就会报错.  报的错<strong>是没有应用token所导致的, 而应用token一般只有Activity才拥有</strong>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">mWindowManager</span><span class="o">.</span><span class="na">addView</span><span class="o">(</span><span class="n">mDecor</span><span class="o">,</span> <span class="n">l</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">mShowing</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>   
+</span></span><span class="line"><span class="cl"><span class="n">sendShowMessage</span><span class="o">();</span>
+</span></span></code></pre></div><p>普通的<code>Dialog</code>有一个特殊之处, 那就是必须采用<code>Activity</code>的Content, 如果采用<code>Application</code>的Content, 那么就会报错.  报的错<strong>是没有应用token所导致的, 而应用token一般只有Activity才拥有</strong>.</p>
 <p>还有一种方法. <code>系统Window比较特殊, 他可以不需要token</code>, 因此只需要指定对话框的Window为系统类型就可以正常弹出对话框.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JAVA" data-lang="JAVA"><span class="c1">//JAVA 给Dialog的Window改变为系统级的Window
-</span><span class="c1"></span><span class="n">dialog</span><span class="o">.</span><span class="na">getWindow</span><span class="o">().</span><span class="na">setType</span><span class="o">(</span><span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">TYPE_SYSTEM_ERROR</span><span class="o">);</span>
-
-
-<span class="c1">//XML 声明权限
-</span><span class="c1"></span><span class="o">&lt;</span><span class="n">uses</span><span class="o">-</span><span class="n">permission</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;android.permission.SYSTEM_ALERT_WINDOW&#34;</span><span class="o">/&gt;</span>
-
-</code></pre></div><h3 id="toast的window创建过程">Toast的Window创建过程</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JAVA" data-lang="JAVA"><span class="line"><span class="cl"><span class="c1">//JAVA 给Dialog的Window改变为系统级的Window
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">dialog</span><span class="o">.</span><span class="na">getWindow</span><span class="o">().</span><span class="na">setType</span><span class="o">(</span><span class="n">WindowManager</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">TYPE_SYSTEM_ERROR</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//XML 声明权限
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">&lt;</span><span class="n">uses</span><span class="o">-</span><span class="n">permission</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;android.permission.SYSTEM_ALERT_WINDOW&#34;</span><span class="o">/&gt;</span>
+</span></span></code></pre></div><h3 id="toast的window创建过程">Toast的Window创建过程</h3>
 <p><code>Toast</code>和<code>Dialog</code>不同, 它的工作过程就稍显复杂. 首先<code>Toast</code>也是基于Window来实现的. 但是由于<code>Toast</code>具有定时取消的功能, 所以系统采用了<code>Handler</code>. 在<code>Toast</code>的内部有两类IPC过程, 第一类是Toast访问<code>NotificationManagerService()</code>后面简称<code>NMS</code>. 第二类是<code>NotificationManagerService</code>回调Toast里的<code>TN</code>接口.</p>
 <p><code>Toast</code>属于系统Window, 它内部的视图有两种方式指定, 一种是系统默认的样式, 另一种是通过<code>setView</code>方法来指定一个自定义View. 不管如何, 他们都对应<code>Toast</code>的一个View类型的内部成员<code>mNextView</code>. Toast内部提供了<code>cancel</code>和<code>show</code>两个方法. 分别用于显示和隐藏<code>Toast</code>. 他们内部是一个IPC过程.</p>
 <p>显示和隐藏<code>Toast</code>都是需要通过<code>NMS</code>来实现的. 由于<code>NMS</code>运行在系统的进程中, 所以只能通过远程调用的方式来显示和隐藏<code>Toast</code>. 而<code>TN</code>这个类是一个<code>Binder</code>类. 在<code>Toast</code>和<code>NMS</code>进行IPC的过程中, 当NMS处理Toast的显示或隐藏请求时会跨进程回调<code>TN</code>的方法. 这个时候由于<code>TN</code>运行在Binder线程池中, 所以需要通过<code>Handler</code>将其切换到当前主线程. 所以由其可知, <code>Toast</code>无法在没有<code>Looper</code>的线程中弹出, 因为Handler需要使用<code>Looper</code>才能完成切换线程的功能.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"> <span class="k">if</span> <span class="o">(!</span><span class="n">isSystemToast</span><span class="o">)</span> <span class="o">{</span>
-   <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
-   <span class="kd">final</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="n">mToastQueue</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
-   <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-        <span class="kd">final</span> <span class="n">ToastRecord</span> <span class="n">r</span> <span class="o">=</span> <span class="n">mToastQueue</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">pkg</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">pkg</span><span class="o">))</span> <span class="o">{</span>
-            <span class="n">count</span><span class="o">++;</span>
-            <span class="c1">// MAX_PACKAGE_NOTIFICATIONS == 50
-</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="n">MAX_PACKAGE_NOTIFICATIONS</span><span class="o">)</span> <span class="o">{</span> 
-                <span class="n">Slog</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;Package has already posted &#34;</span> <span class="o">+</span> <span class="n">count</span>
-                       <span class="o">+</span> <span class="s">&#34; toasts. Not showing more. Package=&#34;</span> <span class="o">+</span> <span class="n">pkg</span><span class="o">);</span>
-                <span class="k">return</span><span class="o">;</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-   <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p>对于非系统应用来说, 最多能同时存在对<code>Toast</code>封装的<code>ToastRecord</code>上限为50个. 这样做是为了防止<strong>DOS(Denial of Service)</strong>. 如果不这样, 当通过大量循环去连续的弹出Toast, 这将会导致其他应用没有机会弹出Toast, 那么对于其他应用的Toast请求, 系统的行为就是拒绝服务, 这就是拒绝服务攻击的含义.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"> <span class="k">if</span> <span class="o">(!</span><span class="n">isSystemToast</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="kd">final</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="n">mToastQueue</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">   <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="n">ToastRecord</span> <span class="n">r</span> <span class="o">=</span> <span class="n">mToastQueue</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">pkg</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">pkg</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">count</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// MAX_PACKAGE_NOTIFICATIONS == 50
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="n">MAX_PACKAGE_NOTIFICATIONS</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">                <span class="n">Slog</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;Package has already posted &#34;</span> <span class="o">+</span> <span class="n">count</span>
+</span></span><span class="line"><span class="cl">                       <span class="o">+</span> <span class="s">&#34; toasts. Not showing more. Package=&#34;</span> <span class="o">+</span> <span class="n">pkg</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>对于非系统应用来说, 最多能同时存在对<code>Toast</code>封装的<code>ToastRecord</code>上限为50个. 这样做是为了防止<strong>DOS(Denial of Service)</strong>. 如果不这样, 当通过大量循环去连续的弹出Toast, 这将会导致其他应用没有机会弹出Toast, 那么对于其他应用的Toast请求, 系统的行为就是拒绝服务, 这就是拒绝服务攻击的含义.</p>
 <p>在<code>ToastRecord</code>被添加到<code>mToastQueue()</code>中后, <code>NMS</code>就会通过<code>showNextToastLocked()</code>方法来显示当前的Toast.</p>
 <p>Toast的显示是由<code>ToastRecord</code>的<code>callback</code>来完成的. 这个<code>callback</code>实际上就是<code>Toast</code>中的<code>TN</code>对象的远程Binder. 通过callback来访问TN中的方法是需要跨进程的. 最终被调用的<code>TN</code>中的方法会运行在发起<code>Toast</code>请求的应用的Binder线程池.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">scheduleTimeoutLocked</span><span class="o">(</span><span class="n">ToastRecord</span> <span class="n">r</span><span class="o">){</span>
-   <span class="n">mHandler</span><span class="o">.</span><span class="na">removeCallbacksAndMessages</span><span class="o">(</span><span class="n">r</span><span class="o">);</span>
-   <span class="n">Message</span> <span class="n">m</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="na">obtain</span><span class="o">(</span><span class="n">mHandler</span><span class="o">,</span> <span class="n">MESSAGE_TIMEOUT</span><span class="o">,</span> <span class="n">r</span><span class="o">);</span>
-   <span class="kt">long</span> <span class="n">delay</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">duration</span> <span class="o">==</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_LONG</span> <span class="o">?</span> <span class="n">LONG_DELAY</span> <span class="o">:</span> <span class="n">SHORT_DELAY</span><span class="o">;</span>
-   <span class="n">mHandler</span><span class="o">.</span><span class="na">sendMessageDelayed</span><span class="o">(</span><span class="n">m</span><span class="o">,</span> <span class="n">delay</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><p>如上代码就是在<code>Toast</code>显示以后, <code>NMS</code>通过这个方法来发送一个延时消息, 具体取决Toast的时长. <code>LONG_DELAY</code>, <code>SHORT_DELAY</code>分别对应着3.5秒和2秒. 当延时时间达到的时候. <code>NMS</code>会通过<code>cancelToastLocked()</code>方法来隐藏<code>Toast</code>并将其从<code>mToastQueue</code>中移除, 这个时候如果<code>mToastQueue</code>中还有其余<code>Toast</code>那么<code>NMS</code>就继续显示其他.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">scheduleTimeoutLocked</span><span class="o">(</span><span class="n">ToastRecord</span> <span class="n">r</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mHandler</span><span class="o">.</span><span class="na">removeCallbacksAndMessages</span><span class="o">(</span><span class="n">r</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="n">Message</span> <span class="n">m</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="na">obtain</span><span class="o">(</span><span class="n">mHandler</span><span class="o">,</span> <span class="n">MESSAGE_TIMEOUT</span><span class="o">,</span> <span class="n">r</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="kt">long</span> <span class="n">delay</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">duration</span> <span class="o">==</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_LONG</span> <span class="o">?</span> <span class="n">LONG_DELAY</span> <span class="o">:</span> <span class="n">SHORT_DELAY</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">mHandler</span><span class="o">.</span><span class="na">sendMessageDelayed</span><span class="o">(</span><span class="n">m</span><span class="o">,</span> <span class="n">delay</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>如上代码就是在<code>Toast</code>显示以后, <code>NMS</code>通过这个方法来发送一个延时消息, 具体取决Toast的时长. <code>LONG_DELAY</code>, <code>SHORT_DELAY</code>分别对应着3.5秒和2秒. 当延时时间达到的时候. <code>NMS</code>会通过<code>cancelToastLocked()</code>方法来隐藏<code>Toast</code>并将其从<code>mToastQueue</code>中移除, 这个时候如果<code>mToastQueue</code>中还有其余<code>Toast</code>那么<code>NMS</code>就继续显示其他.</p>
 <p><strong>Toast的隐藏也会通过ToastRecord的callback完成的</strong>.同样是一次IPC过程. 方式和Toast显示类似.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">cancelToastLocked</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
-<span class="n">ToastRecord</span> <span class="n">record</span> <span class="o">=</span> <span class="n">mToastQueue</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
-<span class="k">try</span> <span class="o">{</span>
-  <span class="n">record</span><span class="o">.</span><span class="na">callback</span><span class="o">.</span><span class="na">hide</span><span class="o">();</span>
-<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-  <span class="n">Slog</span><span class="o">.</span><span class="na">w</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;Object died trying to hide notification &#34;</span> <span class="o">+</span> <span class="n">record</span><span class="o">.</span><span class="na">callback</span>
-          <span class="o">+</span> <span class="s">&#34; in package &#34;</span> <span class="o">+</span> <span class="n">record</span><span class="o">.</span><span class="na">pkg</span><span class="o">);</span>
-  <span class="c1">// don&#39;t worry about this, we&#39;re about to remove it from
-</span><span class="c1"></span>  <span class="c1">// the list anyway
-</span><span class="c1"></span><span class="o">}</span>
-<span class="n">mToastQueue</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
-<span class="n">keepProcessAliveLocked</span><span class="o">(</span><span class="n">record</span><span class="o">.</span><span class="na">pid</span><span class="o">);</span>
-<span class="k">if</span> <span class="o">(</span><span class="n">mToastQueue</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
-  <span class="c1">// Show the next one. If the callback fails, this will remove
-</span><span class="c1"></span>  <span class="c1">// it from the list, so don&#39;t assume that the list hasn&#39;t changed
-</span><span class="c1"></span>  <span class="c1">// after this point.
-</span><span class="c1"></span>  <span class="n">showNextToastLocked</span><span class="o">();</span>
-<span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p>以上基本说明<code>Toast</code>的显示和影响过程实际上是通过<code>Toast</code>中的<code>TN</code>这个类来实现的. 他有两个方法<code>show()</code>, <code>hide()</code>. 分别对应着<code>Toast</code>的显示和隐藏. 由于这两个方法是被<code>NMS</code>以跨进程的方式调用的, 因此他们运行在<code>Binder线程池中</code>. 为了将执行环境切换到Toast请求所在线程中, 在他们内部使用了<code>handler</code>,如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">show</span><span class="o">()</span> <span class="o">{</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">localLOGV</span><span class="o">)</span> <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;SHOW: &#34;</span> <span class="o">+</span> <span class="k">this</span><span class="o">);</span>
-  <span class="n">mHandler</span><span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="n">mShow</span><span class="o">);</span>
-<span class="o">}</span>
-
-<span class="cm">/**
-</span><span class="cm">* schedule handleHide into the right thread
-</span><span class="cm">*/</span>
-<span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">hide</span><span class="o">()</span> <span class="o">{</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">localLOGV</span><span class="o">)</span> <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;HIDE: &#34;</span> <span class="o">+</span> <span class="k">this</span><span class="o">);</span>
-  <span class="n">mHandler</span><span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="n">mHide</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><p>上面代码中, <code>mShow</code>, <code>mHide</code>是两个Runnable, 他们内部分别调用了<code>handleShow</code>和<code>handleHide</code>方法. 所以这两个方法才是真正完成隐藏和显示<code>Toast</code>的地方.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">cancelToastLocked</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="n">ToastRecord</span> <span class="n">record</span> <span class="o">=</span> <span class="n">mToastQueue</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">record</span><span class="o">.</span><span class="na">callback</span><span class="o">.</span><span class="na">hide</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Slog</span><span class="o">.</span><span class="na">w</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;Object died trying to hide notification &#34;</span> <span class="o">+</span> <span class="n">record</span><span class="o">.</span><span class="na">callback</span>
+</span></span><span class="line"><span class="cl">          <span class="o">+</span> <span class="s">&#34; in package &#34;</span> <span class="o">+</span> <span class="n">record</span><span class="o">.</span><span class="na">pkg</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// don&#39;t worry about this, we&#39;re about to remove it from
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// the list anyway
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">mToastQueue</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">keepProcessAliveLocked</span><span class="o">(</span><span class="n">record</span><span class="o">.</span><span class="na">pid</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">mToastQueue</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Show the next one. If the callback fails, this will remove
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// it from the list, so don&#39;t assume that the list hasn&#39;t changed
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// after this point.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">showNextToastLocked</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>以上基本说明<code>Toast</code>的显示和影响过程实际上是通过<code>Toast</code>中的<code>TN</code>这个类来实现的. 他有两个方法<code>show()</code>, <code>hide()</code>. 分别对应着<code>Toast</code>的显示和隐藏. 由于这两个方法是被<code>NMS</code>以跨进程的方式调用的, 因此他们运行在<code>Binder线程池中</code>. 为了将执行环境切换到Toast请求所在线程中, 在他们内部使用了<code>handler</code>,如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">show</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">localLOGV</span><span class="o">)</span> <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;SHOW: &#34;</span> <span class="o">+</span> <span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mHandler</span><span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="n">mShow</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">* schedule handleHide into the right thread
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">hide</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">localLOGV</span><span class="o">)</span> <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;HIDE: &#34;</span> <span class="o">+</span> <span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mHandler</span><span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="n">mHide</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>上面代码中, <code>mShow</code>, <code>mHide</code>是两个Runnable, 他们内部分别调用了<code>handleShow</code>和<code>handleHide</code>方法. 所以这两个方法才是真正完成隐藏和显示<code>Toast</code>的地方.</p>
 <p><code>TN</code>的<strong>handleShow</strong>中会将<code>Toast</code>的视图添加到<code>Window</code>中.</p>
 <p><code>TN</code>的<strong>handleHide</strong>中会将<code>Toast</code>的视图从<code>Window</code>中移除.</p>
 <p>具体实现代码如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//handleShow()
-</span><span class="c1"></span> <span class="n">mWM</span> <span class="o">=</span> <span class="o">(</span><span class="n">WindowManager</span><span class="o">)</span><span class="n">context</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">WINDOW_SERVICE</span><span class="o">);</span>
- <span class="n">mWM</span><span class="o">.</span><span class="na">addView</span><span class="o">(</span><span class="n">mView</span><span class="o">,</span> <span class="n">mParams</span><span class="o">);</span>
- 
-<span class="c1">//handleHide()
-</span><span class="c1"></span><span class="k">if</span> <span class="o">(</span><span class="n">mView</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">mView</span><span class="o">.</span><span class="na">getParent</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-     <span class="k">if</span> <span class="o">(</span><span class="n">localLOGV</span><span class="o">)</span> <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;REMOVE! &#34;</span> <span class="o">+</span> <span class="n">mView</span> <span class="o">+</span> <span class="s">&#34; in &#34;</span> <span class="o">+</span> <span class="k">this</span><span class="o">);</span>
-     <span class="n">mWM</span><span class="o">.</span><span class="na">removeView</span><span class="o">(</span><span class="n">mView</span><span class="o">);</span>
-  <span class="o">}</span>
-  <span class="n">mView</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div><p>关于<code>Toast</code>流程已经完事.  除了说到的<code>Activity</code>, <code>Dialog</code>, <code>Toast</code>. 还有<code>PopupWindow</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//handleShow()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">mWM</span> <span class="o">=</span> <span class="o">(</span><span class="n">WindowManager</span><span class="o">)</span><span class="n">context</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">WINDOW_SERVICE</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"> <span class="n">mWM</span><span class="o">.</span><span class="na">addView</span><span class="o">(</span><span class="n">mView</span><span class="o">,</span> <span class="n">mParams</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c1">//handleHide()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="o">(</span><span class="n">mView</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">mView</span><span class="o">.</span><span class="na">getParent</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">     <span class="k">if</span> <span class="o">(</span><span class="n">localLOGV</span><span class="o">)</span> <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;REMOVE! &#34;</span> <span class="o">+</span> <span class="n">mView</span> <span class="o">+</span> <span class="s">&#34; in &#34;</span> <span class="o">+</span> <span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">     <span class="n">mWM</span><span class="o">.</span><span class="na">removeView</span><span class="o">(</span><span class="n">mView</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mView</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>关于<code>Toast</code>流程已经完事.  除了说到的<code>Activity</code>, <code>Dialog</code>, <code>Toast</code>. 还有<code>PopupWindow</code>
 菜单栏, 状态栏都是通过<code>Window</code>来实现的.</p>
 <blockquote>
 <p>下一章: 第9章: 四大组件的工作过程</p>
@@ -460,7 +459,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -475,5 +474,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

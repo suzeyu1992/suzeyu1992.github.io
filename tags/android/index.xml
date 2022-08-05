@@ -4,7 +4,23 @@
         <link>http://suzeyu.com/tags/android/</link>
         <description>android - 标签 - Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/tags/android/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Thu, 28 Jul 2022 11:11:02 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/tags/android/" rel="self" type="application/rss+xml" /><item>
+    <title>AOSP之Pixel4XL刷机Android12</title>
+    <link>http://suzeyu.com/posts/aosp%E4%B9%8Bpixel4xl%E5%88%B7%E6%9C%BAandroid12/</link>
+    <pubDate>Thu, 28 Jul 2022 11:11:02 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/aosp%E4%B9%8Bpixel4xl%E5%88%B7%E6%9C%BAandroid12/</guid>
+    <description><![CDATA[piexl4（flame）手机android12.1.0驱动下载： https://developers.google.cn/android/drivers#flamesq3a.220705.003.a1 (coral)https://developers.google.cn/android/drivers#coralsq3a.220705.003.a1 Piexl手机对应版本号： https://source.android.google.cn/setup/build/running#selecting-device-buildPixel Pixel 4a刷机参考： https://blog.csdn.net/lzz137/article/details/118526642 去除原生wifi感叹号：]]></description>
+</item><item>
+    <title>AOSP之Ubuntu22编译Android12源码</title>
+    <link>http://suzeyu.com/posts/aosp%E4%B9%8Bandroid12%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD%E7%BC%96%E8%AF%91/</link>
+    <pubDate>Mon, 25 Jul 2022 14:59:02 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/aosp%E4%B9%8Bandroid12%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD%E7%BC%96%E8%AF%91/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.cnx-software.com/wp-content/uploads/2021/10/Android-12-source-code-AOSP.png" referrerpolicy="no-referrer">
+            </div>1.编译准备 安装系统: Ubuntu 22.04 LTS 编译版本: Android 12.1.0 物理机配置: CPU10900K 32GB内存, 1T硬盘, 16G虚拟内存 题外话: 主力机一直都是mac, 但是mac编译真]]></description>
+</item><item>
     <title>Jenkins部署Android篇4之Pipeline流水线</title>
     <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E5%9B%9B%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF/</link>
     <pubDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</pubDate>
@@ -60,19 +76,5 @@
     <author>作者</author>
     <guid>http://suzeyu.com/posts/android-studio-%E5%B8%B8%E7%94%A8%E6%89%8B%E5%86%8C/</guid>
     <description><![CDATA[整理Android群英传和网上出现的比较完整AS的快捷小技巧. mac版已测, win大部分测试. 最后有一个整理的完整快捷键表格. win也好ma]]></description>
-</item><item>
-    <title>年终福利-一个实用方便的图片控件SImageView(第二弹)</title>
-    <link>http://suzeyu.com/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B62/</link>
-    <pubDate>Wed, 14 Dec 2016 02:30:02 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B62/</guid>
-    <description><![CDATA[一年快要过去了, 你的目标实现了么? 不管实现没有, 先来个小目标吧.比如造一个轮子? 说点题外话. Coding中我们总是经历着这么几个过程. 学会使]]></description>
-</item><item>
-    <title>年终福利-一个实用方便的图片控件SImageView(第一弹)</title>
-    <link>http://suzeyu.com/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B6/</link>
-    <pubDate>Mon, 05 Dec 2016 19:15:49 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/posts/%E5%B9%B4%E7%BB%88%E7%A6%8F%E5%88%A9-simageview%E5%AE%9E%E7%94%A8%E7%9A%84%E5%9B%BE%E7%89%87%E6%8E%A7%E4%BB%B6/</guid>
-    <description><![CDATA[一年快要过去了, 你的目标实现了么? 不管实现没有, 先来个小目标吧.比如造一个轮子? 说点题外话. Coding中我们总是经历着这么几个过程. 学会使]]></description>
 </item></channel>
 </rss>

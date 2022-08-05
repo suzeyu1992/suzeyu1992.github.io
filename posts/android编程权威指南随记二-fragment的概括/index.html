@@ -165,19 +165,19 @@
 <p>如果现在要动态添加一个<code>fragment</code>那么首先需要在<code>activity</code>中获取<code>fragmentManager</code>. 通过<code>FragmentActivity#getSupportFragmentManager()</code>.这里调用的是支持库的<code>FragmentActivity</code>. 目前官方<code>Android 24</code>中使用的默认是<code>AppCompatActivity</code>这个扩展兼容类. 其实这个类就是<code>FragmentActivity</code>的子类. 当然如果你就是使用<code>Activity</code>那么就调用<code>getFragmentManager()</code>一样可以.</p>
 <p><strong>管理fragment的事务</strong></p>
 <p><code>FragmentManager</code>管理者拿到了, 就可以开启事务做一些我们想做的事情.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 获得Fragment 的管理者对象
-</span><span class="c1"></span><span class="n">FragmentManager</span> <span class="n">fm</span> <span class="o">=</span> <span class="n">getSupportFragmentManager</span><span class="o">();</span>
-<span class="c1">// 先查找管理者中是否已经存在, 如果不存在就new一个
-</span><span class="c1"></span><span class="n">Fragment</span> <span class="n">fragment</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="na">findFragmentById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
-
-<span class="k">if</span> <span class="o">(</span><span class="n">fragment</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-  <span class="c1">// 方法内部实现要进行添加Fragment的创建并返回
-</span><span class="c1"></span>  <span class="n">fragment</span> <span class="o">=</span> <span class="n">createFragment</span><span class="o">();</span>  
-  <span class="n">fm</span><span class="o">.</span><span class="na">beginTransaction</span><span class="o">()</span>
-          <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">activity_main</span><span class="o">,</span> <span class="n">fragment</span><span class="o">)</span>
-          <span class="o">.</span><span class="na">commit</span><span class="o">();</span>
-<span class="o">}</span>
-</code></pre></div><p>首先利用了<code>Fragment#findFragmentById()</code>去<strong>fragment队列</strong>获取一个<code>fragment</code>. 如果有那么就不需要添加.如果没有重新进行事务添加. 为什么要这么做? (例如屏幕旋转, 虽然activity会被销毁重建, 但是<code>FragmentManager</code>会将<code>Fragment</code>队列保存下来. 这样当重启的时候就可以直接获取队列已经创建好的而不需要重复创建)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 获得Fragment 的管理者对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">FragmentManager</span> <span class="n">fm</span> <span class="o">=</span> <span class="n">getSupportFragmentManager</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 先查找管理者中是否已经存在, 如果不存在就new一个
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Fragment</span> <span class="n">fragment</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="na">findFragmentById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">fragment</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 方法内部实现要进行添加Fragment的创建并返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">fragment</span> <span class="o">=</span> <span class="n">createFragment</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">  <span class="n">fm</span><span class="o">.</span><span class="na">beginTransaction</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">          <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">activity_main</span><span class="o">,</span> <span class="n">fragment</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">          <span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>首先利用了<code>Fragment#findFragmentById()</code>去<strong>fragment队列</strong>获取一个<code>fragment</code>. 如果有那么就不需要添加.如果没有重新进行事务添加. 为什么要这么做? (例如屏幕旋转, 虽然activity会被销毁重建, 但是<code>FragmentManager</code>会将<code>Fragment</code>队列保存下来. 这样当重启的时候就可以直接获取队列已经创建好的而不需要重复创建)</p>
 <p>这段代码片段主要就是提交了一个<strong>fragment事务</strong>. <strong>fragment事务</strong>被用来添加,移除,附加,分离或替换<strong>fragment队列</strong>中的fragment. <code>add()</code>方法中首先指定activity的xml布局中的一个控件用来替换成被创建的<code>fragment视图</code>.然后参数2传入了要被添加的<code>fragment</code></p>
 <h2 id="listfragment使用">ListFragment使用</h2>
 <p>是<code>Fragment</code>的子类, 并且内置了<code>ListView</code>提供给开发者快速创建列表的需求. 默认已经生成了一个全屏的<code>ListView</code>布局.</p>
@@ -185,14 +185,14 @@
 <li>继承ListFragment派生出一个子类. (这个时候如果什么数据也不添加运行程序,会发现中间会有一个progressBar在一直旋转)</li>
 <li>由于<code>ListView</code>已经存在. 所以按照我们平常的开发流程接下来就应该<strong>创建适配器,并添加到ListView</strong>. (这里使用快速的<code>ArrayAdapter</code>,也可以继承<code>BaseAdapter</code>来实现一些复杂的布局)</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 创建系统预定义的实例
-</span><span class="c1"></span><span class="n">ArrayAdapter</span><span class="o">&lt;</span><span class="n">CrimeBean</span><span class="o">&gt;</span> <span class="n">myAdapter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayAdapter</span><span class="o">&lt;&gt;(</span><span class="n">getActivity</span><span class="o">().</span><span class="na">getApplicationContext</span><span class="o">(),</span>
-                    <span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">simple_list_item_1</span><span class="o">,</span>
-                    <span class="n">mCrimes</span><span class="o">);</span>
-
-<span class="c1">//  是ListFragment类提供的一个便利方法, 可以管理内置的listView设置adapter
-</span><span class="c1"></span><span class="n">setListAdapter</span><span class="o">(</span><span class="n">myAdapter</span><span class="o">);</span>
-</code></pre></div><p>创建一个<code>ArrayAdapter</code>传入三个参数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 创建系统预定义的实例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ArrayAdapter</span><span class="o">&lt;</span><span class="n">CrimeBean</span><span class="o">&gt;</span> <span class="n">myAdapter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayAdapter</span><span class="o">&lt;&gt;(</span><span class="n">getActivity</span><span class="o">().</span><span class="na">getApplicationContext</span><span class="o">(),</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">simple_list_item_1</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">mCrimes</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//  是ListFragment类提供的一个便利方法, 可以管理内置的listView设置adapter
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">setListAdapter</span><span class="o">(</span><span class="n">myAdapter</span><span class="o">);</span>
+</span></span></code></pre></div><p>创建一个<code>ArrayAdapter</code>传入三个参数</p>
 <ul>
 <li>参数一: 上下文. 直接获取托管的<code>activity</code>的全局上下文即可</li>
 <li>参数二: <code>ListView</code>中的<code>Item</code>条目要显示的布局. 这里使用了系统提供的布局. 这个布局里面就是一个TextView.</li>
@@ -206,27 +206,27 @@
 <p>在<code>ListFragment</code>通过<code>getListAdater().getItem(int)</code>即可获得adapter中对应数据集合中对象</p>
 <hr>
 <p><strong>如果需要自定义一个布局, 可以直接派生出一个<code>ArrayAdapter</code>的子类. 创建一个构造方法,和复写<code>getView()</code>方法即可, 不需要继承<code>BaseAdapter</code>要复写四个方法(这里看自己的实际需求来决定用那种适配器)</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
-</span><span class="cm">*  定制list的列表项, 继承adapter 重写getView方法
-</span><span class="cm">*/</span>
-<span class="kd">private</span>  <span class="kd">class</span> <span class="nc">MyCrimeAdapter</span> <span class="kd">extends</span> <span class="n">ArrayAdapter</span><span class="o">&lt;</span><span class="n">CrimeBean</span><span class="o">&gt;{</span>
-
-   <span class="kd">public</span> <span class="nf">MyCrimeAdapter</span><span class="o">(</span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">CrimeBean</span><span class="o">&gt;</span> <span class="n">crimes</span><span class="o">)</span> <span class="o">{</span>
-       <span class="c1">//  由于这里不打算使用预定义的布局, 所以参数2传递了资源id为0,
-</span><span class="c1"></span>       <span class="kd">super</span><span class="o">(</span><span class="n">getActivity</span><span class="o">().</span><span class="na">getApplicationContext</span><span class="o">(),</span> <span class="n">0</span><span class="o">,</span> <span class="n">crimes</span><span class="o">);</span>
-   <span class="o">}</span>
-
-   <span class="nd">@NonNull</span>
-   <span class="nd">@Override</span>
-   <span class="kd">public</span> <span class="n">View</span> <span class="nf">getView</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="n">View</span> <span class="n">convertView</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">parent</span><span class="o">)</span> <span class="o">{</span>
-       <span class="n">ViewHolder</span> <span class="n">holder</span> <span class="o">;</span>
-      
-       <span class="c1">//  这里省略布局实现的逻辑, 想实现什么就实现什么布局
-</span><span class="c1"></span>       <span class="k">return</span> <span class="n">convertView</span><span class="o">;</span>
-   <span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre></div><h2 id="使用fragment-argument">使用fragment argument</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">*  定制list的列表项, 继承adapter 重写getView方法
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span>  <span class="kd">class</span> <span class="nc">MyCrimeAdapter</span> <span class="kd">extends</span> <span class="n">ArrayAdapter</span><span class="o">&lt;</span><span class="n">CrimeBean</span><span class="o">&gt;{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="kd">public</span> <span class="nf">MyCrimeAdapter</span><span class="o">(</span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">CrimeBean</span><span class="o">&gt;</span> <span class="n">crimes</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="c1">//  由于这里不打算使用预定义的布局, 所以参数2传递了资源id为0,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="kd">super</span><span class="o">(</span><span class="n">getActivity</span><span class="o">().</span><span class="na">getApplicationContext</span><span class="o">(),</span> <span class="n">0</span><span class="o">,</span> <span class="n">crimes</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nd">@NonNull</span>
+</span></span><span class="line"><span class="cl">   <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">   <span class="kd">public</span> <span class="n">View</span> <span class="nf">getView</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="n">View</span> <span class="n">convertView</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">parent</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="n">ViewHolder</span> <span class="n">holder</span> <span class="o">;</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">       <span class="c1">//  这里省略布局实现的逻辑, 想实现什么就实现什么布局
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="k">return</span> <span class="n">convertView</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h2 id="使用fragment-argument">使用fragment argument</h2>
 <p>每个<code>Fragment</code>实例都可附带一个<code>Bundle</code>对象. 附加<code>argument</code>给<code>Fragment</code>调用<code>Fragment.setArguments(Bundle)</code>即可. <strong>需要注意,附加的时机必须在fragment创建之后并且添加到activity之前</strong></p>
 <p>如果想要获取在托管的<code>activity</code>的<code>intent</code>中的值. 有两种方式.</p>
 <ul>
@@ -234,15 +234,15 @@
 <li>利用<code>argument</code>在被托管前就给Fragment自己存储一些属性值.</li>
 </ul>
 <p>还是第二种好一些. 我们可以在<code>Fragment</code>内部暴露一个方法如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">CrimeFragment</span> <span class="nf">newInstance</span><span class="o">(</span><span class="n">UUID</span> <span class="n">crimeId</span><span class="o">){</span>
-   <span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
-   <span class="n">bundle</span><span class="o">.</span><span class="na">putSerializable</span><span class="o">(</span><span class="n">EXTRA_CRIME_ID</span><span class="o">,</span> <span class="n">crimeId</span><span class="o">);</span>
-
-   <span class="n">CrimeFragment</span> <span class="n">crimeFragment</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CrimeFragment</span><span class="o">();</span>
-   <span class="n">crimeFragment</span><span class="o">.</span><span class="na">setArguments</span><span class="o">(</span><span class="n">bundle</span><span class="o">);</span>
-   <span class="k">return</span> <span class="n">crimeFragment</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div><p>这样当<code>activity</code>需要托管添加的时候只需要调用我们提供的方法就可以. 具体的封装动作对activity来说是透明的. <code>activity</code>只需要获取到<code>intent</code>的值在调用<code>fragment#newInstance()</code>传入即可. 相对于第一种更好的将数据管理在自己的所在区域. 并且也不像第一种那样比较依赖<code>Activity</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="n">CrimeFragment</span> <span class="nf">newInstance</span><span class="o">(</span><span class="n">UUID</span> <span class="n">crimeId</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">   <span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">   <span class="n">bundle</span><span class="o">.</span><span class="na">putSerializable</span><span class="o">(</span><span class="n">EXTRA_CRIME_ID</span><span class="o">,</span> <span class="n">crimeId</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="n">CrimeFragment</span> <span class="n">crimeFragment</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CrimeFragment</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">   <span class="n">crimeFragment</span><span class="o">.</span><span class="na">setArguments</span><span class="o">(</span><span class="n">bundle</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="n">crimeFragment</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>这样当<code>activity</code>需要托管添加的时候只需要调用我们提供的方法就可以. 具体的封装动作对activity来说是透明的. <code>activity</code>只需要获取到<code>intent</code>的值在调用<code>fragment#newInstance()</code>传入即可. 相对于第一种更好的将数据管理在自己的所在区域. 并且也不像第一种那样比较依赖<code>Activity</code>.</p>
 <p><strong>获取argument</strong></p>
 <p><code>getArguments()</code>就可获得Bundle.</p>
 <h2 id="fragment获取返回结果">fragment获取返回结果</h2>
@@ -260,27 +260,27 @@
 <li>通过<code>FragmentManager</code>在屏幕上显示对话框.</li>
 </ol>
 <p>第一步略过直接创建类继承就可以. 第二步通过复写<code>onCreateDialog(Bundle)</code>方法. 只需要创建一个<code>AlertDialog</code>返回即可, 系统会帮助你显示.如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@NonNull</span>
-<span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">Dialog</span> <span class="nf">onCreateDialog</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>       
-   <span class="c1">// 直接返回在Activity中创建Dialog的方式生成的对象
-</span><span class="c1"></span>   <span class="n">AlertDialog</span><span class="o">.</span><span class="na">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AlertDialog</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">getActivity</span><span class="o">())</span>
-           <span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">&#34;标题&#34;</span><span class="o">)</span>
-           <span class="o">.</span><span class="na">setPositiveButton</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">ok</span><span class="o">,</span> <span class="k">new</span> <span class="n">DialogInterface</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
-               <span class="nd">@Override</span>
-               <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">DialogInterface</span> <span class="n">dialog</span><span class="o">,</span> <span class="kt">int</span> <span class="n">which</span><span class="o">)</span> <span class="o">{</span>
-                   <span class="n">sendResult</span><span class="o">(</span><span class="n">Activity</span><span class="o">.</span><span class="na">RESULT_OK</span><span class="o">);</span>
-               <span class="o">}</span>
-           <span class="o">})</span>
-           <span class="c1">// 设置中间区域要显示的View , 可以实现自定义View传入
-</span><span class="c1"></span>           <span class="o">.</span><span class="na">setView</span><span class="o">(</span><span class="n">inflate</span><span class="o">);</span>
-
-   <span class="n">AlertDialog</span> <span class="n">alertDialog</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
-
-   <span class="k">return</span> <span class="n">alertDialog</span><span class="o">;</span>
-
-<span class="o">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@NonNull</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Dialog</span> <span class="nf">onCreateDialog</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>       
+</span></span><span class="line"><span class="cl">   <span class="c1">// 直接返回在Activity中创建Dialog的方式生成的对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">AlertDialog</span><span class="o">.</span><span class="na">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AlertDialog</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">getActivity</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">           <span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">&#34;标题&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">           <span class="o">.</span><span class="na">setPositiveButton</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">ok</span><span class="o">,</span> <span class="k">new</span> <span class="n">DialogInterface</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">               <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">               <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">DialogInterface</span> <span class="n">dialog</span><span class="o">,</span> <span class="kt">int</span> <span class="n">which</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">sendResult</span><span class="o">(</span><span class="n">Activity</span><span class="o">.</span><span class="na">RESULT_OK</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">               <span class="o">}</span>
+</span></span><span class="line"><span class="cl">           <span class="o">})</span>
+</span></span><span class="line"><span class="cl">           <span class="c1">// 设置中间区域要显示的View , 可以实现自定义View传入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>           <span class="o">.</span><span class="na">setView</span><span class="o">(</span><span class="n">inflate</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="n">AlertDialog</span> <span class="n">alertDialog</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="n">alertDialog</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><ul>
 <li><code>setTitle()</code> 设置标题栏的文字.</li>
 <li><code>setView()</code> 实现在标题栏于按钮之间显示传入的View对象.</li>
 <li><code>setPositiveButton()</code> 设置一个对话框的按钮(Android中有3种对话框按钮可使用:<strong>positive按钮</strong>, <strong>negative按钮</strong>,<strong>neutral按钮</strong>. )旧版本里面positive按钮出现在最左端, 新版本系统则出现则最右边.</li>
@@ -293,12 +293,12 @@
 <li><code>public void show(FragmentTransaction transaction, String tag)</code></li>
 </ul>
 <p><code>String</code>类型参数可唯一识别存放在<code>FragmentManager</code>队列中的<code>DialogFragment</code>. 可以按需选择使用<code>FragmentManager</code>还是<code>FragmentTransaction</code>. 如果传入<code>FragmentManager</code>参数, 则事务可自动创建并且提交. 代码例子如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">FragmentManager</span> <span class="n">fm</span> <span class="o">=</span> <span class="n">getActivity</span><span class="o">().</span><span class="na">getSupportFragmentManager</span><span class="o">();</span>
-
-<span class="n">DatePickerFragment</span> <span class="n">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DatePickerFragment</span><span class="o">;</span> <span class="c1">//派生出来的DialogFragment的子类
-</span><span class="c1"></span>                
-<span class="n">dialog</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="n">fm</span><span class="o">,</span> <span class="n">DIALOG_DATE</span><span class="o">);</span>
-</code></pre></div><h2 id="fragment之间的数据传递">Fragment之间的数据传递</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">FragmentManager</span> <span class="n">fm</span> <span class="o">=</span> <span class="n">getActivity</span><span class="o">().</span><span class="na">getSupportFragmentManager</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">DatePickerFragment</span> <span class="n">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DatePickerFragment</span><span class="o">;</span> <span class="c1">//派生出来的DialogFragment的子类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                
+</span></span><span class="line"><span class="cl"><span class="n">dialog</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="n">fm</span><span class="o">,</span> <span class="n">DIALOG_DATE</span><span class="o">);</span>
+</span></span></code></pre></div><h2 id="fragment之间的数据传递">Fragment之间的数据传递</h2>
 <p>对于<code>activity</code>之间或者基于<code>fragment</code>的<code>activity</code>之间的数据传递. 已经了解. 那么如果是同一个<code>activity</code>托管的不同<code>fragment</code>之间的传递应该如何处理,比如上面如何从<code>DialogFragment</code>点击按钮把数据发送给另一个<code>fragment</code>?</p>
 <p>大体流程分为两步:</p>
 <ol>
@@ -359,7 +359,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -374,5 +374,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

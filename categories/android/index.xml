@@ -4,7 +4,23 @@
         <link>http://suzeyu.com/categories/android/</link>
         <description>android - 分类 - Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/categories/android/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Thu, 28 Jul 2022 11:11:02 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/categories/android/" rel="self" type="application/rss+xml" /><item>
+    <title>AOSP之Pixel4XL刷机Android12</title>
+    <link>http://suzeyu.com/posts/aosp%E4%B9%8Bpixel4xl%E5%88%B7%E6%9C%BAandroid12/</link>
+    <pubDate>Thu, 28 Jul 2022 11:11:02 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/aosp%E4%B9%8Bpixel4xl%E5%88%B7%E6%9C%BAandroid12/</guid>
+    <description><![CDATA[piexl4（flame）手机android12.1.0驱动下载： https://developers.google.cn/android/drivers#flamesq3a.220705.003.a1 (coral)https://developers.google.cn/android/drivers#coralsq3a.220705.003.a1 Piexl手机对应版本号： https://source.android.google.cn/setup/build/running#selecting-device-buildPixel Pixel 4a刷机参考： https://blog.csdn.net/lzz137/article/details/118526642 去除原生wifi感叹号：]]></description>
+</item><item>
+    <title>AOSP之Ubuntu22编译Android12源码</title>
+    <link>http://suzeyu.com/posts/aosp%E4%B9%8Bandroid12%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD%E7%BC%96%E8%AF%91/</link>
+    <pubDate>Mon, 25 Jul 2022 14:59:02 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/aosp%E4%B9%8Bandroid12%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD%E7%BC%96%E8%AF%91/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.cnx-software.com/wp-content/uploads/2021/10/Android-12-source-code-AOSP.png" referrerpolicy="no-referrer">
+            </div>1.编译准备 安装系统: Ubuntu 22.04 LTS 编译版本: Android 12.1.0 物理机配置: CPU10900K 32GB内存, 1T硬盘, 16G虚拟内存 题外话: 主力机一直都是mac, 但是mac编译真]]></description>
+</item><item>
     <title>Jenkins部署Android篇4之Pipeline流水线</title>
     <link>http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E5%9B%9B%E4%B9%8Bpipeline%E6%B5%81%E6%B0%B4%E7%BA%BF/</link>
     <pubDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</pubDate>
@@ -60,19 +76,5 @@
     <author>作者</author>
     <guid>http://suzeyu.com/posts/android-studio-%E5%BF%AB%E6%8D%B7%E9%94%AE-mac/</guid>
     <description><![CDATA[<p>工欲善其事必先利其器</p>]]></description>
-</item><item>
-    <title>Android 中如何使用annotion替代Enum</title>
-    <link>http://suzeyu.com/posts/android-%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8annotion%E6%9B%BF%E4%BB%A3enum/</link>
-    <pubDate>Fri, 20 May 2016 12:21:42 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/posts/android-%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8annotion%E6%9B%BF%E4%BB%A3enum/</guid>
-    <description><![CDATA[<p>抛弃枚举,  在android中一个更好的方法替代他.</p>]]></description>
-</item><item>
-    <title>5.0特性Verctor2SVG</title>
-    <link>http://suzeyu.com/posts/5.0%E7%89%B9%E6%80%A7verctor2svg/</link>
-    <pubDate>Thu, 19 May 2016 18:31:33 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/posts/5.0%E7%89%B9%E6%80%A7verctor2svg/</guid>
-    <description><![CDATA[<p>你不知道svg? 那你知道矢量图? 也不知道!? 位图呢? &hellip;  快来看一看吧</p>]]></description>
 </item></channel>
 </rss>

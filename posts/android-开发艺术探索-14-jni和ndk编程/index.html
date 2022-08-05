@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/suzeyu.com\/posts\/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-14-jni%E5%92%8Cndk%E7%BC%96%E7%A8%8B\/"
-        },"genre": "posts","keywords": "android, 笔记","wordcount":  5683 ,
+        },"genre": "posts","keywords": "android, 笔记","wordcount":  5686 ,
         "url": "http:\/\/suzeyu.com\/posts\/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-14-jni%E5%92%8Cndk%E7%BC%96%E7%A8%8B\/","datePublished": "2016-08-26T18:23:01+00:00","dateModified": "2016-08-26T18:23:01+00:00","publisher": {
             "@type": "Organization",
             "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
@@ -106,7 +106,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">《Android 开发艺术探索》 14-JNI和NDK编程</h1><h2 class="single-subtitle">抄书笔记</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-08-26">2016-08-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5683 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-08-26">2016-08-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5686 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 12 分钟&nbsp;<span id="/posts/android-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2-14-jni%E5%92%8Cndk%E7%BC%96%E7%A8%8B/" class="leancloud_visitors" data-flag-title="《Android 开发艺术探索》 14-JNI和NDK编程">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -137,63 +137,63 @@
 <p>大体步骤就是在java中声明<code>native</code>方法, 然后调用c/c++实现的native的方法. 下面开始具体步骤</p>
 <p><strong>1. 在Java中声明native方法</strong></p>
 <p>创建一个java类</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.szysky.note.androiddevseek_14</span><span class="o">;</span>
-
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JNITest</span> <span class="o">{</span>
-
-    <span class="kd">static</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&#34;jni-test&#34;</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">native</span> <span class="n">String</span> <span class="nf">get</span><span class="o">();</span>
-    <span class="kd">public</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">);</span>
-
-
-    <span class="c1">// 主函数
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">arg</span><span class="o">[])</span> <span class="o">{</span>
-        <span class="n">JNITest</span> <span class="n">jniTest</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JNITest</span><span class="o">();</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">jniTest</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
-        <span class="n">jniTest</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&#34;java写入数据&#34;</span><span class="o">);</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre></div><p>首先是<strong>通过静态代码块先加载so库</strong>, 然后声明两个<code>native</code>方法提供使用. 这两个方法需要在JNI中实现.   加载so库名称填入的虽然是<code>jni-test</code>, 但是so库全名称应该是<code>libjni-test.so</code>,这是加载so库的规范.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">com.szysky.note.androiddevseek_14</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JNITest</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&#34;jni-test&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">native</span> <span class="n">String</span> <span class="nf">get</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 主函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">arg</span><span class="o">[])</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">JNITest</span> <span class="n">jniTest</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JNITest</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">jniTest</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">jniTest</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&#34;java写入数据&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>首先是<strong>通过静态代码块先加载so库</strong>, 然后声明两个<code>native</code>方法提供使用. 这两个方法需要在JNI中实现.   加载so库名称填入的虽然是<code>jni-test</code>, 但是so库全名称应该是<code>libjni-test.so</code>,这是加载so库的规范.</p>
 <p><strong>2. 编辑Java源文件得到class文件, 然后通过javah命令导出JNI头文件</strong></p>
 <p>在包的的根路径, 进行命令操作</p>
 <pre tabindex="0"><code>javac com/szysky/note/androiddevseek_14/JNITest.java
 javah com.szysky.note.androiddevseek_14.JNITest
 </code></pre><p>执行之后会在, 操作的路径下生成一个<code>com_szysky_note_androiddevseek_14_JNITest.h</code>头文件, 这个就是第二步生成的东西.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="cm">/* DO NOT EDIT THIS FILE - it is machine generated */</span>
-<span class="err">#</span><span class="n">include</span> <span class="o">&lt;</span><span class="n">jni</span><span class="o">.</span><span class="na">h</span><span class="o">&gt;</span>
-<span class="cm">/* Header for class com_szysky_note_androiddevseek_14_JNITest */</span>
-
-<span class="err">#</span><span class="n">ifndef</span> <span class="n">_Included_com_szysky_note_androiddevseek_14_JNITest</span>
-<span class="err">#</span><span class="n">define</span> <span class="n">_Included_com_szysky_note_androiddevseek_14_JNITest</span>
-<span class="err">#</span><span class="n">ifdef</span> <span class="n">__cplusplus</span>
-<span class="n">extern</span> <span class="s">&#34;C&#34;</span> <span class="o">{</span>
-<span class="err">#</span><span class="n">endif</span>
-<span class="cm">/*
-</span><span class="cm"> * Class:     com_szysky_note_androiddevseek_14_JNITest
-</span><span class="cm"> * Method:    get
-</span><span class="cm"> * Signature: ()Ljava/lang/String;
-</span><span class="cm"> */</span>
-<span class="n">JNIEXPORT</span> <span class="n">jstring</span> <span class="n">JNICALL</span> <span class="nf">Java_com_szysky_note_androiddevseek_114_JNITest_get</span>
-  <span class="o">(</span><span class="n">JNIEnv</span> <span class="o">*,</span> <span class="n">jobject</span><span class="o">);</span>
-
-<span class="cm">/*
-</span><span class="cm"> * Class:     com_szysky_note_androiddevseek_14_JNITest
-</span><span class="cm"> * Method:    set
-</span><span class="cm"> * Signature: (Ljava/lang/String;)V
-</span><span class="cm"> */</span>
-<span class="n">JNIEXPORT</span> <span class="kt">void</span> <span class="n">JNICALL</span> <span class="nf">Java_com_szysky_note_androiddevseek_114_JNITest_set</span>
-  <span class="o">(</span><span class="n">JNIEnv</span> <span class="o">*,</span> <span class="n">jobject</span><span class="o">,</span> <span class="n">jstring</span><span class="o">);</span>
-
-<span class="err">#</span><span class="n">ifdef</span> <span class="n">__cplusplus</span>
-<span class="o">}</span>
-<span class="err">#</span><span class="n">endif</span>
-<span class="err">#</span><span class="n">endif</span>
-</code></pre></div><p>对生成的<code>.h</code>文件进行一下说明:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/* DO NOT EDIT THIS FILE - it is machine generated */</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="n">include</span> <span class="o">&lt;</span><span class="n">jni</span><span class="o">.</span><span class="na">h</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* Header for class com_szysky_note_androiddevseek_14_JNITest */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="n">ifndef</span> <span class="n">_Included_com_szysky_note_androiddevseek_14_JNITest</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="n">define</span> <span class="n">_Included_com_szysky_note_androiddevseek_14_JNITest</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="n">ifdef</span> <span class="n">__cplusplus</span>
+</span></span><span class="line"><span class="cl"><span class="n">extern</span> <span class="s">&#34;C&#34;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="n">endif</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Class:     com_szysky_note_androiddevseek_14_JNITest
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Method:    get
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Signature: ()Ljava/lang/String;
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="n">JNIEXPORT</span> <span class="n">jstring</span> <span class="n">JNICALL</span> <span class="nf">Java_com_szysky_note_androiddevseek_114_JNITest_get</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span><span class="n">JNIEnv</span> <span class="o">*,</span> <span class="n">jobject</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Class:     com_szysky_note_androiddevseek_14_JNITest
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Method:    set
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Signature: (Ljava/lang/String;)V
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="n">JNIEXPORT</span> <span class="kt">void</span> <span class="n">JNICALL</span> <span class="nf">Java_com_szysky_note_androiddevseek_114_JNITest_set</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span><span class="n">JNIEnv</span> <span class="o">*,</span> <span class="n">jobject</span><span class="o">,</span> <span class="n">jstring</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="n">ifdef</span> <span class="n">__cplusplus</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="n">endif</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="n">endif</span>
+</span></span></code></pre></div><p>对生成的<code>.h</code>文件进行一下说明:</p>
 <ul>
 <li><strong>函数名</strong>:格式遵循:<code>Java_包名_类名_方法名</code>包名之间的<code>.</code>分割全部替换成<code>_</code>分割.</li>
 <li><strong>参数</strong>: <code>jstring</code>是代表String类型参数. 具体的类型关系后面会说明.</li>
@@ -213,52 +213,52 @@ javah com.szysky.note.androiddevseek_14.JNITest
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#ifdef __cplusplus
-</span><span class="cp"></span><span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="p">{</span>
-<span class="cp">#endif
-</span></code></pre></div><p>而这个宏定义是必须的, 作用是<strong>指定extern&quot;C&quot;内部的函数采用C语言的命名风格来编译</strong>. 如果设定那么当JNI采用<code>C++</code>来实现时, 由于<code>C/C++</code>编译过程对函数的命名风格不同, 这将导致JNI在链接时无法根据函数名找到具体的函数, 那么JNI调用肯定会失效.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#ifdef __cplusplus
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span></code></pre></div><p>而这个宏定义是必须的, 作用是<strong>指定extern&quot;C&quot;内部的函数采用C语言的命名风格来编译</strong>. 如果设定那么当JNI采用<code>C++</code>来实现时, 由于<code>C/C++</code>编译过程对函数的命名风格不同, 这将导致JNI在链接时无法根据函数名找到具体的函数, 那么JNI调用肯定会失效.</p>
 <p><strong>3. 实现JNI方法</strong></p>
 <p><code>JNI</code>方法是指的Java中声明的<code>native</code>方法, 这里可以选择c++和c来实现. 过程都是类似的. 只有少量的区别, 这里两种都实现一下.</p>
 <p>首先是<code>C++</code></p>
 <p>在工程的主目录创建一个子目录, 名称任意, 然后将之前通过<code>javah命令</code>生成的**.h头文件**复制到创建的目录下, 接着创建<code>test.cpp</code>实现如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">// Created by 苏泽钰 on 16/8/27.
-</span><span class="c1">// test.app
-</span><span class="c1"></span>
-<span class="cp">#include</span> <span class="cpf">&#34;com_szysky_note_androiddevseek_14_JNITest.h&#34;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="n">JNIEXPORT</span> <span class="n">jstring</span> <span class="n">JNICALL</span> <span class="nf">Java_com_szysky_note_androiddevseek_114_JNITest_get</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">){</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;执行在c++文件中 get方法</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="s">&#34;Hello from JNI .&#34;</span><span class="p">);</span>
-
-<span class="p">}</span>
-<span class="n">JNIEXPORT</span> <span class="kt">void</span> <span class="n">JNICALL</span> <span class="nf">Java_com_szysky_note_androiddevseek_114_JNITest_get</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">,</span> <span class="n">jstring</span> <span class="n">string</span><span class="p">){</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;执行在c++文件中 set方法</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetStringUTFChars</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">, str&#34;</span><span class="p">);</span>
-
-    <span class="n">env</span><span class="o">-&gt;</span><span class="n">ReleaseStringUTFChars</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>在看一下<code>C</code>的实现:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="c1">// Created by 苏泽钰 on 16/8/27.
-</span><span class="c1">// test.c
-</span><span class="c1"></span>
-<span class="cp">#include</span> <span class="cpf">&#34;com_szysky_note_androiddevseek_14_JNITest.h&#34;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="n">JNIEXPORT</span> <span class="n">jstring</span> <span class="n">JNICALL</span> <span class="nf">Java_com_szysky_note_androiddevseek_114_JNITest_get</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">){</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;执行在c文件中 get方法</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="s">&#34;Hello from JNI .&#34;</span><span class="p">);</span>
-
-
-<span class="n">JNIEXPORT</span> <span class="kt">void</span> <span class="n">JNICALL</span> <span class="n">Java_com_szysky_note_androiddevseek_114_JNITest_get</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">,</span> <span class="n">jstring</span> <span class="n">string</span><span class="p">){</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;执行在c文件中 set方法</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetStringUTFChars</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">, str&#34;</span><span class="p">);</span>
-
-    <span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">ReleaseStringUTFChars</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
-<span class="p">}}</span>
-</code></pre></div><p>其实<code>C\C++</code>在实现上很相似, 但是对于<code>env</code>的操作方式有所不同.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// Created by 苏泽钰 on 16/8/27.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// test.app
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;com_szysky_note_androiddevseek_14_JNITest.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">JNIEXPORT</span> <span class="n">jstring</span> <span class="n">JNICALL</span> <span class="nf">Java_com_szysky_note_androiddevseek_114_JNITest_get</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;执行在c++文件中 get方法</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="s">&#34;Hello from JNI .&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">JNIEXPORT</span> <span class="kt">void</span> <span class="n">JNICALL</span> <span class="nf">Java_com_szysky_note_androiddevseek_114_JNITest_get</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">,</span> <span class="n">jstring</span> <span class="n">string</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;执行在c++文件中 set方法</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetStringUTFChars</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">, str&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">env</span><span class="o">-&gt;</span><span class="n">ReleaseStringUTFChars</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在看一下<code>C</code>的实现:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// Created by 苏泽钰 on 16/8/27.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// test.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;com_szysky_note_androiddevseek_14_JNITest.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">JNIEXPORT</span> <span class="n">jstring</span> <span class="n">JNICALL</span> <span class="nf">Java_com_szysky_note_androiddevseek_114_JNITest_get</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;执行在c文件中 get方法</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="s">&#34;Hello from JNI .&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">JNIEXPORT</span> <span class="kt">void</span> <span class="n">JNICALL</span> <span class="n">Java_com_szysky_note_androiddevseek_114_JNITest_get</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">,</span> <span class="n">jstring</span> <span class="n">string</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;执行在c文件中 set方法</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetStringUTFChars</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">, str&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">ReleaseStringUTFChars</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}}</span>
+</span></span></code></pre></div><p>其实<code>C\C++</code>在实现上很相似, 但是对于<code>env</code>的操作方式有所不同.</p>
 <p><strong>4. 编写so库并在java中调用</strong></p>
 <p>so库的编译这里采用<code>gcc</code>(Linux, mac环境下, window不清楚). 命令cd到放置刚才生成c/c++的目录下.</p>
 <p>使用如下命令:
@@ -270,16 +270,15 @@ javah com.szysky.note.androiddevseek_14.JNITest
 <p><code>gcc -shared -I /Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/include -fPIC test.cpp -o libjni-test.jnilib</code></p>
 <p>(别忘了替换路径)</p>
 <p>如果是mac系统, 那么生成<code>.jnilib</code>而不是<code>.so</code>.  不然生成了so在通过java命令执行的时候会抛出</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Exception</span> <span class="n">in</span> <span class="n">thread</span> <span class="s">&#34;main&#34;</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">UnsatisfiedLinkError</span><span class="o">:</span> <span class="n">no</span> <span class="n">jni</span><span class="o">-</span><span class="n">test</span> <span class="n">in</span> <span class="n">java</span><span class="o">.</span><span class="na">library</span><span class="o">.</span><span class="na">path</span>
-	<span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">ClassLoader</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="n">ClassLoader</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">1867</span><span class="o">)</span>
-	<span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Runtime</span><span class="o">.</span><span class="na">loadLibrary0</span><span class="o">(</span><span class="n">Runtime</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">870</span><span class="o">)</span>
-	<span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">1122</span><span class="o">)</span>
-	<span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">szysky</span><span class="o">.</span><span class="na">note</span><span class="o">.</span><span class="na">androiddevseek_14</span><span class="o">.</span><span class="na">JNITest</span><span class="o">.&lt;</span><span class="n">clinit</span><span class="o">&gt;(</span><span class="n">JNITest</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">15</span><span class="o">)</span>
-	<span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Class</span><span class="o">.</span><span class="na">forName0</span><span class="o">(</span><span class="n">Native</span> <span class="n">Method</span><span class="o">)</span>
-	<span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">Class</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">264</span><span class="o">)</span>
-	<span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">intellij</span><span class="o">.</span><span class="na">rt</span><span class="o">.</span><span class="na">execution</span><span class="o">.</span><span class="na">application</span><span class="o">.</span><span class="na">AppMain</span><span class="o">.</span><span class="na">main</span><span class="o">(</span><span class="n">AppMain</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">122</span><span class="o">)</span>
-
-</code></pre></div><p><img
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Exception</span> <span class="n">in</span> <span class="n">thread</span> <span class="s">&#34;main&#34;</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">UnsatisfiedLinkError</span><span class="o">:</span> <span class="n">no</span> <span class="n">jni</span><span class="o">-</span><span class="n">test</span> <span class="n">in</span> <span class="n">java</span><span class="o">.</span><span class="na">library</span><span class="o">.</span><span class="na">path</span>
+</span></span><span class="line"><span class="cl">	<span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">ClassLoader</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="n">ClassLoader</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">1867</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Runtime</span><span class="o">.</span><span class="na">loadLibrary0</span><span class="o">(</span><span class="n">Runtime</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">870</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">1122</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">szysky</span><span class="o">.</span><span class="na">note</span><span class="o">.</span><span class="na">androiddevseek_14</span><span class="o">.</span><span class="na">JNITest</span><span class="o">.&lt;</span><span class="n">clinit</span><span class="o">&gt;(</span><span class="n">JNITest</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">15</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Class</span><span class="o">.</span><span class="na">forName0</span><span class="o">(</span><span class="n">Native</span> <span class="n">Method</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">Class</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">264</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">intellij</span><span class="o">.</span><span class="na">rt</span><span class="o">.</span><span class="na">execution</span><span class="o">.</span><span class="na">application</span><span class="o">.</span><span class="na">AppMain</span><span class="o">.</span><span class="na">main</span><span class="o">(</span><span class="n">AppMain</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">122</span><span class="o">)</span>
+</span></span></code></pre></div><p><img
         class="lazyload"
         src="/svg/loading.min.svg"
         data-src="generate_so.png"
@@ -314,37 +313,36 @@ javah com.szysky.note.androiddevseek_14.JNITest
 <p>如果在<code>sdk manager</code>下载那么就在上面图中上部的<code>Android SDK Location</code>指定根目录下的<code>ndk-bundle</code>文件夹.</p>
 <p>接下来就配置一下全局环境, 这里是<strong>mac系统</strong>下的操作(Linux修改~/.bashrc文件), 命令行直接输出:</p>
 <p><code>open ~/.bash_profile</code> 添加一下配置</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="err">#</span> <span class="n">设置ndk环境路径</span>
-<span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="n">$</span><span class="o">{</span><span class="n">PATH</span><span class="o">}:/</span><span class="n">Users</span><span class="o">/</span><span class="n">suzeyu</span><span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">Android</span><span class="o">/</span><span class="n">sdk</span><span class="o">/</span><span class="n">ndk</span><span class="o">-</span><span class="n">bundle</span>
-</code></pre></div><p>可以使用<code>ndk-build</code>检测是否成功了, 之后就可以使用<code>ndk-build</code>命令产生编译so的库. 这里使用的NDK版本是<code>android-ndk-r12d</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="err">#</span> <span class="n">设置ndk环境路径</span>
+</span></span><span class="line"><span class="cl"><span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="n">$</span><span class="o">{</span><span class="n">PATH</span><span class="o">}:/</span><span class="n">Users</span><span class="o">/</span><span class="n">suzeyu</span><span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">Android</span><span class="o">/</span><span class="n">sdk</span><span class="o">/</span><span class="n">ndk</span><span class="o">-</span><span class="n">bundle</span>
+</span></span></code></pre></div><p>可以使用<code>ndk-build</code>检测是否成功了, 之后就可以使用<code>ndk-build</code>命令产生编译so的库. 这里使用的NDK版本是<code>android-ndk-r12d</code></p>
 <p><strong>2. 创建一个android项目, 在类中声明所需的native方法</strong></p>
 <p>这一步和上面创建java普通类的方法一样.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">static</span><span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&#34;jni-test&#34;</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">native</span> <span class="n">String</span> <span class="nf">get</span><span class="o">();</span>
-    <span class="kd">public</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">);</span>
-<span class="o">}</span>
-
-</code></pre></div><p><strong>3. 实现Android项目中所声明的native方法</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&#34;jni-test&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">native</span> <span class="n">String</span> <span class="nf">get</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p><strong>3. 实现Android项目中所声明的native方法</strong></p>
 <p><strong>jniLibs</strong>是<strong>AndroidStudio</strong>默认目录，用来存放已经编译好的.so文件，当然你也可以放在任意自定义目录下，例如src/main/libs，然后在build.gradle中指定相应的资源目录位置即可：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">android {
-    sourceSets.main {
-        // 你的.so库的实际路径
-        jniLibs.srcDir &#39;src/main/libs&#39; 
-    }
-}
-</code></pre></div><p>上面是已经有了<strong>so文件</strong>的方式. 下面说说如果只有**c/c++**源码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">android {
+</span></span><span class="line"><span class="cl">    sourceSets.main {
+</span></span><span class="line"><span class="cl">        // 你的.so库的实际路径
+</span></span><span class="line"><span class="cl">        jniLibs.srcDir &#39;src/main/libs&#39; 
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>上面是已经有了<strong>so文件</strong>的方式. 下面说说如果只有**c/c++**源码</p>
 <p><strong>这里有两种实现一种是手动使用<code>ndk-build</code>的命令, 一种利用<code>gradle</code></strong></p>
 <hr>
 <p><strong>利用gradle来生成</strong></p>
@@ -352,44 +350,44 @@ javah com.szysky.note.androiddevseek_14.JNITest
 <hr>
 <p><strong>使用传统的<code>ndk-build</code>来实现吧</strong></p>
 <p>在<code>jni</code>下创建3个文件, <code>test.cpp</code>, <code>Android.mk</code>, <code>Application.mk</code>三个文件</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">// 这是test.cpp文件
-</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;jni.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="cp">#ifdef __cplusplus
-</span><span class="cp"></span><span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="p">{</span>
-<span class="cp">#endif
-</span><span class="cp"></span>
- <span class="n">jstring</span>  <span class="nf">Java_com_szysky_note_androiddevseek_114_MainActivity_get</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">){</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;执行在c++文件中 get方法</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="s">&#34;Hello from JNI .&#34;</span><span class="p">);</span>
-
-<span class="p">}</span>
- <span class="kt">void</span>  <span class="nf">Java_com_szysky_note_androiddevseek_114_MainActivity_set</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">,</span> <span class="n">jstring</span> <span class="n">string</span><span class="p">){</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;执行在c++文件中 set方法</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetStringUTFChars</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
-
-    <span class="n">env</span><span class="o">-&gt;</span><span class="n">ReleaseStringUTFChars</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="cp">#ifdef __cplusplus
-</span><span class="cp"></span><span class="p">}</span>
-<span class="cp">#endif
-</span><span class="cp"></span>
-
-<span class="c1">// Android.mk文件
-</span><span class="c1"></span><span class="nl">LOCAL_PATH</span> <span class="p">:</span><span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="n">call</span> <span class="n">my</span><span class="o">-</span><span class="n">dir</span><span class="p">)</span>
-<span class="n">include</span> <span class="err">$</span><span class="p">(</span><span class="n">CLEAR_VARS</span><span class="p">)</span>
-
-<span class="nl">LOCAL_MODULE</span> <span class="p">:</span><span class="o">=</span> <span class="n">jni</span><span class="o">-</span><span class="n">test</span>    <span class="c1">//生成so的文件名称
-</span><span class="c1"></span><span class="nl">LOCAL_SRC_FILES</span> <span class="p">:</span><span class="o">=</span> <span class="n">test</span><span class="p">.</span><span class="n">cpp</span> <span class="c1">//所关联的cpp文件
-</span><span class="c1"></span><span class="n">include</span> <span class="err">$</span><span class="p">(</span><span class="n">BUILD_SHARED_LIBRARY</span><span class="p">)</span>
-
-
-<span class="c1">// Application.mk文件
-</span><span class="c1"></span><span class="nl">APP_ABI</span> <span class="p">:</span><span class="o">=</span> <span class="n">armeabi</span>
-</code></pre></div><p>这里说明一个<code>mk</code>文件:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 这是test.cpp文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;jni.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#ifdef __cplusplus
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"> <span class="n">jstring</span>  <span class="nf">Java_com_szysky_note_androiddevseek_114_MainActivity_get</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;执行在c++文件中 get方法</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="s">&#34;Hello from JNI .&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">void</span>  <span class="nf">Java_com_szysky_note_androiddevseek_114_MainActivity_set</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">,</span> <span class="n">jstring</span> <span class="n">string</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;执行在c++文件中 set方法</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetStringUTFChars</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">env</span><span class="o">-&gt;</span><span class="n">ReleaseStringUTFChars</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#ifdef __cplusplus
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Android.mk文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">LOCAL_PATH</span> <span class="p">:</span><span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="n">call</span> <span class="n">my</span><span class="o">-</span><span class="n">dir</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">include</span> <span class="err">$</span><span class="p">(</span><span class="n">CLEAR_VARS</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nl">LOCAL_MODULE</span> <span class="p">:</span><span class="o">=</span> <span class="n">jni</span><span class="o">-</span><span class="n">test</span>    <span class="c1">//生成so的文件名称
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">LOCAL_SRC_FILES</span> <span class="p">:</span><span class="o">=</span> <span class="n">test</span><span class="p">.</span><span class="n">cpp</span> <span class="c1">//所关联的cpp文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">include</span> <span class="err">$</span><span class="p">(</span><span class="n">BUILD_SHARED_LIBRARY</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Application.mk文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">APP_ABI</span> <span class="p">:</span><span class="o">=</span> <span class="n">armeabi</span>
+</span></span></code></pre></div><p>这里说明一个<code>mk</code>文件:</p>
 <ul>
 <li><code>LOCAL_MODULE:</code> 表示模块的名称</li>
 <li><code>LOCAL_SRC_FILES:</code> 表示需要参与的源文件</li>
@@ -617,61 +615,61 @@ Object[]    [Ljava/lang/Object;
 <ol>
 <li>首先在java中声明要被调用的静态方法. 这里触发的时机是一个按钮的点击,自行添加</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">     <span class="kd">static</span><span class="o">{</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&#34;jni-test&#34;</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="cm">/**
-</span><span class="cm">     * 定义一个静态方法 , 提供给JNI调用
-</span><span class="cm">     */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">methodCalledByJni</span><span class="o">(</span><span class="n">String</span> <span class="n">fromJni</span><span class="o">){</span>
-        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">&#34;susu&#34;</span><span class="o">,</span> <span class="s">&#34;我是从JNI被调用的消息,  JNI返回的值是:&#34;</span><span class="o">+</span><span class="n">fromJni</span> <span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="c1">// 定义调用本地方法, 好让本地方法回调java中的方法
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">callJNIConvertJavaMethod</span><span class="o">();</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">switch</span> <span class="o">(</span><span class="n">view</span><span class="o">.</span><span class="na">getId</span><span class="o">()){</span>
-            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btn_jni2java</span><span class="o">:</span>
-                <span class="c1">// 调用JNI的方法
-</span><span class="c1"></span>                <span class="n">callJNIConvertJavaMethod</span><span class="o">();</span>
-                <span class="k">break</span><span class="o">;</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-</code></pre></div><ol start="2">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">     <span class="kd">static</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&#34;jni-test&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 定义一个静态方法 , 提供给JNI调用
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">methodCalledByJni</span><span class="o">(</span><span class="n">String</span> <span class="n">fromJni</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">&#34;susu&#34;</span><span class="o">,</span> <span class="s">&#34;我是从JNI被调用的消息,  JNI返回的值是:&#34;</span><span class="o">+</span><span class="n">fromJni</span> <span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 定义调用本地方法, 好让本地方法回调java中的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">callJNIConvertJavaMethod</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">switch</span> <span class="o">(</span><span class="n">view</span><span class="o">.</span><span class="na">getId</span><span class="o">()){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btn_jni2java</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// 调用JNI的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">callJNIConvertJavaMethod</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></div><ol start="2">
 <li>在JNI的<code>test.cpp</code>中添加一个c的函数用来处理调用java的逻辑, 并提供一个方法供java代码调起来触发. 一个两个方法.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">// 定义调用java中的方法的函数
-</span><span class="c1"></span><span class="kt">void</span> <span class="nf">callJavaMethod</span><span class="p">(</span> <span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">){</span>
-    <span class="c1">// 先找到要调用的类
-</span><span class="c1"></span>    <span class="n">jclass</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">env</span> <span class="o">-&gt;</span> <span class="n">FindClass</span><span class="p">(</span><span class="s">&#34;com/szysky/note/androiddevseek_14/MainActivity&#34;</span><span class="p">);</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">clazz</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;找不到要调用方法的所属类&#34;</span><span class="p">);</span>
-        <span class="k">return</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="c1">// 获取java方法id
-</span><span class="c1"></span>    <span class="c1">// 参数二是调用的方法名,  参数三是方法的签名
-</span><span class="c1"></span>    <span class="n">jmethodID</span> <span class="n">id</span> <span class="o">=</span> <span class="n">env</span> <span class="o">-&gt;</span> <span class="n">GetStaticMethodID</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="s">&#34;methodCalledByJni&#34;</span><span class="p">,</span> <span class="s">&#34;(Ljava/lang/String;)V&#34;</span><span class="p">);</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;找不到要调用方法&#34;</span><span class="p">);</span>
-        <span class="k">return</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="n">jstring</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="s">&#34;我是在c中生成的字符串&#34;</span><span class="p">);</span>
-
-    <span class="c1">// 开始调用java中的静态方法
-</span><span class="c1"></span>    <span class="n">env</span> <span class="o">-&gt;</span> <span class="n">CallStaticVoidMethod</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">msg</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">Java_com_szysky_note_androiddevseek_114_MainActivity_callJNIConvertJavaMethod</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">){</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;调用c代码成功, 马上回调java中的代码&#34;</span><span class="p">);</span>
-    <span class="n">callJavaMethod</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">thiz</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>稍微说明一下, 程序首先根据类名<code>com/szysky/note/androiddevseek_14/MainActivity</code>找到类, 然后在根据方法名<code>methodCalledByJni</code>找到方法, 并传入方法对应签名<code>(Ljava/lang/String;)V</code>, 最后通过<code>JNIEnv</code>对象的<code>CallStaticVoidMethod()</code>方法来完成最终调用.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 定义调用java中的方法的函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">callJavaMethod</span><span class="p">(</span> <span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 先找到要调用的类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">jclass</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">env</span> <span class="o">-&gt;</span> <span class="n">FindClass</span><span class="p">(</span><span class="s">&#34;com/szysky/note/androiddevseek_14/MainActivity&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">clazz</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;找不到要调用方法的所属类&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 获取java方法id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 参数二是调用的方法名,  参数三是方法的签名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">jmethodID</span> <span class="n">id</span> <span class="o">=</span> <span class="n">env</span> <span class="o">-&gt;</span> <span class="n">GetStaticMethodID</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="s">&#34;methodCalledByJni&#34;</span><span class="p">,</span> <span class="s">&#34;(Ljava/lang/String;)V&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;找不到要调用方法&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">jstring</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="s">&#34;我是在c中生成的字符串&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 开始调用java中的静态方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">env</span> <span class="o">-&gt;</span> <span class="n">CallStaticVoidMethod</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">msg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Java_com_szysky_note_androiddevseek_114_MainActivity_callJNIConvertJavaMethod</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thiz</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;调用c代码成功, 马上回调java中的代码&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">callJavaMethod</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">thiz</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>稍微说明一下, 程序首先根据类名<code>com/szysky/note/androiddevseek_14/MainActivity</code>找到类, 然后在根据方法名<code>methodCalledByJni</code>找到方法, 并传入方法对应签名<code>(Ljava/lang/String;)V</code>, 最后通过<code>JNIEnv</code>对象的<code>CallStaticVoidMethod()</code>方法来完成最终调用.</p>
 <p>最后只要在<code>Java_com_szysky_note_androiddevseek_114_MainActivity_callJNIConvertJavaMethod</code>方法中调用<code>callJavaMethod</code>方法即可.</p>
 <p>流程就是&ndash;&gt; 按钮触发了点击的<code>onClikc</code> &ndash;&gt; 然后Java中会调用JNI的<code>callJNIConvertJavaMethod()</code> &ndash;&gt; JNI的<code>callJNIConvertJavaMethod()</code>方法内部会调用具体实现回调Java中的方法<code>callJavaMethod()</code> &ndash;&gt; 方法最终通过<code>CallStaticVoidMethod()</code>调用了Java中的<code>methodCalledByJni()</code>来接收一个参数并打印一个log.</p>
 <p>结果图:</p>
@@ -719,7 +717,7 @@ Object[]    [Ljava/lang/Object;
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -734,5 +732,5 @@ Object[]    [Ljava/lang/Object;
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

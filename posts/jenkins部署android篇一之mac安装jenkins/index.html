@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Jenkins部署Android篇1之Mac安装Jenkins - Blog</title><meta name="Description" content=""><meta property="og:title" content="Jenkins部署Android篇1之Mac安装Jenkins" />
+<meta property="og:description" content="Jenkins部署Android篇-1.Mac安装Jenkins Jenkins部署Android篇-2.Jenkins使用Github的We" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-11T21:12:10+08:00" />
+<meta property="article:modified_time" content="2022-03-11T21:12:10+08:00" /><meta property="og:site_name" content="szySky Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jenkins部署Android篇1之Mac安装Jenkins"/>
+<meta name="twitter:description" content="Jenkins部署Android篇-1.Mac安装Jenkins Jenkins部署Android篇-2.Jenkins使用Github的We"/>
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/" /><link rel="prev" href="http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" /><link rel="next" href="http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%BA%8C%E4%B9%8Bjenkins%E4%BD%BF%E7%94%A8github%E7%9A%84webhooks/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Jenkins部署Android篇1之Mac安装Jenkins",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/suzeyu.com\/posts\/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins\/"
+        },"genre": "posts","keywords": "自动化, android","wordcount":  1095 ,
+        "url": "http:\/\/suzeyu.com\/posts\/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins\/","datePublished": "2022-03-11T21:12:10+08:00","dateModified": "2022-03-11T21:12:10+08:00","publisher": {
+            "@type": "Organization",
+            "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "su"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Szy&#39;sky Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="猪猪猪" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Szy&#39;sky Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="猪猪猪" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Jenkins部署Android篇1之Mac安装Jenkins</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/"><i class="far fa-folder fa-fw"></i>自动化</a>&nbsp;<a href="/categories/android/"><i class="far fa-folder fa-fw"></i>android</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1095 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/" class="leancloud_visitors" data-flag-title="Jenkins部署Android篇1之Mac安装Jenkins">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装环境">安装环境</a></li>
+    <li><a href="#开始安装">开始安装</a>
+      <ul>
+        <li><a href="#1brew安装jenkins">1.brew安装jenkins</a></li>
+        <li><a href="#2运行jenkins">2.运行jenkins</a></li>
+        <li><a href="#3打开">3.打开</a></li>
+        <li><a href="#4重置初始密码">4.重置初始密码</a></li>
+        <li><a href="#5安装插件">5.安装插件</a></li>
+        <li><a href="#6配置基础环境">6.配置基础环境</a></li>
+        <li><a href="#7配置其他编译工具">7.配置其他编译工具</a></li>
+        <li><a href="#8创建任务">8.创建任务</a></li>
+        <li><a href="#9配置任务">9.配置任务</a></li>
+        <li><a href="#10测试能否成功构建">10.测试能否成功构建</a></li>
+      </ul>
+    </li>
+    <li><a href="#相关链接">相关链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855"
+        data-srcset="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999%2c10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855, https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999%2c10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855 1.5x, https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999%2c10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855 2x"
+        data-sizes="auto"
+        alt="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855"
+        title="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fraw.githubusercontent.com%2Fsromku%2Fbuild-android-jenkins%2Fmaster%2Fassets%2Fbuild-android-wip.png&amp;refer=http%3A%2F%2Fraw.githubusercontent.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649935615&amp;t=43d7d98bdb16cd16c633d285d833a855" /></p>
+<ul>
+<li><a href="https://suzeyu.com/posts/jenkins%e9%83%a8%e7%bd%b2android%e7%af%87%e5%9b%9b%e4%b9%8bpipeline%e6%b5%81%e6%b0%b4%e7%ba%bf/" target="_blank" rel="noopener noreffer">Jenkins部署Android篇-1.Mac安装Jenkins</a></li>
+<li><a href="https://suzeyu.com/posts/jenkins%e9%83%a8%e7%bd%b2android%e7%af%87%e4%b8%89%e4%b9%8b%e6%9e%84%e5%bb%ba%e5%ae%8c%e6%95%b4android%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%81%e7%a8%8b/" target="_blank" rel="noopener noreffer">Jenkins部署Android篇-2.Jenkins使用Github的Webhooks</a></li>
+<li><a href="https://suzeyu.com/posts/jenkins%e9%83%a8%e7%bd%b2android%e7%af%87%e4%ba%8c%e4%b9%8bjenkins%e4%bd%bf%e7%94%a8github%e7%9a%84webhooks/" target="_blank" rel="noopener noreffer">Jenkins部署Android篇-3.构建完整Android自动化流程</a></li>
+<li><a href="https://suzeyu.com/posts/jenkins%e9%83%a8%e7%bd%b2android%e7%af%87%e4%b8%80%e4%b9%8bmac%e5%ae%89%e8%a3%85jenkins/" target="_blank" rel="noopener noreffer">Jenkins部署Android篇-4.Pipeline流水线</a></li>
+</ul>
+<h2 id="安装环境">安装环境</h2>
+<ul>
+<li><strong>操作系统:</strong> macOS Monterey 12.1</li>
+<li><strong>Git:</strong> 2.15.0</li>
+<li><strong>JDK:</strong> 17.0.1 2021-10-19 LTS</li>
+<li><strong>Gradle:</strong> Gradle 7.4</li>
+<li><strong>SDK:</strong> AndroidStudio指向的Android SDK</li>
+<li>准备安装的<strong>Jenkins</strong>版本为:Jenkins 2.319.3</li>
+</ul>
+<h2 id="开始安装">开始安装</h2>
+<h3 id="1brew安装jenkins">1.brew安装jenkins</h3>
+<p><code>brew install jenkins-lts</code></p>
+<h3 id="2运行jenkins">2.运行jenkins</h3>
+<p><code>brew services start jenkins-lts</code></p>
+<pre tabindex="0"><code># # 重启 jenkins-lts 服务
+# brew services restart jenkins-lts
+# # 停止 jenkins-lts 服务
+# brew services stop jenkins-lts
+</code></pre><h3 id="3打开">3.打开</h3>
+<p>浏览器打开<strong>jenkins</strong> <a href="http://localhost:8080" target="_blank" rel="noopener noreffer">http://localhost:8080</a></p>
+<p>如果要修改端口: <em>/usr/local/Cellar/jenkins-lts/2.319.3/homebrew.mxcl.jenkins-lts.plist</em> 这是brew安装的路径</p>
+<p>注意: 如果要ip或者外网访问, 这个文件这个字段需要这样修改
+<code>httpListenAddress=0.0.0.0</code></p>
+<h3 id="4重置初始密码">4.重置初始密码</h3>
+<p>首次进入修改密码.直接命令行获取密码输入,并设置新密码.
+<code>cat /Users/suzeyu/.jenkins/secrets/initialAdminPassword</code>
+suzeyu为我的用户名, 这里需要手动替换一下.</p>
+<h3 id="5安装插件">5.安装插件</h3>
+<p>安装基础插件, 新手的话直接安装<em>推荐的插件</em></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2%e6%8e%a8%e8%8d%90%e5%ae%89%e8%a3%85%e6%8f%92%e4%bb%b6.png"
+        data-srcset="2%e6%8e%a8%e8%8d%90%e5%ae%89%e8%a3%85%e6%8f%92%e4%bb%b6.png, 2%e6%8e%a8%e8%8d%90%e5%ae%89%e8%a3%85%e6%8f%92%e4%bb%b6.png 1.5x, 2%e6%8e%a8%e8%8d%90%e5%ae%89%e8%a3%85%e6%8f%92%e4%bb%b6.png 2x"
+        data-sizes="auto"
+        alt="2推荐安装插件.png"
+        title="2推荐安装插件.png" /></p>
+<h3 id="6配置基础环境">6.配置基础环境</h3>
+<p>配置 <strong>JDK</strong>, <strong>Git</strong>, <strong>Gradle</strong>路径</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="3%e8%ae%be%e7%bd%aeJDKGit%e5%9c%b0%e5%9d%80.png"
+        data-srcset="3%e8%ae%be%e7%bd%aeJDKGit%e5%9c%b0%e5%9d%80.png, 3%e8%ae%be%e7%bd%aeJDKGit%e5%9c%b0%e5%9d%80.png 1.5x, 3%e8%ae%be%e7%bd%aeJDKGit%e5%9c%b0%e5%9d%80.png 2x"
+        data-sizes="auto"
+        alt="3设置JDKGit地址.png"
+        title="3设置JDKGit地址.png" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="4%e5%a1%ab%e5%86%99JDK%e7%ad%89%e8%b7%af%e5%be%84.png"
+        data-srcset="4%e5%a1%ab%e5%86%99JDK%e7%ad%89%e8%b7%af%e5%be%84.png, 4%e5%a1%ab%e5%86%99JDK%e7%ad%89%e8%b7%af%e5%be%84.png 1.5x, 4%e5%a1%ab%e5%86%99JDK%e7%ad%89%e8%b7%af%e5%be%84.png 2x"
+        data-sizes="auto"
+        alt="4填写JDK等路径.png"
+        title="4填写JDK等路径.png" /></p>
+<p>别名随便填写, 圈中的路径需要手动添加.</p>
+<p>如何获取相关路径?</p>
+<pre tabindex="0"><code>// mac查看jdk命令
+$ /usr/libexec/java_home -V
+
+// mac查看git命令
+$ which git
+
+
+// mac gradle默认根路径-&gt;/Users/suzeyu/.gradle/wrapper/dists/
+</code></pre><h3 id="7配置其他编译工具">7.配置其他编译工具</h3>
+<p>设置Android编译过程用到的SDK, NDK</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="5%e8%ae%be%e7%bd%aeSDK%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f1.png"
+        data-srcset="5%e8%ae%be%e7%bd%aeSDK%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f1.png, 5%e8%ae%be%e7%bd%aeSDK%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f1.png 1.5x, 5%e8%ae%be%e7%bd%aeSDK%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f1.png 2x"
+        data-sizes="auto"
+        alt="5设置SDK环境变量1.png"
+        title="5设置SDK环境变量1.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="6%e8%ae%be%e7%bd%aeSDK%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f2.png"
+        data-srcset="6%e8%ae%be%e7%bd%aeSDK%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f2.png, 6%e8%ae%be%e7%bd%aeSDK%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f2.png 1.5x, 6%e8%ae%be%e7%bd%aeSDK%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f2.png 2x"
+        data-sizes="auto"
+        alt="6设置SDK环境变量2.png"
+        title="6设置SDK环境变量2.png" /></p>
+<p>这里可以继续添加<strong>NDK</strong>,<strong>Python</strong>,<strong>cmake</strong>等的路径, 为了先搭建成功这里先不添加.</p>
+<h3 id="8创建任务">8.创建任务</h3>
+<p>到这里环境配置完成. 准备创建一个任务.</p>
+<p>首页选择<strong>新建任务</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="7%e5%88%9b%e5%bb%ba%e4%bb%bb%e5%8a%a1.png"
+        data-srcset="7%e5%88%9b%e5%bb%ba%e4%bb%bb%e5%8a%a1.png, 7%e5%88%9b%e5%bb%ba%e4%bb%bb%e5%8a%a1.png 1.5x, 7%e5%88%9b%e5%bb%ba%e4%bb%bb%e5%8a%a1.png 2x"
+        data-sizes="auto"
+        alt="7创建任务.png"
+        title="7创建任务.png" /></p>
+<p>然后选择<strong>确定</strong>.</p>
+<h3 id="9配置任务">9.配置任务</h3>
+<p>这里就先配置最基础的.</p>
+<p>直接跳到<strong>源码管理</strong>区域</p>
+<p>这里使用的<strong>Github</strong>仓库, 你要保证这个仓库有<strong>android的项目</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="9%e8%ae%be%e7%bd%ae%e4%bb%93%e5%ba%93%e5%9c%b0%e5%9d%80.png"
+        data-srcset="9%e8%ae%be%e7%bd%ae%e4%bb%93%e5%ba%93%e5%9c%b0%e5%9d%80.png, 9%e8%ae%be%e7%bd%ae%e4%bb%93%e5%ba%93%e5%9c%b0%e5%9d%80.png 1.5x, 9%e8%ae%be%e7%bd%ae%e4%bb%93%e5%ba%93%e5%9c%b0%e5%9d%80.png 2x"
+        data-sizes="auto"
+        alt="9设置仓库地址.png"
+        title="9设置仓库地址.png" /></p>
+<p>创建一个账号+密码的凭据.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="8%e5%88%9b%e5%bb%bagithub%e5%87%ad%e6%8d%ae.png"
+        data-srcset="8%e5%88%9b%e5%bb%bagithub%e5%87%ad%e6%8d%ae.png, 8%e5%88%9b%e5%bb%bagithub%e5%87%ad%e6%8d%ae.png 1.5x, 8%e5%88%9b%e5%bb%bagithub%e5%87%ad%e6%8d%ae.png 2x"
+        data-sizes="auto"
+        alt="8创建github凭据.png"
+        title="8创建github凭据.png" /></p>
+<p><strong>注意</strong> 这个密码是在github生成的一个token, 因为在2021/08/13后为了安全, github不再直接支持账号密码的操作.</p>
+<p>需要在<strong>github-&gt;setting-&gt;Developer setting-&gt;Personal access tokens-&gt;Generate new token</strong></p>
+<p><a href="https://blog.csdn.net/weixin_41010198/article/details/119698015" target="_blank" rel="noopener noreffer">具体创建参考别人的详细步骤</a></p>
+<p>指定分支这一栏, 最好再创建一个分支, 然后指定新分支 */dev. 因为github新建仓库有可能初始为<strong>main</strong>分支, 再后续拉取会失败.</p>
+<p><strong>选择构建项目的gradle版本</strong></p>
+<p>还是任务的配置界面.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="10%e8%ae%be%e7%bd%aegradle%e6%9e%84%e5%bb%ba%e7%89%88%e6%9c%ac.png"
+        data-srcset="10%e8%ae%be%e7%bd%aegradle%e6%9e%84%e5%bb%ba%e7%89%88%e6%9c%ac.png, 10%e8%ae%be%e7%bd%aegradle%e6%9e%84%e5%bb%ba%e7%89%88%e6%9c%ac.png 1.5x, 10%e8%ae%be%e7%bd%aegradle%e6%9e%84%e5%bb%ba%e7%89%88%e6%9c%ac.png 2x"
+        data-sizes="auto"
+        alt="10设置gradle构建版本.png"
+        title="10设置gradle构建版本.png" /></p>
+<p>这里为了测试环境搭建是否可用, 先生成debug包.</p>
+<p>设置玩之后<strong>应用</strong>,<strong>保存</strong></p>
+<h3 id="10测试能否成功构建">10.测试能否成功构建</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="11%e9%80%89%e6%8b%a9%e7%ab%8b%e5%8d%b3%e6%9e%84%e5%bb%ba.png"
+        data-srcset="11%e9%80%89%e6%8b%a9%e7%ab%8b%e5%8d%b3%e6%9e%84%e5%bb%ba.png, 11%e9%80%89%e6%8b%a9%e7%ab%8b%e5%8d%b3%e6%9e%84%e5%bb%ba.png 1.5x, 11%e9%80%89%e6%8b%a9%e7%ab%8b%e5%8d%b3%e6%9e%84%e5%bb%ba.png 2x"
+        data-sizes="auto"
+        alt="11选择立即构建.png"
+        title="11选择立即构建.png" /></p>
+<p>左下角会显示任务进度, 也可以进入点击进入, 查看log信息.</p>
+<p>任务成功后,点击<strong>工作空间</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="12%e7%94%9f%e6%88%90%e7%9a%84debug%e5%8c%85.png"
+        data-srcset="12%e7%94%9f%e6%88%90%e7%9a%84debug%e5%8c%85.png, 12%e7%94%9f%e6%88%90%e7%9a%84debug%e5%8c%85.png 1.5x, 12%e7%94%9f%e6%88%90%e7%9a%84debug%e5%8c%85.png 2x"
+        data-sizes="auto"
+        alt="12生成的debug包.png"
+        title="12生成的debug包.png" /></p>
+<p>最基础的Android构建就完成了.</p>
+<h2 id="相关链接">相关链接</h2>
+<p><a href="https://www.docker.com/" target="_blank" rel="noopener noreffer">Docker官网</a>
+<a href="https://www.jenkins.io/zh/" target="_blank" rel="noopener noreffer">Jenkins官网</a>
+<a href="https://hub.docker.com/r/jenkins/jenkins" target="_blank" rel="noopener noreffer">Jenkins在Docker Hub下载页面</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-11</span>
+            </div>
+            <div class="post-info-license"><span><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/" data-title="Jenkins部署Android篇1之Mac安装Jenkins" data-via="xxxx" data-hashtags="自动化,android"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/" data-hashtag="自动化"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/" data-title="Jenkins部署Android篇1之Mac安装Jenkins" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/" data-title="Jenkins部署Android篇1之Mac安装Jenkins"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/" data-title="Jenkins部署Android篇1之Mac安装Jenkins" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/" data-title="Jenkins部署Android篇1之Mac安装Jenkins" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/" data-title="Jenkins部署Android篇1之Mac安装Jenkins" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.com/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%B8%80%E4%B9%8Bmac%E5%AE%89%E8%A3%85jenkins/" data-title="Jenkins部署Android篇1之Mac安装Jenkins"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a>,&nbsp;<a href="/tags/android/">android</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/kotlin%E5%9F%BA%E7%A1%80-%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%A7%94%E6%89%98infix/" class="prev" rel="prev" title="Kotlin基础 泛型,类委托,infix"><i class="fas fa-angle-left fa-fw"></i>Kotlin基础 泛型,类委托,infix</a>
+            <a href="/posts/jenkins%E9%83%A8%E7%BD%B2android%E7%AF%87%E4%BA%8C%E4%B9%8Bjenkins%E4%BD%BF%E7%94%A8github%E7%9A%84webhooks/" class="next" rel="next" title="Jenkins部署Android篇2之Jenkins使用Github的Webhooks">Jenkins部署Android篇2之Jenkins使用Github的Webhooks<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                    <span id="busuanzi_container_site_pv">
+    本站访问量：<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">su</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

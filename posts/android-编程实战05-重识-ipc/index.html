@@ -161,58 +161,57 @@
 <h3 id="binder事务">Binder事务</h3>
 <p>在<code>Android</code>中, **事务(transaction)**是指一个进程发送数据到另一个进程. 在<code>Binder</code>上开启事务首先会在客户端调用<code>IBinder,transact()</code>, 然后<code>Service</code>收到<code>Binder.onTranscat()</code>方法回调.</p>
 <p>如下演示了在客户端如何使用<code>IBinder</code>引用向服务端执行自定义的<code>Binder</code>事务</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">performCustomBinderTransaction</span><span class="o">(</span><span class="n">IBinder</span> <span class="n">binder</span><span class="o">,</span> <span class="n">String</span> <span class="n">arg0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">arg1</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">RemoteException</span> <span class="o">{</span>
-
-   <span class="n">Parcel</span> <span class="n">request</span> <span class="o">=</span> <span class="n">Parcel</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
-   <span class="n">Parcel</span> <span class="n">response</span> <span class="o">=</span> <span class="n">Parcel</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
-
-   <span class="c1">// 组装请求数据, 要发送到服务端的
-</span><span class="c1"></span>   <span class="n">request</span><span class="o">.</span><span class="na">writeString</span><span class="o">(</span><span class="n">arg0</span><span class="o">);</span>
-   <span class="n">request</span><span class="o">.</span><span class="na">writeInt</span><span class="o">(</span><span class="n">arg1</span><span class="o">);</span>
-
-   <span class="c1">// 执行事务
-</span><span class="c1"></span>   <span class="n">binder</span><span class="o">.</span><span class="na">transact</span><span class="o">(</span><span class="n">IBinder</span><span class="o">.</span><span class="na">FIRST_CALL_TRANSACTION</span><span class="o">,</span> <span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
-
-   <span class="c1">// 从响应中读取结果
-</span><span class="c1"></span>   <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">readString</span><span class="o">();</span>
-
-   <span class="c1">// 释放资源, 以便循环利用
-</span><span class="c1"></span>   <span class="n">request</span><span class="o">.</span><span class="na">recycle</span><span class="o">();</span>
-   <span class="n">response</span><span class="o">.</span><span class="na">recycle</span><span class="o">();</span>
-
-   <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div><p>而服务端会实现一个继承<code>Binder</code>类, 通过<code>onTransact()</code>来接收客户端的数据, 如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServerBinder</span> <span class="kd">extends</span> <span class="n">Binder</span> <span class="o">{</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">onTransact</span><span class="o">(</span><span class="kt">int</span> <span class="n">code</span><span class="o">,</span> <span class="n">Parcel</span> <span class="n">data</span><span class="o">,</span> <span class="n">Parcel</span> <span class="n">reply</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">RemoteException</span> <span class="o">{</span>
-<span class="c1">//        return super.onTransact(code, data, reply, flags);
-</span><span class="c1"></span>
-        <span class="c1">// 开始读取客户端发送的请求数据
-</span><span class="c1"></span>        <span class="n">String</span> <span class="n">arg0</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">readString</span><span class="o">();</span>
-        <span class="kt">int</span> <span class="n">arg1</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">readInt</span><span class="o">();</span>
-
-        <span class="c1">// 处理接收结果, 并生成返回的数据
-</span><span class="c1"></span>        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">buildResult</span><span class="o">(</span><span class="n">arg0</span><span class="o">,</span> <span class="n">arg1</span><span class="o">);</span>
-
-        <span class="c1">// 把结果写入想用Parcel
-</span><span class="c1"></span>        <span class="n">reply</span><span class="o">.</span><span class="na">writeString</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
-
-        <span class="c1">// 成功后返回true
-</span><span class="c1"></span>        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">private</span> <span class="n">String</span> <span class="nf">buildResult</span><span class="o">(</span><span class="n">String</span> <span class="n">arg0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">arg1</span><span class="o">){</span>
-        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-
-        <span class="c1">// ...这里省略业务逻辑, 以后可自行添加
-</span><span class="c1"></span>
-        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></div><p>如上, 因为属于作为远程服务端中实现自定义的<code>Binder</code>对象时没有使用<code>AIDL</code>. 所以这里需要自己处理<code>onTransact()</code>方法.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span> <span class="nf">performCustomBinderTransaction</span><span class="o">(</span><span class="n">IBinder</span> <span class="n">binder</span><span class="o">,</span> <span class="n">String</span> <span class="n">arg0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">arg1</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">RemoteException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="n">Parcel</span> <span class="n">request</span> <span class="o">=</span> <span class="n">Parcel</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">   <span class="n">Parcel</span> <span class="n">response</span> <span class="o">=</span> <span class="n">Parcel</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="c1">// 组装请求数据, 要发送到服务端的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">request</span><span class="o">.</span><span class="na">writeString</span><span class="o">(</span><span class="n">arg0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">   <span class="n">request</span><span class="o">.</span><span class="na">writeInt</span><span class="o">(</span><span class="n">arg1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="c1">// 执行事务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">binder</span><span class="o">.</span><span class="na">transact</span><span class="o">(</span><span class="n">IBinder</span><span class="o">.</span><span class="na">FIRST_CALL_TRANSACTION</span><span class="o">,</span> <span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="c1">// 从响应中读取结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">readString</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="c1">// 释放资源, 以便循环利用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">request</span><span class="o">.</span><span class="na">recycle</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">   <span class="n">response</span><span class="o">.</span><span class="na">recycle</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>而服务端会实现一个继承<code>Binder</code>类, 通过<code>onTransact()</code>来接收客户端的数据, 如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServerBinder</span> <span class="kd">extends</span> <span class="n">Binder</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">onTransact</span><span class="o">(</span><span class="kt">int</span> <span class="n">code</span><span class="o">,</span> <span class="n">Parcel</span> <span class="n">data</span><span class="o">,</span> <span class="n">Parcel</span> <span class="n">reply</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">RemoteException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//        return super.onTransact(code, data, reply, flags);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 开始读取客户端发送的请求数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">String</span> <span class="n">arg0</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">readString</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">arg1</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">readInt</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 处理接收结果, 并生成返回的数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">buildResult</span><span class="o">(</span><span class="n">arg0</span><span class="o">,</span> <span class="n">arg1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 把结果写入想用Parcel
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">reply</span><span class="o">.</span><span class="na">writeString</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 成功后返回true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="nf">buildResult</span><span class="o">(</span><span class="n">String</span> <span class="n">arg0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">arg1</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...这里省略业务逻辑, 以后可自行添加
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>如上, 因为属于作为远程服务端中实现自定义的<code>Binder</code>对象时没有使用<code>AIDL</code>. 所以这里需要自己处理<code>onTransact()</code>方法.</p>
 <p>上面两个代码通过<code>Binder IPC</code>进行的同步双向调用. 也可在客户端执行单项的调用, 只需在客户端发送事务的方法进行相应更改即可, 如<code>IBinder.transact()</code>方法调用中把标识位设置为<code>FLAG_ONEWAY</code>, 这样就可以把第二个<code>Parcel</code>参数设置为null. 单项调用会提供更好的性能, 因为只需对一个<code>Parcel</code>对象进行编解码操作.</p>
 <p>当然这里只是让其了解一下流程, 当真正实现进程间通信, 或者提供其他应用调用的API的时候不会直接操作这种底层的方式在两个程序之间执行事务, 而是使用对这种事务进行进一步封装的<code>AIDL</code>或者<code>Messenger</code>等.
 而对于更细粒度地控制数据如何应用间发送, 使用底层binder操作事务这是正确的.</p>
@@ -222,40 +221,40 @@
 <h3 id="link-to-death">link to death</h3>
 <p><code>Binder</code>的另一个特点, 允许客户端在<code>Service</code>终止的时候收到通知. 这就被称为<code>link to death</code>.</p>
 <p><code>Binder</code>的<code>IBinder.linkToDeath()</code>方法实现了该机制. 当客户端在<code>onServiceConnected()</code>方法中收到<code>IBinder</code>对象, 它可以用实现了<code>IBinder.DeathRecipient</code>接口的参数调用<code>linkToDeath()</code>方法. 因为<code>Android</code>可能在资源不足的(RAM)时被系统杀死, 在客户端注册远程被终止的监听通知会很有用.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"> <span class="cm">/*
-</span><span class="cm">  * ClassDescription: 无实际意义, 只为演示如何使用IBinder注册link-to-death
-</span><span class="cm">  */</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LinkToDeathSample</span> <span class="kd">extends</span> <span class="n">Service</span> <span class="o">{</span>
-
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">LinkToDeathSample</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">();</span>
-
-
-    <span class="cm">/**
-</span><span class="cm">     *  对客户端提供注册方法
-</span><span class="cm">     */</span>
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">notifyRemoteServiceDeath</span><span class="o">(</span><span class="n">IBinder</span> <span class="n">iBinder</span> <span class="o">){</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">iBinder</span><span class="o">.</span><span class="na">linkToDeath</span><span class="o">(</span><span class="k">new</span> <span class="n">MyLinkToDeath</span><span class="o">(),</span> <span class="n">0</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="kd">class</span> <span class="nc">MyLinkToDeath</span> <span class="kd">implements</span> <span class="n">IBinder</span><span class="o">.</span><span class="na">DeathRecipient</span><span class="o">{</span>
-
-        <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">binderDied</span><span class="o">()</span> <span class="o">{</span>
-            <span class="c1">// 处理远端binder被杀死的情况
-</span><span class="c1"></span>        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="nd">@Nullable</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">IBinder</span> <span class="nf">onBind</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p>也可以调用<code>IBinder.pingBinder()</code>检查远端的<code>Binder</code>进程是否处于活动状态. 如果结果为true, 表明远端的进程处于活跃可用的状态.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"> <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">  * ClassDescription: 无实际意义, 只为演示如何使用IBinder注册link-to-death
+</span></span></span><span class="line"><span class="cl"><span class="cm">  */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LinkToDeathSample</span> <span class="kd">extends</span> <span class="n">Service</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">LinkToDeathSample</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *  对客户端提供注册方法
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">notifyRemoteServiceDeath</span><span class="o">(</span><span class="n">IBinder</span> <span class="n">iBinder</span> <span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">iBinder</span><span class="o">.</span><span class="na">linkToDeath</span><span class="o">(</span><span class="k">new</span> <span class="n">MyLinkToDeath</span><span class="o">(),</span> <span class="n">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">class</span> <span class="nc">MyLinkToDeath</span> <span class="kd">implements</span> <span class="n">IBinder</span><span class="o">.</span><span class="na">DeathRecipient</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">binderDied</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 处理远端binder被杀死的情况
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Nullable</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">IBinder</span> <span class="nf">onBind</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>也可以调用<code>IBinder.pingBinder()</code>检查远端的<code>Binder</code>进程是否处于活动状态. 如果结果为true, 表明远端的进程处于活跃可用的状态.</p>
 <p>如果绑定到的是<code>Service</code>那么就不需要监听了, 因为断开连接时总会是伴随着<code>ServiceConnection.onServiceDisconnected()</code>函数被回调. 但是, 如果使用其他方式接受<code>Binder</code>对象, 该方法可能就有用处了.</p>
 <h2 id="设计api">设计API</h2>
 <p>虽然大多数的应用都不需要为第三方应用提供API, 但是说不定哪一天领导就突发奇想的想要这个结果.</p>
@@ -274,14 +273,14 @@
 <li>现在可以考虑是否需要对客户端进行回调. 如果需要,那么相同的步骤创建<code>AIDL</code>接口文件. 并在客户端实现接口文件. 在服务端使用的<code>AIDL</code>文件中添加新的方法, 这个方法用来在服务端注册一个客户端回调.  客户端的回调通过方法的参数传入, 并在客户端获取远程服务端的<code>Binder</code>对象进行注册方法调用.<a href="https://github.com/suzeyu1992/AndroidProgrammingPushingTheLimits/commit/7e75d4d7b8aa27521952dac87b5fe3d951b5e5b1" target="_blank" rel="noopener noreffer">参考链接</a></li>
 </ol>
 <p>关于客户端实现AIDL文件的时候, 在使用了<code>oneway</code>关键字, 这会告诉AIDL编译器该接口只是单向通信. 对调用者(本类中的Service)的响应不是必须的. 这样做会轻微的性能提升. 例如:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.szysky.note.ipc.aidl</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">com.szysky.note.ipc.aidl.CustomData</span><span class="o">;</span>
-
-<span class="n">oneway</span> <span class="kd">interface</span> <span class="nc">IMyAidlCallback</span> <span class="o">{</span>
-  <span class="kt">void</span> <span class="nf">onDataUpdated</span><span class="o">(</span><span class="n">in</span> <span class="n">CustomData</span><span class="o">[]</span> <span class="n">data</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><p>到这里, 说明了两个应用之间传输Binder对象, 而不需要使用<code>ServiceManager</code>注册它. 由于只有客户端和<code>Service</code>知道<code>Binder</code>的地址, 因此它可以作为一种高效的IPC安全机制.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">com.szysky.note.ipc.aidl</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.szysky.note.ipc.aidl.CustomData</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">oneway</span> <span class="kd">interface</span> <span class="nc">IMyAidlCallback</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">onDataUpdated</span><span class="o">(</span><span class="n">in</span> <span class="n">CustomData</span><span class="o">[]</span> <span class="n">data</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>到这里, 说明了两个应用之间传输Binder对象, 而不需要使用<code>ServiceManager</code>注册它. 由于只有客户端和<code>Service</code>知道<code>Binder</code>的地址, 因此它可以作为一种高效的IPC安全机制.</p>
 <h3 id="messenger">Messenger</h3>
 <p>使用<code>Messenger</code>进行远程通信, 有时会更简单, 当然使用场景是<strong>Service不需要支持并发操作时就可以选择使用Messenger信使来跨进程通信</strong>. <code>Messenger</code>使用<code>Handler</code>执行每个传入的消息, 所有的客户端的调用按顺序运行在同一个线程上.</p>
 <ul>
@@ -320,7 +319,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -335,5 +334,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

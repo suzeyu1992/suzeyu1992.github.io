@@ -161,59 +161,58 @@
 </ol>
 <p>第一个步骤设置了一个参数, 这个参数的作用就是在加载图片的时候是否只是加载图片宽高信息而不把图片全部加载到内存. 所以这个操作是个<strong>轻量级的</strong>.</p>
 <p>通过这些步骤就可以整理出以下的工具加载图片类调用<code>decodeFixedSizeForResource()</code>即可.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyBitmapLoadUtil</span> <span class="o">{</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 对一个Resources的资源文件进行指定长宽来加载进内存, 并把这个bitmap对象返回
-</span><span class="cm">     *
-</span><span class="cm">     * @param res   资源文件对象
-</span><span class="cm">     * @param resId 要操作的图片id
-</span><span class="cm">     * @param reqWidth 最终想要得到bitmap的宽度
-</span><span class="cm">     * @param reqHeight 最终想要得到bitmap的高度
-</span><span class="cm">     * @return 返回采样之后的bitmap对象
-</span><span class="cm">     */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Bitmap</span> <span class="nf">decodeFixedSizeForResource</span><span class="o">(</span><span class="n">Resources</span> <span class="n">res</span><span class="o">,</span> <span class="kt">int</span> <span class="n">resId</span><span class="o">,</span> <span class="kt">int</span> <span class="n">reqWidth</span><span class="o">,</span> <span class="kt">int</span> <span class="n">reqHeight</span><span class="o">){</span>
-        <span class="c1">// 首先先指定加载的模式 为只是获取资源文件的大小
-</span><span class="c1"></span>        <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span> <span class="n">options</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span><span class="o">();</span>
-        <span class="n">options</span><span class="o">.</span><span class="na">inJustDecodeBounds</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-        <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeResource</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">resId</span><span class="o">,</span> <span class="n">options</span><span class="o">);</span>
-
-        <span class="c1">//Calculate Size  计算要设置的采样率 并把值设置到option上
-</span><span class="c1"></span>        <span class="n">options</span><span class="o">.</span><span class="na">inSampleSize</span> <span class="o">=</span> <span class="n">calculateInSampleSize</span><span class="o">(</span><span class="n">options</span><span class="o">,</span> <span class="n">reqWidth</span><span class="o">,</span> <span class="n">reqHeight</span><span class="o">);</span>
-
-        <span class="c1">// 关闭只加载属性模式, 并重新加载的时候传入自定义的options对象
-</span><span class="c1"></span>        <span class="n">options</span><span class="o">.</span><span class="na">inJustDecodeBounds</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-        <span class="k">return</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeResource</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">resId</span><span class="o">,</span> <span class="n">options</span><span class="o">);</span>
-
-    <span class="o">}</span>
-
-    <span class="cm">/**
-</span><span class="cm">     *  一个计算工具类的方法, 传入图片的属性对象和 想要实现的目标大小. 通过计算得到采样值
-</span><span class="cm">     */</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">calculateInSampleSize</span><span class="o">(</span><span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span> <span class="n">options</span><span class="o">,</span> <span class="kt">int</span> <span class="n">reqWidth</span><span class="o">,</span> <span class="kt">int</span> <span class="n">reqHeight</span><span class="o">)</span> <span class="o">{</span>
-        <span class="c1">//Raw height and width of image
-</span><span class="c1"></span>        <span class="c1">//原始图片的宽高属性
-</span><span class="c1"></span>        <span class="kd">final</span> <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="na">outHeight</span><span class="o">;</span>
-        <span class="kd">final</span> <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="na">outWidth</span><span class="o">;</span>
-        <span class="kt">int</span> <span class="n">inSampleSize</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
-
-        <span class="c1">// 如果想要实现的宽高比原始图片的宽高小那么就可以计算出采样率, 否则不需要改变采样率
-</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">reqWidth</span> <span class="o">&lt;</span> <span class="n">height</span> <span class="o">||</span> <span class="n">reqHeight</span> <span class="o">&lt;</span> <span class="n">width</span><span class="o">){</span>
-            <span class="kt">int</span> <span class="n">halfWidth</span> <span class="o">=</span> <span class="n">width</span><span class="o">/</span><span class="n">2</span><span class="o">;</span>
-            <span class="kt">int</span> <span class="n">halfHeight</span> <span class="o">=</span> <span class="n">height</span><span class="o">/</span><span class="n">2</span><span class="o">;</span>
-
-            <span class="c1">// 判断原始长宽的一半是否比目标大小小, 如果小那么增大采样率2倍, 直到出现修改后原始值会比目标值大的时候
-</span><span class="c1"></span>            <span class="k">while</span><span class="o">((</span><span class="n">halfHeight</span><span class="o">/</span><span class="n">inSampleSize</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="n">reqHeight</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">halfWidth</span><span class="o">/</span><span class="n">inSampleSize</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="n">reqWidth</span><span class="o">){</span>
-                <span class="n">inSampleSize</span> <span class="o">*=</span> <span class="n">2</span><span class="o">;</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-
-        <span class="k">return</span> <span class="n">inSampleSize</span><span class="o">;</span>
-
-    <span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></div><p>当给<code>ImageView</code>设置的时候传入控件的大小, 就会自动转换返回. 可以看一下下面的两张图, 当加载一个分辨率很大的图片如果不使用此方法那么就出<strong>程序崩溃</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyBitmapLoadUtil</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 对一个Resources的资源文件进行指定长宽来加载进内存, 并把这个bitmap对象返回
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param res   资源文件对象
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param resId 要操作的图片id
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param reqWidth 最终想要得到bitmap的宽度
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param reqHeight 最终想要得到bitmap的高度
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return 返回采样之后的bitmap对象
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Bitmap</span> <span class="nf">decodeFixedSizeForResource</span><span class="o">(</span><span class="n">Resources</span> <span class="n">res</span><span class="o">,</span> <span class="kt">int</span> <span class="n">resId</span><span class="o">,</span> <span class="kt">int</span> <span class="n">reqWidth</span><span class="o">,</span> <span class="kt">int</span> <span class="n">reqHeight</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 首先先指定加载的模式 为只是获取资源文件的大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span> <span class="n">options</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">options</span><span class="o">.</span><span class="na">inJustDecodeBounds</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeResource</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">resId</span><span class="o">,</span> <span class="n">options</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//Calculate Size  计算要设置的采样率 并把值设置到option上
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">options</span><span class="o">.</span><span class="na">inSampleSize</span> <span class="o">=</span> <span class="n">calculateInSampleSize</span><span class="o">(</span><span class="n">options</span><span class="o">,</span> <span class="n">reqWidth</span><span class="o">,</span> <span class="n">reqHeight</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 关闭只加载属性模式, 并重新加载的时候传入自定义的options对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">options</span><span class="o">.</span><span class="na">inJustDecodeBounds</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeResource</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">resId</span><span class="o">,</span> <span class="n">options</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *  一个计算工具类的方法, 传入图片的属性对象和 想要实现的目标大小. 通过计算得到采样值
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">calculateInSampleSize</span><span class="o">(</span><span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span> <span class="n">options</span><span class="o">,</span> <span class="kt">int</span> <span class="n">reqWidth</span><span class="o">,</span> <span class="kt">int</span> <span class="n">reqHeight</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//Raw height and width of image
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//原始图片的宽高属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">final</span> <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="na">outHeight</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="na">outWidth</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">inSampleSize</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 如果想要实现的宽高比原始图片的宽高小那么就可以计算出采样率, 否则不需要改变采样率
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">reqWidth</span> <span class="o">&lt;</span> <span class="n">height</span> <span class="o">||</span> <span class="n">reqHeight</span> <span class="o">&lt;</span> <span class="n">width</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">halfWidth</span> <span class="o">=</span> <span class="n">width</span><span class="o">/</span><span class="n">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">halfHeight</span> <span class="o">=</span> <span class="n">height</span><span class="o">/</span><span class="n">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// 判断原始长宽的一半是否比目标大小小, 如果小那么增大采样率2倍, 直到出现修改后原始值会比目标值大的时候
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">while</span><span class="o">((</span><span class="n">halfHeight</span><span class="o">/</span><span class="n">inSampleSize</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="n">reqHeight</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">halfWidth</span><span class="o">/</span><span class="n">inSampleSize</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="n">reqWidth</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">                <span class="n">inSampleSize</span> <span class="o">*=</span> <span class="n">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">inSampleSize</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>当给<code>ImageView</code>设置的时候传入控件的大小, 就会自动转换返回. 可以看一下下面的两张图, 当加载一个分辨率很大的图片如果不使用此方法那么就出<strong>程序崩溃</strong></p>
 <p><strong>了解一下一个原始图片到手机显示的最终占用内存大小</strong></p>
 <p><img
         class="lazyload"
@@ -247,8 +246,8 @@
 <p><strong>DiskLruCache</strong>用于实现存储设备缓存, 即磁盘缓存. 它通过将缓存对象写入文件系统从而实现缓存的效果.</p>
 <p><strong>1. DiskLruCache</strong>的创建</p>
 <p><strong>DiskLruCache</strong>并不能通过构造方法来创建, 他提供了<code>open()</code>方法用于创建自身, 如下所示</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">DiskLruCache</span> <span class="nf">open</span><span class="o">(</span><span class="n">File</span> <span class="n">directory</span><span class="o">,</span> <span class="kt">int</span> <span class="n">appVersion</span><span class="o">,</span> <span class="kt">int</span> <span class="n">valueCount</span><span class="o">,</span> <span class="kt">long</span> <span class="n">maxSize</span><span class="o">)</span>
-</code></pre></div><p>这个方法有四个参数:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="n">DiskLruCache</span> <span class="nf">open</span><span class="o">(</span><span class="n">File</span> <span class="n">directory</span><span class="o">,</span> <span class="kt">int</span> <span class="n">appVersion</span><span class="o">,</span> <span class="kt">int</span> <span class="n">valueCount</span><span class="o">,</span> <span class="kt">long</span> <span class="n">maxSize</span><span class="o">)</span>
+</span></span></code></pre></div><p>这个方法有四个参数:</p>
 <ol>
 <li><code>File directory</code>: 表示磁盘缓存在文件系统中的存储路径. 可以选择SD卡上的缓存目录, 具体是指<code>/sdcard/Andriod/data/package_name/cache</code>目录, package_name表示当前应用的包名, 当应用被卸载后, 此目录会一并删除掉. 也可以选择data目录下. 或者其他地方. **这里给出的建议:**如果应用卸载后就希望删除缓存文件的话 , 那么就选择SD卡上的缓存目录, 如果希望保留缓存数据那就应该选择SD卡上的其他目录.</li>
 <li><code>int appVersion</code>: 表示应用的版本号, 一般设为1即可. 当版本号发生改变的时候<code>DiskLruCache</code>会清空之前所有的缓存文件, 在实际开发中这个实用性不大.</li>
@@ -285,27 +284,27 @@
 <h2 id="imageloader的使用">ImageLoader的使用</h2>
 <h3 id="照片墙效果">照片墙效果</h3>
 <p>这里定义一个自定义的<code>ImageView</code>作为GridView的item布局控件, 之所以这样是想让图片的控件自动去使用设备达到<strong>宽高相等的效果比较好看些</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SquareImageView</span> <span class="kd">extends</span> <span class="n">ImageView</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="nf">SquareImageView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="nf">SquareImageView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="nf">SquareImageView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">,</span> <span class="kt">int</span> <span class="n">defStyleAttr</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">,</span> <span class="n">defStyleAttr</span><span class="o">);</span>
-    <span class="o">}</span>
-
-      <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onMeasure</span><span class="o">(</span><span class="kt">int</span> <span class="n">widthMeasureSpec</span><span class="o">,</span> <span class="kt">int</span> <span class="n">heightMeasureSpec</span><span class="o">)</span> <span class="o">{</span>
-        <span class="c1">// 由于这里准备提供给GridView控件使用, 对于一个水平线有几个是未知的
-</span><span class="c1"></span>        <span class="c1">// 那么通过父控件的测量传到这里的宽度规格, 也当做高度即可
-</span><span class="c1"></span>        <span class="kd">super</span><span class="o">.</span><span class="na">onMeasure</span><span class="o">(</span><span class="n">widthMeasureSpec</span><span class="o">,</span> <span class="n">widthMeasureSpec</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p>这个实现很简单, 利用动态的宽度同时也当做高度即可实现预期的效果.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SquareImageView</span> <span class="kd">extends</span> <span class="n">ImageView</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">SquareImageView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">SquareImageView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">SquareImageView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">,</span> <span class="kt">int</span> <span class="n">defStyleAttr</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">,</span> <span class="n">defStyleAttr</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onMeasure</span><span class="o">(</span><span class="kt">int</span> <span class="n">widthMeasureSpec</span><span class="o">,</span> <span class="kt">int</span> <span class="n">heightMeasureSpec</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 由于这里准备提供给GridView控件使用, 对于一个水平线有几个是未知的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 那么通过父控件的测量传到这里的宽度规格, 也当做高度即可
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">super</span><span class="o">.</span><span class="na">onMeasure</span><span class="o">(</span><span class="n">widthMeasureSpec</span><span class="o">,</span> <span class="n">widthMeasureSpec</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>这个实现很简单, 利用动态的宽度同时也当做高度即可实现预期的效果.</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -315,91 +314,90 @@
         alt="photo_wall_result.png"
         title="photo_wall_result.png" /></p>
 <p>这个就是结果, 或许应该对网络加上判断非wifi给一个提示, 可能首次加载会需要比较多的流量.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"> <span class="c1">// 根据连接网络的情况判断是否加载图片
-</span><span class="c1"></span><span class="k">if</span> <span class="o">(!</span><span class="n">NetWorkUtil</span><span class="o">.</span><span class="na">isWifi</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">()))</span> <span class="o">{</span>
-  <span class="n">AlertDialog</span><span class="o">.</span><span class="na">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AlertDialog</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-  <span class="n">builder</span><span class="o">.</span><span class="na">setMessage</span><span class="o">(</span><span class="s">&#34;首次使用会从手机网络下载图片, 是否确认下载?&#34;</span><span class="o">)</span>
-          <span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">&#34;友情提示&#34;</span><span class="o">)</span>
-          <span class="o">.</span><span class="na">setPositiveButton</span><span class="o">(</span><span class="s">&#34;好的.&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">DialogInterface</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
-              <span class="nd">@Override</span>
-              <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">DialogInterface</span> <span class="n">dialog</span><span class="o">,</span> <span class="kt">int</span> <span class="n">which</span><span class="o">)</span> <span class="o">{</span>
-                  <span class="n">mCanLoadForPhoneNet</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-                  <span class="n">imageAdapter</span><span class="o">.</span><span class="na">notifyDataSetChanged</span><span class="o">();</span>
-              <span class="o">}</span>
-          <span class="o">})</span>
-          <span class="o">.</span><span class="na">setNegativeButton</span><span class="o">(</span><span class="s">&#34;不行!&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">DialogInterface</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
-              <span class="nd">@Override</span>
-              <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">DialogInterface</span> <span class="n">dialog</span><span class="o">,</span> <span class="kt">int</span> <span class="n">which</span><span class="o">)</span> <span class="o">{</span>
-                  <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">(),</span> <span class="s">&#34;瞅你扣那样!!!&#34;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_LONG</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
-              <span class="o">}</span>
-          <span class="o">}).</span><span class="na">show</span><span class="o">();</span>
-<span class="o">}</span><span class="k">else</span><span class="o">{</span>
-  <span class="n">mCanLoadForPhoneNet</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-<span class="o">}</span>
-
-<span class="c1">// NetWorkUtil类
-</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NetWorkUtil</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isWifi</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">ConnectivityManager</span> <span class="n">connectivityManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">ConnectivityManager</span><span class="o">)</span> <span class="n">context</span>
-                <span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">CONNECTIVITY_SERVICE</span><span class="o">);</span>
-        <span class="n">NetworkInfo</span> <span class="n">activeNetInfo</span> <span class="o">=</span> <span class="n">connectivityManager</span><span class="o">.</span><span class="na">getActiveNetworkInfo</span><span class="o">();</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">activeNetInfo</span> <span class="o">!=</span> <span class="kc">null</span>
-                <span class="o">&amp;&amp;</span> <span class="n">activeNetInfo</span><span class="o">.</span><span class="na">getType</span><span class="o">()</span> <span class="o">==</span> <span class="n">ConnectivityManager</span><span class="o">.</span><span class="na">TYPE_WIFI</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p>然后优化列表 <strong>只有在GridView静止的时候才进行图片加载, 避免滑动时候的无谓的线程加载消耗(即使ImageLoader内部使用了线程池, 你仍然有这么做的必要)</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">GridView</span> <span class="n">gv_main</span> <span class="o">=</span> <span class="o">(</span><span class="n">GridView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">gv_main</span><span class="o">);</span>
-<span class="c1">// 监听GridView的滑动状态
-</span><span class="c1"></span>  <span class="n">gv_main</span><span class="o">.</span><span class="na">setOnScrollListener</span><span class="o">(</span><span class="k">new</span> <span class="n">AbsListView</span><span class="o">.</span><span class="na">OnScrollListener</span><span class="o">()</span> <span class="o">{</span>
-      <span class="nd">@Override</span>
-      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onScrollStateChanged</span><span class="o">(</span><span class="n">AbsListView</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">scrollState</span><span class="o">)</span> <span class="o">{</span>
-          <span class="k">if</span> <span class="o">(</span><span class="n">scrollState</span> <span class="o">==</span> <span class="n">AbsListView</span><span class="o">.</span><span class="na">OnScrollListener</span><span class="o">.</span><span class="na">SCROLL_STATE_IDLE</span><span class="o">){</span>
-              <span class="n">mIsGridViewIdle</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-              <span class="c1">// 并触发更新adapter
-</span><span class="c1"></span>              <span class="n">imageAdapter</span><span class="o">.</span><span class="na">notifyDataSetChanged</span><span class="o">();</span>
-          <span class="o">}</span><span class="k">else</span><span class="o">{</span>
-              <span class="n">mIsGridViewIdle</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-          <span class="o">}</span>
-      <span class="o">}</span>
-
-      <span class="nd">@Override</span>
-      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onScroll</span><span class="o">(</span><span class="n">AbsListView</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">firstVisibleItem</span><span class="o">,</span> <span class="kt">int</span> <span class="n">visibleItemCount</span><span class="o">,</span> <span class="kt">int</span> <span class="n">totalItemCount</span><span class="o">)</span> <span class="o">{</span>
-
-      <span class="o">}</span>
-  <span class="o">});</span>
-</code></pre></div><p>最后在<strong>adapter中的getView()设置标记位的判断, 只有在wifi和静止的状态下才进行加载请求</strong>下面是<code>getView()</code>代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">View</span> <span class="nf">getView</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="n">View</span> <span class="n">convertView</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">parent</span><span class="o">)</span> <span class="o">{</span>
-  <span class="n">ViewHolder</span> <span class="n">holder</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">convertView</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
-      <span class="n">convertView</span> <span class="o">=</span> <span class="n">View</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">mContext</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">item_photo_wall</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-      <span class="n">holder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ViewHolder</span><span class="o">();</span>
-      <span class="n">holder</span><span class="o">.</span><span class="na">mImageView</span> <span class="o">=</span> <span class="o">(</span><span class="n">ImageView</span><span class="o">)</span> <span class="n">convertView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">iv_square</span><span class="o">);</span>
-      <span class="n">convertView</span><span class="o">.</span><span class="na">setTag</span><span class="o">(</span><span class="n">holder</span><span class="o">);</span>
-  <span class="o">}</span><span class="k">else</span><span class="o">{</span>
-      <span class="n">holder</span> <span class="o">=</span> <span class="o">(</span><span class="n">ViewHolder</span><span class="o">)</span> <span class="n">convertView</span><span class="o">.</span><span class="na">getTag</span><span class="o">();</span>
-  <span class="o">}</span>
-
-  <span class="c1">// 设置默认图片
-</span><span class="c1"></span>  <span class="n">ImageView</span> <span class="n">mImageView</span> <span class="o">=</span> <span class="n">holder</span><span class="o">.</span><span class="na">mImageView</span><span class="o">;</span>
-  <span class="n">mImageView</span><span class="o">.</span><span class="na">setImageResource</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">screen_background_dark_transparent</span><span class="o">);</span>
-
-
-  <span class="c1">// 检测是否wifi 和 是否是滑动状态
-</span><span class="c1"></span>  <span class="c1">// 优化重点
-</span><span class="c1"></span>  <span class="k">if</span> <span class="o">(</span><span class="n">mCanLoadForPhoneNet</span> <span class="o">&amp;&amp;</span> <span class="n">mIsGridViewIdle</span><span class="o">){</span>
-      <span class="c1">// 加载图片
-</span><span class="c1"></span>      <span class="n">mImageLoader</span><span class="o">.</span><span class="na">setImageView</span><span class="o">(</span><span class="n">mImageView</span><span class="o">).</span><span class="na">url</span><span class="o">(</span><span class="n">mUrls</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">position</span><span class="o">));</span>
-  <span class="o">}</span>
-
-
-  <span class="k">return</span> <span class="n">convertView</span><span class="o">;</span>
-<span class="o">}</span>
-
-</code></pre></div></div><div class="post-footer" id="post-footer">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"> <span class="c1">// 根据连接网络的情况判断是否加载图片
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="o">(!</span><span class="n">NetWorkUtil</span><span class="o">.</span><span class="na">isWifi</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">()))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">AlertDialog</span><span class="o">.</span><span class="na">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AlertDialog</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">builder</span><span class="o">.</span><span class="na">setMessage</span><span class="o">(</span><span class="s">&#34;首次使用会从手机网络下载图片, 是否确认下载?&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">          <span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">&#34;友情提示&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">          <span class="o">.</span><span class="na">setPositiveButton</span><span class="o">(</span><span class="s">&#34;好的.&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">DialogInterface</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">              <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">DialogInterface</span> <span class="n">dialog</span><span class="o">,</span> <span class="kt">int</span> <span class="n">which</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">mCanLoadForPhoneNet</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">imageAdapter</span><span class="o">.</span><span class="na">notifyDataSetChanged</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">              <span class="o">}</span>
+</span></span><span class="line"><span class="cl">          <span class="o">})</span>
+</span></span><span class="line"><span class="cl">          <span class="o">.</span><span class="na">setNegativeButton</span><span class="o">(</span><span class="s">&#34;不行!&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">DialogInterface</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">              <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">DialogInterface</span> <span class="n">dialog</span><span class="o">,</span> <span class="kt">int</span> <span class="n">which</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">(),</span> <span class="s">&#34;瞅你扣那样!!!&#34;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_LONG</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">              <span class="o">}</span>
+</span></span><span class="line"><span class="cl">          <span class="o">}).</span><span class="na">show</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mCanLoadForPhoneNet</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// NetWorkUtil类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NetWorkUtil</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isWifi</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ConnectivityManager</span> <span class="n">connectivityManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">ConnectivityManager</span><span class="o">)</span> <span class="n">context</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">CONNECTIVITY_SERVICE</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">NetworkInfo</span> <span class="n">activeNetInfo</span> <span class="o">=</span> <span class="n">connectivityManager</span><span class="o">.</span><span class="na">getActiveNetworkInfo</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">activeNetInfo</span> <span class="o">!=</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">                <span class="o">&amp;&amp;</span> <span class="n">activeNetInfo</span><span class="o">.</span><span class="na">getType</span><span class="o">()</span> <span class="o">==</span> <span class="n">ConnectivityManager</span><span class="o">.</span><span class="na">TYPE_WIFI</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>然后优化列表 <strong>只有在GridView静止的时候才进行图片加载, 避免滑动时候的无谓的线程加载消耗(即使ImageLoader内部使用了线程池, 你仍然有这么做的必要)</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">GridView</span> <span class="n">gv_main</span> <span class="o">=</span> <span class="o">(</span><span class="n">GridView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">gv_main</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 监听GridView的滑动状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">gv_main</span><span class="o">.</span><span class="na">setOnScrollListener</span><span class="o">(</span><span class="k">new</span> <span class="n">AbsListView</span><span class="o">.</span><span class="na">OnScrollListener</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onScrollStateChanged</span><span class="o">(</span><span class="n">AbsListView</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">scrollState</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="o">(</span><span class="n">scrollState</span> <span class="o">==</span> <span class="n">AbsListView</span><span class="o">.</span><span class="na">OnScrollListener</span><span class="o">.</span><span class="na">SCROLL_STATE_IDLE</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">              <span class="n">mIsGridViewIdle</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">              <span class="c1">// 并触发更新adapter
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>              <span class="n">imageAdapter</span><span class="o">.</span><span class="na">notifyDataSetChanged</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">          <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">              <span class="n">mIsGridViewIdle</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">          <span class="o">}</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onScroll</span><span class="o">(</span><span class="n">AbsListView</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">firstVisibleItem</span><span class="o">,</span> <span class="kt">int</span> <span class="n">visibleItemCount</span><span class="o">,</span> <span class="kt">int</span> <span class="n">totalItemCount</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">});</span>
+</span></span></code></pre></div><p>最后在<strong>adapter中的getView()设置标记位的判断, 只有在wifi和静止的状态下才进行加载请求</strong>下面是<code>getView()</code>代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">View</span> <span class="nf">getView</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="n">View</span> <span class="n">convertView</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">parent</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ViewHolder</span> <span class="n">holder</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">convertView</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">      <span class="n">convertView</span> <span class="o">=</span> <span class="n">View</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">mContext</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">item_photo_wall</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">holder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ViewHolder</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">      <span class="n">holder</span><span class="o">.</span><span class="na">mImageView</span> <span class="o">=</span> <span class="o">(</span><span class="n">ImageView</span><span class="o">)</span> <span class="n">convertView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">iv_square</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">convertView</span><span class="o">.</span><span class="na">setTag</span><span class="o">(</span><span class="n">holder</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">holder</span> <span class="o">=</span> <span class="o">(</span><span class="n">ViewHolder</span><span class="o">)</span> <span class="n">convertView</span><span class="o">.</span><span class="na">getTag</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 设置默认图片
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">ImageView</span> <span class="n">mImageView</span> <span class="o">=</span> <span class="n">holder</span><span class="o">.</span><span class="na">mImageView</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mImageView</span><span class="o">.</span><span class="na">setImageResource</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">screen_background_dark_transparent</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 检测是否wifi 和 是否是滑动状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 优化重点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="o">(</span><span class="n">mCanLoadForPhoneNet</span> <span class="o">&amp;&amp;</span> <span class="n">mIsGridViewIdle</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 加载图片
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">mImageLoader</span><span class="o">.</span><span class="na">setImageView</span><span class="o">(</span><span class="n">mImageView</span><span class="o">).</span><span class="na">url</span><span class="o">(</span><span class="n">mUrls</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">position</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">convertView</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -430,7 +428,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -445,5 +443,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

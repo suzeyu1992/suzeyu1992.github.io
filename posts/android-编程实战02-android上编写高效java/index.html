@@ -157,46 +157,45 @@
 <hr>
 <p><strong>2.更好的锁</strong></p>
 <p>对于Java提供的<code>synchronize</code>关键字允许创建线程安全的代码块和方法. <code>synchronize</code>关键字虽然便于使用, 但也很容易滥用, 对性能造成损耗. 当需要区分读数据和写数据时, <code>synchronize</code>也不是最有效的.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReadWriteLockDemo</span> <span class="o">{</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 控制读写操作并发的锁
-</span><span class="cm">     */</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ReentrantReadWriteLock</span> <span class="n">mLock</span> <span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">mName</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="nf">ReadWriteLockDemo</span><span class="o">(){</span>
-        <span class="n">mLock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantReadWriteLock</span><span class="o">();</span>
-    <span class="o">}</span>
-    
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPersonData</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
-        <span class="c1">// 获取写操作的锁
-</span><span class="c1"></span>        <span class="n">ReentrantReadWriteLock</span><span class="o">.</span><span class="na">WriteLock</span> <span class="n">writeLock</span> <span class="o">=</span> <span class="n">mLock</span><span class="o">.</span><span class="na">writeLock</span><span class="o">();</span>
-        
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="c1">//  获取 写锁使用权, 其余线程需要操作只有在写锁被关闭才可以
-</span><span class="c1"></span>            <span class="n">writeLock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
-            <span class="n">mName</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>    
-        <span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
-            <span class="c1">//  释放 写锁使用权 
-</span><span class="c1"></span>            <span class="n">writeLock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-    
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">(){</span>
-        <span class="n">ReentrantReadWriteLock</span><span class="o">.</span><span class="na">ReadLock</span> <span class="n">readLock</span> <span class="o">=</span> <span class="n">mLock</span><span class="o">.</span><span class="na">readLock</span><span class="o">();</span>
-        
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">readLock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
-            <span class="k">return</span> <span class="n">mName</span><span class="o">;</span>
-        <span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
-            <span class="n">readLock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-    <span class="c1">// 省略其余实现
-</span><span class="c1"></span><span class="o">}</span>
-
-</code></pre></div><p>上面代码允许多个并发线程对数据进行只读方法, 并确保同一时间只有一个线程写入数据.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReadWriteLockDemo</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 控制读写操作并发的锁
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ReentrantReadWriteLock</span> <span class="n">mLock</span> <span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">mName</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">ReadWriteLockDemo</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mLock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantReadWriteLock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPersonData</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 获取写操作的锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">ReentrantReadWriteLock</span><span class="o">.</span><span class="na">WriteLock</span> <span class="n">writeLock</span> <span class="o">=</span> <span class="n">mLock</span><span class="o">.</span><span class="na">writeLock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//  获取 写锁使用权, 其余线程需要操作只有在写锁被关闭才可以
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">writeLock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mName</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>    
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//  释放 写锁使用权 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">writeLock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ReentrantReadWriteLock</span><span class="o">.</span><span class="na">ReadLock</span> <span class="n">readLock</span> <span class="o">=</span> <span class="n">mLock</span><span class="o">.</span><span class="na">readLock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">readLock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">mName</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">readLock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 省略其余实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></div><p>上面代码允许多个并发线程对数据进行只读方法, 并确保同一时间只有一个线程写入数据.</p>
 <h2 id="管理和分配内存">管理和分配内存</h2>
 <p>Java的自动内存管理有效消除了开发过程中的许多问题. 不再需要记住为每个创建的对象进行手动释放对象内存. 当时同时也需要付出一定的性能代价. <strong>自动垃圾收集器会和程序并行运行. 垃圾回收器会一直运行, 并检查是否有可以回收的内存. 这种行为意味着应用程序进程会和垃圾收集器竞争<code>CPU</code>时间,即使垃圾回收器不会运行太长时间,但是也是一种性能损失. 虽然我们不能抛弃这中垃圾收集方式, 但是可以有效的控制, 例如:</strong></p>
 <p><strong>减少对象分配</strong></p>
@@ -219,20 +218,19 @@
 <hr>
 <p><strong>发送消息</strong></p>
 <p>既可以使用<code>Message#sendToTarget()</code>也可以使用<code>Handler#sendXXX()</code>等方法. 如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 创建一个带有data参数的Message, 然后立刻把它发送到handler执行
-</span><span class="c1"></span><span class="n">Message</span><span class="o">.</span><span class="na">obtain</span><span class="o">(</span><span class="n">mHandler</span><span class="o">,</span> <span class="n">FLAG_SYNC_DATA</span><span class="o">,</span> <span class="n">data</span><span class="o">).</span><span class="na">sendToTarget</span><span class="o">();</span>
-
-<span class="c1">// 立刻给handler发送一个空消息
-</span><span class="c1"></span><span class="n">mHandler</span><span class="o">.</span><span class="na">sendEmptyMessage</span><span class="o">(</span><span class="n">FLAG_SYNC_DATA</span><span class="o">);</span>
-
-<span class="c1">// 给handler发送一个空消息, 在30秒后执行
-</span><span class="c1"></span><span class="n">mHandler</span><span class="o">.</span><span class="na">sendEmptyMessageAtTime</span><span class="o">(</span><span class="n">FLAG_SYNC_DATA</span><span class="o">,</span> <span class="n">30</span> <span class="o">*</span> <span class="n">1000</span><span class="o">);</span>
-
-<span class="c1">// 给handler发送带有arguments和obj参数的消息, 并在10秒后执行
-</span><span class="c1"></span><span class="n">Message</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">mHandler</span><span class="o">.</span><span class="na">obtainMessage</span><span class="o">(</span><span class="n">FLAG_SYNC_DATA</span><span class="o">,</span> <span class="n">参数1</span><span class="o">,</span> <span class="n">参数2</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
-<span class="n">mHandler</span><span class="o">.</span><span class="na">sendMessageDelayed</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="n">10</span> <span class="o">*</span> <span class="n">1000</span><span class="o">);</span>
-
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 创建一个带有data参数的Message, 然后立刻把它发送到handler执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Message</span><span class="o">.</span><span class="na">obtain</span><span class="o">(</span><span class="n">mHandler</span><span class="o">,</span> <span class="n">FLAG_SYNC_DATA</span><span class="o">,</span> <span class="n">data</span><span class="o">).</span><span class="na">sendToTarget</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 立刻给handler发送一个空消息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mHandler</span><span class="o">.</span><span class="na">sendEmptyMessage</span><span class="o">(</span><span class="n">FLAG_SYNC_DATA</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 给handler发送一个空消息, 在30秒后执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mHandler</span><span class="o">.</span><span class="na">sendEmptyMessageAtTime</span><span class="o">(</span><span class="n">FLAG_SYNC_DATA</span><span class="o">,</span> <span class="n">30</span> <span class="o">*</span> <span class="n">1000</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 给handler发送带有arguments和obj参数的消息, 并在10秒后执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Message</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">mHandler</span><span class="o">.</span><span class="na">obtainMessage</span><span class="o">(</span><span class="n">FLAG_SYNC_DATA</span><span class="o">,</span> <span class="n">参数1</span><span class="o">,</span> <span class="n">参数2</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">mHandler</span><span class="o">.</span><span class="na">sendMessageDelayed</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="n">10</span> <span class="o">*</span> <span class="n">1000</span><span class="o">);</span>
+</span></span></code></pre></div><hr>
 <p>在创建<code>Handler</code>的时候构造函数传入<code>Looper</code>对象可以为<code>Handler</code>分配线程, 所以可以创建一个主线程消息的<code>Handler</code>, 避免使用<code>runOnUiThread()</code>这种丑陋缩进的代码并且还低效.</p>
 <p>只要确保把消息发送给正确的<code>handler</code>即可.</p>
 <h3 id="选择合适的线程">选择合适的线程</h3>
@@ -272,7 +270,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -287,5 +285,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

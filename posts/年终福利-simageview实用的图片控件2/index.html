@@ -185,38 +185,38 @@
 <h2 id="使用说明">使用说明</h2>
 <h3 id="引用方式">引用方式</h3>
 <p><code>rootDir/app/build.gradle文件</code></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">dependencies {
-    // ...
-    compile &#39;com.szysky.customize:simageview:2.2&#39;;
-}
-</code></pre></div><h3 id="xml声明方式">xml声明方式</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
-    <span class="na">xmlns:app=</span><span class="s">&#34;http://schemas.android.com/apk/res-auto&#34;</span>
-    <span class="na">android:orientation=</span><span class="s">&#34;vertical&#34;</span>
-    <span class="na">android:layout_width=</span><span class="s">&#34;match_parent&#34;</span>
-    <span class="na">android:layout_height=</span><span class="s">&#34;match_parent&#34;</span><span class="nt">&gt;</span>
-    
-    <span class="c">&lt;!--简单的配置, 默认为圆形图像,无描边--&gt;</span>
-   <span class="nt">&lt;com.szysky.customize.siv.SImageView</span>
-       <span class="na">xmlns:app=</span><span class="s">&#34;http://schemas.android.com/apk/res-auto&#34;</span>
-       <span class="na">app:img=</span><span class="s">&#34;@mipmap/icon_test&#34;</span>
-       <span class="na">android:layout_width=</span><span class="s">&#34;200dp&#34;</span>
-       <span class="na">android:layout_height=</span><span class="s">&#34;200dp&#34;</span> <span class="nt">/&gt;</span>
-    
-    <span class="c">&lt;!--稍微完全的配置范例, 下面会有属性的详细说明--&gt;</span>
-    <span class="nt">&lt;com.szysky.customize.siv.SImageView</span>
-       <span class="na">android:id=</span><span class="s">&#34;@+id/siv_main&#34;</span>
-       <span class="na">android:layout_width=</span><span class="s">&#34;match_parent&#34;</span>
-       <span class="na">android:layout_height=</span><span class="s">&#34;200dp&#34;</span>
-       <span class="na">android:background=</span><span class="s">&#34;@color/colorAccent&#34;</span>
-       <span class="na">app:displayType=</span><span class="s">&#34;rect&#34;</span>
-       <span class="na">app:border_color=</span><span class="s">&#34;@color/colorPrimary&#34;</span>
-       <span class="na">app:border_width=</span><span class="s">&#34;1dp&#34;</span>
-       <span class="na">app:img=</span><span class="s">&#34;@mipmap/ic_1&#34;</span>
-       <span class="na">app:scaleType=</span><span class="s">&#34;fix_XY&#34;</span><span class="nt">/&gt;</span>
-       
-<span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre></div><p><code>属性说明</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">dependencies {
+</span></span><span class="line"><span class="cl">    // ...
+</span></span><span class="line"><span class="cl">    compile &#39;com.szysky.customize:simageview:2.2&#39;;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><h3 id="xml声明方式">xml声明方式</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">xmlns:app=</span><span class="s">&#34;http://schemas.android.com/apk/res-auto&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:orientation=</span><span class="s">&#34;vertical&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:layout_width=</span><span class="s">&#34;match_parent&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:layout_height=</span><span class="s">&#34;match_parent&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--简单的配置, 默认为圆形图像,无描边--&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;com.szysky.customize.siv.SImageView</span>
+</span></span><span class="line"><span class="cl">       <span class="na">xmlns:app=</span><span class="s">&#34;http://schemas.android.com/apk/res-auto&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">app:img=</span><span class="s">&#34;@mipmap/icon_test&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">android:layout_width=</span><span class="s">&#34;200dp&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">android:layout_height=</span><span class="s">&#34;200dp&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--稍微完全的配置范例, 下面会有属性的详细说明--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;com.szysky.customize.siv.SImageView</span>
+</span></span><span class="line"><span class="cl">       <span class="na">android:id=</span><span class="s">&#34;@+id/siv_main&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">android:layout_width=</span><span class="s">&#34;match_parent&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">android:layout_height=</span><span class="s">&#34;200dp&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">android:background=</span><span class="s">&#34;@color/colorAccent&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">app:displayType=</span><span class="s">&#34;rect&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">app:border_color=</span><span class="s">&#34;@color/colorPrimary&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">app:border_width=</span><span class="s">&#34;1dp&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">app:img=</span><span class="s">&#34;@mipmap/ic_1&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">app:scaleType=</span><span class="s">&#34;fix_XY&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">       
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/LinearLayout&gt;</span>
+</span></span></code></pre></div><p><code>属性说明</code></p>
 <ul>
 <li><code>displayType</code> 设置控件中的图片要以什么类型显示. 可选值如下:
 <ul>
@@ -240,81 +240,80 @@
 </ul>
 <h3 id="代码设置形式">代码设置形式</h3>
 <p><strong>最简单暴力的设置方式</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 查找控件
-</span><span class="c1"></span><span class="n">SImageView</span> <span class="n">sImageView</span> <span class="o">=</span> <span class="o">(</span><span class="n">SImageView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">siv_main</span><span class="o">);</span>
-
-<span class="c1">// 直接设置一个图片URL即可, 根据控件大小进行内存缓存, 保存原图到本地磁盘缓存
-</span><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setImageUrls</span><span class="o">(</span><span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">);</span>  
-                        
-</code></pre></div><p><strong>关于群组头像</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 如果你想实现QQ群组效果, 很简单因为默认是圆形类型显示, 不需要多余设置
-</span><span class="c1">// 直接传入多个URL, 最多支持5张. 例如
-</span><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setImageUrls</span><span class="o">(</span>
-                        <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
-                        <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
-                        <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
-                        <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
-                        <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">);</span>
-                        
-                        
-<span class="c1">// 需要微信的样式, 那么改一下 布局管理器 , 并设置显示图片类型为 矩形,
-</span><span class="c1">// 最多支持9张.  如下
-</span><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setDisplayShape</span><span class="o">(</span><span class="n">SImageView</span><span class="o">.</span><span class="na">TYPE_RECT</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">setLayoutManager</span><span class="o">(</span><span class="k">new</span> <span class="n">WeChatLayoutManager</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">()))</span>
-        <span class="o">.</span><span class="na">setImageUrls</span><span class="o">(</span>
-              <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
-              <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
-              <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
-              <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
-              <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">);</span>
-</code></pre></div><p><strong>以下是常用方法</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">SImageView</span> <span class="n">sImageView</span> <span class="o">=</span> <span class="o">(</span><span class="n">SImageView</span><span class="o">)</span> <span class="n">itemView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">siv</span><span class="o">);</span>
-
-<span class="c1">// 设置描边颜色
-</span><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setBorderColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">GREEN</span><span class="o">);</span>
-
-<span class="c1">// 设置描边宽度 单位dp值
-</span><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setBorderWidth</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
-
- <span class="c1">// 设置图片显示类型 
-</span><span class="c1"></span> <span class="c1">// 可设置类型: SImageView.TYPE_CIRCLE(默认), SImageView.TYPE_OVAL,     
-</span><span class="c1"></span> <span class="c1">//           SImageView.TYPE_RECT, SImageView.TYPE_ROUND_RECT, 
-</span><span class="c1"></span> <span class="c1">//           SImageView.TYPE_FIVE_POINTED_STAR
-</span><span class="c1"></span> <span class="n">sImageView</span><span class="o">.</span><span class="na">setDisplayShape</span><span class="o">(</span><span class="n">SImageView</span><span class="o">.</span><span class="na">TYPE_ROUND_RECT</span><span class="o">);</span>
- 
- <span class="c1">// 设置图片的缩放类型, 只有显示类型为矩形, 并且描边宽度为0. 才有效果. 区别在xml中有说明
-</span><span class="c1"></span> <span class="c1">// 可选类型3种:SCALE_TYPE_CENTER_INSIDE(默认), 
-</span><span class="c1"></span> <span class="c1">//           SCALE_TYPE_FIX_XY ,SCALE_TYPE_CENTER_CROP
-</span><span class="c1"></span> <span class="n">mSImageView</span><span class="o">.</span><span class="na">setScaleType</span><span class="o">(</span><span class="n">SImageView</span><span class="o">.</span><span class="na">SCALE_TYPE_CENTER_INSIDE</span><span class="o">);</span>
- 
- <span class="c1">// 设置微信群组样式显示.  (可以自定义measure测量排列规则)替换measure测量策略如下:
-</span><span class="c1"></span> <span class="c1">// 默认为qq群组的测量策略. 只要设置图片时传入多张图片的集合即可.
-</span><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setLayoutManager</span><span class="o">(</span><span class="k">new</span> <span class="n">WeChatLayoutManager</span><span class="o">(</span><span class="n">context</span><span class="o">));</span>
-
-<span class="c1">// 不仅可以设置url数组, 还支持其他设置图片方式
-</span><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setImages</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Bitmap</span><span class="o">&gt;);</span> <span class="c1">// 接收一个bitmap集合, 实现qq群组或者微信群组效果
-</span><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setIdRes</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>            <span class="c1">// 接收图片资源id
-</span><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setDrawable</span><span class="o">(</span><span class="n">Drawable</span><span class="o">);</span>   <span class="c1">// 接收一个Drawable对象
-</span><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setBitmap</span><span class="o">(</span><span class="n">Bitmap</span><span class="o">);</span>       <span class="c1">// 接收一个图片的bitmap
-</span><span class="c1"></span>
-</code></pre></div><h3 id="加载中的图片和加载失败的图片设置">加载中的图片和加载失败的图片设置</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 查找控件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">SImageView</span> <span class="n">sImageView</span> <span class="o">=</span> <span class="o">(</span><span class="n">SImageView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">siv_main</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 直接设置一个图片URL即可, 根据控件大小进行内存缓存, 保存原图到本地磁盘缓存
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setImageUrls</span><span class="o">(</span><span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">                        
+</span></span></code></pre></div><p><strong>关于群组头像</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 如果你想实现QQ群组效果, 很简单因为默认是圆形类型显示, 不需要多余设置
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 直接传入多个URL, 最多支持5张. 例如
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setImageUrls</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">                        <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                        
+</span></span><span class="line"><span class="cl">                        
+</span></span><span class="line"><span class="cl"><span class="c1">// 需要微信的样式, 那么改一下 布局管理器 , 并设置显示图片类型为 矩形,
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 最多支持9张.  如下
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setDisplayShape</span><span class="o">(</span><span class="n">SImageView</span><span class="o">.</span><span class="na">TYPE_RECT</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="na">setLayoutManager</span><span class="o">(</span><span class="k">new</span> <span class="n">WeChatLayoutManager</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">()))</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="na">setImageUrls</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">              <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">              <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">              <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">              <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">              <span class="s">&#34;http://img3.cache.netease.com/ent/2009/4/17/20090417104402666a4.jpg&#34;</span><span class="o">);</span>
+</span></span></code></pre></div><p><strong>以下是常用方法</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">SImageView</span> <span class="n">sImageView</span> <span class="o">=</span> <span class="o">(</span><span class="n">SImageView</span><span class="o">)</span> <span class="n">itemView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">siv</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 设置描边颜色
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setBorderColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">GREEN</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 设置描边宽度 单位dp值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setBorderWidth</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="c1">// 设置图片显示类型 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="c1">// 可设置类型: SImageView.TYPE_CIRCLE(默认), SImageView.TYPE_OVAL,     
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="c1">//           SImageView.TYPE_RECT, SImageView.TYPE_ROUND_RECT, 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="c1">//           SImageView.TYPE_FIVE_POINTED_STAR
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">sImageView</span><span class="o">.</span><span class="na">setDisplayShape</span><span class="o">(</span><span class="n">SImageView</span><span class="o">.</span><span class="na">TYPE_ROUND_RECT</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> <span class="c1">// 设置图片的缩放类型, 只有显示类型为矩形, 并且描边宽度为0. 才有效果. 区别在xml中有说明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="c1">// 可选类型3种:SCALE_TYPE_CENTER_INSIDE(默认), 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="c1">//           SCALE_TYPE_FIX_XY ,SCALE_TYPE_CENTER_CROP
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">mSImageView</span><span class="o">.</span><span class="na">setScaleType</span><span class="o">(</span><span class="n">SImageView</span><span class="o">.</span><span class="na">SCALE_TYPE_CENTER_INSIDE</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> <span class="c1">// 设置微信群组样式显示.  (可以自定义measure测量排列规则)替换measure测量策略如下:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="c1">// 默认为qq群组的测量策略. 只要设置图片时传入多张图片的集合即可.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setLayoutManager</span><span class="o">(</span><span class="k">new</span> <span class="n">WeChatLayoutManager</span><span class="o">(</span><span class="n">context</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 不仅可以设置url数组, 还支持其他设置图片方式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setImages</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Bitmap</span><span class="o">&gt;);</span> <span class="c1">// 接收一个bitmap集合, 实现qq群组或者微信群组效果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setIdRes</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>            <span class="c1">// 接收图片资源id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setDrawable</span><span class="o">(</span><span class="n">Drawable</span><span class="o">);</span>   <span class="c1">// 接收一个Drawable对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setBitmap</span><span class="o">(</span><span class="n">Bitmap</span><span class="o">);</span>       <span class="c1">// 接收一个图片的bitmap
+</span></span></span></code></pre></div><h3 id="加载中的图片和加载失败的图片设置">加载中的图片和加载失败的图片设置</h3>
 <p>对于网络下载图片. 会有<strong>下载失败</strong>和<strong>下载中</strong>的图片显示. 默认图片加载类<code>ImageLoad</code>类中会内置两张系统两个对应图片来显示. <code>ImageLoad</code>类中的<code>加载中</code>和<code>加载失败</code>图片会作用于全局的<code>SImageView</code>控件. 也可以给<code>SImageView</code>控件实例设置. 如果控件设置了. 那么优先级会比全局<code>ImageLoad</code>中的图片使用优先. 如果控件没有, 那么就使用全局.</p>
 <p>代码设置如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">
-<span class="c1">// 设置当前控件的场景图片, 优先级高于全局
-</span><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setErrPicResID</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">ic_launcher</span><span class="o">)</span>     <span class="c1">// 设置加载错误图片
-</span><span class="c1"></span>        <span class="o">.</span><span class="na">setLoadingResID</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">icon_test</span><span class="o">)</span>        <span class="c1">// 设置加载中图片
-</span><span class="c1"></span>        <span class="o">.</span><span class="na">setImageUrls</span><span class="o">(</span><span class="s">&#34;http://xxx.jpg&#34;</span><span class="o">);</span>            <span class="c1">// 图片故意填写一个错误
-</span><span class="c1"></span>        
-        
-<span class="c1">// 对于图片网址满足条件 判断正则为: &#34;https?://.*?.(jpg|png|bmp|jpeg|gif)&#34;
-</span><span class="c1">//如果不满足, 那么会认为是一个错误地址, 可动态配置, 后面说明
-</span><span class="c1"></span>
-
-
-<span class="c1">// 设置全局控件场景图片, (有默认图片可以不设置)
-</span><span class="c1"></span><span class="n">ImageLoader</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">()).</span><span class="na">setLoadErrResId</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">icon_test</span><span class="o">);</span>       <span class="n">ImageLoader</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">()).</span><span class="na">setLoadingResId</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">ic_launcher</span><span class="o">);</span>
-</code></pre></div><h3 id="控件其他的方法">控件其他的方法</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 设置当前控件的场景图片, 优先级高于全局
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sImageView</span><span class="o">.</span><span class="na">setErrPicResID</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">ic_launcher</span><span class="o">)</span>     <span class="c1">// 设置加载错误图片
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">.</span><span class="na">setLoadingResID</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">icon_test</span><span class="o">)</span>        <span class="c1">// 设置加载中图片
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">.</span><span class="na">setImageUrls</span><span class="o">(</span><span class="s">&#34;http://xxx.jpg&#34;</span><span class="o">);</span>            <span class="c1">// 图片故意填写一个错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl"><span class="c1">// 对于图片网址满足条件 判断正则为: &#34;https?://.*?.(jpg|png|bmp|jpeg|gif)&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">//如果不满足, 那么会认为是一个错误地址, 可动态配置, 后面说明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 设置全局控件场景图片, (有默认图片可以不设置)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ImageLoader</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">()).</span><span class="na">setLoadErrResId</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">icon_test</span><span class="o">);</span>       <span class="n">ImageLoader</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">()).</span><span class="na">setLoadingResId</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">mipmap</span><span class="o">.</span><span class="na">ic_launcher</span><span class="o">);</span>
+</span></span></code></pre></div><h3 id="控件其他的方法">控件其他的方法</h3>
 <table>
 <thead>
 <tr>
@@ -355,14 +354,14 @@
 <h3 id="设置图片网址匹配">设置图片网址匹配</h3>
 <p>上面提到过默认过滤图片链接的正则判断为<code>&quot;https?://.*?.(jpg|png|bmp|jpeg|gif)&quot;</code></p>
 <p>如果需要实现其他的地址规则. 可重定义过滤策略</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">ImageLoader</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">()).</span><span class="na">setPicUrlRegex</span><span class="o">(</span><span class="s">&#34;RegexStr&#34;</span><span class="o">);</span>
-
-<span class="c1">// 如果设置自定义正则之后需要恢复, 那么直接设置空串即可
-</span><span class="c1"></span><span class="n">ImageLoader</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">()).</span><span class="na">setPicUrlRegex</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">);</span>
-</code></pre></div><h3 id="输出log开关">输出log开关</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ImageLoader</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">()).</span><span class="na">setPicUrlRegex</span><span class="o">(</span><span class="s">&#34;RegexStr&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 如果设置自定义正则之后需要恢复, 那么直接设置空串即可
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ImageLoader</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">()).</span><span class="na">setPicUrlRegex</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+</span></span></code></pre></div><h3 id="输出log开关">输出log开关</h3>
 <p>默认类库<code>log</code>是不输出的, 如果需要打开如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">LogUtil</span><span class="o">.</span><span class="na">GlobalLogPrint</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>      <span class="c1">// 输出类库相关log信息
-</span></code></pre></div><h2 id="扩展实现">扩展实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">LogUtil</span><span class="o">.</span><span class="na">GlobalLogPrint</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>      <span class="c1">// 输出类库相关log信息
+</span></span></span></code></pre></div><h2 id="扩展实现">扩展实现</h2>
 <blockquote>
 <p>控件实现了<code>measure测量布局</code>和<code>draw具体绘图实现</code>的功能分离. 你可以任意实现排列规则, 和具体的绘图显示的规则.</p>
 </blockquote>
@@ -376,46 +375,46 @@
 <p>通过<code>setLayoutManager(ILayoutManager)</code>来进行测量规则的具体实现类.</p>
 <p>默认情况下, 如果控件只设置了一张图片是不会走<code>测量的流程</code>. 如果需要一张图片时也需要不规则的排布. 那么通过<code>SImageView#setCloseNormalOnePicLoad(true)</code>. 强制关闭.</p>
 <p>自定义实现: 实现<code>ILayoutManager</code>接口并在<code>calculate()</code>实现具体的排列效果. 并返回一个子图片的位置信息集合. 接口如下. 可参考已经实现的两个类.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ILayoutManager</span> <span class="o">{</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 布局measure排列计算方法, 具体规则由子类实现
-</span><span class="cm">     *
-</span><span class="cm">     * @param viewWidth 控件的宽
-</span><span class="cm">     * @param viewHeight 控件的高
-</span><span class="cm">     * @param viewNum   控件图片的数量
-</span><span class="cm">     * @return  返回一个信息集合, 提供 {@link com.szysky.customize.siv.effect.IDrawingStrategy#algorithm(Canvas, int, int, Bitmap, SImageView.ConfigInfo)}使用
-</span><span class="cm">     */</span>
-    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">LayoutInfoGroup</span><span class="o">&gt;</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">int</span> <span class="n">viewWidth</span><span class="o">,</span> <span class="kt">int</span> <span class="n">viewHeight</span><span class="o">,</span> <span class="kt">int</span> <span class="n">viewNum</span><span class="o">);</span>
-
-
-    <span class="cm">/**
-</span><span class="cm">     * 封装控件内部单个元素显示的布局信息
-</span><span class="cm">     */</span>
-    <span class="kd">class</span> <span class="nc">LayoutInfoGroup</span> <span class="kd">implements</span> <span class="n">Cloneable</span><span class="o">{</span>
-        <span class="cm">/**
-</span><span class="cm">         * 组合头像时, 每个单独元素可分配的最大宽高
-</span><span class="cm">         */</span>
-        <span class="kd">public</span> <span class="kt">int</span> <span class="n">innerWidth</span><span class="o">;</span>
-        <span class="kd">public</span> <span class="kt">int</span> <span class="n">innerHeight</span><span class="o">;</span>
-
-        <span class="cm">/**
-</span><span class="cm">         * 每个单独元素,左上点和右下点.   可规划区域
-</span><span class="cm">         */</span>
-        <span class="kd">public</span> <span class="n">Point</span> <span class="n">leftTopPoint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="o">();</span>
-        <span class="kd">public</span> <span class="n">Point</span> <span class="n">rightBottomPoint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="o">();</span>
-
-        <span class="nd">@Override</span>
-        <span class="kd">protected</span> <span class="n">Object</span> <span class="nf">clone</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">CloneNotSupportedException</span> <span class="o">{</span>
-            <span class="n">LayoutInfoGroup</span> <span class="n">clone</span> <span class="o">=</span> <span class="o">(</span><span class="n">LayoutInfoGroup</span><span class="o">)</span> <span class="kd">super</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
-            <span class="n">clone</span><span class="o">.</span><span class="na">leftTopPoint</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">leftTopPoint</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">leftTopPoint</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
-            <span class="n">clone</span><span class="o">.</span><span class="na">rightBottomPoint</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">rightBottomPoint</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">rightBottomPoint</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
-
-            <span class="k">return</span> <span class="n">clone</span><span class="o">;</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><h3 id="自定义的图片显示">自定义的图片显示</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ILayoutManager</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 布局measure排列计算方法, 具体规则由子类实现
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param viewWidth 控件的宽
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param viewHeight 控件的高
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param viewNum   控件图片的数量
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return  返回一个信息集合, 提供 {@link com.szysky.customize.siv.effect.IDrawingStrategy#algorithm(Canvas, int, int, Bitmap, SImageView.ConfigInfo)}使用
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">LayoutInfoGroup</span><span class="o">&gt;</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">int</span> <span class="n">viewWidth</span><span class="o">,</span> <span class="kt">int</span> <span class="n">viewHeight</span><span class="o">,</span> <span class="kt">int</span> <span class="n">viewNum</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 封装控件内部单个元素显示的布局信息
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">class</span> <span class="nc">LayoutInfoGroup</span> <span class="kd">implements</span> <span class="n">Cloneable</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * 组合头像时, 每个单独元素可分配的最大宽高
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">int</span> <span class="n">innerWidth</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">int</span> <span class="n">innerHeight</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * 每个单独元素,左上点和右下点.   可规划区域
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">Point</span> <span class="n">leftTopPoint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">Point</span> <span class="n">rightBottomPoint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">protected</span> <span class="n">Object</span> <span class="nf">clone</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">CloneNotSupportedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">LayoutInfoGroup</span> <span class="n">clone</span> <span class="o">=</span> <span class="o">(</span><span class="n">LayoutInfoGroup</span><span class="o">)</span> <span class="kd">super</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">clone</span><span class="o">.</span><span class="na">leftTopPoint</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">leftTopPoint</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">leftTopPoint</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">clone</span><span class="o">.</span><span class="na">rightBottomPoint</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">rightBottomPoint</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">rightBottomPoint</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">clone</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h3 id="自定义的图片显示">自定义的图片显示</h3>
 <p>控件内置了两种图片显示. 例如: 椭圆, 圆角矩形, 描边, 五角星等. 相当于<code>View#onDraw()</code>和<code>Adapter#getView()</code>作用. 具体显示分离.</p>
 <p>绘制显示接口<code>IDrawingStrategy</code></p>
 <p>内置实现:</p>
@@ -425,19 +424,19 @@
 </ul>
 <p>通过<code>setDrawStrategy(IDrawingStrategy)</code>来进行图片绘制显示的具体策略类.</p>
 <p>自定义绘制策略类. 实现<code>IDrawingStrategy</code>接口并实现对应方法, 方法里面有图片对应的画布,和需要显示的宽高信息等.  接口如下:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IDrawingStrategy</span> <span class="o">{</span>
-    <span class="cm">/**
-</span><span class="cm">     * 根据提供的画布, 和可绘制的位置实现具体效果
-</span><span class="cm">     *
-</span><span class="cm">     * @param canvas    {@link SImageView#onDraw(Canvas)} 中的画布
-</span><span class="cm">     * @param childTotal 图片的总个数
-</span><span class="cm">     * @param curChild  当前图片是第几张图片                  
-</span><span class="cm">     * @param opeBitmap 需要操作的图片                                                  
-</span><span class="cm">     * @param info      每个内部元素应该摆放的位置信息类
-</span><span class="cm">     */</span>
-    <span class="kt">void</span> <span class="nf">algorithm</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">,</span> <span class="kt">int</span> <span class="n">childTotal</span><span class="o">,</span> <span class="kt">int</span> <span class="n">curChild</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">opeBitmap</span><span class="o">,</span> <span class="n">SImageView</span><span class="o">.</span><span class="na">ConfigInfo</span> <span class="n">info</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><h3 id="缓存策略自定义">缓存策略自定义</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IDrawingStrategy</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 根据提供的画布, 和可绘制的位置实现具体效果
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param canvas    {@link SImageView#onDraw(Canvas)} 中的画布
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param childTotal 图片的总个数
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param curChild  当前图片是第几张图片                  
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param opeBitmap 需要操作的图片                                                  
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param info      每个内部元素应该摆放的位置信息类
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">algorithm</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">,</span> <span class="kt">int</span> <span class="n">childTotal</span><span class="o">,</span> <span class="kt">int</span> <span class="n">curChild</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">opeBitmap</span><span class="o">,</span> <span class="n">SImageView</span><span class="o">.</span><span class="na">ConfigInfo</span> <span class="n">info</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h3 id="缓存策略自定义">缓存策略自定义</h3>
 <p>这部分写的自己不是很满意, 写着写着就有点耦合了, 最后精力不够&hellip; 好吧这是借口.  反正也能将就自定义, 用默认的就行&hellip;. [捂脸]</p>
 <h2 id="建议">建议</h2>
 <ul>
@@ -481,7 +480,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -496,5 +495,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

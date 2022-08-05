@@ -149,28 +149,27 @@
 </blockquote>
 <h3 id="manifest元素">manifest元素</h3>
 <p><code>AndroidManifest.xml</code>文件的根节点元素是<code>manifest</code>. 应用程序的<strong>包名</strong>和<strong>唯一识别符</strong>都定义在该节点. 还可以在该节点中定义<code>Linux用户ID</code>和<code>名称(应用程序将运行在该ID下)</code>. 应用的版本, APK的安装位置.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;manifest</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
-    <span class="na">package=</span><span class="s">&#34;com.test.printertestdemo&#34;</span>
-    <span class="na">android:sharedUserId=</span><span class="s">&#34;com.szysky.userid&#34;</span>
-    <span class="na">android:sharedUserLabel=</span><span class="s">&#34;@string/user_name&#34;</span>
-    <span class="na">android:installLocation=</span><span class="s">&#34;auto&#34;</span>
-    <span class="na">android:versionCode=</span><span class="s">&#34;6&#34;</span>
-    <span class="na">android:versionName=</span><span class="s">&#34;2.0&#34;</span> <span class="nt">&gt;</span>
-    
-<span class="nt">&lt;/manifest&gt;</span>
-</code></pre></div><p>这是一个比较完整的配置. <code>sharedUserId</code>和<code>sharedUserLabel</code>是Linux用户ID和名称. 应用程序将会运行在上面. 默认情况下, 这些都是系统分配的. 如果为使用证书发布的多个应用设置同样的值时, 开发者就可以访问相同的数据, 并有可能可以共享这些应用的进程(下面说道).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;manifest</span> <span class="na">xmlns:android=</span><span class="s">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">package=</span><span class="s">&#34;com.test.printertestdemo&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:sharedUserId=</span><span class="s">&#34;com.szysky.userid&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:sharedUserLabel=</span><span class="s">&#34;@string/user_name&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:installLocation=</span><span class="s">&#34;auto&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:versionCode=</span><span class="s">&#34;6&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">android:versionName=</span><span class="s">&#34;2.0&#34;</span> <span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/manifest&gt;</span>
+</span></span></code></pre></div><p>这是一个比较完整的配置. <code>sharedUserId</code>和<code>sharedUserLabel</code>是Linux用户ID和名称. 应用程序将会运行在上面. 默认情况下, 这些都是系统分配的. 如果为使用证书发布的多个应用设置同样的值时, 开发者就可以访问相同的数据, 并有可能可以共享这些应用的进程(下面说道).</p>
 <p>多个应用共享同一个进程可以节省应用程序使用的<code>RAM</code>总量. 但当其中一个应用出现运行时错误, 那所有共享相同进程的其他应用也会崩溃.</p>
 <p>使用<code>installLocation</code>属性来控制应用程序的安装位置. 即可以在设备的内部存储器(data分区)安装应用程序, 也可以在外部存储装置(SD卡)安装. 需要注意: 只能通过这个属性控制APK的<strong>安装位置</strong>. 应用程序数据仍然安全地存储在内部存储器中.</p>
 <h3 id="user-feature">user-feature</h3>
 <p>这个属性元素<code>&lt;user-feature&gt;</code>可以让<code>Google Play</code>去过滤应用在哪台设备可见. 比如应用需要一个打电话的功能, 但是当前设备只支持wifi的平板电脑. 或者说一个Android电视是不支持触屏控制, 但是应用需要这个硬件特性的支持. 就可以通过这个属性设置.</p>
 <p>例如:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;user-feature</span> <span class="na">android:name=</span><span class="s">&#34;android.hardware.microphone&#34;</span><span class="nt">&gt;</span>
-<span class="c">&lt;!--需要电话功能支持--&gt;</span>
-<span class="nt">&lt;user-feature</span> <span class="na">android:name=</span><span class="s">&#34;android.hardware.telephony&#34;</span><span class="nt">&gt;</span> 
-<span class="c">&lt;!--支持多点触控的触摸屏--&gt;</span>
-<span class="nt">&lt;user-feature</span> <span class="na">android:name=</span><span class="s">&#34;android.hardware.touchscreen.multitouch.jazzhand&#34;</span><span class="nt">&gt;</span>
-
-</code></pre></div><h3 id="application">application</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;user-feature</span> <span class="na">android:name=</span><span class="s">&#34;android.hardware.microphone&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--需要电话功能支持--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;user-feature</span> <span class="na">android:name=</span><span class="s">&#34;android.hardware.telephony&#34;</span><span class="nt">&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--支持多点触控的触摸屏--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;user-feature</span> <span class="na">android:name=</span><span class="s">&#34;android.hardware.touchscreen.multitouch.jazzhand&#34;</span><span class="nt">&gt;</span>
+</span></span></code></pre></div><h3 id="application">application</h3>
 <p>使用自定义的<code>Application</code>必须要做的就是在清单文件中指定<code>&lt;application&gt;</code>中的<code>name</code>属性到自定义的application.</p>
 <p>列举一下属性:</p>
 <ul>
@@ -192,18 +191,18 @@
 <li>禁用的<code>ContentProvider</code>不会响应<code>ContentResolver</code>.</li>
 </ul>
 <p>代码中同样可以设置:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">PackageManager</span> <span class="n">pm</span> <span class="o">=</span> <span class="n">getPackageManager</span><span class="o">();</span>
-		
-<span class="c1">// 启用一个activity
-</span><span class="c1"></span><span class="n">pm</span><span class="o">.</span><span class="na">setComponentEnabledSetting</span><span class="o">(</span><span class="k">new</span> <span class="n">ComponentName</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">MainActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
-		<span class="n">PackageManager</span><span class="o">.</span><span class="na">COMPONENT_ENABLED_STATE_ENABLED</span><span class="o">,</span>
-		<span class="n">PackageManager</span><span class="o">.</span><span class="na">DONT_KILL_APP</span><span class="o">);</span>
-	
-<span class="c1">// 禁用一个activity
-</span><span class="c1"></span><span class="n">pm</span><span class="o">.</span><span class="na">setComponentEnabledSetting</span><span class="o">(</span><span class="k">new</span> <span class="n">ComponentName</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">MainActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
-		<span class="n">PackageManager</span><span class="o">.</span><span class="na">COMPONENT_ENABLED_STATE_DISABLED</span><span class="o">,</span>
-		<span class="n">PackageManager</span><span class="o">.</span><span class="na">DONT_KILL_APP</span><span class="o">);</span>
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">PackageManager</span> <span class="n">pm</span> <span class="o">=</span> <span class="n">getPackageManager</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl"><span class="c1">// 启用一个activity
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pm</span><span class="o">.</span><span class="na">setComponentEnabledSetting</span><span class="o">(</span><span class="k">new</span> <span class="n">ComponentName</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">MainActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">		<span class="n">PackageManager</span><span class="o">.</span><span class="na">COMPONENT_ENABLED_STATE_ENABLED</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">		<span class="n">PackageManager</span><span class="o">.</span><span class="na">DONT_KILL_APP</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="c1">// 禁用一个activity
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pm</span><span class="o">.</span><span class="na">setComponentEnabledSetting</span><span class="o">(</span><span class="k">new</span> <span class="n">ComponentName</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">MainActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">		<span class="n">PackageManager</span><span class="o">.</span><span class="na">COMPONENT_ENABLED_STATE_DISABLED</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">		<span class="n">PackageManager</span><span class="o">.</span><span class="na">DONT_KILL_APP</span><span class="o">);</span>
+</span></span></code></pre></div><hr>
 <p>有时候出于安全的原因, 我们不希望把某个组件暴露给系统的其他应用使用, 这时可以通过<code>android:exported=&quot;false&quot;</code>, 这会有效地把对外可被调用属性关闭.</p>
 <hr>
 <p>如果你想设置一个组件供其他应用使用, 但又想提供某个安全级别, 则可以<strong>定义权限</strong>, 要做到这一点, 那么调用者应该在清单文件中添加使用权限(user-permission), 然后在提供者应用注册一个权限(permission).</p>
@@ -223,21 +222,21 @@
 <p><code>category和Activity最相关</code>. 所有通过<code>startActivity()</code>发送的隐式Intent都至少定义了一个<code>category(android.intent.category,DEFAULT)</code>, 所以除非Activity的<code>Intent-filter</code>也包含这个<code>category</code>. 否则就不会通过<code>Intent</code>的匹配. 比较例外的是图标启动器的<code>intent-filter</code></p>
 </li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;activity</span>
-  <span class="na">android:name=</span><span class="s">&#34;.PrinterTestDemoAct&#34;</span>
-  <span class="na">android:label=</span><span class="s">&#34;@string/app_name&#34;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;intent-filter&gt;</span>
-      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.action.MAIN&#34;</span> <span class="nt">/&gt;</span>
-      <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.LAUNCHER&#34;</span> <span class="nt">/&gt;</span>
-  <span class="nt">&lt;/intent-filter&gt;</span>
-  
-  <span class="nt">&lt;intent-filter&gt;</span>
-      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.action.VIEW&#34;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.DEFAULT&#34;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;data</span> <span class="na">android:mimeType=</span><span class="s">&#34;video/*&#34;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;/intent-filter&gt;</span>
-<span class="nt">&lt;/activity&gt;</span>
-</code></pre></div><p>如上清单配置: 有两个<code>intent-filter</code>, 第一个是用于桌面图标启动应用; 第二个是用于打开video开头的<code>MIME</code>类型文件.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;activity</span>
+</span></span><span class="line"><span class="cl">  <span class="na">android:name=</span><span class="s">&#34;.PrinterTestDemoAct&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">android:label=</span><span class="s">&#34;@string/app_name&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;intent-filter&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.action.MAIN&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.LAUNCHER&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/intent-filter&gt;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;intent-filter&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.action.VIEW&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.DEFAULT&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;data</span> <span class="na">android:mimeType=</span><span class="s">&#34;video/*&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/intent-filter&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/activity&gt;</span>
+</span></span></code></pre></div><p>如上清单配置: 有两个<code>intent-filter</code>, 第一个是用于桌面图标启动应用; 第二个是用于打开video开头的<code>MIME</code>类型文件.</p>
 <p>第一个<code>intent-filter</code>不需要<code>category.DEFAULT</code>. 因为它将由启动器程序管理.
 第二个<code>intent-filter</code>是我们经常使用<code>startActivity()</code>方法会匹配到的, 所以其中的<code>category</code>应该设置<code>default</code>, 无论被打开视频文件是本地还是网络, 只要<code>MIME</code>类型以<code>Video</code>开头就行.</p>
 <h2 id="resources-和-assets">resources 和 assets</h2>
@@ -254,16 +253,16 @@
 <h3 id="高级string资源">高级String资源</h3>
 <p>通常, 应用中的所有字符串都应该放在<code>string</code>资源中. 这样比在java代码中相比, 可以消除一下问题, 特别是当涉及格式化字符串和本地化时.</p>
 <p>比如: 在<code>string.xml</code>声明</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&#34;personal_message&#34;</span><span class="nt">&gt;</span>Hi %s !<span class="nt">&lt;/string&gt;</span>
-
-<span class="nt">&lt;string-array</span> <span class="na">name=</span><span class="s">&#34;default_categories&#34;</span><span class="nt">&gt;</span>
-   <span class="nt">&lt;item&gt;</span>Work!<span class="nt">&lt;/item&gt;</span>
-   <span class="nt">&lt;item&gt;</span>personal<span class="nt">&lt;/item&gt;</span>
-<span class="nt">&lt;/string-array&gt;</span>
-</code></pre></div><p>在java中使用</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">oneStr</span> <span class="o">=</span> <span class="n">getString</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">personal_message</span><span class="o">,</span> <span class="s">&#34;suzeyu&#34;</span><span class="o">);</span>
-		<span class="n">String</span><span class="o">[]</span> <span class="n">stringArray</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getStringArray</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">array</span><span class="o">.</span><span class="na">default_categories</span><span class="o">);</span>
-</code></pre></div><p>第一个在获取string资源的时候, 传入了一个字符串参数, 并在<code>%s</code>处进行插入处理.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&#34;personal_message&#34;</span><span class="nt">&gt;</span>Hi %s !<span class="nt">&lt;/string&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;string-array</span> <span class="na">name=</span><span class="s">&#34;default_categories&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;item&gt;</span>Work!<span class="nt">&lt;/item&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;item&gt;</span>personal<span class="nt">&lt;/item&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/string-array&gt;</span>
+</span></span></code></pre></div><p>在java中使用</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">String</span> <span class="n">oneStr</span> <span class="o">=</span> <span class="n">getString</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">personal_message</span><span class="o">,</span> <span class="s">&#34;suzeyu&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">String</span><span class="o">[]</span> <span class="n">stringArray</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getStringArray</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">array</span><span class="o">.</span><span class="na">default_categories</span><span class="o">);</span>
+</span></span></code></pre></div><p>第一个在获取string资源的时候, 传入了一个字符串参数, 并在<code>%s</code>处进行插入处理.</p>
 <h3 id="本地化">本地化</h3>
 <p>要做到本地化的支持, 把默认字符串资源复制到一个适当语言和地区限定符的新目录中, 然后开始翻译文本.</p>
 <p>如果要翻译一种语言的资源文件到另一种语言, 你可以通过使用<strong>谷歌翻译工具<code>Google Translator ToolKit</code></strong>, 这是谷歌的一个服务, 允许上传一个文件, 然后将字符串自动翻译为指定的语言.</p>
@@ -271,22 +270,22 @@
 <p>如果有一些较大的资源文件可以考虑放到<code>assets</code>和<code>raw</code>目录下.</p>
 <p>考虑这样一种场景, 如果有一个游戏有许多的音效, 那么就可以在<code>assets</code>文件夹内创建一个<code>soundfx</code>目录, 接下来把所有的音频文件都放入此子目录中. (<code>assets</code>目录支持子文件夹)</p>
 <p>如下代码显示了如何使用<code>SoundPool</code>和<code>AssetManager</code>来加载<code>assets/soundfx</code>目录内的所有音频文件. 并且最后关闭打开的文件, 防止内存泄漏.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">loadSoundEffects</span><span class="o">(</span><span class="n">SoundPool</span> <span class="n">soundPool</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">{</span>
-		<span class="c1">// 获取assets资源管理者
-</span><span class="c1"></span>		<span class="n">AssetManager</span> <span class="n">assets</span> <span class="o">=</span> <span class="n">getAssets</span><span class="o">();</span>
-		<span class="n">String</span><span class="o">[]</span> <span class="n">soundEffectFiles</span> <span class="o">=</span> <span class="n">assets</span><span class="o">.</span><span class="na">list</span><span class="o">(</span><span class="s">&#34;soundfx&#34;</span><span class="o">);</span>
-		<span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">soundEffectMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;();</span>
-
-		<span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">soundEffectFile</span><span class="o">:</span> <span class="n">soundEffectFiles</span><span class="o">)</span> <span class="o">{</span>
-			<span class="n">AssetFileDescriptor</span> <span class="n">fileDescriptor</span> <span class="o">=</span> <span class="n">assets</span><span class="o">.</span><span class="na">openFd</span><span class="o">(</span><span class="s">&#34;soundfx/&#34;</span> <span class="o">+</span> <span class="n">soundEffectFile</span><span class="o">);</span>
-			<span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">soundPool</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">fileDescriptor</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
-			<span class="n">soundEffectMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">soundEffectFile</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
-			
-			<span class="n">fileDescriptor</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-		<span class="o">}</span>
-		<span class="k">return</span> <span class="n">soundEffectMap</span><span class="o">;</span>
-	<span class="o">}</span>
-</code></pre></div><h2 id="ui的一些小知识">UI的一些小知识</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">loadSoundEffects</span><span class="o">(</span><span class="n">SoundPool</span> <span class="n">soundPool</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 获取assets资源管理者
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">AssetManager</span> <span class="n">assets</span> <span class="o">=</span> <span class="n">getAssets</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">String</span><span class="o">[]</span> <span class="n">soundEffectFiles</span> <span class="o">=</span> <span class="n">assets</span><span class="o">.</span><span class="na">list</span><span class="o">(</span><span class="s">&#34;soundfx&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">soundEffectMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">soundEffectFile</span><span class="o">:</span> <span class="n">soundEffectFiles</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">AssetFileDescriptor</span> <span class="n">fileDescriptor</span> <span class="o">=</span> <span class="n">assets</span><span class="o">.</span><span class="na">openFd</span><span class="o">(</span><span class="s">&#34;soundfx/&#34;</span> <span class="o">+</span> <span class="n">soundEffectFile</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">soundPool</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">fileDescriptor</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="n">soundEffectMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">soundEffectFile</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			<span class="n">fileDescriptor</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">soundEffectMap</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span></code></pre></div><h2 id="ui的一些小知识">UI的一些小知识</h2>
 <h3 id="文本">文本</h3>
 <p>**字体:**人脑利用图像识别来分辨不同的字母汉字, 所以逻辑上来说, 应该使用很容易辨认的字体, 而高度装饰字体只适用于标识(logo)等其他场合.</p>
 <hr>
@@ -352,7 +351,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                     <span id="busuanzi_container_site_pv">
     本站访问量：<span id="busuanzi_value_site_pv"></span>次
 </span>
@@ -367,5 +366,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"QJB5WVGU23","algoliaIndex":"suzeyu","algoliaSearchKey":"717d6b0889638f7562bef472bd100d44","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PaWjmRBsSAVP4ttqFgysPCeb-MdYXbMMI","appKey":"F7VwMCWDDzUmWeVjApOCvaAs","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"有什么好的建议嘛??","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"W4SMP009MS","algoliaIndex":"suzeyu.hugo","algoliaSearchKey":"67abffac5bad470a9d14448fd433661e","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>
