@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/suzeyu.com\/posts\/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95\/"
-        },"genre": "posts","keywords": "nas, git, 自动化","wordcount":  1246 ,
+        },"genre": "posts","keywords": "nas, git, 自动化","wordcount":  1269 ,
         "url": "http:\/\/suzeyu.com\/posts\/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95\/","datePublished": "2022-10-10T11:59:06+08:00","dateModified": "2022-10-10T11:59:06+08:00","publisher": {
             "@type": "Organization",
             "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
@@ -106,7 +106,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Unraid安装GitLab记录</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/nas/"><i class="far fa-folder fa-fw"></i>nas</a>&nbsp;<a href="/categories/git/"><i class="far fa-folder fa-fw"></i>git</a>&nbsp;<a href="/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/"><i class="far fa-folder fa-fw"></i>自动化</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-10-10">2022-10-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1246 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-10-10">2022-10-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1269 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" class="leancloud_visitors" data-flag-title="Unraid安装GitLab记录">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -128,8 +128,6 @@
       <ul>
         <li><a href="#安装环境和目标功能">安装环境和目标功能</a></li>
         <li><a href="#安装开始">安装开始</a></li>
-        <li><a href="#1安装应用并填写配置信息">1.安装应用并填写配置信息</a></li>
-        <li><a href="#2更改root初始密码">2.更改root初始密码</a></li>
       </ul>
     </li>
   </ul>
@@ -142,7 +140,7 @@
 </ul>
 <p>因为nas有公网, 所以希望二级域名能访问仓库, 并且外网时<strong>http</strong>和<strong>ssh</strong>都可以拉取推送.</p>
 <h3 id="安装开始">安装开始</h3>
-<h3 id="1安装应用并填写配置信息">1.安装应用并填写配置信息</h3>
+<h4 id="1安装应用并填写配置信息">1.安装应用并填写配置信息</h4>
 <ul>
 <li>
 <p>应用商店搜索<strong>gitlab</strong> 安装 <strong>GitLab-CE</strong>镜像</p>
@@ -162,7 +160,7 @@
 <p>点击<strong>应用</strong>安装即可, 这个镜像有点大,需要等一会.</p>
 </li>
 </ul>
-<h3 id="2更改root初始密码">2.更改root初始密码</h3>
+<h4 id="2更改root初始密码">2.更改root初始密码</h4>
 <p>安装后, 不能注册新用户, 只能使用<strong>root</strong>账号登陆.所以</p>
 <p>容器运行后, 进入到容器控制台, 查看root初始密码</p>
 <p><code>cat /etc/gitlab/initial_root_password</code>
@@ -181,6 +179,7 @@
 </ul>
 <p>登陆后, 先把密码改一下, 因为初始密码只存在24小时.</p>
 <p>头像 -&gt; Edit Profile -&gt; password</p>
+<h4 id="更改生成仓库clone的域名和端口">更改生成仓库clone的域名和端口</h4>
 <p>这时仓库的路径是存在问题的. 如下.
 <img
         class="lazyload"
@@ -189,8 +188,9 @@
         data-srcset="3.png, 3.png 1.5x, 3.png 2x"
         data-sizes="auto"
         alt="3.png"
-        title="3.png" />
-可以看到这两个地址的域名显示的是<strong>unraid</strong>而不是本机ip, 并且<strong>9080</strong>是容器内端口, 并不是之前在配置时填写的<strong>5010</strong>外部转发端口.</p>
+        title="3.png" /></p>
+<p><strong>场景</strong></p>
+<p>可以看到这两个地址的域名显示的是<strong>unraid</strong>而不是本机ip, 并且<strong>9080</strong>是容器内端口, 并不是之前在配置时填写的<strong>5010</strong>外部转发端口.</p>
 <p>再次进入容器环境<strong>控制台</strong>.修改 <strong>/etc/gitlab/gitlab.rb</strong> 文件, 这里要注意不要修改其他的如<strong>xxx.yml</strong>文件, 因为很多文件都是自动生成的, 当你容器重启时会全部重置, 这会让你之前的配置都失效.</p>
 <p>这个文件夹已经在容器配置时挂载了, 也就是主机里的<strong>config</strong>文件夹. 因为这个文件特别大, 如果不熟练vi的, 那就在修改文件权限在本地操作.</p>
 <pre tabindex="0"><code>######  修改前
@@ -203,13 +203,12 @@
 #66行左右 生成ssh地址时的域名
 # gitlab_rails[&#39;gitlab_ssh_host&#39;] = &#39;ssh.host_example.com&#39;
 
-
-
 ######  修改后
 external_url &#39;http://gitlab.xxx.com&#39;
 gitlab_rails[&#39;gitlab_shell_ssh_port&#39;] = 5013
 gitlab_rails[&#39;gitlab_ssh_host&#39;] = &#39;ddns.xxx.com&#39;
-</code></pre><p>上面这个需要根据自己情况而定. 我这里这么设置是因为我的nas使用<strong>反向代理</strong>, <strong>xxx.com</strong>为一级域名, <strong>gitlab.xxx.com</strong>为二级域名并且指向的是 <em>公网ip</em> 的<strong>5010端口</strong>, <strong>ddns.xxx.com</strong>为二级域名指向的<strong>公网ip</strong>. 因为<strong>GitLab</strong>在容器中, 容器又在Nas中, 所以生成的ssh地址必须要有端口号(不然就要修改最外部nas22端口), 所以<strong>gitlab_shell_ssh_port</strong>也进行了更改.</p>
+</code></pre><p><strong>确定好自己的环境,和目标效果</strong></p>
+<p>我这里这么设置是因为我的nas使用<strong>反向代理</strong>, <strong>xxx.com</strong>为一级域名, <strong>gitlab.xxx.com</strong>为二级域名并且指向的是 <em>公网ip</em> 的<strong>5010端口</strong>, <strong>ddns.xxx.com</strong>为二级域名指向的<strong>公网ip</strong>. 因为<strong>GitLab</strong>在容器中, 容器又在Nas中, 所以生成的ssh地址必须要有端口号(不然就要修改最外部nas22端口), 所以<strong>gitlab_shell_ssh_port</strong>也进行了更改.</p>
 <p>修改完之后, 回到容器的<strong>控制台</strong>, 进行重新生成配置和重启,<strong>注意</strong>(不是容器的重启)
 执行下面两条命令</p>
 <pre tabindex="0"><code>$ gitlab-ctl  reconfigure
@@ -226,6 +225,7 @@ nginx[&#39;listen_port&#39;] = 9080
 $ gitlab-ctl  restart
 </code></pre><p>查看一下主页能否访问, 不能就重新启动一下<strong>容器</strong>.</p>
 <p>(还有一种情况502, 说明主页可以访问,nginx端口没问题, 但是其他端口可能冲突)</p>
+<h4 id="简单测试下">简单测试下</h4>
 <p>再次进入项目查看:
 <img
         class="lazyload"
