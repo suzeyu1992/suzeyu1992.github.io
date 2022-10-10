@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>git - 分类 - Blog</title>
+        <link>http://suzeyu.com/categories/git/</link>
+        <description>git - 分类 - Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Mon, 10 Oct 2022 11:59:06 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/categories/git/" rel="self" type="application/rss+xml" /><item>
+    <title>Unraid安装GitLab记录</title>
+    <link>http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/</link>
+    <pubDate>Mon, 10 Oct 2022 11:59:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://about.gitlab.com/nuxt-images/open-graph/open-graph-gitlab.png" referrerpolicy="no-referrer">
+            </div>这个过程本来没打算写下来, 最开始以为在网上找个文章安装一下就行, 没想到折腾了好几个小时,为了以后省事整理一下. 安装环境和目标功能 Unraid 6.11.1 安装的镜]]></description>
+</item></channel>
+</rss>

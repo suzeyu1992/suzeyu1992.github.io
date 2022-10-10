@@ -4,7 +4,28 @@
         <link>http://suzeyu.com/tags/</link>
         <description>Tags - 标签 - Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Thu, 28 Jul 2022 11:11:02 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Mon, 10 Oct 2022 11:59:06 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>git</title>
+    <link>http://suzeyu.com/tags/git/</link>
+    <pubDate>Mon, 10 Oct 2022 11:59:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/tags/git/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>nas</title>
+    <link>http://suzeyu.com/tags/nas/</link>
+    <pubDate>Mon, 10 Oct 2022 11:59:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/tags/nas/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>自动化</title>
+    <link>http://suzeyu.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
+    <pubDate>Mon, 10 Oct 2022 11:59:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>android</title>
     <link>http://suzeyu.com/tags/android/</link>
     <pubDate>Thu, 28 Jul 2022 11:11:02 &#43;0800</pubDate>
@@ -17,13 +38,6 @@
     <pubDate>Thu, 28 Jul 2022 11:11:02 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://suzeyu.com/tags/aosp/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>自动化</title>
-    <link>http://suzeyu.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
-    <pubDate>Mon, 14 Mar 2022 22:12:45 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>kotlin</title>
@@ -59,20 +73,6 @@
     <pubDate>Tue, 27 Dec 2016 14:11:35 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://suzeyu.com/tags/vim/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>shell</title>
-    <link>http://suzeyu.com/tags/shell/</link>
-    <pubDate>Mon, 26 Dec 2016 15:33:50 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/tags/shell/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>自定义View</title>
-    <link>http://suzeyu.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89view/</link>
-    <pubDate>Wed, 14 Dec 2016 02:30:02 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89view/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>
