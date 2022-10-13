@@ -5,30 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Unraid安装GitLab记录 - Blog</title><meta name="Description" content=""><meta property="og:title" content="Unraid安装GitLab记录" />
-<meta property="og:description" content="这个过程本来没打算写下来, 最开始以为在网上找个文章安装一下就行, 没想到折腾了好几个小时,为了以后省事整理一下. 安装环境和目标功能 Unraid 6.11.1 安装的镜" />
+        <title>黑苹果开启独显加速 - Blog</title><meta name="Description" content=""><meta property="og:title" content="黑苹果开启独显加速" />
+<meta property="og:description" content="环境: 华硕z490(m12e)主板, 主板不支持核显. cpu: 10900K 独显: 6800XT 检查独显硬解是否开启 本机信息可以直接识别免驱的显卡. Hackintool 查看 VDA解码器属性," />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-10-10T11:59:06+08:00" />
-<meta property="article:modified_time" content="2022-10-10T11:59:06+08:00" /><meta property="og:site_name" content="szySky Blog" />
+<meta property="og:url" content="http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-13T22:16:59+08:00" />
+<meta property="article:modified_time" content="2022-10-13T22:16:59+08:00" /><meta property="og:site_name" content="szySky Blog" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Unraid安装GitLab记录"/>
-<meta name="twitter:description" content="这个过程本来没打算写下来, 最开始以为在网上找个文章安装一下就行, 没想到折腾了好几个小时,为了以后省事整理一下. 安装环境和目标功能 Unraid 6.11.1 安装的镜"/>
+<meta name="twitter:title" content="黑苹果开启独显加速"/>
+<meta name="twitter:description" content="环境: 华硕z490(m12e)主板, 主板不支持核显. cpu: 10900K 独显: 6800XT 检查独显硬解是否开启 本机信息可以直接识别免驱的显卡. Hackintool 查看 VDA解码器属性,"/>
 <meta name="application-name" content="Blog">
 <meta name="apple-mobile-web-app-title" content="Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" /><link rel="prev" href="http://suzeyu.com/posts/aosp%E4%B9%8Bpixel4xl%E5%88%B7%E6%9C%BAandroid12/" /><link rel="next" href="http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/" /><link rel="prev" href="http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Unraid安装GitLab记录",
+        "headline": "黑苹果开启独显加速",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/suzeyu.com\/posts\/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95\/"
-        },"genre": "posts","keywords": "nas, git, 自动化","wordcount":  1273 ,
-        "url": "http:\/\/suzeyu.com\/posts\/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95\/","datePublished": "2022-10-10T11:59:06+08:00","dateModified": "2022-10-10T11:59:06+08:00","publisher": {
+            "@id": "http:\/\/suzeyu.com\/posts\/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F\/"
+        },"genre": "posts","keywords": "黑苹果","wordcount":  342 ,
+        "url": "http:\/\/suzeyu.com\/posts\/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F\/","datePublished": "2022-10-13T22:16:59+08:00","dateModified": "2022-10-13T22:16:59+08:00","publisher": {
             "@type": "Organization",
             "name": "9999999","logo": "https:\/\/avatars.githubusercontent.com\/u\/13827428?s=96\u0026v=4"},"author": {
                 "@type": "Person",
@@ -104,53 +104,41 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Unraid安装GitLab记录</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/nas/"><i class="far fa-folder fa-fw"></i>nas</a>&nbsp;<a href="/categories/git/"><i class="far fa-folder fa-fw"></i>git</a>&nbsp;<a href="/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/"><i class="far fa-folder fa-fw"></i>自动化</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-10-10">2022-10-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1273 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" class="leancloud_visitors" data-flag-title="Unraid安装GitLab记录">
+        </div><article class="page single"><h1 class="single-title animated flipInX">黑苹果开启独显加速</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>su</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%BB%91%E8%8B%B9%E6%9E%9C/"><i class="far fa-folder fa-fw"></i>黑苹果</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-10-13">2022-10-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 342 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;<span id="/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/" class="leancloud_visitors" data-flag-title="黑苹果开启独显加速">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://about.gitlab.com/nuxt-images/open-graph/open-graph-gitlab.png"
-        data-srcset="https://about.gitlab.com/nuxt-images/open-graph/open-graph-gitlab.png, https://about.gitlab.com/nuxt-images/open-graph/open-graph-gitlab.png 1.5x, https://about.gitlab.com/nuxt-images/open-graph/open-graph-gitlab.png 2x"
+        data-src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Farchive%2F8708bb52df07439629c579d747e2c41f24ed9b36.jpg&amp;refer=http%3A%2F%2Fi2.hdslb.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1668262813&amp;t=d18dff302a0d47d8250dd72c7bce643a"
+        data-srcset="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Farchive%2F8708bb52df07439629c579d747e2c41f24ed9b36.jpg&amp;refer=http%3A%2F%2Fi2.hdslb.com&amp;app=2002&amp;size=f9999%2c10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1668262813&amp;t=d18dff302a0d47d8250dd72c7bce643a, https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Farchive%2F8708bb52df07439629c579d747e2c41f24ed9b36.jpg&amp;refer=http%3A%2F%2Fi2.hdslb.com&amp;app=2002&amp;size=f9999%2c10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1668262813&amp;t=d18dff302a0d47d8250dd72c7bce643a 1.5x, https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Farchive%2F8708bb52df07439629c579d747e2c41f24ed9b36.jpg&amp;refer=http%3A%2F%2Fi2.hdslb.com&amp;app=2002&amp;size=f9999%2c10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1668262813&amp;t=d18dff302a0d47d8250dd72c7bce643a 2x"
         data-sizes="auto"
-        alt="https://about.gitlab.com/nuxt-images/open-graph/open-graph-gitlab.png"
-        title="https://about.gitlab.com/nuxt-images/open-graph/open-graph-gitlab.png" /></div><div class="details toc" id="toc-static"  kept="">
+        alt="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Farchive%2F8708bb52df07439629c579d747e2c41f24ed9b36.jpg&amp;refer=http%3A%2F%2Fi2.hdslb.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1668262813&amp;t=d18dff302a0d47d8250dd72c7bce643a"
+        title="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Farchive%2F8708bb52df07439629c579d747e2c41f24ed9b36.jpg&amp;refer=http%3A%2F%2Fi2.hdslb.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1668262813&amp;t=d18dff302a0d47d8250dd72c7bce643a" /></div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#安装环境和目标功能">安装环境和目标功能</a></li>
-    <li><a href="#安装开始">安装开始</a>
+    <li><a href="#检查独显硬解是否开启">检查独显硬解是否开启</a>
       <ul>
-        <li><a href="#1安装应用并填写配置信息">1.安装应用并填写配置信息</a></li>
-        <li><a href="#2更改root初始密码">2.更改root初始密码</a></li>
-        <li><a href="#3更改生成仓库clone的域名和端口">3.更改生成仓库clone的域名和端口</a></li>
-        <li><a href="#4简单测试下">4.简单测试下</a></li>
+        <li><a href="#开启方法">开启方法</a></li>
       </ul>
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>这个过程本来没打算写下来, 最开始以为在网上找个文章安装一下就行, 没想到折腾了好几个小时,为了以后省事整理一下.</p>
-<h2 id="安装环境和目标功能">安装环境和目标功能</h2>
+            </div><div class="content" id="content"><p>环境:</p>
 <ul>
-<li><strong>Unraid 6.11.1</strong></li>
-<li>安装的镜像: <strong>gitlab/gitlab-ce</strong></li>
+<li>华硕z490(m12e)主板, 主板不支持核显.</li>
+<li>cpu: 10900K</li>
+<li>独显: 6800XT</li>
 </ul>
-<p>因为nas有公网, 所以希望二级域名能访问仓库, 并且外网时<strong>http</strong>和<strong>ssh</strong>都可以拉取推送.</p>
-<h2 id="安装开始">安装开始</h2>
-<h3 id="1安装应用并填写配置信息">1.安装应用并填写配置信息</h3>
-<ul>
-<li>
-<p>应用商店搜索<strong>gitlab</strong> 安装 <strong>GitLab-CE</strong>镜像</p>
-</li>
-<li>
-<p>配置容器的端口转发, 3个可以随意填写.如下:
-<img
+<h2 id="检查独显硬解是否开启">检查独显硬解是否开启</h2>
+<p><img
         class="lazyload"
         src="/svg/loading.min.svg"
         data-src="1.png"
@@ -158,16 +146,26 @@
         data-sizes="auto"
         alt="1.png"
         title="1.png" /></p>
-</li>
-<li>
-<p>点击<strong>应用</strong>安装即可, 这个镜像有点大,需要等一会.</p>
-</li>
+<ul>
+<li>本机信息可以直接识别免驱的显卡.</li>
+<li><strong>Hackintool</strong> 查看 <strong>VDA解码器</strong>属性, 失败说明无法硬解</li>
+<li><strong>VideoProc Converter 4K</strong> 设置中同样可以看到硬解<strong>不可用</strong>的状态</li>
 </ul>
-<h3 id="2更改root初始密码">2.更改root初始密码</h3>
-<p>安装后, 不能注册新用户, 只能使用<strong>root</strong>账号登陆.所以</p>
-<p>容器运行后, 进入到容器控制台, 查看root初始密码</p>
-<p><code>cat /etc/gitlab/initial_root_password</code>
-<img
+<h3 id="开启方法">开启方法</h3>
+<h4 id="方法1不推荐">方法1(不推荐)</h4>
+<p>通过命令行命令强制开启.</p>
+<pre tabindex="0"><code># 强制开启
+defaults write com.apple.AppleGVA gvaForceAMDKE -bool YES
+defaults write com.apple.AppleGVA gvaForceAMDAVCEncode -bool YES
+defaults write com.apple.AppleGVA gvaForceAMDAVCDecode -bool YES
+defaults write com.apple.AppleGVA gvaForceAMDHEVCDecode -bool YES
+</code></pre><pre tabindex="0"><code># 恢复
+defaults write com.apple.AppleGVA gvaForceAMDKE -bool no
+defaults write com.apple.AppleGVA gvaForceAMDAVCEncode -bool no
+defaults write com.apple.AppleGVA gvaForceAMDAVCDecode -bool no
+defaults write com.apple.AppleGVA gvaForceAMDHEVCDecode -bool no
+</code></pre><p>开启之后只有<strong>h264</strong>可用, <strong>HEVC</strong>还是不可用</p>
+<p><img
         class="lazyload"
         src="/svg/loading.min.svg"
         data-src="2.png"
@@ -175,16 +173,14 @@
         data-sizes="auto"
         alt="2.png"
         title="2.png" /></p>
-<p>然后 点击<strong>WebUI</strong>, 或者输入<strong>主机ip:5010</strong>进入到<strong>GitLab</strong>首页面</p>
-<ul>
-<li>账户名: root</li>
-<li>密码: 获取到的初始密码</li>
-</ul>
-<p>登陆后, 先把密码改一下, 因为初始密码只存在24小时.</p>
-<p>头像 -&gt; Edit Profile -&gt; password</p>
-<h3 id="3更改生成仓库clone的域名和端口">3.更改生成仓库clone的域名和端口</h3>
-<p>这时仓库的路径是存在问题的. 如下.
-<img
+<h4 id="方法2">方法2</h4>
+<ol>
+<li><strong>OpenCore Configurator</strong>挂载苹果的<strong>EFI</strong>分区, 并打开<strong>config.plist</strong>文件</li>
+<li>添加一个<strong>DeviceProperties</strong>. 如下(如果之前有独显信息建议删掉)</li>
+<li>修改新建的属性中<strong>model</strong>的value值为本机显示的图形卡信息(你自己的显卡型号, 我这里是AMD Radeon RX 6800 XT)</li>
+<li>重启电脑, 并查看</li>
+</ol>
+<p><img
         class="lazyload"
         src="/svg/loading.min.svg"
         data-src="3.png"
@@ -192,45 +188,7 @@
         data-sizes="auto"
         alt="3.png"
         title="3.png" /></p>
-<p><strong>场景</strong></p>
-<p>可以看到这两个地址的域名显示的是<strong>unraid</strong>而不是本机ip, 并且<strong>9080</strong>是容器内端口, 并不是之前在配置时填写的<strong>5010</strong>外部转发端口.</p>
-<p>再次进入容器环境<strong>控制台</strong>.修改 <strong>/etc/gitlab/gitlab.rb</strong> 文件, 这里要注意不要修改其他的如<strong>xxx.yml</strong>文件, 因为很多文件都是自动生成的, 当你容器重启时会全部重置, 这会让你之前的配置都失效.</p>
-<p>这个文件夹已经在容器配置时挂载了, 也就是主机里的<strong>config</strong>文件夹. 因为这个文件特别大, 如果不熟练vi的, 那就在修改文件权限在本地操作.</p>
-<pre tabindex="0"><code>######  修改前
-#33行左右, 生成http地址时的域名 http://ip:port
-# external_url &#39;GENERATED_EXTERNAL_URL&#39;
-
-#638行左右, 生成ssh地址时的端口
-# gitlab_rails[&#39;gitlab_shell_ssh_port&#39;] = 22
-
-#66行左右 生成ssh地址时的域名
-# gitlab_rails[&#39;gitlab_ssh_host&#39;] = &#39;ssh.host_example.com&#39;
-
-######  修改后
-external_url &#39;http://gitlab.xxx.com&#39;
-gitlab_rails[&#39;gitlab_shell_ssh_port&#39;] = 5013
-gitlab_rails[&#39;gitlab_ssh_host&#39;] = &#39;ddns.xxx.com&#39;
-</code></pre><p><strong>确定好自己的环境,和目标效果</strong></p>
-<p>我这里这么设置是因为我的nas使用<strong>反向代理</strong>, <strong>xxx.com</strong>为一级域名, <strong>gitlab.xxx.com</strong>为二级域名并且指向的是 <em>公网ip</em> 的<strong>5010端口</strong>, <strong>ddns.xxx.com</strong>为二级域名指向的<strong>公网ip</strong>. 因为<strong>GitLab</strong>在容器中, 容器又在Nas中, 所以生成的ssh地址必须要有端口号(不然就要修改最外部nas22端口), 所以<strong>gitlab_shell_ssh_port</strong>也进行了更改.</p>
-<p>修改完之后, 回到容器的<strong>控制台</strong>, 进行重新生成配置和重启,<strong>注意</strong>(不是容器的重启)
-执行下面两条命令</p>
-<pre tabindex="0"><code>$ gitlab-ctl  reconfigure
-$ gitlab-ctl  restart
-</code></pre><p>这个时候应该就出现问题了, 主页无法访问. 通过<code>netstat -ntl</code>命令查看, 之前配置的内部<strong>9080端口</strong>没有监听活跃, 应该变成了<strong>80端口</strong>, 此时再次编译<strong>gitlab.br</strong>文件. 修改<strong>nginx[&rsquo;listen_port&rsquo;]</strong> 的默认值.</p>
-<pre tabindex="0"><code>#1395行左右
-# nginx[&#39;listen_port&#39;] = nil
-
-# 修改如下
-
-nginx[&#39;listen_port&#39;] = 9080
-</code></pre><p>再次执行如下命令</p>
-<pre tabindex="0"><code>$ gitlab-ctl  reconfigure
-$ gitlab-ctl  restart
-</code></pre><p>查看一下主页能否访问, 不能就重新启动一下<strong>容器</strong>.</p>
-<p>(还有一种情况502, 说明主页可以访问,nginx端口没问题, 但是其他端口可能冲突)</p>
-<h3 id="4简单测试下">4.简单测试下</h3>
-<p>再次进入项目查看:
-<img
+<p><img
         class="lazyload"
         src="/svg/loading.min.svg"
         data-src="4.png"
@@ -238,7 +196,6 @@ $ gitlab-ctl  restart
         data-sizes="auto"
         alt="4.png"
         title="4.png" /></p>
-<p>现在生成的两个地址就是正确可用的, 在终端拉取验证一下. <strong>ssh</strong>拉取先把自己电脑的<strong>公钥</strong>添加到<strong>GitLab</strong>的账号上. 并且把需要外放的端口都在路由器进行转发.</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -247,32 +204,30 @@ $ gitlab-ctl  restart
         data-sizes="auto"
         alt="5.png"
         title="5.png" /></p>
-<p>至此, 一个基本的仓库搭建就完成了.</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-10-10</span>
+                <span>更新于 2022-10-13</span>
             </div>
             <div class="post-info-license"><span><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" data-title="Unraid安装GitLab记录" data-via="xxxx" data-hashtags="nas,git,自动化"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" data-hashtag="nas"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" data-title="Unraid安装GitLab记录" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" data-title="Unraid安装GitLab记录"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" data-title="Unraid安装GitLab记录" data-image="https://about.gitlab.com/nuxt-images/open-graph/open-graph-gitlab.png" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" data-title="Unraid安装GitLab记录" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" data-title="Unraid安装GitLab记录" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" data-title="Unraid安装GitLab记录"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/" data-title="黑苹果开启独显加速" data-via="xxxx" data-hashtags="黑苹果"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/" data-hashtag="黑苹果"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/" data-title="黑苹果开启独显加速" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/" data-title="黑苹果开启独显加速"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/" data-title="黑苹果开启独显加速" data-image="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Farchive%2F8708bb52df07439629c579d747e2c41f24ed9b36.jpg&amp;refer=http%3A%2F%2Fi2.hdslb.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1668262813&amp;t=d18dff302a0d47d8250dd72c7bce643a" data-ralateuid="611267109"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/" data-title="黑苹果开启独显加速" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/" data-title="黑苹果开启独显加速" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/" data-title="黑苹果开启独显加速"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/nas/">nas</a>,&nbsp;<a href="/tags/git/">git</a>,&nbsp;<a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/">黑苹果</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/aosp%E4%B9%8Bpixel4xl%E5%88%B7%E6%9C%BAandroid12/" class="prev" rel="prev" title="AOSP之Pixel4XL刷机Android12"><i class="fas fa-angle-left fa-fw"></i>AOSP之Pixel4XL刷机Android12</a>
-            <a href="/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/" class="next" rel="next" title="黑苹果开启独显加速">黑苹果开启独显加速<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/" class="prev" rel="prev" title="Unraid安装GitLab记录"><i class="fas fa-angle-left fa-fw"></i>Unraid安装GitLab记录</a></div>
 </div>
 <div id="comments"><div id="valine" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.

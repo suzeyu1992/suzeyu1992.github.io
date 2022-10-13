@@ -4,7 +4,14 @@
         <link>http://suzeyu.com/categories/</link>
         <description>Categories - 分类 - Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Mon, 10 Oct 2022 11:59:06 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/categories/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Thu, 13 Oct 2022 22:16:59 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>黑苹果</title>
+    <link>http://suzeyu.com/categories/%E9%BB%91%E8%8B%B9%E6%9E%9C/</link>
+    <pubDate>Thu, 13 Oct 2022 22:16:59 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/categories/%E9%BB%91%E8%8B%B9%E6%9E%9C/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>git</title>
     <link>http://suzeyu.com/categories/git/</link>
     <pubDate>Mon, 10 Oct 2022 11:59:06 &#43;0800</pubDate>
@@ -66,13 +73,6 @@
     <pubDate>Mon, 18 Apr 2016 00:40:32 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://suzeyu.com/categories/php/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>入门</title>
-    <link>http://suzeyu.com/categories/%E5%85%A5%E9%97%A8/</link>
-    <pubDate>Mon, 18 Apr 2016 00:40:32 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/categories/%E5%85%A5%E9%97%A8/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

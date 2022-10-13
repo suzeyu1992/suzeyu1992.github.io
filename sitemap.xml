@@ -2,14 +2,17 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://suzeyu.com/</loc><lastmod>2022-10-10T11:59:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/categories/</loc><lastmod>2022-10-10T11:59:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/</loc><lastmod>2022-10-13T22:16:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/categories/</loc><lastmod>2022-10-13T22:16:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/posts/</loc><lastmod>2022-10-13T22:16:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/tags/</loc><lastmod>2022-10-13T22:16:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/</loc><lastmod>2022-10-13T22:16:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/categories/%E9%BB%91%E8%8B%B9%E6%9E%9C/</loc><lastmod>2022-10-13T22:16:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/</loc><lastmod>2022-10-13T22:16:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://suzeyu.com/tags/git/</loc><lastmod>2022-10-10T11:59:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://suzeyu.com/categories/git/</loc><lastmod>2022-10-10T11:59:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://suzeyu.com/tags/nas/</loc><lastmod>2022-10-10T11:59:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://suzeyu.com/categories/nas/</loc><lastmod>2022-10-10T11:59:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/posts/</loc><lastmod>2022-10-10T11:59:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://suzeyu.com/tags/</loc><lastmod>2022-10-10T11:59:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/</loc><lastmod>2022-10-10T11:59:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://suzeyu.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</loc><lastmod>2022-10-10T11:59:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://suzeyu.com/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/</loc><lastmod>2022-10-10T11:59:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
@@ -32,7 +35,6 @@
             <loc>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E8%AF%AD%E6%B3%95/</loc><lastmod>2022-02-15T16:22:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/posts/android%E9%80%82%E9%85%8D-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/</loc><lastmod>2022-02-11T15:53:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/about/</loc><lastmod>2021-11-21T00:24:35&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://suzeyu.com/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/</loc><lastmod>2021-05-08T21:51:34&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C-%E5%8D%8E%E7%A1%95m12e-usb%E5%AE%9A%E5%88%B6/</loc><lastmod>2021-05-08T21:51:34&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/posts/android%E4%B9%8Bble%E5%BC%80%E5%8F%91%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/</loc><lastmod>2017-02-14T20:43:53&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://suzeyu.com/posts/android%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</loc><lastmod>2017-02-09T19:30:09&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

@@ -4,9 +4,18 @@
         <link>http://suzeyu.com/</link>
         <description>Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Mon, 10 Oct 2022 11:59:06 &#43;0800</lastBuildDate>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Thu, 13 Oct 2022 22:16:59 &#43;0800</lastBuildDate>
             <atom:link href="http://suzeyu.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>黑苹果开启独显加速</title>
+    <link>http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/</link>
+    <pubDate>Thu, 13 Oct 2022 22:16:59 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Farchive%2F8708bb52df07439629c579d747e2c41f24ed9b36.jpg&amp;refer=http%3A%2F%2Fi2.hdslb.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1668262813&amp;t=d18dff302a0d47d8250dd72c7bce643a" referrerpolicy="no-referrer">
+            </div>环境: 华硕z490(m12e)主板, 主板不支持核显. cpu: 10900K 独显: 6800XT 检查独显硬解是否开启 本机信息可以直接识别免驱的显卡. Hackintool 查看 VDA解码器属性,]]></description>
+</item><item>
     <title>Unraid安装GitLab记录</title>
     <link>http://suzeyu.com/posts/unraid%E5%AE%89%E8%A3%85gitlab%E8%AE%B0%E5%BD%95/</link>
     <pubDate>Mon, 10 Oct 2022 11:59:06 &#43;0800</pubDate>
@@ -73,12 +82,5 @@
     <author>作者</author>
     <guid>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/</guid>
     <description><![CDATA[高阶函数 一般函数接收的参数有Lambda表达式就可以称为具有函数式编程风格的API, 如果想要定义自己的函数式API, 就需要借助高阶函数. 定义]]></description>
-</item><item>
-    <title>Kotlin基础 密封类,扩展函数,运算符重载</title>
-    <link>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E5%AF%86%E5%B0%81%E7%B1%BB%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/</link>
-    <pubDate>Wed, 02 Mar 2022 17:42:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/posts/kotlin%E5%9F%BA%E7%A1%80-%E5%AF%86%E5%B0%81%E7%B1%BB%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/</guid>
-    <description><![CDATA[延迟初始化 由于Kotlin中严格判空机制. 对于一些全局变量声明为 ? 可空类型, 先赋值null. 然后再合适的时机再进行创建赋值, 这个时候又需要判]]></description>
 </item></channel>
 </rss>

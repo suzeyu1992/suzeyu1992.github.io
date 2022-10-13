@@ -1,10 +1,10 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>黑苹果 - 标签 - Blog</title>
-        <link>http://suzeyu.com/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/</link>
-        <description>黑苹果 - 标签 - Blog</description>
+        <title>黑苹果 - 分类 - Blog</title>
+        <link>http://suzeyu.com/categories/%E9%BB%91%E8%8B%B9%E6%9E%9C/</link>
+        <description>黑苹果 - 分类 - Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>suzeyu_1992@163.com (su)</managingEditor>
-            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Thu, 13 Oct 2022 22:16:59 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>suzeyu_1992@163.com (su)</webMaster><lastBuildDate>Thu, 13 Oct 2022 22:16:59 &#43;0800</lastBuildDate><atom:link href="http://suzeyu.com/categories/%E9%BB%91%E8%8B%B9%E6%9E%9C/" rel="self" type="application/rss+xml" /><item>
     <title>黑苹果开启独显加速</title>
     <link>http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%90%AF%E7%8B%AC%E6%98%BE%E5%8A%A0%E9%80%9F/</link>
     <pubDate>Thu, 13 Oct 2022 22:16:59 &#43;0800</pubDate>
@@ -13,12 +13,5 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Farchive%2F8708bb52df07439629c579d747e2c41f24ed9b36.jpg&amp;refer=http%3A%2F%2Fi2.hdslb.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1668262813&amp;t=d18dff302a0d47d8250dd72c7bce643a" referrerpolicy="no-referrer">
             </div>环境: 华硕z490(m12e)主板, 主板不支持核显. cpu: 10900K 独显: 6800XT 检查独显硬解是否开启 本机信息可以直接识别免驱的显卡. Hackintool 查看 VDA解码器属性,]]></description>
-</item><item>
-    <title>黑苹果 华硕M12E USB定制</title>
-    <link>http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C-%E5%8D%8E%E7%A1%95m12e-usb%E5%AE%9A%E5%88%B6/</link>
-    <pubDate>Sat, 08 May 2021 21:51:34 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>http://suzeyu.com/posts/%E9%BB%91%E8%8B%B9%E6%9E%9C-%E5%8D%8E%E7%A1%95m12e-usb%E5%AE%9A%E5%88%B6/</guid>
-    <description><![CDATA[定制原因: 黑苹果升级系统 -&gt; BigSur 11.3.1 背部USB部分失效. 使用环境 主板 华硕 M12E 系统版本 macOS Big Sur 11.3.1 (20E241) 必要工具 OpenCore Configurator(下文简称OCC) Hackintool]]></description>
 </item></channel>
 </rss>
